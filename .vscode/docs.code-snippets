@@ -1,0 +1,12 @@
+{
+	"Add docs comment": {
+		"scope": "cpp",
+		"prefix": "#docs",
+		"body": [
+			"/**",
+			" * @brief ${brief:${TM_FILENAME_BASE/([a-zA-Z0-9])([a-zA-Z0-9]*)([^a-zA-Z0-9]*)/${1:/upcase}$2${3:+ }/gi}}",
+			" * @docs docs/${docs:${RELATIVE_FILEPATH/\\.hpp/.md/}}",
+			" */"
+		],
+	}
+}
