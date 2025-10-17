@@ -7,7 +7,7 @@ using mint = ModInt<998244353>;
 
 int main() {
   int n;
-  cin >> n;
+  in(n);
   vector<mint> a(n + 1), b(n + 1);
   rep(i, 1, n + 1) cin >> a[i];
   rep(i, 1, n + 1) cin >> b[i];

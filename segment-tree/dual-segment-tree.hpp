@@ -1,15 +1,15 @@
 #pragma once
 
 template <class F, F (*op)(F, F), F (*e)()>
-struct DualSegTree {
+struct DualSegmentTree {
  private:
   int _n, size, log;
   vector<F> lz;
 
  public:
-  DualSegTree() : DualSegTree(0) {}
-  explicit DualSegTree(int n) : DualSegTree(vector<F>(n, e())) {}
-  explicit DualSegTree(const vector<F> &v) : _n(int(v.size())) {
+  DualSegmentTree() : DualSegmentTree(0) {}
+  explicit DualSegmentTree(int n) : DualSegmentTree(vector<F>(n, e())) {}
+  explicit DualSegmentTree(const vector<F> &v) : _n(int(v.size())) {
     size = 1, log = 0;
     while (size < _n) size <<= 1, log++;
     lz = vector<F>(2 * size, e());
@@ -60,3 +60,8 @@ struct DualSegTree {
   }
   void inner_apply(int k, F f) { lz[k] = op(f, lz[k]); }
 };
+
+/**
+ * @brief Dual Segment Tree
+ * @docs docs/segment-tree/dual-segment-tree.md
+ */

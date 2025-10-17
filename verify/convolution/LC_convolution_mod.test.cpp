@@ -8,9 +8,9 @@ NTT<mint> ntt;
 
 int main() {
   int n, m;
-  cin >> n >> m;
+  in(n, m);
   vector<mint> a(n), b(m);
-  cin >> a >> b;
+  in(a, b);
   auto c = ntt.multiply(a, b);
-  cout << c << "\n";
+  out(c);
 }

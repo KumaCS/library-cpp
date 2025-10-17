@@ -1,7 +1,5 @@
 #pragma once
 
-// 64 分木
-// I:index, U:data
 template <class T = unsigned int, class U = unsigned long long>
 class IntegerSet {
  private:
@@ -100,3 +98,8 @@ class IntegerSet {
     return i;
   }
 };
+
+/**
+ * @brief 整数の集合(64分木)
+ * @docs docs/data-structure/integer-set.md
+ */

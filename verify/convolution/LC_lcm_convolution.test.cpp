@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/gcd_convolution"
+#define PROBLEM "https://judge.yosupo.jp/problem/lcm_convolution"
 
 #include "template/template.hpp"
 #include "modint/modint.hpp"
@@ -7,7 +7,7 @@ using mint = ModInt<998244353>;
 
 int main() {
   int n;
-  cin >> n;
+  in(n);
   vector<mint> a(n + 1), b(n + 1);
   rep(i, 1, n + 1) cin >> a[i];
   rep(i, 1, n + 1) cin >> b[i];

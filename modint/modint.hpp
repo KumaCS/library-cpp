@@ -92,16 +92,13 @@ struct ModInt {
   friend bool operator!=(const mint &lhs, const mint &rhs) {
     return lhs._v != rhs._v;
   }
+  friend istream &operator>>(istream &is, mint &x) {
+    return is >> x._v;
+  }
+  friend ostream &operator<<(ostream &os, const mint &x) {
+    return os << x.val();
+  }
 
  private:
   static constexpr unsigned int umod() { return m; }
 };
-
-template <unsigned int mod>
-istream &operator>>(istream &is, ModInt<mod> &x) {
-  return is >> x._v;
-}
-template <unsigned int mod>
-ostream &operator<<(ostream &os, const ModInt<mod> &x) {
-  return os << x.val();
-}

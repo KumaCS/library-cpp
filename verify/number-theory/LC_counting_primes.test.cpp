@@ -5,6 +5,6 @@
 
 int main() {
   ll n;
-  cin >> n;
-  cout << PrimeCount::count(n) << "\n";
+  in(n);
+  out(PrimeCount::count(n));
 }

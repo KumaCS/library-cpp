@@ -1,18 +1,18 @@
 #pragma once
 
 template <class T, T (*op)(T, T), T (*e)()>
-struct SegTree {
+struct SegmentTree {
  private:
   int _n, size, log;
   vector<T> d;
   void update(int p) { d[p] = op(d[2 * p], d[2 * p + 1]); }
 
  public:
-  SegTree() : SegTree(0) {}
-  explicit SegTree(int sz) : SegTree(vector<T>(sz, e())) {}
-  explicit SegTree(const vector<T>& v) : _n(v.size()) {
+  SegmentTree() : SegmentTree(0) {}
+  explicit SegmentTree(int sz) : SegmentTree(vector<T>(sz, e())) {}
+  explicit SegmentTree(const vector<T>& v) : _n(v.size()) {
     size = 1, log = 0;
-    while ((1 << log) < sz) size <<= 1, log++;
+    while (size < _n) size <<= 1, log++;
     d.assign(2 * size, e());
     for (int i = 0; i < v.size(); i++) d[size + i] = v[i];
     for (int i = size - 1; i > 0; i--) update(i);
@@ -53,9 +53,9 @@ struct SegTree {
     return op(sl, sr);
   }
 
-  template <bool (*f)(S)>
+  template <bool (*f)(T)>
   int max_right(int l) const {
-    return max_right(l, [](S x) { return f(x); });
+    return max_right(l, [](T x) { return f(x); });
   }
   template <class F>
   int max_right(int l, F f) const {
@@ -68,23 +68,19 @@ struct SegTree {
       while (l % 2 == 0) l >>= 1;
       if (!f(op(s, d[l]))) {
         while (l < size) {
-          l = (2 * l);
-          if (f(op(s, d[l]))) {
-            s = op(s, d[l]);
-            l++;
-          }
+          l <<= 1;
+          if (f(op(s, d[l]))) s = op(s, d[l++]);
         }
         return l - size;
       }
-      s = op(s, d[l]);
-      l++;
+      s = op(s, d[l++]);
     } while ((l & -l) != l);
     return _n;
   }
 
-  template <bool (*f)(S)>
+  template <bool (*f)(T)>
   int min_left(int r) const {
-    return min_left(r, [](S x) { return f(x); });
+    return min_left(r, [](T x) { return f(x); });
   }
   template <class F>
   int min_left(int r, F f) const {
@@ -98,11 +94,8 @@ struct SegTree {
       while (r > 1 && (r % 2)) r >>= 1;
       if (!f(op(d[r], s))) {
         while (r < size) {
-          r = (2 * r + 1);
-          if (f(op(d[r], s))) {
-            s = op(d[r], s);
-            r--;
-          }
+          r <<= 1, r++;
+          if (f(op(d[r], s))) s = op(d[r--], s);
         }
         return r + 1 - size;
       }
@@ -111,3 +104,8 @@ struct SegTree {
     return 0;
   }
 };
+
+/**
+ * @brief Segment Tree (長さを2冪にする)
+ * @docs docs/segment-tree/segment-tree.md
+ */

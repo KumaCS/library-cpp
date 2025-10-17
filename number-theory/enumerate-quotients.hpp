@@ -1,13 +1,12 @@
 #pragma once
 
-#include "template/template.hpp"
-#include "math/isqrt.hpp"
+#include "math/util.hpp"
 
 namespace EnumerateQuotients {
 using i64 = int64_t;
 i64 div(i64 a, i64 b) { return double(a) / b; };
 vector<i64> table(i64 N) {
-  i64 sq = isqrt(N);
+  i64 sq = Math::isqrt(N);
   vector<i64> xs(sq);
   iota(xs.begin(), xs.end(), 1);
   if (N <= 1e12) {
@@ -22,7 +21,7 @@ pair<i64, i64> get_range(i64 N, i64 q) {
 }
 template <class F>
 void iterate(i64 N, F f) {
-  i64 sq = isqrt(N);
+  i64 sq = Math::isqrt(N);
   vector<i64> xs;
   if (N <= 1e12) {
     i64 x = N;

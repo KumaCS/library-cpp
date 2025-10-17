@@ -7,9 +7,9 @@ using mint = ModInt<1000000007>;
 
 int main() {
   int n, m;
-  cin >> n >> m;
+  in(n, m);
   vector<mint> a(n), b(m);
-  cin >> a >> b;
+  in(a, b);
   auto c = ConvolutionIntMod::multiply(a, b);
-  cout << c << "\n";
+  out(c);
 }

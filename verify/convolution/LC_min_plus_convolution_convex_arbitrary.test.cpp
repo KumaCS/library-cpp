@@ -5,9 +5,9 @@
 
 int main() {
   int n, m;
-  cin >> n >> m;
+  in(n, m);
   vector<int> a(n), b(m);
-  cin >> a >> b;
+  in(a, b);
   auto c = MinPlusConvolutionConvexArbitrary(a, b);
-  cout << c << "\n";
+  out(c);
 }

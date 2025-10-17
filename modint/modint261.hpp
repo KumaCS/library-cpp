@@ -1,5 +1,6 @@
 #pragma once
 
+// mod (2^61-1)
 struct ModInt261 {
   using mint = ModInt261;
   using ll = long long;
@@ -16,9 +17,8 @@ struct ModInt261 {
   }
 
   ModInt261() : _v(0) {}
-  ModInt261(int v) : _v(v) {}
-  ModInt261(size_t v) : _v(calc_mod(ull(v))) {}
-  ModInt261(ll v) : _v(calc_mod(ull(v))) {}
+  ModInt261(int v) : _v(v < 0 ? m + v : v) {}
+  ModInt261(ll v) : _v(calc_mod(ull(v < 0 ? m + v : v))) {}
   ModInt261(ull v) : _v(calc_mod(v)) {}
   ull val() const { return _v; }
   mint &operator++() {
@@ -95,6 +95,12 @@ struct ModInt261 {
   }
   friend bool operator!=(const mint &lhs, const mint &rhs) {
     return lhs._v != rhs._v;
+  }
+  friend istream &operator>>(istream &is, mint &x) {
+    return is >> x._v;
+  }
+  friend ostream &operator<<(ostream &os, const mint &x) {
+    return os << x.val();
   }
 
  private:

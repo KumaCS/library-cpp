@@ -5,8 +5,8 @@
 
 int main() {
   ll n;
-  cin >> n;
+  in(n);
   auto qs = EnumerateQuotients::table(n);
-  cout << qs.size() << "\n";
-  cout << qs << "\n";
+  out(qs.size());
+  out(qs);
 }
