@@ -1,0 +1,197 @@
+---
+data:
+  _extendedDependsOn: []
+  _extendedRequiredBy:
+  - icon: ':question:'
+    path: template/template.hpp
+    title: template/template.hpp
+  - icon: ':warning:'
+    path: union-find/union-find.hpp
+    title: Union Find
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_convolution_mod.test.cpp
+    title: verify/convolution/LC_convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_convolution_mod_1000000007.test.cpp
+    title: verify/convolution/LC_convolution_mod_1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_gcd_convolution.test.cpp
+    title: verify/convolution/LC_gcd_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_lcm_convolution.test.cpp
+    title: verify/convolution/LC_lcm_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_min_plus_convolution_convex_arbitrary.test.cpp
+    title: verify/convolution/LC_min_plus_convolution_convex_arbitrary.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
+    title: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/flow/AOJ_GRL_6_A.test.cpp
+    title: verify/flow/AOJ_GRL_6_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_composition_of_formal_power_series.test.cpp
+    title: verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+    title: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+    title: verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+    title: verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+    title: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_exp_of_formal_power_series.test.cpp
+    title: verify/fps/LC_exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_find_linear_recurrence.test.cpp
+    title: verify/fps/LC_find_linear_recurrence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_formal_power_series.test.cpp
+    title: verify/fps/LC_inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+    title: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_log_of_formal_power_series.test.cpp
+    title: verify/fps/LC_log_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_multipoint_evaluation.test.cpp
+    title: verify/fps/LC_multipoint_evaluation.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+    title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_taylor_shift.test.cpp
+    title: verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_pow_of_formal_power_series.test.cpp
+    title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+    title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+    title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+    title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - icon: ':x:'
+    path: verify/math/LC_stern_brocot_tree.test.cpp
+    title: verify/math/LC_stern_brocot_tree.test.cpp
+  - icon: ':x:'
+    path: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
+    title: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
+  - icon: ':x:'
+    path: verify/math/LC_sum_of_floor_of_linear.test.cpp
+    title: verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - icon: ':x:'
+    path: verify/number-theory/LC_counting_primes.test.cpp
+    title: verify/number-theory/LC_counting_primes.test.cpp
+  - icon: ':x:'
+    path: verify/number-theory/LC_enumerate_quotients.test.cpp
+    title: verify/number-theory/LC_enumerate_quotients.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
+    title: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_point_add_range_sum.test.cpp
+    title: verify/segment-tree/LC_point_add_range_sum.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_point_set_range_composite.test.cpp
+    title: verify/segment-tree/LC_point_set_range_composite.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_range_affine_point_get.test.cpp
+    title: verify/segment-tree/LC_range_affine_point_get.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
+    title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_and_convolution.test.cpp
+    title: verify/set/LC_bitwise_and_convolution.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_xor_convolution.test.cpp
+    title: verify/set/LC_bitwise_xor_convolution.test.cpp
+  _isVerificationFailed: true
+  _pathExtension: hpp
+  _verificationStatusIcon: ':question:'
+  attributes:
+    links: []
+  bundledCode: "#line 2 \"template/util.hpp\"\nusing uint = unsigned int;\nusing ll\
+    \ = long long int;\nusing ull = unsigned long long;\nusing i128 = __int128_t;\n\
+    using u128 = __uint128_t;\n\ntemplate <class T, class S = T>\nS SUM(const vector<T>\
+    \ &a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class T>\ninline bool\
+    \ chmin(T &a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n  }\n  return\
+    \ false;\n}\ntemplate <class T>\ninline bool chmax(T &a, T b) {\n  if (a < b)\
+    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate <class\
+    \ T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate <class\
+    \ T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n}\n\
+    template <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
+    }\n"
+  code: "#pragma once\nusing uint = unsigned int;\nusing ll = long long int;\nusing\
+    \ ull = unsigned long long;\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
+    \ntemplate <class T, class S = T>\nS SUM(const vector<T> &a) {\n  return accumulate(ALL(a),\
+    \ S(0));\n}\ntemplate <class T>\ninline bool chmin(T &a, T b) {\n  if (a > b)\
+    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\ntemplate <class T>\n\
+    inline bool chmax(T &a, T b) {\n  if (a < b) {\n    a = b;\n    return true;\n\
+    \  }\n  return false;\n}\n\ntemplate <class T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n\
+    }\ntemplate <class T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n\
+    }\ntemplate <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
+    }"
+  dependsOn: []
+  isVerificationFile: false
+  path: template/util.hpp
+  requiredBy:
+  - template/template.hpp
+  - union-find/union-find.hpp
+  timestamp: '2025-10-17 21:43:09+09:00'
+  verificationStatus: LIBRARY_SOME_WA
+  verifiedWith:
+  - verify/flow/AOJ_GRL_6_A.test.cpp
+  - verify/math/LC_stern_brocot_tree.test.cpp
+  - verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.test.cpp
+  - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.test.cpp
+  - verify/fps/LC_find_linear_recurrence.test.cpp
+  - verify/fps/LC_multipoint_evaluation.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+  - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
+  - verify/convolution/LC_convolution_mod_1000000007.test.cpp
+  - verify/convolution/LC_lcm_convolution.test.cpp
+  - verify/convolution/LC_convolution_mod.test.cpp
+  - verify/convolution/LC_min_plus_convolution_convex_arbitrary.test.cpp
+  - verify/convolution/LC_gcd_convolution.test.cpp
+  - verify/number-theory/LC_enumerate_quotients.test.cpp
+  - verify/number-theory/LC_counting_primes.test.cpp
+  - verify/segment-tree/LC_point_add_range_sum.test.cpp
+  - verify/segment-tree/LC_range_affine_range_sum.test.cpp
+  - verify/segment-tree/LC_point_set_range_composite.test.cpp
+  - verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
+  - verify/segment-tree/LC_range_affine_point_get.test.cpp
+  - verify/set/LC_bitwise_xor_convolution.test.cpp
+  - verify/set/LC_bitwise_and_convolution.test.cpp
+documentation_of: template/util.hpp
+layout: document
+redirect_from:
+- /library/template/util.hpp
+- /library/template/util.hpp.html
+title: template/util.hpp
+---
