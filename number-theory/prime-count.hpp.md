@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/number-theory/LC_counting_primes.test.cpp
     title: verify/number-theory/LC_counting_primes.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/number-theory/prime-count.md
     document_title: "\u7D20\u6570\u30AB\u30A6\u30F3\u30C8"
@@ -49,7 +49,7 @@ data:
   path: number-theory/prime-count.hpp
   requiredBy: []
   timestamp: '2025-10-10 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/number-theory/LC_counting_primes.test.cpp
 documentation_of: number-theory/prime-count.hpp

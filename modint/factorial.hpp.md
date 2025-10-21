@@ -8,13 +8,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/compositional-inv.hpp
     title: "\u9006\u95A2\u6570"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: fps/interpolate.hpp
     title: Interpolate
   - icon: ':heavy_check_mark:'
     path: fps/power-projection.hpp
     title: Power Projection
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: fps/sum-of-exp-poly.hpp
     title: $\sum_{i}r^i poly(i)$
   - icon: ':heavy_check_mark:'
@@ -36,15 +36,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
     links: []
@@ -115,7 +115,7 @@ data:
   - fps/interpolate.hpp
   - fps/sum-of-exp-poly.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp

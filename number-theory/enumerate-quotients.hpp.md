@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/number-theory/LC_enumerate_quotients.test.cpp
     title: verify/number-theory/LC_enumerate_quotients.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/number-theory/enumerate-quotients.md
     document_title: "\u5546\u306E\u5217\u6319"
@@ -82,7 +82,7 @@ data:
   path: number-theory/enumerate-quotients.hpp
   requiredBy: []
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/number-theory/LC_enumerate_quotients.test.cpp
 documentation_of: number-theory/enumerate-quotients.hpp

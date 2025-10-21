@@ -7,7 +7,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    _deprecated_at_docs: docs/data-structure/integer-set.md
     document_title: "\u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)"
     links: []
   bundledCode: "#line 2 \"data-structure/integer-set.hpp\"\n\ntemplate <class T =\
@@ -44,8 +43,7 @@ data:
     \      if (m == 0) {\n        d++;\n        i >>= B;\n        i--;\n      } else\
     \ {\n        i = (i & ~MASK) + high_bit(m);\n        if (d == 0) break;\n    \
     \    i <<= B;\n        i |= MASK;\n        d--;\n      }\n    }\n    return i;\n\
-    \  }\n};\n\n/**\n * @brief \u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)\n *\
-    \ @docs docs/data-structure/integer-set.md\n */\n"
+    \  }\n};\n\n/**\n * @brief \u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)\n */\n"
   code: "#pragma once\n\ntemplate <class T = unsigned int, class U = unsigned long\
     \ long>\nclass IntegerSet {\n private:\n  const static T B = 6, W = 64, MASK =\
     \ W - 1;\n  T size;\n  vector<T> start;\n  vector<U> data;\n  static T high_bit(U\
@@ -79,13 +77,12 @@ data:
     \      if (m == 0) {\n        d++;\n        i >>= B;\n        i--;\n      } else\
     \ {\n        i = (i & ~MASK) + high_bit(m);\n        if (d == 0) break;\n    \
     \    i <<= B;\n        i |= MASK;\n        d--;\n      }\n    }\n    return i;\n\
-    \  }\n};\n\n/**\n * @brief \u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)\n *\
-    \ @docs docs/data-structure/integer-set.md\n */"
+    \  }\n};\n\n/**\n * @brief \u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)\n */"
   dependsOn: []
   isVerificationFile: false
   path: data-structure/integer-set.hpp
   requiredBy: []
-  timestamp: '2025-10-17 21:43:09+09:00'
+  timestamp: '2025-10-21 23:07:26+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: data-structure/integer-set.hpp

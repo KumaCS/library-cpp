@@ -12,16 +12,16 @@ data:
   - icon: ':warning:'
     path: math/polynomial-floor-sum.hpp
     title: "\u591A\u9805\u5F0F\u7248 floor sum"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: number-theory/enumerate-quotients.hpp
     title: "\u5546\u306E\u5217\u6319"
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/number-theory/LC_enumerate_quotients.test.cpp
     title: verify/number-theory/LC_enumerate_quotients.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\n\
@@ -89,7 +89,7 @@ data:
   - math/garner-online.hpp
   - number-theory/enumerate-quotients.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/number-theory/LC_enumerate_quotients.test.cpp
 documentation_of: math/util.hpp

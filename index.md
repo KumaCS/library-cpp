@@ -61,7 +61,7 @@ data:
       title: data-structure/sparse-table.hpp
   - name: fft
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fft/ntt.hpp
       title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - name: flow
@@ -83,16 +83,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/compositional-inv.hpp
       title: "\u9006\u95A2\u6570"
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fps/fps-ntt-friendly.hpp
       title: fps/fps-ntt-friendly.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: fps/fps-sqrt.hpp
       title: fps/fps-sqrt.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: fps/interpolate.hpp
       title: Interpolate
     - icon: ':heavy_check_mark:'
@@ -116,7 +116,7 @@ data:
     - icon: ':warning:'
       path: fps/semi-relaxed.hpp
       title: fps/semi-relaxed.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: fps/sum-of-exp-poly.hpp
       title: $\sum_{i}r^i poly(i)$
     - icon: ':heavy_check_mark:'
@@ -132,10 +132,10 @@ data:
       title: heuristic/time-keeper.hpp
   - name: math
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: math/floor-monoid-product.hpp
       title: "\u30E2\u30CE\u30A4\u30C9\u7248 Floor Sum"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: math/floor-sum.hpp
       title: Floor Sum
     - icon: ':warning:'
@@ -148,7 +148,7 @@ data:
     - icon: ':warning:'
       path: math/garner.hpp
       title: "Garner \u306E\u30A2\u30EB\u30B4\u30EA\u30BA\u30E0"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: math/lpf-table.hpp
       title: LPF Table
     - icon: ':warning:'
@@ -160,30 +160,30 @@ data:
     - icon: ':warning:'
       path: math/simple-fraction.hpp
       title: "\u6709\u7406\u6570 (\u7D04\u5206\u306A\u3057)"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: math/stern-brocot-tree.hpp
       title: Stern-Brocot Tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: math/util.hpp
       title: math/util.hpp
   - name: modint
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: modint/factorial.hpp
       title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: modint/mod-pow.hpp
       title: modint/mod-pow.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: modint/mod-sqrt.hpp
       title: modint/mod-sqrt.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: modint/modint.hpp
       title: modint/modint.hpp
     - icon: ':warning:'
       path: modint/modint261.hpp
       title: modint/modint261.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: modint/power-table.hpp
       title: Power Table
   - name: number-theory
@@ -194,58 +194,58 @@ data:
     - icon: ':heavy_check_mark:'
       path: number-theory/divisor-multiple-transform.hpp
       title: "\u7D04\u6570\u30FB\u500D\u6570\u5909\u63DB"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: number-theory/enumerate-quotients.hpp
       title: "\u5546\u306E\u5217\u6319"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: number-theory/prime-count.hpp
       title: "\u7D20\u6570\u30AB\u30A6\u30F3\u30C8"
   - name: segment-tree
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: segment-tree/dual-segment-tree.hpp
       title: Dual Segment Tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: segment-tree/lazy-segment-tree.hpp
       title: Lazy Segment Tree
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: segment-tree/segment-tree-pow2.hpp
       title: "Segment Tree (\u9577\u3055\u30922\u51AA\u306B\u3059\u308B)"
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: segment-tree/segment-tree.hpp
       title: Segment Tree
   - name: set
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: set/and-convolution.hpp
       title: set/and-convolution.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: set/hadamard-transform.hpp
       title: set/hadamard-transform.hpp
     - icon: ':warning:'
       path: set/or-convolution.hpp
       title: set/or-convolution.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: set/xor-convolution.hpp
       title: set/xor-convolution.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: set/zeta-mobius-transform.hpp
       title: set/zeta-mobius-transform.hpp
   - name: template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/debug.hpp
       title: template/debug.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/inout.hpp
       title: template/inout.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/macro.hpp
       title: template/macro.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/template.hpp
       title: template/template.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/util.hpp
       title: template/util.hpp
   - name: union-find
@@ -328,58 +328,60 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_pow_of_formal_power_series.test.cpp
       title: verify/fps/LC_pow_of_formal_power_series.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - name: verify/math
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/math/LC_stern_brocot_tree.test.cpp
       title: verify/math/LC_stern_brocot_tree.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
       title: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/math/LC_sum_of_floor_of_linear.test.cpp
       title: verify/math/LC_sum_of_floor_of_linear.test.cpp
   - name: verify/number-theory
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/number-theory/LC_counting_primes.test.cpp
       title: verify/number-theory/LC_counting_primes.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/number-theory/LC_enumerate_quotients.test.cpp
       title: verify/number-theory/LC_enumerate_quotients.test.cpp
   - name: verify/segment-tree
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
       title: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/segment-tree/LC_point_add_range_sum.test.cpp
       title: verify/segment-tree/LC_point_add_range_sum.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/segment-tree/LC_point_set_range_composite.test.cpp
       title: verify/segment-tree/LC_point_set_range_composite.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/segment-tree/LC_range_affine_point_get.test.cpp
       title: verify/segment-tree/LC_range_affine_point_get.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
       title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
   - name: verify/set
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/set/LC_bitwise_and_convolution.test.cpp
       title: verify/set/LC_bitwise_and_convolution.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/set/LC_bitwise_xor_convolution.test.cpp
       title: verify/set/LC_bitwise_xor_convolution.test.cpp
 layout: toppage
 ---
+[![Actions Status](https://github.com/KumaCS/library-cpp/workflows/verify/badge.svg)](https://github.com/KumaCS/library-cpp/actions)
+[![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://KumaCS.github.io/library-cpp/)

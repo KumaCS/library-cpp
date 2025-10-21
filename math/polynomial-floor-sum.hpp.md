@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/floor-monoid-product.hpp
     title: "\u30E2\u30CE\u30A4\u30C9\u7248 Floor Sum"
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []

@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/math/LC_sum_of_floor_of_linear.test.cpp
     title: verify/math/LC_sum_of_floor_of_linear.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/math/floor-sum.md
     document_title: Floor Sum
@@ -50,7 +50,7 @@ data:
   path: math/floor-sum.hpp
   requiredBy: []
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/math/LC_sum_of_floor_of_linear.test.cpp
 documentation_of: math/floor-sum.hpp

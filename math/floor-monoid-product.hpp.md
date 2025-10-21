@@ -6,12 +6,12 @@ data:
     path: math/polynomial-floor-sum.hpp
     title: "\u591A\u9805\u5F0F\u7248 floor sum"
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
     title: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/math/floor-monoid-product.md
     document_title: "\u30E2\u30CE\u30A4\u30C9\u7248 Floor Sum"
@@ -48,7 +48,7 @@ data:
   requiredBy:
   - math/polynomial-floor-sum.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
 documentation_of: math/floor-monoid-product.hpp
