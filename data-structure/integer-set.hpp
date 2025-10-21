@@ -101,5 +101,4 @@ class IntegerSet {
 
 /**
  * @brief 整数の集合(64分木)
- * @docs docs/data-structure/integer-set.md
  */
