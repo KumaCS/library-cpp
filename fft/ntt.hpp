@@ -52,7 +52,7 @@ struct NTT {
       }
     }
   }
-  void ntt(vector<mint> &a) {
+  void ntt(vector<mint>& a) {
     int n = int(a.size());
     int h = __builtin_ctzll((unsigned int)n);
     a.resize(1 << h);
@@ -69,8 +69,7 @@ struct NTT {
             a[i + offset] = l + r;
             a[i + offset + p] = l - r;
           }
-          if (s + 1 != (1 << len))
-            rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];
+          if (s + 1 != (1 << len)) rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];
         }
         len++;
       } else {
@@ -94,14 +93,13 @@ struct NTT {
             a[i + offset + 2 * p] = a0 + na2 + a1na3imag;
             a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);
           }
-          if (s + 1 != (1 << len))
-            rot *= rate3[__builtin_ctzll(~(unsigned int)(s))];
+          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned int)(s))];
         }
         len += 2;
       }
     }
   }
-  void intt(vector<mint> &a) {
+  void intt(vector<mint>& a) {
     int n = int(a.size());
     int h = __builtin_ctzll((unsigned int)n);
     a.resize(1 << h);
@@ -117,12 +115,9 @@ struct NTT {
             auto l = a[i + offset];
             auto r = a[i + offset + p];
             a[i + offset] = l + r;
-            a[i + offset + p] =
-                (unsigned long long)(mint::get_mod() + l.val() - r.val()) *
-                irot.val();
+            a[i + offset + p] = (unsigned long long)(mint::get_mod() + l.val() - r.val()) * irot.val();
           }
-          if (s + 1 != (1 << (len - 1)))
-            irot *= irate2[__builtin_ctzll(~(unsigned int)(s))];
+          if (s + 1 != (1 << (len - 1))) irot *= irate2[__builtin_ctzll(~(unsigned int)(s))];
         }
         len--;
       } else {
@@ -138,28 +133,21 @@ struct NTT {
             auto a1 = 1ULL * a[i + offset + 1 * p].val();
             auto a2 = 1ULL * a[i + offset + 2 * p].val();
             auto a3 = 1ULL * a[i + offset + 3 * p].val();
-            auto a2na3iimag =
-                1ULL * mint((mint::get_mod() + a2 - a3) * iimag.val()).val();
+            auto a2na3iimag = 1ULL * mint((mint::get_mod() + a2 - a3) * iimag.val()).val();
             a[i + offset] = a0 + a1 + a2 + a3;
-            a[i + offset + 1 * p] =
-                (a0 + (mint::get_mod() - a1) + a2na3iimag) * irot.val();
-            a[i + offset + 2 * p] =
-                (a0 + a1 + (mint::get_mod() - a2) + (mint::get_mod() - a3)) *
-                irot2.val();
-            a[i + offset + 3 * p] =
-                (a0 + (mint::get_mod() - a1) + (mint::get_mod() - a2na3iimag)) *
-                irot3.val();
+            a[i + offset + 1 * p] = (a0 + (mint::get_mod() - a1) + a2na3iimag) * irot.val();
+            a[i + offset + 2 * p] = (a0 + a1 + (mint::get_mod() - a2) + (mint::get_mod() - a3)) * irot2.val();
+            a[i + offset + 3 * p] = (a0 + (mint::get_mod() - a1) + (mint::get_mod() - a2na3iimag)) * irot3.val();
           }
-          if (s + 1 != (1 << (len - 2)))
-            irot *= irate3[__builtin_ctzll(~(unsigned int)(s))];
+          if (s + 1 != (1 << (len - 2))) irot *= irate3[__builtin_ctzll(~(unsigned int)(s))];
         }
         len -= 2;
       }
     }
     mint e = mint(n).inv();
-    for (auto &x : a) x *= e;
+    for (auto& x : a) x *= e;
   }
-  vector<mint> multiply(const vector<mint> &a, const vector<mint> &b) {
+  vector<mint> multiply(const vector<mint>& a, const vector<mint>& b) {
     if (a.empty() || b.empty()) return vector<mint>();
     int n = a.size(), m = b.size();
     int sz = n + m - 1;
@@ -187,7 +175,31 @@ struct NTT {
     res.resize(sz);
     return res;
   }
-  void ntt_doubling(vector<mint> &a) {
+  // c[i]=sum[j]a[j]b[i+j]
+  vector<mint> middle_product(const vector<mint>& a, const vector<mint>& b) {
+    if (b.empty() || a.size() > b.size()) return {};
+    int n = a.size(), m = b.size();
+    int sz = m - n + 1;
+    if (n <= 30 || sz <= 30) {
+      vector<mint> res(sz);
+      for (int i = 0; i < sz; i++)
+        for (int j = 0; j < n; j++) res[i] += a[j] * b[i + j];
+      return res;
+    }
+    int sz1 = 1;
+    while (sz1 < m) sz1 <<= 1;
+    vector<mint> res(sz1), b2(sz1);
+    reverse_copy(a.begin(), a.end(), res.begin());
+    copy(b.begin(), b.end(), b2.begin());
+    ntt(res);
+    ntt(b2);
+    for (int i = 0; i < res.size(); i++) res[i] *= b2[i];
+    intt(res);
+    res.resize(m);
+    res.erase(res.begin(), res.begin() + n - 1);
+    return res;
+  }
+  void ntt_doubling(vector<mint>& a) {
     int n = (int)a.size();
     auto b = a;
     intt(b);
@@ -197,3 +209,7 @@ struct NTT {
     copy(b.begin(), b.end(), back_inserter(a));
   }
 };
+/**
+ * @brief NTT (数論変換)
+ * @docs docs/fft/ntt.md
+ */

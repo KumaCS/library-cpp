@@ -1,15 +1,14 @@
 #pragma once
 
-#include "../fft/ntt.hpp"
-#include "./formal-power-series.hpp"
+#include "fft/ntt.hpp"
+#include "fps/formal-power-series.hpp"
 
 template <class mint>
 void FormalPowerSeries<mint>::set_ntt() {
   if (!ntt_ptr) ntt_ptr = new NTT<mint>;
 }
 template <class mint>
-FormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(
-    const FormalPowerSeries<mint>& r) {
+FormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(const FormalPowerSeries<mint>& r) {
   if (this->empty() || r.empty()) {
     this->clear();
     return *this;
@@ -17,6 +16,12 @@ FormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(
   set_ntt();
   auto ret = static_cast<NTT<mint>*>(ntt_ptr)->multiply(*this, r);
   return *this = FormalPowerSeries<mint>(ret.begin(), ret.end());
+}
+template <class mint>
+FormalPowerSeries<mint> FormalPowerSeries<mint>::middle_product(const FormalPowerSeries<mint>& r) const {
+  set_ntt();
+  auto ret = static_cast<NTT<mint>*>(ntt_ptr)->middle_product(*this, r);
+  return FormalPowerSeries<mint>(ret.begin(), ret.end());
 }
 template <class mint>
 void FormalPowerSeries<mint>::ntt() {

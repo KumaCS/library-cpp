@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/sum_of_floor_of_linear"
 
 #include "template/template.hpp"
-#include "math/monoid-floor-sum.hpp"
+#include "math/floor-monoid-product.hpp"
 
 struct T {
   ull x, y, z;
@@ -16,7 +16,7 @@ int main() {
   while (t--) {
     ull n, m, a, b;
     in(n, m, a, b);
-    ull sum = monoid_floor_sum<T, op, e>(n, m, a, b, x, y).z;
+    ull sum = FloorMonoidProduct<T, op, e>(n, m, a, b, x, y).z;
     cout << sum << "\n";
   }
 }

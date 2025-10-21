@@ -11,7 +11,7 @@ class RelaxedConvolution {
     fps f1(f.begin() + l1, f.begin() + r1);
     fps g1(g.begin() + l2, g.begin() + r2);
     fps h1 = f1 * g1;
-    for (int i = 0; i < h1.Length; i++) h[i + l1 + l2] += h1[i];
+    for (int i = 0; i < h1.size(); i++) h[i + l1 + l2] += h1[i];
   }
 
  public:

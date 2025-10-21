@@ -163,6 +163,7 @@ struct FormalPowerSeries : vector<mint> {
   static void *ntt_ptr;
   static void set_ntt();
   FPS &operator*=(const FPS &r);
+  FPS middle_product(const FPS &r) const;
   void ntt();
   void intt();
   void ntt_doubling();

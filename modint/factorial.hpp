@@ -1,107 +1,79 @@
 #pragma once
 
 template <class mint>
-struct Factorial
-{
-    vector<mint> f, g, h;
-    Factorial(int MAX = 0)
-    {
-        f.resize(1, mint{1});
-        g.resize(1, mint{1});
-        h.resize(1, mint{1});
-        if (MAX > 0)
-            extend(MAX + 1);
+struct Factorial {
+  static mint inv(int n) {
+    static long long mod = mint::get_mod();
+    static vector<mint> _inv({0, 1});
+    assert(n != 0);
+    if (mod != mint::get_mod()) {
+      mod = mint::get_mod();
+      _inv = vector<mint>({0, 1});
     }
-    void extend(int m = -1)
-    {
-        int n = f.size();
-        if (m == -1)
-            m = n * 2;
-        {
-            int k = 1;
-            while (k < m)
-                k <<= 1;
-            m = k;
-        }
-        if (n >= m)
-            return;
-        f.resize(m);
-        g.resize(m);
-        h.resize(m);
-        for (int i = n; i < m; i++)
-            f[i] = f[i - 1] * mint(i);
-        g[m - 1] = f[m - 1].inv();
-        h[m - 1] = g[m - 1] * f[m - 2];
-        for (int i = m - 2; i >= n; i--)
-        {
-            g[i] = g[i + 1] * mint(i + 1);
-            h[i] = g[i] * f[i - 1];
-        }
+    while (_inv.size() <= n) {
+      long long k = _inv.size(), q = (mod + k - 1) / k;
+      _inv.push_back(q * _inv[k * q - mod]);
     }
-    mint fact(int i)
-    {
-        if (i < 0)
-            return mint(0);
-        while (i >= (int)f.size())
-            extend();
-        return f[i];
+    return _inv[n];
+  }
+  static mint fact(int n) {
+    static long long mod = mint::get_mod();
+    static vector<mint> _fact({1, 1});
+    assert(n >= 0);
+    if (mod != mint::get_mod()) {
+      mod = mint::get_mod();
+      _fact = vector<mint>({1, 1});
     }
-    mint fact_inv(int i)
-    {
-        if (i < 0)
-            return mint(0);
-        while (i >= (int)g.size())
-            extend();
-        return g[i];
+    while (_fact.size() <= n) {
+      long long k = _fact.size();
+      _fact.push_back(_fact.back() * k);
     }
-    mint inv(int i)
-    {
-        if (i < 0)
-            return -inv(-i);
-        while (i >= (int)h.size())
-            extend();
-        return h[i];
+    return _fact[n];
+  }
+  static mint fact_inv(int n) {
+    static long long mod = mint::get_mod();
+    static vector<mint> _fact_inv({1, 1});
+    assert(n >= 0);
+    if (mod != mint::get_mod()) {
+      mod = mint::get_mod();
+      _fact_inv = vector<mint>({1, 1});
     }
-    mint binom(int n, int r)
-    {
-        if (n < 0 || n < r || r < 0)
-            return mint(0);
-        return fact(n) * fact_inv(n - r) * fact_inv(r);
+    while (_fact_inv.size() <= n) {
+      long long k = _fact_inv.size();
+      _fact_inv.push_back(_fact_inv.back() * inv(k));
     }
-    mint multinom(const vector<int> &r)
-    {
-        int n = 0;
-        for (auto &x : r)
-        {
-            if (x < 0)
-                return mint(0);
-            n += x;
-        }
-        mint res = fact(n);
-        for (auto &x : r)
-            res *= fact_inv(x);
-        return res;
+    return _fact_inv[n];
+  }
+  static mint binom(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    return fact(n) * fact_inv(r) * fact_inv(n - r);
+  }
+  static mint binom_naive(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    mint res = fact_inv(r);
+    for (int i = 0; i < r; i++) res *= n - i;
+    return res;
+  }
+  static mint multinom(const vector<int>& r) {
+    int n = 0;
+    for (auto& x : r) {
+      if (x < 0) return 0;
+      n += x;
     }
-    mint binom_naive(int n, int r)
-    {
-        if (n < 0 || n < r || r < 0)
-            return mint(0);
-        mint ret = mint(1);
-        r = min(r, n - r);
-        for (int i = 1; i <= r; ++i)
-            ret *= inv(i) * (n--);
-        return ret;
-    }
-    mint P(int n, int r)
-    {
-        if (n < 0 || n < r || r < 0)
-            return mint(0);
-        return fact(n) * fact_inv(n - r);
-    }
-    mint H(int n, int r)
-    {
-        if (n < 0 || r < 0)
-            return mint(0);
-        return r == 0 ? 1 : binom(n + r - 1, r);
-    }
-};
+    mint res = fact(n);
+    for (auto& x : r) res *= fact_inv(x);
+    return res;
+  }
+  static mint P(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    return fact(n) * fact_inv(n - r);
+  }
+  // partition n items to r groups (allow empty group)
+  static mint H(int n, int r) {
+    if (n < 0 || r < 0) return 0;
+    return r == 0 ? 1 : binom(n + r - 1, r);
+  }
+};  // namespace Factorial
+/**
+ * @brief 階乗, 二項係数
+ */

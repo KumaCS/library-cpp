@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../modint/mod-sqrt.hpp"
-#include "./formal-power-series.hpp"
+#include "modint/mod-sqrt.hpp"
+#include "fps/formal-power-series.hpp"
 
 template <typename mint>
 FormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint> &f, int deg = -1) {
@@ -21,9 +21,9 @@ FormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint> &f, int deg = -1) 
     }
     return FormalPowerSeries<mint>(deg, 0);
   }
-  int64_t sqr = ModSqrt(f[0].get(), mint::get_mod());
+  int64_t sqr = ModSqrt(f[0].val(), mint::get_mod());
   if (sqr == -1) return {};
-  assert(sqr * sqr % mint::get_mod() == f[0].get());
+  assert(sqr * sqr % mint::get_mod() == f[0].val());
   FormalPowerSeries<mint> ret = {mint(sqr)};
   mint inv2 = mint(2).inv();
   for (int i = 1; i < deg; i <<= 1) {

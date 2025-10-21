@@ -15,6 +15,16 @@ vector<T> get_vector(size_t n, T l, T r) {
   for (auto& v : a) v = get(l, r);
   return a;
 }
+
+template <class Iter>
+void shuffle(Iter begin, Iter end) {
+  if (begin == end) return;
+  int n = end - begin;
+  for (int i = n - 1; i > 0; i--) {
+    int j = get(i + 1);
+    if (j < i) swap(*(begin + i), *(begin + j));
+  }
+}
 };  // namespace Random
 
 /**
