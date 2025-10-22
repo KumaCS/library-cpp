@@ -136,7 +136,7 @@ push-relabel algorithm により $n$ 頂点 $m$ 辺のとき $O(n^2m)$ 時間．
   - $\sum_{v\in V}f(v,u)-\sum_{v\in V}f(u,v)\geq 0$
 - 頂点 $u$ の excess flow とは $e(u)=\sum_{v\in V}f(v,u)-\sum_{v\in V}f(u,v)$ のこと．
 - 頂点 $u$ が overflow しているとは $e(u)\gt 0$ であること．
-- height function $h:V\to\mathbb{N}$ は $h(s)=|V|,h(t)=0$ およびすべての残余辺 $(u,v)\in E_f$ に対し $h(u)\leq h(v)+1$ を満たすもの．
+- height function $h:V\to\mathbb{N}$ は $h(s)=\lvert V\rvert,h(t)=0$ およびすべての残余辺 $(u,v)\in E_f$ に対し $h(u)\leq h(v)+1$ を満たすもの．
 
 preflow を更新する push，height function を更新する relabel を組み合わせたアルゴリズム．
 

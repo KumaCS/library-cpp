@@ -14,9 +14,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/compositional-inv.hpp
     title: "\u9006\u95A2\u6570"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
+  - icon: ':warning:'
+    path: fps/fps-rational.hpp
+    title: fps/fps-rational.hpp
   - icon: ':heavy_check_mark:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
@@ -26,16 +29,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/linearly-recurrent-sequence.hpp
     title: "\u7DDA\u5F62\u6F38\u5316\u5F0F\u7528"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/multipoint-evaluation.hpp
     title: Multipoint Evaluation
+  - icon: ':question:'
+    path: fps/polynomial-interpolation.hpp
+    title: "\u591A\u9805\u5F0F\u88DC\u9593"
   - icon: ':heavy_check_mark:'
     path: fps/power-projection.hpp
     title: Power Projection
-  - icon: ':warning:'
+  - icon: ':x:'
     path: fps/prefix-sum-of-polynomial.hpp
-    title: Prefix Sum of Polynomial
-  - icon: ':heavy_check_mark:'
+    title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
+  - icon: ':x:'
+    path: fps/product-of-polynomials.hpp
+    title: "\u591A\u9805\u5F0F\u306E\u7A4D"
+  - icon: ':warning:'
+    path: fps/sum-of-rationals.hpp
+    title: "\u6709\u7406\u5F0F\u306E\u548C"
+  - icon: ':question:'
     path: fps/taylor-shift.hpp
     title: Taylor Shift
   _extendedVerifiedWith:
@@ -76,17 +88,26 @@ data:
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_interpolation.test.cpp
+    title: verify/fps/LC_polynomial_interpolation.test.cpp
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+    title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+    title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\n\
@@ -229,25 +250,32 @@ data:
   path: fps/formal-power-series.hpp
   requiredBy:
   - fps/power-projection.hpp
+  - fps/sum-of-rationals.hpp
   - fps/composition.hpp
+  - fps/polynomial-interpolation.hpp
   - fps/bostan-mori.hpp
   - fps/multipoint-evaluation.hpp
   - fps/taylor-shift.hpp
   - fps/fps-ntt-friendly.hpp
   - fps/inverse-shift.hpp
+  - fps/product-of-polynomials.hpp
   - fps/prefix-sum-of-polynomial.hpp
   - fps/compositional-inv.hpp
   - fps/linearly-recurrent-sequence.hpp
   - fps/fps-sqrt.hpp
+  - fps/fps-rational.hpp
   - fps/berlekamp-massey.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - verify/fps/LC_log_of_formal_power_series.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
   - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp

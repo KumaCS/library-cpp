@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_staticrmq.test.cpp
+    title: verify/data-structure/LC_staticrmq.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"data-structure/sparse-table.hpp\"\n\ntemplate <class T,\
@@ -34,8 +37,9 @@ data:
   path: data-structure/sparse-table.hpp
   requiredBy: []
   timestamp: '2025-10-10 17:35:46+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/data-structure/LC_staticrmq.test.cpp
 documentation_of: data-structure/sparse-table.hpp
 layout: document
 redirect_from:

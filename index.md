@@ -41,13 +41,13 @@ data:
       title: "min-plus \u7573\u307F\u8FBC\u307F (convex)"
   - name: data-structure
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/binary-indexed-tree.hpp
       title: Binary Indexed Tree
     - icon: ':warning:'
       path: data-structure/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/integer-set.hpp
       title: "\u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)"
     - icon: ':warning:'
@@ -56,12 +56,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/simple-queue.hpp
       title: data-structure/simple-queue.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/sparse-table.hpp
       title: data-structure/sparse-table.hpp
   - name: fft
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fft/ntt.hpp
       title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - name: flow
@@ -83,16 +83,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/compositional-inv.hpp
       title: "\u9006\u95A2\u6570"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/fps-ntt-friendly.hpp
       title: fps/fps-ntt-friendly.hpp
+    - icon: ':warning:'
+      path: fps/fps-rational.hpp
+      title: fps/fps-rational.hpp
     - icon: ':heavy_check_mark:'
       path: fps/fps-sqrt.hpp
       title: fps/fps-sqrt.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: fps/interpolate.hpp
       title: Interpolate
     - icon: ':heavy_check_mark:'
@@ -101,25 +104,34 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/linearly-recurrent-sequence.hpp
       title: "\u7DDA\u5F62\u6F38\u5316\u5F0F\u7528"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/multipoint-evaluation.hpp
       title: Multipoint Evaluation
+    - icon: ':question:'
+      path: fps/polynomial-interpolation.hpp
+      title: "\u591A\u9805\u5F0F\u88DC\u9593"
     - icon: ':heavy_check_mark:'
       path: fps/power-projection.hpp
       title: Power Projection
-    - icon: ':warning:'
+    - icon: ':x:'
       path: fps/prefix-sum-of-polynomial.hpp
-      title: Prefix Sum of Polynomial
+      title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
+    - icon: ':x:'
+      path: fps/product-of-polynomials.hpp
+      title: "\u591A\u9805\u5F0F\u306E\u7A4D"
     - icon: ':warning:'
       path: fps/relaxed.hpp
       title: fps/relaxed.hpp
     - icon: ':warning:'
       path: fps/semi-relaxed.hpp
       title: fps/semi-relaxed.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: fps/sum-of-exp-poly.hpp
       title: $\sum_{i}r^i poly(i)$
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
+      path: fps/sum-of-rationals.hpp
+      title: "\u6709\u7406\u5F0F\u306E\u548C"
+    - icon: ':question:'
       path: fps/taylor-shift.hpp
       title: Taylor Shift
   - name: heuristic
@@ -148,7 +160,7 @@ data:
     - icon: ':warning:'
       path: math/garner.hpp
       title: "Garner \u306E\u30A2\u30EB\u30B4\u30EA\u30BA\u30E0"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: math/lpf-table.hpp
       title: LPF Table
     - icon: ':warning:'
@@ -160,7 +172,7 @@ data:
     - icon: ':warning:'
       path: math/simple-fraction.hpp
       title: "\u6709\u7406\u6570 (\u7D04\u5206\u306A\u3057)"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: math/stern-brocot-tree.hpp
       title: Stern-Brocot Tree
     - icon: ':heavy_check_mark:'
@@ -168,7 +180,7 @@ data:
       title: math/util.hpp
   - name: modint
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/factorial.hpp
       title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
     - icon: ':heavy_check_mark:'
@@ -177,13 +189,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: modint/mod-sqrt.hpp
       title: modint/mod-sqrt.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/modint.hpp
       title: modint/modint.hpp
     - icon: ':warning:'
       path: modint/modint261.hpp
       title: modint/modint261.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: modint/power-table.hpp
       title: Power Table
   - name: number-theory
@@ -216,41 +228,41 @@ data:
       title: Segment Tree
   - name: set
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: set/and-convolution.hpp
       title: set/and-convolution.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: set/hadamard-transform.hpp
       title: set/hadamard-transform.hpp
-    - icon: ':warning:'
+    - icon: ':x:'
       path: set/or-convolution.hpp
       title: set/or-convolution.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: set/xor-convolution.hpp
       title: set/xor-convolution.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: set/zeta-mobius-transform.hpp
       title: set/zeta-mobius-transform.hpp
   - name: template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/debug.hpp
       title: template/debug.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/inout.hpp
       title: template/inout.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/macro.hpp
       title: template/macro.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/template.hpp
       title: template/template.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/util.hpp
       title: template/util.hpp
   - name: union-find
     pages:
-    - icon: ':warning:'
+    - icon: ':x:'
       path: union-find/union-find.hpp
       title: Union Find
   - name: util
@@ -279,6 +291,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
       title: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
+  - name: verify/data-structure
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_point_add_range_sum.test.cpp
+      title: verify/data-structure/LC_point_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_predecessor_problem.test.cpp
+      title: verify/data-structure/LC_predecessor_problem.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_staticrmq.test.cpp
+      title: verify/data-structure/LC_staticrmq.test.cpp
   - name: verify/flow
     pages:
     - icon: ':heavy_check_mark:'
@@ -323,23 +346,32 @@ data:
       path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
       title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_polynomial_interpolation.test.cpp
+      title: verify/fps/LC_polynomial_interpolation.test.cpp
+    - icon: ':x:'
       path: verify/fps/LC_polynomial_taylor_shift.test.cpp
       title: verify/fps/LC_polynomial_taylor_shift.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_pow_of_formal_power_series.test.cpp
       title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+    - icon: ':x:'
+      path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+      title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+    - icon: ':x:'
+      path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+      title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - name: verify/math
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/math/LC_stern_brocot_tree.test.cpp
       title: verify/math/LC_stern_brocot_tree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -375,13 +407,19 @@ data:
       title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
   - name: verify/set
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
+      path: verify/set/LC_bitwise_and_convolution.or.test.cpp
+      title: verify/set/LC_bitwise_and_convolution.or.test.cpp
+    - icon: ':x:'
       path: verify/set/LC_bitwise_and_convolution.test.cpp
       title: verify/set/LC_bitwise_and_convolution.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/set/LC_bitwise_xor_convolution.test.cpp
       title: verify/set/LC_bitwise_xor_convolution.test.cpp
+  - name: verify/union-find
+    pages:
+    - icon: ':x:'
+      path: verify/union-find/LC_unionfind.test.cpp
+      title: verify/union-find/LC_unionfind.test.cpp
 layout: toppage
 ---
-[![Actions Status](https://github.com/KumaCS/library-cpp/workflows/verify/badge.svg)](https://github.com/KumaCS/library-cpp/actions)
-[![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://KumaCS.github.io/library-cpp/)

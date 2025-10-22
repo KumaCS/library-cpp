@@ -55,20 +55,29 @@ data:
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_interpolation.test.cpp
+    title: verify/fps/LC_polynomial_interpolation.test.cpp
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+    title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - icon: ':x:'
+    path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+    title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_point_set_range_composite.test.cpp
     title: verify/segment-tree/LC_point_set_range_composite.test.cpp
@@ -78,15 +87,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
     title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_and_convolution.or.test.cpp
+    title: verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - icon: ':x:'
     path: verify/set/LC_bitwise_and_convolution.test.cpp
     title: verify/set/LC_bitwise_and_convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/set/LC_bitwise_xor_convolution.test.cpp
     title: verify/set/LC_bitwise_xor_convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"modint/modint.hpp\"\n\ntemplate <unsigned int m = 998244353>\n\
@@ -158,13 +170,16 @@ data:
   requiredBy:
   - convolution/intmod.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - verify/fps/LC_log_of_formal_power_series.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
   - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
@@ -186,6 +201,7 @@ data:
   - verify/segment-tree/LC_range_affine_point_get.test.cpp
   - verify/set/LC_bitwise_xor_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_bitwise_and_convolution.or.test.cpp
 documentation_of: modint/modint.hpp
 layout: document
 redirect_from:

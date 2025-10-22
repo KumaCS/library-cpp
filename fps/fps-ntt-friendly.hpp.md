@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   _extendedRequiredBy: []
@@ -46,17 +46,26 @@ data:
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_interpolation.test.cpp
+    title: verify/fps/LC_polynomial_interpolation.test.cpp
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+    title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+    title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\n\
@@ -275,13 +284,16 @@ data:
   path: fps/fps-ntt-friendly.hpp
   requiredBy: []
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - verify/fps/LC_log_of_formal_power_series.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
   - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp

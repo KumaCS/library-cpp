@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/stern-brocot-tree.hpp
     title: Stern-Brocot Tree
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/stern_brocot_tree
@@ -119,9 +119,9 @@ data:
     \ = mid;\n        }\n        if (ok == 0) return res;\n        res.go_left(ok);\n\
     \      }\n    }\n  }\n};  // namespace SternBrocotTree\n\n/**\n * @brief Stern-Brocot\
     \ Tree\n * @docs docs/math/stern-brocot-tree.md\n */\n#line 5 \"verify/math/LC_stern_brocot_tree.test.cpp\"\
-    \nusing sbt = SternBrocotTreeNode<ll>;\n\nint main() {\n  int t;\n  cin >> t;\n\
-    \  while (t--) {\n    string s;\n    cin >> s;\n    if (s == \"ENCODE_PATH\")\
-    \ {\n      ll a, b;\n      in(a, b);\n      sbt x(a, b);\n      cout << x.seq.size();\n\
+    \nusing sbt = SternBrocotTreeNode<ll>;\n\nint main() {\n  int t;\n  in(t);\n \
+    \ while (t--) {\n    string s;\n    in(s);\n    if (s == \"ENCODE_PATH\") {\n\
+    \      ll a, b;\n      in(a, b);\n      sbt x(a, b);\n      cout << x.seq.size();\n\
     \      for (auto v : x.seq) cout << \" \" << \"LR\"[v > 0] << \" \" << abs(v);\n\
     \      cout << \"\\n\";\n    } else if (s == \"DECODE_PATH\") {\n      sbt x;\n\
     \      int k;\n      in(k);\n      rep(i, 0, k) {\n        char dir;\n       \
@@ -136,10 +136,10 @@ data:
     \ x.upper_bound());\n    }\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/stern_brocot_tree\"\n\n\
     #include \"template/template.hpp\"\n#include \"math/stern-brocot-tree.hpp\"\n\
-    using sbt = SternBrocotTreeNode<ll>;\n\nint main() {\n  int t;\n  cin >> t;\n\
-    \  while (t--) {\n    string s;\n    cin >> s;\n    if (s == \"ENCODE_PATH\")\
-    \ {\n      ll a, b;\n      in(a, b);\n      sbt x(a, b);\n      cout << x.seq.size();\n\
-    \      for (auto v : x.seq) cout << \" \" << \"LR\"[v > 0] << \" \" << abs(v);\n\
+    using sbt = SternBrocotTreeNode<ll>;\n\nint main() {\n  int t;\n  in(t);\n  while\
+    \ (t--) {\n    string s;\n    in(s);\n    if (s == \"ENCODE_PATH\") {\n      ll\
+    \ a, b;\n      in(a, b);\n      sbt x(a, b);\n      cout << x.seq.size();\n  \
+    \    for (auto v : x.seq) cout << \" \" << \"LR\"[v > 0] << \" \" << abs(v);\n\
     \      cout << \"\\n\";\n    } else if (s == \"DECODE_PATH\") {\n      sbt x;\n\
     \      int k;\n      in(k);\n      rep(i, 0, k) {\n        char dir;\n       \
     \ ll n;\n        in(dir, n);\n        if (dir == 'L')\n          x.go_left(n);\n\
@@ -161,8 +161,8 @@ data:
   isVerificationFile: true
   path: verify/math/LC_stern_brocot_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-10-23 01:57:19+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/math/LC_stern_brocot_tree.test.cpp
 layout: document

@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/hadamard-transform.hpp
     title: set/hadamard-transform.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/xor-convolution.hpp
     title: set/xor-convolution.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/bitwise_xor_convolution
@@ -127,13 +127,13 @@ data:
     \  assert(a.size() == b.size());\n  HadamardTransform(a);\n  HadamardTransform(b);\n\
     \  for (int i = 0; i < a.size(); i++) a[i] *= b[i];\n  HadamardTransform(a, true);\n\
     \  return a;\n}\n#line 7 \"verify/set/LC_bitwise_xor_convolution.test.cpp\"\n\n\
-    int main() {\n  int n;\n  cin >> n;\n  vector<mint> a(1 << n), b(1 << n);\n  cin\
-    \ >> a >> b;\n  auto c = XorConvolution(a, b);\n  cout << c << \"\\n\";\n}\n"
+    int main() {\n  int n;\n  in(n);\n  vector<mint> a(1 << n), b(1 << n);\n  in(a,\
+    \ b);\n  auto c = XorConvolution(a, b);\n  out(c);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_xor_convolution\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"set/xor-convolution.hpp\"\n\nint main()\
-    \ {\n  int n;\n  cin >> n;\n  vector<mint> a(1 << n), b(1 << n);\n  cin >> a >>\
-    \ b;\n  auto c = XorConvolution(a, b);\n  cout << c << \"\\n\";\n}"
+    \ {\n  int n;\n  in(n);\n  vector<mint> a(1 << n), b(1 << n);\n  in(a, b);\n \
+    \ auto c = XorConvolution(a, b);\n  out(c);\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -146,8 +146,8 @@ data:
   isVerificationFile: true
   path: verify/set/LC_bitwise_xor_convolution.test.cpp
   requiredBy: []
-  timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-10-23 01:57:19+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/set/LC_bitwise_xor_convolution.test.cpp
 layout: document

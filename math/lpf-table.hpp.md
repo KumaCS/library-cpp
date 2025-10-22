@@ -2,19 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: modint/power-table.hpp
     title: Power Table
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     document_title: LPF Table
     links: []
@@ -34,7 +34,7 @@ data:
   requiredBy:
   - modint/power-table.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp

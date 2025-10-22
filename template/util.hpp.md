@@ -2,12 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':warning:'
-    path: union-find/union-find.hpp
-    title: Union Find
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/convolution/LC_convolution_mod.test.cpp
@@ -27,6 +24,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
     title: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_range_sum.test.cpp
+    title: verify/data-structure/LC_point_add_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_predecessor_problem.test.cpp
+    title: verify/data-structure/LC_predecessor_problem.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_staticrmq.test.cpp
+    title: verify/data-structure/LC_staticrmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/flow/AOJ_GRL_6_A.test.cpp
     title: verify/flow/AOJ_GRL_6_A.test.cpp
@@ -67,21 +73,30 @@ data:
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_interpolation.test.cpp
+    title: verify/fps/LC_polynomial_interpolation.test.cpp
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+    title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+    title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - icon: ':x:'
     path: verify/math/LC_stern_brocot_tree.test.cpp
     title: verify/math/LC_stern_brocot_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -111,15 +126,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
     title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_and_convolution.or.test.cpp
+    title: verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - icon: ':x:'
     path: verify/set/LC_bitwise_and_convolution.test.cpp
     title: verify/set/LC_bitwise_and_convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/set/LC_bitwise_xor_convolution.test.cpp
     title: verify/set/LC_bitwise_xor_convolution.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/union-find/LC_unionfind.test.cpp
+    title: verify/union-find/LC_unionfind.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"template/util.hpp\"\nusing uint = unsigned int;\nusing ll\
@@ -148,19 +169,21 @@ data:
   path: template/util.hpp
   requiredBy:
   - template/template.hpp
-  - union-find/union-find.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
   - verify/math/LC_stern_brocot_tree.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - verify/fps/LC_log_of_formal_power_series.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
   - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
@@ -186,8 +209,13 @@ data:
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
   - verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
   - verify/segment-tree/LC_range_affine_point_get.test.cpp
+  - verify/data-structure/LC_point_add_range_sum.test.cpp
+  - verify/data-structure/LC_staticrmq.test.cpp
+  - verify/data-structure/LC_predecessor_problem.test.cpp
   - verify/set/LC_bitwise_xor_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - verify/union-find/LC_unionfind.test.cpp
 documentation_of: template/util.hpp
 layout: document
 redirect_from:

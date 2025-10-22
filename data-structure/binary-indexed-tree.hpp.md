@@ -2,46 +2,50 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_range_sum.test.cpp
+    title: verify/data-structure/LC_point_add_range_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/data-structure/binary-indexed-tree.md
     document_title: Binary Indexed Tree
     links: []
   bundledCode: "#line 2 \"data-structure/binary-indexed-tree.hpp\"\n\ntemplate <class\
     \ T>\nstruct BinaryIndexedTree {\n  int size;\n  vector<T> data;\n  BinaryIndexedTree(int\
-    \ n) : size(n), data(n) {}\n  T add(int p, T x) {\n    for (p++; p <= size; p\
-    \ += p & -p) data[p - 1] += x;\n  }\n  T sum(int p) {\n    T s = 0;\n    for (;\
-    \ p; p -= p & -p) s += data[p - 1];\n    return s;\n  }\n  T sum(int l, int r)\
-    \ { return sum(r) - sum(l); }\n\n  template <bool (*f)(S)>\n  int lower_bound()\
-    \ const {\n    return lower_bound([](S x) { return f(x); });\n  }\n  template\
+    \ n) : size(n), data(n) {}\n  void add(int p, T x) {\n    for (p++; p <= size;\
+    \ p += p & -p) data[p - 1] += x;\n  }\n  T sum(int p) {\n    T s = 0;\n    for\
+    \ (; p; p -= p & -p) s += data[p - 1];\n    return s;\n  }\n  T sum(int l, int\
+    \ r) { return sum(r) - sum(l); }\n\n  template <bool (*f)(T)>\n  int lower_bound()\
+    \ const {\n    return lower_bound([](T x) { return f(x); });\n  }\n  template\
     \ <class F>\n  int lower_bound(F f) const {\n    if (f(T(0))) return 0;\n    int\
     \ x = 0, r = 1;\n    while (r < size) r = r << 1;\n    T s = 0;\n    for (int\
     \ len = r; len > 0; len >>= 1) {\n      if (x + len < size && !f(s + data[x +\
-    \ len])) {\n        s += data[x + len];\n        x += len;\n      }\n    }\n \
-    \   return x + 1;\n  }\n};\n\n/**\n * @brief Binary Indexed Tree\n * @docs docs/data-structure/binary-indexed-tree.md\n\
+    \ len]))\n        s += data[x += len];\n    }\n    return x + 1;\n  }\n};\n\n\
+    /**\n * @brief Binary Indexed Tree\n * @docs docs/data-structure/binary-indexed-tree.md\n\
     \ */\n"
   code: "#pragma once\n\ntemplate <class T>\nstruct BinaryIndexedTree {\n  int size;\n\
-    \  vector<T> data;\n  BinaryIndexedTree(int n) : size(n), data(n) {}\n  T add(int\
+    \  vector<T> data;\n  BinaryIndexedTree(int n) : size(n), data(n) {}\n  void add(int\
     \ p, T x) {\n    for (p++; p <= size; p += p & -p) data[p - 1] += x;\n  }\n  T\
     \ sum(int p) {\n    T s = 0;\n    for (; p; p -= p & -p) s += data[p - 1];\n \
     \   return s;\n  }\n  T sum(int l, int r) { return sum(r) - sum(l); }\n\n  template\
-    \ <bool (*f)(S)>\n  int lower_bound() const {\n    return lower_bound([](S x)\
+    \ <bool (*f)(T)>\n  int lower_bound() const {\n    return lower_bound([](T x)\
     \ { return f(x); });\n  }\n  template <class F>\n  int lower_bound(F f) const\
     \ {\n    if (f(T(0))) return 0;\n    int x = 0, r = 1;\n    while (r < size) r\
     \ = r << 1;\n    T s = 0;\n    for (int len = r; len > 0; len >>= 1) {\n     \
-    \ if (x + len < size && !f(s + data[x + len])) {\n        s += data[x + len];\n\
-    \        x += len;\n      }\n    }\n    return x + 1;\n  }\n};\n\n/**\n * @brief\
-    \ Binary Indexed Tree\n * @docs docs/data-structure/binary-indexed-tree.md\n */"
+    \ if (x + len < size && !f(s + data[x + len]))\n        s += data[x += len];\n\
+    \    }\n    return x + 1;\n  }\n};\n\n/**\n * @brief Binary Indexed Tree\n * @docs\
+    \ docs/data-structure/binary-indexed-tree.md\n */"
   dependsOn: []
   isVerificationFile: false
   path: data-structure/binary-indexed-tree.hpp
   requiredBy: []
-  timestamp: '2025-10-10 17:35:46+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-10-23 01:57:19+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/data-structure/LC_point_add_range_sum.test.cpp
 documentation_of: data-structure/binary-indexed-tree.hpp
 layout: document
 redirect_from:

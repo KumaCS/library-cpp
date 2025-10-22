@@ -1,44 +1,44 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/interpolate.hpp
     title: Interpolate
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/sum-of-exp-poly.hpp
     title: $\sum_{i}r^i poly(i)$
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/lpf-table.hpp
     title: LPF Table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: modint/power-table.hpp
     title: Power Table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial_limit
@@ -126,21 +126,24 @@ data:
     \ private:\n  static constexpr unsigned int umod() { return m; }\n};\n#line 5\
     \ \"verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp\"\nusing\
     \ mint = ModInt<998244353>;\n#line 2 \"modint/factorial.hpp\"\n\ntemplate <class\
-    \ mint>\nstruct Factorial {\n  static mint inv(int n) {\n    static long long\
-    \ mod = mint::get_mod();\n    static vector<mint> _inv({0, 1});\n    assert(n\
+    \ mint>\nstruct Factorial {\n  static void reserve(int n) {\n    inv(n);\n   \
+    \ fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long\
+    \ long mod = mint::get_mod();\n    static vector<mint> _inv({0, 1});\n    assert(n\
     \ != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n  \
-    \    _inv = vector<mint>({0, 1});\n    }\n    while (_inv.size() <= n) {\n   \
-    \   long long k = _inv.size(), q = (mod + k - 1) / k;\n      _inv.push_back(q\
-    \ * _inv[k * q - mod]);\n    }\n    return _inv[n];\n  }\n  static mint fact(int\
-    \ n) {\n    static long long mod = mint::get_mod();\n    static vector<mint> _fact({1,\
-    \ 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      _fact = vector<mint>({1, 1});\n    }\n    while (_fact.size() <= n) {\n\
-    \      long long k = _fact.size();\n      _fact.push_back(_fact.back() * k);\n\
-    \    }\n    return _fact[n];\n  }\n  static mint fact_inv(int n) {\n    static\
-    \ long long mod = mint::get_mod();\n    static vector<mint> _fact_inv({1, 1});\n\
-    \    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      _fact_inv = vector<mint>({1, 1});\n    }\n    while (_fact_inv.size() <=\
-    \ n) {\n      long long k = _fact_inv.size();\n      _fact_inv.push_back(_fact_inv.back()\
+    \    _inv = vector<mint>({0, 1});\n    }\n    if (_inv.size() <= n) _inv.reserve(n\
+    \ + 1);\n    while (_inv.size() <= n) {\n      long long k = _inv.size(), q =\
+    \ (mod + k - 1) / k;\n      _inv.push_back(q * _inv[k * q - mod]);\n    }\n  \
+    \  return _inv[n];\n  }\n  static mint fact(int n) {\n    static long long mod\
+    \ = mint::get_mod();\n    static vector<mint> _fact({1, 1});\n    assert(n >=\
+    \ 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n     \
+    \ _fact = vector<mint>({1, 1});\n    }\n    if (_fact.size() <= n) _fact.reserve(n\
+    \ + 1);\n    while (_fact.size() <= n) {\n      long long k = _fact.size();\n\
+    \      _fact.push_back(_fact.back() * k);\n    }\n    return _fact[n];\n  }\n\
+    \  static mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n\
+    \    static vector<mint> _fact_inv({1, 1});\n    assert(n >= 0);\n    if (mod\
+    \ != mint::get_mod()) {\n      mod = mint::get_mod();\n      _fact_inv = vector<mint>({1,\
+    \ 1});\n    }\n    if (_fact_inv.size() <= n) _fact_inv.reserve(n + 1);\n    while\
+    \ (_fact_inv.size() <= n) {\n      long long k = _fact_inv.size();\n      _fact_inv.push_back(_fact_inv.back()\
     \ * inv(k));\n    }\n    return _fact_inv[n];\n  }\n  static mint binom(int n,\
     \ int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r)\
     \ * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int r) {\n    if (r\
@@ -212,8 +215,8 @@ data:
   isVerificationFile: true
   path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   requiredBy: []
-  timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-10-23 01:57:19+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
 layout: document

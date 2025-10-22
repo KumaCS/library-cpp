@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   _extendedRequiredBy: []
@@ -12,9 +12,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+    title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/fps/multipoint-evaluation.md
     document_title: Multipoint Evaluation
@@ -134,9 +137,10 @@ data:
   path: fps/multipoint-evaluation.hpp
   requiredBy: []
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
 documentation_of: fps/multipoint-evaluation.hpp
 layout: document
