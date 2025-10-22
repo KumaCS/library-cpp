@@ -6,10 +6,10 @@ using sbt = SternBrocotTreeNode<ll>;
 
 int main() {
   int t;
-  cin >> t;
+  in(t);
   while (t--) {
     string s;
-    cin >> s;
+    in(s);
     if (s == "ENCODE_PATH") {
       ll a, b;
       in(a, b);

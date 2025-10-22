@@ -2,6 +2,11 @@
 
 template <class mint>
 struct Factorial {
+  static void reserve(int n) {
+    inv(n);
+    fact(n);
+    fact_inv(n);
+  }
   static mint inv(int n) {
     static long long mod = mint::get_mod();
     static vector<mint> _inv({0, 1});
@@ -10,6 +15,7 @@ struct Factorial {
       mod = mint::get_mod();
       _inv = vector<mint>({0, 1});
     }
+    if (_inv.size() <= n) _inv.reserve(n + 1);
     while (_inv.size() <= n) {
       long long k = _inv.size(), q = (mod + k - 1) / k;
       _inv.push_back(q * _inv[k * q - mod]);
@@ -24,6 +30,7 @@ struct Factorial {
       mod = mint::get_mod();
       _fact = vector<mint>({1, 1});
     }
+    if (_fact.size() <= n) _fact.reserve(n + 1);
     while (_fact.size() <= n) {
       long long k = _fact.size();
       _fact.push_back(_fact.back() * k);
@@ -38,6 +45,7 @@ struct Factorial {
       mod = mint::get_mod();
       _fact_inv = vector<mint>({1, 1});
     }
+    if (_fact_inv.size() <= n) _fact_inv.reserve(n + 1);
     while (_fact_inv.size() <= n) {
       long long k = _fact_inv.size();
       _fact_inv.push_back(_fact_inv.back() * inv(k));

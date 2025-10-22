@@ -1,6 +1,6 @@
 #pragma once
 
-template <class T = unsigned int, class U = unsigned long long>
+template <class T = int, class U = unsigned long long>
 class IntegerSet {
  private:
   const static T B = 6, W = 64, MASK = W - 1;
@@ -24,11 +24,12 @@ class IntegerSet {
     while (n > 0);
     start = vector<T>(1, 0);
     start.reserve(len.size() + 1);
-    for (const auto v : len) start.push_back(start.back() + v);
+    for (auto v : len) start.push_back(start.back() + v);
     data = vector<U>(start.back());
   }
   IntegerSet(string s = "") {
-    T n = size = s.size();
+    size = s.size();
+    T n = size;
     vector<T> len;
     do len.push_back((n >>= B) + 1);
     while (n > 0);
@@ -58,11 +59,11 @@ class IntegerSet {
     }
   }
   bool contains(T x) const { return (data[x >> B] >> (x & MASK)) & 1; }
-  optional<T> min(T x) const {
+  T min(T x) const {
     T d = 0, i = x;
     while (true) {
-      if (d + 1 >= start.size()) return nullopt;
-      if ((i >> B) >= start[d + 1] - start[d]) return nullopt;
+      if (d + 1 >= start.size()) return -1;
+      if ((i >> B) >= start[d + 1] - start[d]) return -1;
       U m = data[start[d] + (i >> B)] & ((~U(0)) << (i & MASK));
       if (m == 0) {
         d++;
@@ -77,11 +78,11 @@ class IntegerSet {
     }
     return i;
   }
-  optional<T> max(T x) const {
+  T max(T x) const {
     T d = 0, i = x;
     while (true) {
-      if (i >= size) return nullopt;
-      if (d >= data.size()) return nullopt;
+      if (i < 0) return -1;
+      if (d >= data.size()) return -1;
       U m = data[start[d] + (i >> B)] & ~((~U(1)) << (i & MASK));
       if (m == 0) {
         d++;

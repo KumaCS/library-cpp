@@ -1,7 +1,5 @@
 #pragma once
 
-#include "template/template.hpp"
-
 struct UnionFind {
  private:
   vector<int> a;
@@ -39,7 +37,6 @@ struct UnionFind {
     return res;
   }
 };
-
 /**
  * @brief Union Find
  * @docs docs/union-find/union-find.md

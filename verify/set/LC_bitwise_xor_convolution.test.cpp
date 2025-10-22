@@ -7,9 +7,9 @@ using mint = ModInt<998244353>;
 
 int main() {
   int n;
-  cin >> n;
+  in(n);
   vector<mint> a(1 << n), b(1 << n);
-  cin >> a >> b;
+  in(a, b);
   auto c = XorConvolution(a, b);
-  cout << c << "\n";
+  out(c);
 }
