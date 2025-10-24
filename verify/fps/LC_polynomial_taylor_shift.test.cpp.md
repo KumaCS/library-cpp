@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/taylor-shift.hpp
     title: Taylor Shift
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   - icon: ':question:'
@@ -36,9 +36,9 @@ data:
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/polynomial_taylor_shift
@@ -312,39 +312,39 @@ data:
     \nusing fps = FormalPowerSeries<mint>;\n#line 2 \"modint/factorial.hpp\"\n\ntemplate\
     \ <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n    inv(n);\n\
     \    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long\
-    \ long mod = mint::get_mod();\n    static vector<mint> _inv({0, 1});\n    assert(n\
+    \ long mod = mint::get_mod();\n    static vector<mint> buf({0, 1});\n    assert(n\
     \ != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n  \
-    \    _inv = vector<mint>({0, 1});\n    }\n    if (_inv.size() <= n) _inv.reserve(n\
-    \ + 1);\n    while (_inv.size() <= n) {\n      long long k = _inv.size(), q =\
-    \ (mod + k - 1) / k;\n      _inv.push_back(q * _inv[k * q - mod]);\n    }\n  \
-    \  return _inv[n];\n  }\n  static mint fact(int n) {\n    static long long mod\
-    \ = mint::get_mod();\n    static vector<mint> _fact({1, 1});\n    assert(n >=\
-    \ 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n     \
-    \ _fact = vector<mint>({1, 1});\n    }\n    if (_fact.size() <= n) _fact.reserve(n\
-    \ + 1);\n    while (_fact.size() <= n) {\n      long long k = _fact.size();\n\
-    \      _fact.push_back(_fact.back() * k);\n    }\n    return _fact[n];\n  }\n\
-    \  static mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n\
-    \    static vector<mint> _fact_inv({1, 1});\n    assert(n >= 0);\n    if (mod\
-    \ != mint::get_mod()) {\n      mod = mint::get_mod();\n      _fact_inv = vector<mint>({1,\
-    \ 1});\n    }\n    if (_fact_inv.size() <= n) _fact_inv.reserve(n + 1);\n    while\
-    \ (_fact_inv.size() <= n) {\n      long long k = _fact_inv.size();\n      _fact_inv.push_back(_fact_inv.back()\
-    \ * inv(k));\n    }\n    return _fact_inv[n];\n  }\n  static mint binom(int n,\
-    \ int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r)\
-    \ * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int r) {\n    if (r\
-    \ < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i\
-    \ < r; i++) res *= n - i;\n    return res;\n  }\n  static mint multinom(const\
+    \    buf = vector<mint>({0, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n\
+    \ + 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size(), q\
+    \ = (mod + k - 1) / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n  \
+    \  return buf[n];\n  }\n  static mint fact(int n) {\n    static long long mod\
+    \ = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n\
+    \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
+    \ vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n +\
+    \ 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n \
+    \     buf.push_back(buf.back() * k);\n    }\n    return buf[n];\n  }\n  static\
+    \ mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n    static\
+    \ vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
+    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
+    \    if ((int)buf.size() <= n) {\n      inv(n);\n      buf.reserve(n + 1);\n \
+    \   }\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n \
+    \     buf.push_back(buf.back() * inv(k));\n    }\n    return buf[n];\n  }\n  static\
+    \ mint binom(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n)\
+    \ * fact_inv(r) * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int\
+    \ r) {\n    if (r < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n    for\
+    \ (int i = 0; i < r; i++) res *= n - i;\n    return res;\n  }\n  static mint multinom(const\
     \ vector<int>& r) {\n    int n = 0;\n    for (auto& x : r) {\n      if (x < 0)\
     \ return 0;\n      n += x;\n    }\n    mint res = fact(n);\n    for (auto& x :\
     \ r) res *= fact_inv(x);\n    return res;\n  }\n  static mint P(int n, int r)\
     \ {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(n - r);\n\
     \  }\n  // partition n items to r groups (allow empty group)\n  static mint H(int\
     \ n, int r) {\n    if (n < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n\
-    \ + r - 1, r);\n  }\n};  // namespace Factorial\n/**\n * @brief \u968E\u4E57,\
-    \ \u4E8C\u9805\u4FC2\u6570\n */\n#line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\n\
-    template <class mint>\nFormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint>\
-    \ f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n  int n = f.size();\n\
-    \  using fact = Factorial<mint>;\n  for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n\
-    \  reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n  for (int i = 1; i < n;\
+    \ + r - 1, r);\n  }\n};\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\
+    \n */\n#line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\n\
+    FormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using\
+    \ fps = FormalPowerSeries<mint>;\n  int n = f.size();\n  using fact = Factorial<mint>;\n\
+    \  fact::reserve(n);\n  for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n \
+    \ reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n  for (int i = 1; i < n;\
     \ i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f * g).pre(n);\n  reverse(f.begin(),\
     \ f.end());\n  for (int i = 0; i < n; i++) f[i] *= fact::fact_inv(i);\n  return\
     \ f;\n}\n/**\n * @brief Taylor Shift\n * @docs docs/fps/taylor-shift.md\n */\n\
@@ -372,8 +372,8 @@ data:
   isVerificationFile: true
   path: verify/fps/LC_polynomial_taylor_shift.test.cpp
   requiredBy: []
-  timestamp: '2025-10-23 01:57:19+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-10-24 10:50:32+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/LC_polynomial_taylor_shift.test.cpp
 layout: document

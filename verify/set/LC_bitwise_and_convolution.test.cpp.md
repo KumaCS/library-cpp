@@ -7,7 +7,7 @@ data:
   - icon: ':x:'
     path: set/and-convolution.hpp
     title: set/and-convolution.hpp
-  - icon: ':x:'
+  - icon: ':question:'
     path: set/zeta-mobius-transform.hpp
     title: set/zeta-mobius-transform.hpp
   - icon: ':question:'

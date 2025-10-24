@@ -75,28 +75,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/math/LC_stern_brocot_tree.test.cpp
     title: verify/math/LC_stern_brocot_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,18 +126,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
     title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_bitwise_and_convolution.or.test.cpp
     title: verify/set/LC_bitwise_and_convolution.or.test.cpp
   - icon: ':x:'
     path: verify/set/LC_bitwise_and_convolution.test.cpp
     title: verify/set/LC_bitwise_and_convolution.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_bitwise_xor_convolution.test.cpp
     title: verify/set/LC_bitwise_xor_convolution.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind.test.cpp
     title: verify/union-find/LC_unionfind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/union-find/LC_unionfind_with_potential.test.cpp
+    title: verify/union-find/LC_unionfind_with_potential.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
@@ -216,6 +219,7 @@ data:
   - verify/set/LC_bitwise_and_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.or.test.cpp
   - verify/union-find/LC_unionfind.test.cpp
+  - verify/union-find/LC_unionfind_with_potential.test.cpp
 documentation_of: template/util.hpp
 layout: document
 redirect_from:

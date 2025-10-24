@@ -4,10 +4,10 @@ data:
   - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: set/hadamard-transform.hpp
     title: set/hadamard-transform.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: set/xor-convolution.hpp
     title: set/xor-convolution.hpp
   - icon: ':question:'
@@ -27,9 +27,9 @@ data:
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/bitwise_xor_convolution
@@ -147,7 +147,7 @@ data:
   path: verify/set/LC_bitwise_xor_convolution.test.cpp
   requiredBy: []
   timestamp: '2025-10-23 01:57:19+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/set/LC_bitwise_xor_convolution.test.cpp
 layout: document

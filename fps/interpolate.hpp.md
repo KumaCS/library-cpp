@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: fps/sum-of-exp-poly.hpp
     title: $\sum_{i}r^i poly(i)$
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/fps/interpolate.md
     document_title: Interpolate
@@ -25,41 +25,41 @@ data:
   bundledCode: "#line 2 \"modint/factorial.hpp\"\n\ntemplate <class mint>\nstruct\
     \ Factorial {\n  static void reserve(int n) {\n    inv(n);\n    fact(n);\n   \
     \ fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long long mod = mint::get_mod();\n\
-    \    static vector<mint> _inv({0, 1});\n    assert(n != 0);\n    if (mod != mint::get_mod())\
-    \ {\n      mod = mint::get_mod();\n      _inv = vector<mint>({0, 1});\n    }\n\
-    \    if (_inv.size() <= n) _inv.reserve(n + 1);\n    while (_inv.size() <= n)\
-    \ {\n      long long k = _inv.size(), q = (mod + k - 1) / k;\n      _inv.push_back(q\
-    \ * _inv[k * q - mod]);\n    }\n    return _inv[n];\n  }\n  static mint fact(int\
-    \ n) {\n    static long long mod = mint::get_mod();\n    static vector<mint> _fact({1,\
+    \    static vector<mint> buf({0, 1});\n    assert(n != 0);\n    if (mod != mint::get_mod())\
+    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({0, 1});\n    }\n\
+    \    if ((int)buf.size() <= n) buf.reserve(n + 1);\n    while ((int)buf.size()\
+    \ <= n) {\n      long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q\
+    \ * buf[k * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int\
+    \ n) {\n    static long long mod = mint::get_mod();\n    static vector<mint> buf({1,\
     \ 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      _fact = vector<mint>({1, 1});\n    }\n    if (_fact.size() <= n) _fact.reserve(n\
-    \ + 1);\n    while (_fact.size() <= n) {\n      long long k = _fact.size();\n\
-    \      _fact.push_back(_fact.back() * k);\n    }\n    return _fact[n];\n  }\n\
-    \  static mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n\
-    \    static vector<mint> _fact_inv({1, 1});\n    assert(n >= 0);\n    if (mod\
-    \ != mint::get_mod()) {\n      mod = mint::get_mod();\n      _fact_inv = vector<mint>({1,\
-    \ 1});\n    }\n    if (_fact_inv.size() <= n) _fact_inv.reserve(n + 1);\n    while\
-    \ (_fact_inv.size() <= n) {\n      long long k = _fact_inv.size();\n      _fact_inv.push_back(_fact_inv.back()\
-    \ * inv(k));\n    }\n    return _fact_inv[n];\n  }\n  static mint binom(int n,\
-    \ int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r)\
-    \ * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int r) {\n    if (r\
-    \ < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i\
-    \ < r; i++) res *= n - i;\n    return res;\n  }\n  static mint multinom(const\
+    \      buf = vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n\
+    \ + 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n\
+    \      buf.push_back(buf.back() * k);\n    }\n    return buf[n];\n  }\n  static\
+    \ mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n    static\
+    \ vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
+    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
+    \    if ((int)buf.size() <= n) {\n      inv(n);\n      buf.reserve(n + 1);\n \
+    \   }\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n \
+    \     buf.push_back(buf.back() * inv(k));\n    }\n    return buf[n];\n  }\n  static\
+    \ mint binom(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n)\
+    \ * fact_inv(r) * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int\
+    \ r) {\n    if (r < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n    for\
+    \ (int i = 0; i < r; i++) res *= n - i;\n    return res;\n  }\n  static mint multinom(const\
     \ vector<int>& r) {\n    int n = 0;\n    for (auto& x : r) {\n      if (x < 0)\
     \ return 0;\n      n += x;\n    }\n    mint res = fact(n);\n    for (auto& x :\
     \ r) res *= fact_inv(x);\n    return res;\n  }\n  static mint P(int n, int r)\
     \ {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(n - r);\n\
     \  }\n  // partition n items to r groups (allow empty group)\n  static mint H(int\
     \ n, int r) {\n    if (n < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n\
-    \ + r - 1, r);\n  }\n};  // namespace Factorial\n/**\n * @brief \u968E\u4E57,\
-    \ \u4E8C\u9805\u4FC2\u6570\n */\n#line 3 \"fps/interpolate.hpp\"\n\n// f(0),f(1),...,f(n-1)\
-    \ -> f(x)\ntemplate <class mint>\nmint Interpolate(const vector<mint>& f, mint\
-    \ x) {\n  int n = f.size();\n  vector<mint> l(n, 1), r(n, 1);\n  for (int i =\
-    \ 0; i + 1 < n; i++) l[i + 1] = l[i] * (x - i);\n  for (int i = n - 1; i > 0;\
-    \ i--) r[i - 1] = r[i] * (x - i);\n  using fact = Factorial<mint>;\n  mint s =\
-    \ 0;\n  for (int i = 0; i < n; i++) {\n    mint v = f[i] * l[i] * r[i] * fact::fact_inv(i)\
-    \ * fact::fact_inv(n - 1 - i);\n    if ((n - i) & 1)\n      s += v;\n    else\n\
-    \      s -= v;\n  }\n  return s;\n}\n/**\n * @brief Interpolate\n * @docs docs/fps/interpolate.md\n\
+    \ + r - 1, r);\n  }\n};\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\
+    \n */\n#line 3 \"fps/interpolate.hpp\"\n\n// f(0),f(1),...,f(n-1) -> f(x)\ntemplate\
+    \ <class mint>\nmint Interpolate(const vector<mint>& f, mint x) {\n  int n = f.size();\n\
+    \  vector<mint> l(n, 1), r(n, 1);\n  for (int i = 0; i + 1 < n; i++) l[i + 1]\
+    \ = l[i] * (x - i);\n  for (int i = n - 1; i > 0; i--) r[i - 1] = r[i] * (x -\
+    \ i);\n  using fact = Factorial<mint>;\n  mint s = 0;\n  for (int i = 0; i < n;\
+    \ i++) {\n    mint v = f[i] * l[i] * r[i] * fact::fact_inv(i) * fact::fact_inv(n\
+    \ - 1 - i);\n    if ((n - i) & 1)\n      s += v;\n    else\n      s -= v;\n  }\n\
+    \  return s;\n}\n/**\n * @brief Interpolate\n * @docs docs/fps/interpolate.md\n\
     \ */\n"
   code: "#pragma once\n#include \"modint/factorial.hpp\"\n\n// f(0),f(1),...,f(n-1)\
     \ -> f(x)\ntemplate <class mint>\nmint Interpolate(const vector<mint>& f, mint\
@@ -76,8 +76,8 @@ data:
   path: fps/interpolate.hpp
   requiredBy:
   - fps/sum-of-exp-poly.hpp
-  timestamp: '2025-10-23 01:57:19+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2025-10-24 10:50:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp

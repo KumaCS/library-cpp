@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: set/zeta-mobius-transform.hpp
     title: set/zeta-mobius-transform.hpp
   _extendedRequiredBy: []
