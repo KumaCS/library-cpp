@@ -8,6 +8,7 @@ FormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint> f, mint a) {
   using fps = FormalPowerSeries<mint>;
   int n = f.size();
   using fact = Factorial<mint>;
+  fact::reserve(n);
   for (int i = 0; i < n; i++) f[i] *= fact::fact(i);
   reverse(f.begin(), f.end());
   fps g(n, mint(1));

@@ -9,48 +9,51 @@ struct Factorial {
   }
   static mint inv(int n) {
     static long long mod = mint::get_mod();
-    static vector<mint> _inv({0, 1});
+    static vector<mint> buf({0, 1});
     assert(n != 0);
     if (mod != mint::get_mod()) {
       mod = mint::get_mod();
-      _inv = vector<mint>({0, 1});
+      buf = vector<mint>({0, 1});
     }
-    if (_inv.size() <= n) _inv.reserve(n + 1);
-    while (_inv.size() <= n) {
-      long long k = _inv.size(), q = (mod + k - 1) / k;
-      _inv.push_back(q * _inv[k * q - mod]);
+    if ((int)buf.size() <= n) buf.reserve(n + 1);
+    while ((int)buf.size() <= n) {
+      long long k = buf.size(), q = (mod + k - 1) / k;
+      buf.push_back(q * buf[k * q - mod]);
     }
-    return _inv[n];
+    return buf[n];
   }
   static mint fact(int n) {
     static long long mod = mint::get_mod();
-    static vector<mint> _fact({1, 1});
+    static vector<mint> buf({1, 1});
     assert(n >= 0);
     if (mod != mint::get_mod()) {
       mod = mint::get_mod();
-      _fact = vector<mint>({1, 1});
+      buf = vector<mint>({1, 1});
     }
-    if (_fact.size() <= n) _fact.reserve(n + 1);
-    while (_fact.size() <= n) {
-      long long k = _fact.size();
-      _fact.push_back(_fact.back() * k);
+    if ((int)buf.size() <= n) buf.reserve(n + 1);
+    while ((int)buf.size() <= n) {
+      long long k = buf.size();
+      buf.push_back(buf.back() * k);
     }
-    return _fact[n];
+    return buf[n];
   }
   static mint fact_inv(int n) {
     static long long mod = mint::get_mod();
-    static vector<mint> _fact_inv({1, 1});
+    static vector<mint> buf({1, 1});
     assert(n >= 0);
     if (mod != mint::get_mod()) {
       mod = mint::get_mod();
-      _fact_inv = vector<mint>({1, 1});
+      buf = vector<mint>({1, 1});
     }
-    if (_fact_inv.size() <= n) _fact_inv.reserve(n + 1);
-    while (_fact_inv.size() <= n) {
-      long long k = _fact_inv.size();
-      _fact_inv.push_back(_fact_inv.back() * inv(k));
+    if ((int)buf.size() <= n) {
+      inv(n);
+      buf.reserve(n + 1);
     }
-    return _fact_inv[n];
+    while ((int)buf.size() <= n) {
+      long long k = buf.size();
+      buf.push_back(buf.back() * inv(k));
+    }
+    return buf[n];
   }
   static mint binom(int n, int r) {
     if (r < 0 || r > n) return 0;
@@ -81,7 +84,7 @@ struct Factorial {
     if (n < 0 || r < 0) return 0;
     return r == 0 ? 1 : binom(n + r - 1, r);
   }
-};  // namespace Factorial
+};
 /**
  * @brief 階乗, 二項係数
  */
