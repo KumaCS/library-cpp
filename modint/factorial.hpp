@@ -15,7 +15,7 @@ struct Factorial {
       mod = mint::get_mod();
       buf = vector<mint>({0, 1});
     }
-    if ((int)buf.size() <= n) buf.reserve(n + 1);
+    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);
     while ((int)buf.size() <= n) {
       long long k = buf.size(), q = (mod + k - 1) / k;
       buf.push_back(q * buf[k * q - mod]);
@@ -30,7 +30,7 @@ struct Factorial {
       mod = mint::get_mod();
       buf = vector<mint>({1, 1});
     }
-    if ((int)buf.size() <= n) buf.reserve(n + 1);
+    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);
     while ((int)buf.size() <= n) {
       long long k = buf.size();
       buf.push_back(buf.back() * k);
@@ -45,10 +45,8 @@ struct Factorial {
       mod = mint::get_mod();
       buf = vector<mint>({1, 1});
     }
-    if ((int)buf.size() <= n) {
-      inv(n);
-      buf.reserve(n + 1);
-    }
+    if ((int)buf.size() <= n) inv(n);
+    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);
     while ((int)buf.size() <= n) {
       long long k = buf.size();
       buf.push_back(buf.back() * inv(k));

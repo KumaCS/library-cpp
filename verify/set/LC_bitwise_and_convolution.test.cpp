@@ -12,5 +12,4 @@ int main() {
   in(a, b);
   auto c = AndConvolution(a, b);
   out(c);
-  cout << c << "\n";
 }
