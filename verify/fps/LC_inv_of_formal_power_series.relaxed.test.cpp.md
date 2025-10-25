@@ -4,24 +4,24 @@ data:
   - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':heavy_check_mark:'
-    path: fps/berlekamp-massey.hpp
-    title: Berlekamp-Massey
-  - icon: ':heavy_check_mark:'
-    path: fps/bostan-mori.hpp
-    title: Bostan-Mori
   - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':heavy_check_mark:'
-    path: fps/inverse-shift.hpp
-    title: "Inverse \u306E\u6B21\u6570\u30B7\u30D5\u30C8"
-  - icon: ':heavy_check_mark:'
-    path: fps/linearly-recurrent-sequence.hpp
-    title: "\u7DDA\u5F62\u6F38\u5316\u5F0F\u7528"
+  - icon: ':question:'
+    path: fps/relaxed.hpp
+    title: "Relaxed \u7573\u307F\u8FBC\u307F"
+  - icon: ':question:'
+    path: modint/factorial.hpp
+    title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
+  - icon: ':question:'
+    path: modint/mod-pow.hpp
+    title: modint/mod-pow.hpp
+  - icon: ':question:'
+    path: modint/mod-sqrt.hpp
+    title: modint/mod-sqrt.hpp
   - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
@@ -47,11 +47,11 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence
+    PROBLEM: https://judge.yosupo.jp/problem/inv_of_formal_power_series
     links:
-    - https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence
-  bundledCode: "#line 1 \"verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp\"\
-    \n#define PROBLEM \"https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence\"\
+    - https://judge.yosupo.jp/problem/inv_of_formal_power_series
+  bundledCode: "#line 1 \"verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp\"\
+    \n#define PROBLEM \"https://judge.yosupo.jp/problem/inv_of_formal_power_series\"\
     \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
     \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
@@ -130,10 +130,10 @@ data:
     \ &operator>>(istream &is, mint &x) {\n    return is >> x._v;\n  }\n  friend ostream\
     \ &operator<<(ostream &os, const mint &x) {\n    return os << x.val();\n  }\n\n\
     \ private:\n  static constexpr unsigned int umod() { return m; }\n};\n#line 5\
-    \ \"verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp\"\n\
-    using mint = ModInt<998244353>;\n#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line\
-    \ 2 \"fft/ntt.hpp\"\n\ntemplate <class mint>\nstruct NTT {\n  static constexpr\
-    \ unsigned int mod = mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
+    \ \"verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp\"\nusing mint =\
+    \ ModInt<998244353>;\n#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\
+    \n\ntemplate <class mint>\nstruct NTT {\n  static constexpr unsigned int mod =\
+    \ mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
     \ long long x, unsigned long long n, unsigned long long m) {\n    unsigned long\
     \ long y = 1;\n    while (n) {\n      if (n & 1) y = y * x % m;\n      x = x *\
     \ x % m;\n      n >>= 1;\n    }\n    return y;\n  }\n  static constexpr unsigned\
@@ -316,102 +316,122 @@ data:
     \ FormalPowerSeries<mint>::exp(int deg) const {\n  assert((*this)[0] == mint(0));\n\
     \  if (deg == -1) deg = (*this).size();\n  FPS ret{mint(1)};\n  for (int i = 1;\
     \ i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i << 1) - ret.log(i << 1) +\
-    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp\"\
-    \nusing fps = FormalPowerSeries<mint>;\n#line 1 \"fps/linearly-recurrent-sequence.hpp\"\
-    \n#pragma\n#line 3 \"fps/berlekamp-massey.hpp\"\n\ntemplate <class mint>\nFormalPowerSeries<mint>\
-    \ BerlekampMassey(const FormalPowerSeries<mint>& a) {\n  int n = a.size();\n \
-    \ FormalPowerSeries<mint> b, c;\n  b.reserve(n + 1), c.reserve(n + 1);\n  b.push_back(1),\
-    \ c.push_back(1);\n  mint y = 1;\n  for (int k = 0; k < n; k++) {\n    mint x\
-    \ = 0;\n    for (int i = 0; i < c.size(); i++) x += c[i] * a[k - i];\n    b.insert(b.begin(),\
-    \ 0);\n    if (x == 0) continue;\n    mint v = x / y;\n    if (b.size() > c.size())\
-    \ {\n      for (int i = 0; i < b.size(); i++) b[i] *= -v;\n      for (int i =\
-    \ 0; i < c.size(); i++) b[i] += c[i];\n      swap(b, c);\n      y = x;\n    }\
-    \ else {\n      for (int i = 0; i < b.size(); i++) c[i] -= v * b[i];\n    }\n\
-    \  }\n  return c;\n}\n\n/**\n * @brief Berlekamp-Massey\n * @docs docs/fps/berlekamp-massey.md\n\
-    \ */\n#line 3 \"fps/bostan-mori.hpp\"\n\n// [x^n]f(x)/g(x)\ntemplate <class mint>\n\
-    mint BostanMori(FormalPowerSeries<mint> f, FormalPowerSeries<mint> g, long long\
-    \ n) {\n  g.shrink();\n  mint ret = 0;\n  if (f.size() >= g.size()) {\n    auto\
-    \ q = f / g;\n    if (n < q.size()) ret += q[n];\n    f -= q * g;\n    f.shrink();\n\
-    \  }\n  if (f.empty()) return ret;\n  FormalPowerSeries<mint>::set_ntt();\n  if\
-    \ (!FormalPowerSeries<mint>::ntt_ptr) {\n    f.resize(g.size() - 1);\n    for\
-    \ (; n > 0; n >>= 1) {\n      auto g1 = g;\n      for (int i = 1; i < g1.size();\
-    \ i += 2) g1[i] = -g1[i];\n      auto p = f * g1, q = g * g1;\n      if (n & 1)\
-    \ {\n        for (int i = 0; i < f.size(); i++) f[i] = p[(i << 1) | 1];\n    \
-    \  } else {\n        for (int i = 0; i < f.size(); i++) f[i] = p[i << 1];\n  \
-    \    }\n      for (int i = 0; i < g.size(); i++) g[i] = q[i << 1];\n    }\n  \
-    \  return ret + f[0] / g[0];\n  } else {\n    int m = 1, log = 0;\n    while (m\
-    \ < g.size()) m <<= 1, log++;\n    mint wi = mint(FormalPowerSeries<mint>::ntt_root()).inv().pow((mint::get_mod()\
-    \ - 1) >> (log + 1));\n    vector<int> rev(m);\n    for (int i = 0; i < rev.size();\
-    \ i++) rev[i] = (rev[i / 2] / 2) | ((i & 1) << (log - 1));\n    vector<mint> pow(m,\
-    \ 1);\n    for (int i = 1; i < m; i++) pow[rev[i]] = pow[rev[i - 1]] * wi;\n \
-    \   f.resize(m), g.resize(m);\n    f.ntt(), g.ntt();\n    mint inv2 = mint(2).inv();\n\
-    \    for (; n >= m; n >>= 1) {\n      f.ntt_doubling(), g.ntt_doubling();\n  \
-    \    if (n & 1) {\n        for (int i = 0; i < m; i++) f[i] = (f[i << 1] * g[(i\
-    \ << 1) | 1] - f[(i << 1) | 1] * g[i << 1]) * inv2 * pow[i];\n      } else {\n\
-    \        for (int i = 0; i < m; i++) f[i] = (f[i << 1] * g[(i << 1) | 1] + f[(i\
-    \ << 1) | 1] * g[i << 1]) * inv2;\n      }\n      for (int i = 0; i < m; i++)\
-    \ g[i] = g[i << 1] * g[(i << 1) | 1];\n      f.resize(m), g.resize(m);\n    }\n\
-    \    f.intt(), g.intt();\n    return ret + (f * g.inv())[n];\n  }\n}\n/**\n *\
-    \ @brief Bostan-Mori\n * @docs docs/fps/bostan-mori.md\n */\n#line 3 \"fps/inverse-shift.hpp\"\
-    \n\n// [x^n,...,x^{n+k-1}]1/f(x)\ntemplate <class mint>\nFormalPowerSeries<mint>\
-    \ InverseShift(FormalPowerSeries<mint> f, long long n, int k = -1) {\n  using\
-    \ fps = FormalPowerSeries<mint>;\n  assert(f[0] != 0);\n  if (k == -1) k = f.size();\n\
-    \  int m = 1;\n  while (m < k) m <<= 1;\n\n  int log = __builtin_ctz((unsigned\
-    \ int)m);\n  mint w = mint(fps::ntt_root()).pow((mint::get_mod() - 1) >> (log\
-    \ + 1));\n  mint wi = w.inv();\n  vector<int> rev(m);\n  for (int i = 0; i < rev.size();\
-    \ i++) rev[i] = (rev[i / 2] / 2) | ((i & 1) << (log - 1));\n  mint inv2 = mint(2).inv();\n\
-    \n  f.resize(m);\n  f.ntt();\n  auto rec = [&](auto& rec, long long n) -> void\
-    \ {\n    if (n < m) {\n      f.intt();\n      f = f.inv(n + m);\n      f >>= n;\n\
-    \      f.ntt();\n      return;\n    }\n    f.ntt_doubling();\n    assert(f.size()\
-    \ == 2 * m);\n    auto f1 = f;\n    for (int i = 0; i < m; i++) swap(f1[i << 1],\
-    \ f1[(i << 1) | 1]);\n    for (int i = 0; i < m; i++) f[i] = f[i << 1] * f[(i\
-    \ << 1) | 1];\n    f.resize(m);\n    rec(rec, (n - m + 1) / 2);\n    if (((n -\
-    \ m) & 1) == 0) {\n      f.resize(2 * m);\n      for (int i = m - 1; i >= 0; i--)\
-    \ {\n        f[(i << 1) | 1] = f[i];\n        f[i << 1] = f[i];\n      }\n   \
-    \ } else {\n      mint p = 1;\n      for (auto i : rev) f[i] *= p, p *= w;\n \
-    \     f.resize(2 * m);\n      for (int i = m - 1; i >= 0; i--) {\n        f[(i\
-    \ << 1) | 1] = -f[i];\n        f[i << 1] = f[i];\n      }\n    }\n    for (int\
-    \ i = 0; i < 2 * m; i++) f[i] *= f1[i];\n    auto odd = fps(f.begin() + m, f.end());\n\
-    \    odd.intt();\n    mint p = 1;\n    for (int i = 0; i < m; i++) odd[i] *= p,\
-    \ p *= wi;\n    odd.ntt();\n    f.resize(m);\n    for (int i = 0; i < m; i++)\
-    \ f[i] = (f[i] - odd[i]) * inv2;\n  };\n  rec(rec, n);\n  f.intt();\n  f.resize(k);\n\
-    \  return f;\n}\n/**\n * @brief Inverse \u306E\u6B21\u6570\u30B7\u30D5\u30C8\n\
-    \ * @docs docs/fps/inverse-shift.md\n */\n#line 6 \"fps/linearly-recurrent-sequence.hpp\"\
-    \n\n// a[i]=sum[j=1~d]c[j]a[i-j], i>=d\n// find a[n]\ntemplate <class mint>\n\
-    mint LinearyRecurrentSequence(FormalPowerSeries<mint> a, FormalPowerSeries<mint>\
-    \ c, long long n) {\n  assert(a.size() == c.size());\n  if (n < a.size()) return\
-    \ a[n];\n  while (!c.empty() && c.back() == 0) c.pop_back();\n  if (c.size() <\
-    \ a.size()) {\n    int z = a.size() - c.size();\n    n -= z;\n    a.erase(a.begin(),\
-    \ a.begin() + z);\n  }\n  int d = c.size();\n  FormalPowerSeries<mint> q(d + 1);\n\
-    \  q[0] = 1;\n  for (int i = 0; i < d; i++) q[i + 1] = -c[i];\n  auto p = (a *\
-    \ q).pre(d);\n  return BostanMori(p, q, n);\n}\n\n// a[i]=sum[j=1~d]c[j]a[i-j],\
-    \ i>=d\n// find a[n],a[n+1],...,a[n+k-1]\ntemplate <class mint>\nFormalPowerSeries<mint>\
-    \ LinearyRecurrentSequence(FormalPowerSeries<mint> a, FormalPowerSeries<mint>\
-    \ c, long long n, int k) {\n  assert(a.size() == c.size());\n  if (n + k < a.size())\
-    \ {\n    a >>= (int)n;\n    return a.pre(k);\n  }\n  while (!c.empty() && c.back()\
-    \ == 0) c.pop_back();\n  int d = c.size();\n  FormalPowerSeries<mint> ret{};\n\
-    \  if (c.size() < a.size()) {\n    int z = a.size() - c.size();\n    if (n < z)\
-    \ {\n      ret.reserve(k);\n      for (int i = n; i < z; i++) ret.push_back(a[i]);\n\
-    \    }\n    n -= z;\n    if (n < 0) {\n      k += n;\n      n = 0;\n    }\n  \
-    \  a >>= z;\n  }\n  FormalPowerSeries<mint> q(d + 1);\n  q[0] = 1;\n  for (int\
-    \ i = 0; i < d; i++) q[i + 1] = -c[i];\n  auto p = (a * q).pre(d);\n  if (n <\
-    \ a.size()) {\n    p *= q.inv(n + k);\n    p >>= n;\n  } else {\n    p *= (InverseShift(q,\
-    \ n) * q).pre(d);\n    p %= q;\n    p *= q.inv(k);\n  }\n  p.resize(k);\n  if\
-    \ (ret.empty()) {\n    return p;\n  } else {\n    for (auto v : p) ret.push_back(v);\n\
-    \    return ret;\n  }\n}\n\ntemplate <class mint>\nmint LinearyRecurrentSequence(FormalPowerSeries<mint>\
-    \ a, long long n) {\n  if (n < a.size()) return a[n];\n  auto b = BerlekampMassey(a);\n\
-    \  int d = b.size() - 1;\n  a.resize(d);\n  int z = 0;\n  while (b.back() == 0)\
-    \ b.pop_back(), z++;\n  a >>= z;\n  n -= z;\n  d -= z;\n  return BostanMori((a\
-    \ * b).pre(b.size()), b, n);\n}\n\n/**\n * @brief \u7DDA\u5F62\u6F38\u5316\u5F0F\
-    \u7528\n * @docs docs/fps/linearly-recurrent-sequence.md\n */\n#line 9 \"verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp\"\
-    \n\nint main() {\n  int d, m;\n  ll k;\n  in(d, k, m);\n  fps a(d), c(d);\n  in(a,\
-    \ c);\n  out(LinearyRecurrentSequence(a, c, k, m));\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence\"\
+    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp\"\
+    \nusing fps = FormalPowerSeries<mint>;\n#line 2 \"modint/factorial.hpp\"\n\ntemplate\
+    \ <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n    inv(n);\n\
+    \    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long\
+    \ long mod = mint::get_mod();\n    static vector<mint> buf({0, 1});\n    assert(n\
+    \ != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n  \
+    \    buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
+    \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
+    \ long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q * buf[k\
+    \ * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int n) {\n\
+    \    static long long mod = mint::get_mod();\n    static vector<mint> buf({1,\
+    \ 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
+    \      buf = vector<mint>({1, 1});\n    }\n    while ((int)buf.capacity() <= n)\
+    \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
+    \ long long k = buf.size();\n      buf.push_back(buf.back() * k);\n    }\n   \
+    \ return buf[n];\n  }\n  static mint fact_inv(int n) {\n    static long long mod\
+    \ = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n\
+    \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
+    \ vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) inv(n);\n    while\
+    \ ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size()\
+    \ <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back() * inv(k));\n\
+    \    }\n    return buf[n];\n  }\n  static mint binom(int n, int r) {\n    if (r\
+    \ < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r) * fact_inv(n - r);\n\
+    \  }\n  static mint binom_naive(int n, int r) {\n    if (r < 0 || r > n) return\
+    \ 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i < r; i++) res *= n -\
+    \ i;\n    return res;\n  }\n  static mint multinom(const vector<int>& r) {\n \
+    \   int n = 0;\n    for (auto& x : r) {\n      if (x < 0) return 0;\n      n +=\
+    \ x;\n    }\n    mint res = fact(n);\n    for (auto& x : r) res *= fact_inv(x);\n\
+    \    return res;\n  }\n  static mint P(int n, int r) {\n    if (r < 0 || r > n)\
+    \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
+    \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
+    \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
+    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"modint/mod-sqrt.hpp\"\
+    \n\n#line 2 \"modint/mod-pow.hpp\"\n\nunsigned int ModPow(unsigned int a, unsigned\
+    \ long long n, unsigned int m) {\n  unsigned long long x = a, y = 1;\n  while\
+    \ (n) {\n    if (n & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n\
+    \  return y;\n}\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long long\
+    \ a, long long p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n  if\
+    \ (a == 0) return 0;\n  if (ModPow(a, (p - 1) / 2, p) != 1) return -1;\n  if (p\
+    \ % 4 == 3) return ModPow(a, (3 * p - 1) / 4, p);\n  unsigned int z = 2, q = p\
+    \ - 1;\n  while (ModPow(z, (p - 1) / 2, p) == 1) z++;\n  int s = 0;\n  while (!(q\
+    \ & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n  unsigned int c = ModPow(z,\
+    \ q, p);\n  unsigned int t = ModPow(a, q, p);\n  unsigned int r = ModPow(a, (q\
+    \ + 1) / 2, p);\n  while (true) {\n    if (t == 1) return r;\n    unsigned int\
+    \ pow = t;\n    int j = 1;\n    for (; j < m; j++) {\n      pow = 1ll * pow *\
+    \ pow % p;\n      if (pow == 1) break;\n    }\n    unsigned int b = c;\n    for\
+    \ (int i = 0; i < m - j - 1; i++) b = 1ll * b * b % p;\n    m = j;\n    c = 1ll\
+    \ * b * b % p;\n    t = 1ll * t * c % p;\n    r = 1ll * r * b % p;\n  }\n}\n#line\
+    \ 5 \"fps/relaxed.hpp\"\n\ntemplate <class mint>\nclass RelaxedMultiply {\n  const\
+    \ int B = 6;\n  using fps = FormalPowerSeries<mint>;\n  int n;\n  fps f, g, h;\n\
+    \  vector<fps> f0, g0;\n\n public:\n  RelaxedMultiply() : n(0), f(1), g(1), f0(B),\
+    \ g0(B) {}\n  mint append(mint a, mint b) {\n    f[n] = a, g[n] = b;\n    n++;\n\
+    \    int m = n & -n;\n    int l = __builtin_ctz((unsigned int)m);\n    if (n ==\
+    \ m) {\n      f.resize(2 * m);\n      g.resize(2 * m);\n      h.resize(2 * m);\n\
+    \      if (l < B) {\n        for (int i = 0; i < m; i++)\n          for (int j\
+    \ = m - 1 - i; j < m; j++)\n            h[i + j] += f[i] * g[j];\n      } else\
+    \ {\n        auto f1 = f;\n        f1.ntt();\n        f0.push_back(fps(f1.begin(),\
+    \ f1.begin() + m));\n        auto g1 = g;\n        g1.ntt();\n        g0.push_back(fps(g1.begin(),\
+    \ g1.begin() + m));\n        for (int i = 0; i < 2 * m; i++) f1[i] *= g1[i];\n\
+    \        f1.intt();\n        for (int i = m - 1; i < 2 * m - 1; i++) h[i] += f1[i];\n\
+    \      }\n    } else {\n      if (l < B) {\n        int s = n - m;\n        for\
+    \ (int i = 0; i < m; i++) {\n          int t = m - 1 - i;\n          for (int\
+    \ j = 0; j < m; j++)\n            h[n - 1 + j] += f[s + i] * g[t + j] + g[s +\
+    \ i] * f[t + j];\n        }\n      } else {\n        fps f1(2 * m), g1(2 * m),\
+    \ h1(2 * m);\n        copy(f.begin() + (n - m), f.begin() + n, f1.begin());\n\
+    \        copy(g.begin() + (n - m), g.begin() + n, g1.begin());\n        f1.ntt(),\
+    \ g1.ntt();\n        for (int i = 0; i < 2 * m; i++) h1[i] += f1[i] * g0[l + 1][i]\
+    \ + f0[l + 1][i] * g1[i];\n        h1.intt();\n        for (int i = m - 1; i <\
+    \ 2 * m - 1; i++) h[n - m + i] += h1[i];\n      }\n    }\n    return h[n - 1];\n\
+    \  }\n};\n\ntemplate <class mint>\nclass SemiRelaxedMultiply {\n  const int B\
+    \ = 6;\n  using fps = FormalPowerSeries<mint>;\n  int n, m0;\n  fps f, g, h;\n\
+    \  vector<fps> g0;\n\n public:\n  SemiRelaxedMultiply(const fps& g_) : n(0), m0(1\
+    \ << B), f(1), g(g_) {\n    while (m0 < g.size()) m0 <<= 1;\n    g.resize(m0);\n\
+    \    for (int k = 1; k <= m0; k <<= 1) {\n      fps g1(2 * k);\n      copy(g.begin(),\
+    \ g.begin() + min(2 * k, m0), g1.begin());\n      g1.ntt();\n      g0.push_back(g1);\n\
+    \    }\n  }\n  mint append(mint a) {\n    f[n] = a;\n    n++;\n    int m = n &\
+    \ -n;\n    int l = __builtin_ctz((unsigned int)m);\n    if (n == m) {\n      f.resize(2\
+    \ * m);\n      h.resize(2 * m);\n    }\n    while (l >= g0.size()) {\n      g0.push_back(g0.back());\n\
+    \      g0.back().ntt_doubling();\n    }\n    if (l < B) {\n      int s = n - m;\n\
+    \      for (int i = 0; i < m; i++) {\n        int t = m - 1 - i;\n        for\
+    \ (int j = 0; j < m; j++)\n          h[n - 1 + j] += f[s + i] * g[t + j];\n  \
+    \    }\n    } else {\n      fps f1(2 * m);\n      copy(f.begin() + (n - m), f.begin()\
+    \ + n, f1.begin());\n      f1.ntt();\n      for (int i = 0; i < 2 * m; i++) f1[i]\
+    \ *= g0[l][i];\n      f1.intt();\n      for (int i = m - 1; i < 2 * m - 1; i++)\
+    \ h[n - m + i] += f1[i];\n    }\n    return h[n - 1];\n  }\n};\n\n// f(x)/g(x)\n\
+    template <class mint>\nclass RelaxedDivide {\n  RelaxedMultiply<mint> mul;\n \
+    \ int n;\n  mint c, v;\n\n public:\n  RelaxedDivide() : n(0) {}\n  mint append(mint\
+    \ a, mint b) { return v = n++ == 0 ? a * (c = b.inv()) : (a - mul.append(v, b))\
+    \ * c; }\n};\n\ntemplate <class mint>\nclass RelaxedInv {\n  RelaxedMultiply<mint>\
+    \ mul;\n  int n;\n  mint c, v;\n\n public:\n  RelaxedInv() : n(0) {}\n  mint append(mint\
+    \ a) { return v = n++ == 0 ? (c = a.inv()) : -mul.append(v, a) * c; }\n};\n\n\
+    template <class mint>\nclass RelaxedExp {\n  using fact = Factorial<mint>;\n \
+    \ RelaxedMultiply<mint> mul;\n  int n;\n  mint v;\n\n public:\n  RelaxedExp()\
+    \ : n(0) {}\n  mint append(mint a) {\n    if (n++ == 0) {\n      assert(a == 0);\n\
+    \      v = 1;\n    } else {\n      v = mul.append((n - 1) * a, v) * fact::inv(n\
+    \ - 1);\n    }\n    return v;\n  }\n};\n\ntemplate <class mint>\nclass RelaxedLog\
+    \ {\n  using fact = Factorial<mint>;\n  RelaxedMultiply<mint> mul;\n  int n;\n\
+    \  mint a0, v;\n\n public:\n  RelaxedLog() : n(0) {}\n  mint append(mint a) {\n\
+    \    if (n == 0) {\n      assert(a == 1);\n      n++;\n      return 0;\n    }\
+    \ else if (n == 1) {\n      a0 = a, n++;\n      return v = a;\n    } else {\n\
+    \      v = n * a - mul.append(v, a0);\n      a0 = a;\n      return v * fact::inv(n++);\n\
+    \    }\n  }\n};\n\ntemplate <class mint>\nclass RelaxedSqrt {\n  RelaxedMultiply<mint>\
+    \ mul;\n  int n;\n  mint c, v;\n\n public:\n  RelaxedSqrt() : n(0) {}\n  mint\
+    \ append(mint a) {\n    if (n == 0) {\n      long long sq = ModSqrt(a.val(), mint::get_mod());\n\
+    \      assert(sq != -1 && sq != 0);\n      c = mint(2 * sq).inv();\n      n++;\n\
+    \      return sq;\n    } else {\n      return v = (n++ == 1 ? a : a - mul.append(v,\
+    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \u7573\u307F\u8FBC\u307F\n\
+    \ * @docs docs/fps/relaxed.md\n */\n#line 9 \"verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp\"\
+    \n\nint main() {\n  int n;\n  in(n);\n  fps a(n);\n  in(a);\n  RelaxedInv<mint>\
+    \ inv;\n  fps b(n);\n  rep(i, 0, n) b[i] = inv.append(a[i]);\n  out(b);\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/inv_of_formal_power_series\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"fps/fps-ntt-friendly.hpp\"\nusing fps\
-    \ = FormalPowerSeries<mint>;\n#include \"fps/linearly-recurrent-sequence.hpp\"\
-    \n\nint main() {\n  int d, m;\n  ll k;\n  in(d, k, m);\n  fps a(d), c(d);\n  in(a,\
-    \ c);\n  out(LinearyRecurrentSequence(a, c, k, m));\n}"
+    \ = FormalPowerSeries<mint>;\n#include \"fps/relaxed.hpp\"\n\nint main() {\n \
+    \ int n;\n  in(n);\n  fps a(n);\n  in(a);\n  RelaxedInv<mint> inv;\n  fps b(n);\n\
+    \  rep(i, 0, n) b[i] = inv.append(a[i]);\n  out(b);\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -422,20 +442,20 @@ data:
   - fps/fps-ntt-friendly.hpp
   - fft/ntt.hpp
   - fps/formal-power-series.hpp
-  - fps/linearly-recurrent-sequence.hpp
-  - fps/berlekamp-massey.hpp
-  - fps/bostan-mori.hpp
-  - fps/inverse-shift.hpp
+  - fps/relaxed.hpp
+  - modint/factorial.hpp
+  - modint/mod-sqrt.hpp
+  - modint/mod-pow.hpp
   isVerificationFile: true
-  path: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  path: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   requiredBy: []
-  timestamp: '2025-10-21 21:13:36+09:00'
+  timestamp: '2025-10-25 18:30:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+documentation_of: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
-- /verify/verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp.html
-title: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+- /verify/verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+- /verify/verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp.html
+title: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
 ---

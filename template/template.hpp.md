@@ -61,17 +61,32 @@ data:
     path: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
     title: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_convolution_mod.relaxed.test.cpp
+    title: verify/fps/LC_convolution_mod.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+    title: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_exp_of_formal_power_series.test.cpp
     title: verify/fps/LC_exp_of_formal_power_series.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_find_linear_recurrence.test.cpp
     title: verify/fps/LC_find_linear_recurrence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_inv_of_formal_power_series.test.cpp
     title: verify/fps/LC_inv_of_formal_power_series.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
     title: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.test.cpp
@@ -93,6 +108,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
@@ -138,7 +156,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_bitwise_and_convolution.or.test.cpp
     title: verify/set/LC_bitwise_and_convolution.or.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_bitwise_and_convolution.test.cpp
     title: verify/set/LC_bitwise_and_convolution.test.cpp
   - icon: ':heavy_check_mark:'
@@ -236,10 +254,15 @@ data:
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_log_of_formal_power_series.test.cpp
+  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
@@ -248,6 +271,7 @@ data:
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
   - verify/fps/LC_pow_of_formal_power_series.test.cpp

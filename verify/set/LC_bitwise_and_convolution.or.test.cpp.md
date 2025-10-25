@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: set/or-convolution.hpp
     title: set/or-convolution.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: set/zeta-mobius-transform.hpp
     title: set/zeta-mobius-transform.hpp
   - icon: ':question:'

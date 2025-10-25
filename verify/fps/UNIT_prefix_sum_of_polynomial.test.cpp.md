@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   - icon: ':heavy_check_mark:'
@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/prefix-sum-of-polynomial.hpp
     title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   - icon: ':question:'
@@ -351,41 +351,42 @@ data:
     \    inv(n);\n    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n\
     \    static long long mod = mint::get_mod();\n    static vector<mint> buf({0,\
     \ 1});\n    assert(n != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      buf = vector<mint>({0, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n\
-    \ + 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size(), q\
-    \ = (mod + k - 1) / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n  \
-    \  return buf[n];\n  }\n  static mint fact(int n) {\n    static long long mod\
+    \      buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
+    \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
+    \ long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q * buf[k\
+    \ * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int n) {\n\
+    \    static long long mod = mint::get_mod();\n    static vector<mint> buf({1,\
+    \ 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
+    \      buf = vector<mint>({1, 1});\n    }\n    while ((int)buf.capacity() <= n)\
+    \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
+    \ long long k = buf.size();\n      buf.push_back(buf.back() * k);\n    }\n   \
+    \ return buf[n];\n  }\n  static mint fact_inv(int n) {\n    static long long mod\
     \ = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n\
     \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
-    \ vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n +\
-    \ 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n \
-    \     buf.push_back(buf.back() * k);\n    }\n    return buf[n];\n  }\n  static\
-    \ mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n    static\
-    \ vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
-    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
-    \    if ((int)buf.size() <= n) {\n      inv(n);\n      buf.reserve(n + 1);\n \
-    \   }\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n \
-    \     buf.push_back(buf.back() * inv(k));\n    }\n    return buf[n];\n  }\n  static\
-    \ mint binom(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n)\
-    \ * fact_inv(r) * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int\
-    \ r) {\n    if (r < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n    for\
-    \ (int i = 0; i < r; i++) res *= n - i;\n    return res;\n  }\n  static mint multinom(const\
-    \ vector<int>& r) {\n    int n = 0;\n    for (auto& x : r) {\n      if (x < 0)\
-    \ return 0;\n      n += x;\n    }\n    mint res = fact(n);\n    for (auto& x :\
-    \ r) res *= fact_inv(x);\n    return res;\n  }\n  static mint P(int n, int r)\
-    \ {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(n - r);\n\
-    \  }\n  // partition n items to r groups (allow empty group)\n  static mint H(int\
-    \ n, int r) {\n    if (n < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n\
-    \ + r - 1, r);\n  }\n};\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\
-    \n */\n#line 4 \"fps/prefix-sum-of-polynomial.hpp\"\n\n// g(n)=sum_{i=0}^{n}f(i)\n\
-    template <class mint>\nFormalPowerSeries<mint> PrefixSumOfPolynomial(FormalPowerSeries<mint>\
-    \ f) {\n  if (f.empty()) return {};\n  using fact = Factorial<mint>;\n  mint c\
-    \ = f[0];\n  int d = f.size();\n  fact::reserve(d);\n  for (int i = 0; i < d;\
-    \ i++) f[i] *= fact::fact(i);\n  reverse(f.begin(), f.end());\n  FormalPowerSeries<mint>\
-    \ g(d);\n  for (int i = 0; i < d; i++) g[i] = fact::fact_inv(i + 1) * (i & 1 ?\
-    \ -1 : 1);\n  f *= g.inv();\n  f.resize(d);\n  f.push_back(c);\n  reverse(f.begin(),\
-    \ f.end());\n  for (int i = 1; i <= d; i++) f[i] *= fact::fact_inv(i);\n  return\
-    \ f;\n}\n/**\n * @brief \u591A\u9805\u5F0F\u306E Prefix Sum\n * @docs docs/fps/prefix-sum-of-polynomial.md\n\
+    \ vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) inv(n);\n    while\
+    \ ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size()\
+    \ <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back() * inv(k));\n\
+    \    }\n    return buf[n];\n  }\n  static mint binom(int n, int r) {\n    if (r\
+    \ < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r) * fact_inv(n - r);\n\
+    \  }\n  static mint binom_naive(int n, int r) {\n    if (r < 0 || r > n) return\
+    \ 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i < r; i++) res *= n -\
+    \ i;\n    return res;\n  }\n  static mint multinom(const vector<int>& r) {\n \
+    \   int n = 0;\n    for (auto& x : r) {\n      if (x < 0) return 0;\n      n +=\
+    \ x;\n    }\n    mint res = fact(n);\n    for (auto& x : r) res *= fact_inv(x);\n\
+    \    return res;\n  }\n  static mint P(int n, int r) {\n    if (r < 0 || r > n)\
+    \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
+    \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
+    \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
+    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 4 \"fps/prefix-sum-of-polynomial.hpp\"\
+    \n\n// g(n)=sum_{i=0}^{n}f(i)\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ PrefixSumOfPolynomial(FormalPowerSeries<mint> f) {\n  if (f.empty()) return\
+    \ {};\n  using fact = Factorial<mint>;\n  mint c = f[0];\n  int d = f.size();\n\
+    \  fact::reserve(d);\n  for (int i = 0; i < d; i++) f[i] *= fact::fact(i);\n \
+    \ reverse(f.begin(), f.end());\n  FormalPowerSeries<mint> g(d);\n  for (int i\
+    \ = 0; i < d; i++) g[i] = fact::fact_inv(i + 1) * (i & 1 ? -1 : 1);\n  f *= g.inv();\n\
+    \  f.resize(d);\n  f.push_back(c);\n  reverse(f.begin(), f.end());\n  for (int\
+    \ i = 1; i <= d; i++) f[i] *= fact::fact_inv(i);\n  return f;\n}\n/**\n * @brief\
+    \ \u591A\u9805\u5F0F\u306E Prefix Sum\n * @docs docs/fps/prefix-sum-of-polynomial.md\n\
     \ */\n#line 11 \"verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp\"\n\nfps prefix_sum_with_multieval_and_interpolation(fps\
     \ f) {\n  vector<mint> x(f.size() + 1);\n  iota(ALL(x), 0);\n  auto y = MultipointEvaluation(f,\
     \ x);\n  rep(i, 1, y.size()) y[i] += y[i - 1];\n  return PolynomialInterpolation(x,\
@@ -427,7 +428,7 @@ data:
   isVerificationFile: true
   path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   requiredBy: []
-  timestamp: '2025-10-24 10:50:32+09:00'
+  timestamp: '2025-10-25 18:30:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp

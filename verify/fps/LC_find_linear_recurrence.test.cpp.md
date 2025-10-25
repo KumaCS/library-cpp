@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - icon: ':heavy_check_mark:'
     path: fps/berlekamp-massey.hpp
     title: Berlekamp-Massey
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   - icon: ':question:'

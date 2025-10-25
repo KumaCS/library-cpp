@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
   - icon: ':question:'

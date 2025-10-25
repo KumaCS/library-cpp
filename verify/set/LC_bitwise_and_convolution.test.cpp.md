@@ -4,10 +4,10 @@ data:
   - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: set/and-convolution.hpp
     title: set/and-convolution.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: set/zeta-mobius-transform.hpp
     title: set/zeta-mobius-transform.hpp
   - icon: ':question:'
@@ -27,9 +27,9 @@ data:
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/bitwise_and_convolution
@@ -135,13 +135,12 @@ data:
     \  for (int i = 0; i < a.size(); i++) a[i] *= b[i];\n  SupsetMobiusTransform(a);\n\
     \  return a;\n}\n#line 7 \"verify/set/LC_bitwise_and_convolution.test.cpp\"\n\n\
     int main() {\n  int n;\n  in(n);\n  vector<mint> a(1 << n), b(1 << n);\n  in(a,\
-    \ b);\n  auto c = AndConvolution(a, b);\n  out(c);\n  cout << c << \"\\n\";\n\
-    }\n"
+    \ b);\n  auto c = AndConvolution(a, b);\n  out(c);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bitwise_and_convolution\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"set/and-convolution.hpp\"\n\nint main()\
     \ {\n  int n;\n  in(n);\n  vector<mint> a(1 << n), b(1 << n);\n  in(a, b);\n \
-    \ auto c = AndConvolution(a, b);\n  out(c);\n  cout << c << \"\\n\";\n}"
+    \ auto c = AndConvolution(a, b);\n  out(c);\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -154,8 +153,8 @@ data:
   isVerificationFile: true
   path: verify/set/LC_bitwise_and_convolution.test.cpp
   requiredBy: []
-  timestamp: '2025-10-23 01:57:19+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-10-25 18:30:13+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/set/LC_bitwise_and_convolution.test.cpp
 layout: document

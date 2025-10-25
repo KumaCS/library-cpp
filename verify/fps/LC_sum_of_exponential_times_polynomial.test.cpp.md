@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/lpf-table.hpp
     title: LPF Table
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   - icon: ':question:'
@@ -130,50 +130,50 @@ data:
     \    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long long mod =\
     \ mint::get_mod();\n    static vector<mint> buf({0, 1});\n    assert(n != 0);\n\
     \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
-    \ vector<mint>({0, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n +\
-    \ 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size(), q =\
-    \ (mod + k - 1) / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n    return\
-    \ buf[n];\n  }\n  static mint fact(int n) {\n    static long long mod = mint::get_mod();\n\
-    \    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
+    \ vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity()\
+    \ * 2);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size(), q\
+    \ = (mod + k - 1) / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n  \
+    \  return buf[n];\n  }\n  static mint fact(int n) {\n    static long long mod\
+    \ = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n\
+    \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
+    \ vector<mint>({1, 1});\n    }\n    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity()\
+    \ * 2);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n\
+    \      buf.push_back(buf.back() * k);\n    }\n    return buf[n];\n  }\n  static\
+    \ mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n    static\
+    \ vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
     \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
-    \    if ((int)buf.size() <= n) buf.reserve(n + 1);\n    while ((int)buf.size()\
-    \ <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back() * k);\n\
-    \    }\n    return buf[n];\n  }\n  static mint fact_inv(int n) {\n    static long\
-    \ long mod = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n\
-    \ >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n  \
-    \    buf = vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) {\n   \
-    \   inv(n);\n      buf.reserve(n + 1);\n    }\n    while ((int)buf.size() <= n)\
-    \ {\n      long long k = buf.size();\n      buf.push_back(buf.back() * inv(k));\n\
-    \    }\n    return buf[n];\n  }\n  static mint binom(int n, int r) {\n    if (r\
-    \ < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r) * fact_inv(n - r);\n\
-    \  }\n  static mint binom_naive(int n, int r) {\n    if (r < 0 || r > n) return\
-    \ 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i < r; i++) res *= n -\
-    \ i;\n    return res;\n  }\n  static mint multinom(const vector<int>& r) {\n \
-    \   int n = 0;\n    for (auto& x : r) {\n      if (x < 0) return 0;\n      n +=\
-    \ x;\n    }\n    mint res = fact(n);\n    for (auto& x : r) res *= fact_inv(x);\n\
-    \    return res;\n  }\n  static mint P(int n, int r) {\n    if (r < 0 || r > n)\
-    \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
-    \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
-    \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
-    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"math/lpf-table.hpp\"\
-    \n\nvector<int> LPFTable(int n) {\n  vector<int> lpf(n + 1, 0);\n  iota(lpf.begin(),\
-    \ lpf.end(), 0);\n  for (int p = 2; p * p <= n; p += (p & 1) + 1) {\n    if (lpf[p]\
-    \ != p) continue;\n    for (int i = p * p; i <= n; i += p)\n      if (lpf[i] ==\
-    \ i) lpf[i] = p;\n  }\n  return lpf;\n}\n/**\n * @brief LPF Table\n */\n#line\
-    \ 3 \"modint/power-table.hpp\"\n\n// 0^k,1^k,2^k,...,n^k\ntemplate <class T>\n\
-    vector<T> PowerTable(int n, int k) {\n  assert(k >= 0);\n  vector<T> f;\n  if\
-    \ (k == 0) {\n    f = vector<T>(n + 1, 0);\n    f[0] = 1;\n  } else {\n    f =\
-    \ vector<T>(n + 1, 1);\n    f[0] = 0;\n    auto lpf = LPFTable(n);\n    for (int\
-    \ i = 2; i <= n; i++)\n      f[i] = lpf[i] == i ? T(i).pow(k) : f[i / lpf[i]]\
-    \ * f[lpf[i]];\n  }\n  return f;\n}\n/**\n * @brief Power Table\n */\n#line 3\
-    \ \"fps/interpolate.hpp\"\n\n// f(0),f(1),...,f(n-1) -> f(x)\ntemplate <class\
-    \ mint>\nmint Interpolate(const vector<mint>& f, mint x) {\n  int n = f.size();\n\
-    \  vector<mint> l(n, 1), r(n, 1);\n  for (int i = 0; i + 1 < n; i++) l[i + 1]\
-    \ = l[i] * (x - i);\n  for (int i = n - 1; i > 0; i--) r[i - 1] = r[i] * (x -\
-    \ i);\n  using fact = Factorial<mint>;\n  mint s = 0;\n  for (int i = 0; i < n;\
-    \ i++) {\n    mint v = f[i] * l[i] * r[i] * fact::fact_inv(i) * fact::fact_inv(n\
-    \ - 1 - i);\n    if ((n - i) & 1)\n      s += v;\n    else\n      s -= v;\n  }\n\
-    \  return s;\n}\n/**\n * @brief Interpolate\n * @docs docs/fps/interpolate.md\n\
+    \    if ((int)buf.size() <= n) inv(n);\n    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity()\
+    \ * 2);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n\
+    \      buf.push_back(buf.back() * inv(k));\n    }\n    return buf[n];\n  }\n \
+    \ static mint binom(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return\
+    \ fact(n) * fact_inv(r) * fact_inv(n - r);\n  }\n  static mint binom_naive(int\
+    \ n, int r) {\n    if (r < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n\
+    \    for (int i = 0; i < r; i++) res *= n - i;\n    return res;\n  }\n  static\
+    \ mint multinom(const vector<int>& r) {\n    int n = 0;\n    for (auto& x : r)\
+    \ {\n      if (x < 0) return 0;\n      n += x;\n    }\n    mint res = fact(n);\n\
+    \    for (auto& x : r) res *= fact_inv(x);\n    return res;\n  }\n  static mint\
+    \ P(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(n\
+    \ - r);\n  }\n  // partition n items to r groups (allow empty group)\n  static\
+    \ mint H(int n, int r) {\n    if (n < 0 || r < 0) return 0;\n    return r == 0\
+    \ ? 1 : binom(n + r - 1, r);\n  }\n};\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\
+    \u4FC2\u6570\n */\n#line 2 \"math/lpf-table.hpp\"\n\nvector<int> LPFTable(int\
+    \ n) {\n  vector<int> lpf(n + 1, 0);\n  iota(lpf.begin(), lpf.end(), 0);\n  for\
+    \ (int p = 2; p * p <= n; p += (p & 1) + 1) {\n    if (lpf[p] != p) continue;\n\
+    \    for (int i = p * p; i <= n; i += p)\n      if (lpf[i] == i) lpf[i] = p;\n\
+    \  }\n  return lpf;\n}\n/**\n * @brief LPF Table\n */\n#line 3 \"modint/power-table.hpp\"\
+    \n\n// 0^k,1^k,2^k,...,n^k\ntemplate <class T>\nvector<T> PowerTable(int n, int\
+    \ k) {\n  assert(k >= 0);\n  vector<T> f;\n  if (k == 0) {\n    f = vector<T>(n\
+    \ + 1, 0);\n    f[0] = 1;\n  } else {\n    f = vector<T>(n + 1, 1);\n    f[0]\
+    \ = 0;\n    auto lpf = LPFTable(n);\n    for (int i = 2; i <= n; i++)\n      f[i]\
+    \ = lpf[i] == i ? T(i).pow(k) : f[i / lpf[i]] * f[lpf[i]];\n  }\n  return f;\n\
+    }\n/**\n * @brief Power Table\n */\n#line 3 \"fps/interpolate.hpp\"\n\n// f(0),f(1),...,f(n-1)\
+    \ -> f(x)\ntemplate <class mint>\nmint Interpolate(const vector<mint>& f, mint\
+    \ x) {\n  int n = f.size();\n  vector<mint> l(n, 1), r(n, 1);\n  for (int i =\
+    \ 0; i + 1 < n; i++) l[i + 1] = l[i] * (x - i);\n  for (int i = n - 1; i > 0;\
+    \ i--) r[i - 1] = r[i] * (x - i);\n  using fact = Factorial<mint>;\n  mint s =\
+    \ 0;\n  for (int i = 0; i < n; i++) {\n    mint v = f[i] * l[i] * r[i] * fact::fact_inv(i)\
+    \ * fact::fact_inv(n - 1 - i);\n    if ((n - i) & 1)\n      s += v;\n    else\n\
+    \      s -= v;\n  }\n  return s;\n}\n/**\n * @brief Interpolate\n * @docs docs/fps/interpolate.md\n\
     \ */\n#line 4 \"fps/sum-of-exp-poly.hpp\"\n\n// sum_{i=0}^{infty}r^i*poly(i)\n\
     // f[i]=poly(i)\ntemplate <class mint>\nmint SumOfExpPolyLimit(mint r, vector<mint>&\
     \ f) {\n  if (r == 0) return f[0];\n  assert(r != 1);\n  int k = f.size();\n \
@@ -215,7 +215,7 @@ data:
   isVerificationFile: true
   path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   requiredBy: []
-  timestamp: '2025-10-24 10:50:32+09:00'
+  timestamp: '2025-10-25 18:30:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp

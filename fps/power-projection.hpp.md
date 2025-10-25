@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   _extendedRequiredBy:
@@ -97,40 +97,40 @@ data:
     \ fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long long mod = mint::get_mod();\n\
     \    static vector<mint> buf({0, 1});\n    assert(n != 0);\n    if (mod != mint::get_mod())\
     \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({0, 1});\n    }\n\
-    \    if ((int)buf.size() <= n) buf.reserve(n + 1);\n    while ((int)buf.size()\
-    \ <= n) {\n      long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q\
-    \ * buf[k * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int\
-    \ n) {\n    static long long mod = mint::get_mod();\n    static vector<mint> buf({1,\
-    \ 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      buf = vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) buf.reserve(n\
-    \ + 1);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n\
-    \      buf.push_back(buf.back() * k);\n    }\n    return buf[n];\n  }\n  static\
-    \ mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n    static\
-    \ vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
+    \    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while\
+    \ ((int)buf.size() <= n) {\n      long long k = buf.size(), q = (mod + k - 1)\
+    \ / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n    return buf[n];\n\
+    \  }\n  static mint fact(int n) {\n    static long long mod = mint::get_mod();\n\
+    \    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
     \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
-    \    if ((int)buf.size() <= n) {\n      inv(n);\n      buf.reserve(n + 1);\n \
-    \   }\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n \
-    \     buf.push_back(buf.back() * inv(k));\n    }\n    return buf[n];\n  }\n  static\
-    \ mint binom(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n)\
-    \ * fact_inv(r) * fact_inv(n - r);\n  }\n  static mint binom_naive(int n, int\
-    \ r) {\n    if (r < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n    for\
-    \ (int i = 0; i < r; i++) res *= n - i;\n    return res;\n  }\n  static mint multinom(const\
-    \ vector<int>& r) {\n    int n = 0;\n    for (auto& x : r) {\n      if (x < 0)\
-    \ return 0;\n      n += x;\n    }\n    mint res = fact(n);\n    for (auto& x :\
-    \ r) res *= fact_inv(x);\n    return res;\n  }\n  static mint P(int n, int r)\
-    \ {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(n - r);\n\
-    \  }\n  // partition n items to r groups (allow empty group)\n  static mint H(int\
-    \ n, int r) {\n    if (n < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n\
-    \ + r - 1, r);\n  }\n};\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\
-    \n */\n#line 4 \"fps/power-projection.hpp\"\n\n// transpose of composition\n//\
-    \ [x^0]f(x^{-1})g(x)^i, i=0,...,n-1\n// O(n(log n)^2)\ntemplate <class mint>\n\
-    FormalPowerSeries<mint> TransposedComposition(FormalPowerSeries<mint> f, FormalPowerSeries<mint>\
-    \ g, int n) {\n  if (g[0] != 0) {\n    mint c = g[0];\n    g[0] = 0;\n    auto\
-    \ h1 = TransposedComposition(f, g, n);\n    using fact = Factorial<mint>;\n  \
-    \  for (int i = 0; i < n; i++) h1[i] *= fact::fact_inv(i);\n    FormalPowerSeries<mint>\
-    \ h2(n);\n    h2[0] = 1;\n    for (int i = 1; i < n; i++) h2[i] = h2[i - 1] *\
-    \ c;\n    for (int i = 0; i < n; i++) h2[i] *= fact::fact_inv(i);\n    h1 *= h2;\n\
-    \    h1.resize(n);\n    for (int i = 0; i < n; i++) h1[i] *= fact::fact(i);\n\
+    \    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while\
+    \ ((int)buf.size() <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back()\
+    \ * k);\n    }\n    return buf[n];\n  }\n  static mint fact_inv(int n) {\n   \
+    \ static long long mod = mint::get_mod();\n    static vector<mint> buf({1, 1});\n\
+    \    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
+    \      buf = vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) inv(n);\n\
+    \    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while\
+    \ ((int)buf.size() <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back()\
+    \ * inv(k));\n    }\n    return buf[n];\n  }\n  static mint binom(int n, int r)\
+    \ {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r) * fact_inv(n\
+    \ - r);\n  }\n  static mint binom_naive(int n, int r) {\n    if (r < 0 || r >\
+    \ n) return 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i < r; i++) res\
+    \ *= n - i;\n    return res;\n  }\n  static mint multinom(const vector<int>& r)\
+    \ {\n    int n = 0;\n    for (auto& x : r) {\n      if (x < 0) return 0;\n   \
+    \   n += x;\n    }\n    mint res = fact(n);\n    for (auto& x : r) res *= fact_inv(x);\n\
+    \    return res;\n  }\n  static mint P(int n, int r) {\n    if (r < 0 || r > n)\
+    \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
+    \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
+    \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
+    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 4 \"fps/power-projection.hpp\"\
+    \n\n// transpose of composition\n// [x^0]f(x^{-1})g(x)^i, i=0,...,n-1\n// O(n(log\
+    \ n)^2)\ntemplate <class mint>\nFormalPowerSeries<mint> TransposedComposition(FormalPowerSeries<mint>\
+    \ f, FormalPowerSeries<mint> g, int n) {\n  if (g[0] != 0) {\n    mint c = g[0];\n\
+    \    g[0] = 0;\n    auto h1 = TransposedComposition(f, g, n);\n    using fact\
+    \ = Factorial<mint>;\n    for (int i = 0; i < n; i++) h1[i] *= fact::fact_inv(i);\n\
+    \    FormalPowerSeries<mint> h2(n);\n    h2[0] = 1;\n    for (int i = 1; i < n;\
+    \ i++) h2[i] = h2[i - 1] * c;\n    for (int i = 0; i < n; i++) h2[i] *= fact::fact_inv(i);\n\
+    \    h1 *= h2;\n    h1.resize(n);\n    for (int i = 0; i < n; i++) h1[i] *= fact::fact(i);\n\
     \    return h1;\n  }\n\n  int k = 1;\n  while (k < f.size() || k < n) k <<= 1;\n\
     \  int l = 1, m = 2 * k * l;\n  FormalPowerSeries<mint> P(m), Q(m);\n  for (int\
     \ i = 0; i < f.size(); i++) P[k - 1 - i] = f[i];\n  for (int i = 0; i < g.size()\
@@ -191,7 +191,7 @@ data:
   path: fps/power-projection.hpp
   requiredBy:
   - fps/compositional-inv.hpp
-  timestamp: '2025-10-24 10:50:32+09:00'
+  timestamp: '2025-10-25 18:30:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp

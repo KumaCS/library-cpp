@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: set/and-convolution.hpp
     title: set/and-convolution.hpp
   - icon: ':heavy_check_mark:'
@@ -12,12 +12,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_bitwise_and_convolution.or.test.cpp
     title: verify/set/LC_bitwise_and_convolution.or.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_bitwise_and_convolution.test.cpp
     title: verify/set/LC_bitwise_and_convolution.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"set/zeta-mobius-transform.hpp\"\n\ntemplate <class T>\n\
@@ -56,7 +56,7 @@ data:
   - set/and-convolution.hpp
   - set/or-convolution.hpp
   timestamp: '2025-10-10 17:35:46+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/set/LC_bitwise_and_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.or.test.cpp
