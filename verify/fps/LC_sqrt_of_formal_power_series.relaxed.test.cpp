@@ -13,10 +13,14 @@ int main() {
   in(n);
   fps a(n);
   in(a);
-  if (ModSqrt(a[0].val(), mint::get_mod()) == -1) {
+  if (a[0] == 0) {
+    a = FpsSqrt(a);
+    if (a.empty())
+      out(-1);
+    else
+      out(a);
+  } else if (ModSqrt(a[0].val(), mint::get_mod()) == -1) {
     out(-1);
-  } else if (a[0] == 0) {
-    out(FpsSqrt(a));
   } else {
     fps b(n);
     RelaxedSqrt<mint> sqrt;

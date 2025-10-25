@@ -24,7 +24,7 @@ struct SternBrocotTreeNode {
   }
   SternBrocotTreeNode(pair<T, T> p) : SternBrocotTreeNode(p.first, p.second) {}
   SternBrocotTreeNode(const vector<T> seq_) {
-    for (auto &v : seq_) {
+    for (auto& v : seq_) {
       assert(v != 0);
       if (v > 0)
         go_right(v);
@@ -53,10 +53,10 @@ struct SternBrocotTreeNode {
   }
   T depth() const {
     T d = 0;
-    for (auto &v : seq) d += abs(v);
+    for (auto& v : seq) d += abs(v);
     return d;
   }
-  static Node lca(const Node &x, const Node &y) {
+  static Node lca(const Node& x, const Node& y) {
     Node res;
     for (int i = 0; i < min(x.seq.size(), y.seq.size()); i++) {
       T d1 = x.seq[i], d2 = y.seq[i];
@@ -110,7 +110,7 @@ struct SternBrocotTreeNode {
       }
     }
   }
-};  // namespace SternBrocotTree
+};
 
 /**
  * @brief Stern-Brocot Tree

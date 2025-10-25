@@ -200,6 +200,6 @@ class RelaxedSqrt {
 };
 
 /**
- * @brief Relaxed 畳み込み
+ * @brief Relaxed 
  * @docs docs/fps/relaxed.md
  */
