@@ -1,43 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/relaxed.hpp
-    title: "Relaxed \u7573\u307F\u8FBC\u307F"
-  - icon: ':question:'
+    title: Relaxed
+  - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
@@ -422,10 +422,10 @@ data:
     \ append(mint a) {\n    if (n == 0) {\n      long long sq = ModSqrt(a.val(), mint::get_mod());\n\
     \      assert(sq != -1 && sq != 0);\n      c = mint(2 * sq).inv();\n      n++;\n\
     \      return sq;\n    } else {\n      return v = (n++ == 1 ? a : a - mul.append(v,\
-    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \u7573\u307F\u8FBC\u307F\n\
-    \ * @docs docs/fps/relaxed.md\n */\n#line 9 \"verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp\"\
-    \n\nint main() {\n  int n;\n  in(n);\n  fps a(n);\n  in(a);\n  RelaxedLog<mint>\
-    \ log;\n  fps b(n);\n  rep(i, 0, n) b[i] = log.append(a[i]);\n  out(b);\n}\n"
+    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \n * @docs docs/fps/relaxed.md\n\
+    \ */\n#line 9 \"verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp\"\n\n\
+    int main() {\n  int n;\n  in(n);\n  fps a(n);\n  in(a);\n  RelaxedLog<mint> log;\n\
+    \  fps b(n);\n  rep(i, 0, n) b[i] = log.append(a[i]);\n  out(b);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/log_of_formal_power_series\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"fps/fps-ntt-friendly.hpp\"\nusing fps\
@@ -449,7 +449,7 @@ data:
   isVerificationFile: true
   path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   requiredBy: []
-  timestamp: '2025-10-25 18:30:13+09:00'
+  timestamp: '2025-10-26 03:52:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp

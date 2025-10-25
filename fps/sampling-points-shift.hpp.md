@@ -7,26 +7,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: fps/composition.hpp
-    title: "FPS \u5408\u6210"
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: verify/fps/LC_composition_of_formal_power_series.test.cpp
-    title: verify/fps/LC_composition_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-    title: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: verify/fps/LC_polynomial_taylor_shift.test.cpp
-    title: verify/fps/LC_polynomial_taylor_shift.test.cpp
+    path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+    title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    _deprecated_at_docs: docs/fps/taylor-shift.md
-    document_title: Taylor Shift
+    _deprecated_at_docs: docs/fps/sampling-points-shift.md
+    document_title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
     links: []
   bundledCode: "#line 2 \"modint/factorial.hpp\"\n\ntemplate <class mint>\nstruct\
     \ Factorial {\n  static void reserve(int n) {\n    inv(n);\n    fact(n);\n   \
@@ -125,45 +116,70 @@ data:
     \ &r);\n  FPS middle_product(const FPS &r) const;\n  void ntt();\n  void intt();\n\
     \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
     \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid *FormalPowerSeries<mint>::ntt_ptr\
-    \ = nullptr;\n#line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\n\
-    FormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using\
-    \ fps = FormalPowerSeries<mint>;\n  int n = f.size();\n  using fact = Factorial<mint>;\n\
-    \  fact::reserve(n);\n  for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n \
-    \ reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n  for (int i = 1; i < n;\
-    \ i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f * g).pre(n);\n  reverse(f.begin(),\
-    \ f.end());\n  for (int i = 0; i < n; i++) f[i] *= fact::fact_inv(i);\n  return\
-    \ f;\n}\n/**\n * @brief Taylor Shift\n * @docs docs/fps/taylor-shift.md\n */\n"
+    \ = nullptr;\n#line 4 \"fps/sampling-points-shift.hpp\"\n\n// f(0),f(1),...,f(n-1)\
+    \ -> f(c),...,f(c+m-1)\ntemplate <class mint>\nvector<mint> SamplingPointsShift(const\
+    \ vector<mint>& f, mint c, int m) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  using fact = Factorial<mint>;\n  int n = f.size();\n  fact::reserve(m);\n \
+    \ fps f1(n), ei(n);\n  for (int i = 0; i < n; i++) f1[i] = f[i] * fact::fact_inv(i);\n\
+    \  for (int i = 0; i < n; i++) ei[i] = fact::fact_inv(i) * (i % 2 ? -1 : 1);\n\
+    \  f1 *= ei;\n  for (int i = n; i < f1.size(); i++) f1[i] = 0;\n  for (int i =\
+    \ 0; i < n; i++) f1[i] *= fact::fact(i);\n  fps g(n, 1);\n  for (int i = 1; i\
+    \ < n; i++) g[i] = g[i - 1] * (c + 1 - i) * fact::inv(i);\n  g = g.middle_product(f1);\n\
+    \  for (int i = 0; i < n; i++) g[i] *= fact::fact_inv(i);\n  fps e(m);\n  for\
+    \ (int i = 0; i < m; i++) e[i] = fact::fact_inv(i);\n  g *= e;\n  g.resize(m);\n\
+    \  for (int i = 0; i < m; i++) g[i] *= fact::fact(i);\n  return g;\n}\n/**\n *\
+    \ @brief \u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8\n * @docs docs/fps/sampling-points-shift.md\n\
+    \ */\n"
   code: "#pragma once\n#include \"modint/factorial.hpp\"\n#include \"fps/formal-power-series.hpp\"\
-    \n\n// f(x+a)\ntemplate <class mint>\nFormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint>\
-    \ f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n  int n = f.size();\n\
-    \  using fact = Factorial<mint>;\n  fact::reserve(n);\n  for (int i = 0; i < n;\
-    \ i++) f[i] *= fact::fact(i);\n  reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n\
-    \  for (int i = 1; i < n; i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f *\
-    \ g).pre(n);\n  reverse(f.begin(), f.end());\n  for (int i = 0; i < n; i++) f[i]\
-    \ *= fact::fact_inv(i);\n  return f;\n}\n/**\n * @brief Taylor Shift\n * @docs\
-    \ docs/fps/taylor-shift.md\n */"
+    \n\n// f(0),f(1),...,f(n-1) -> f(c),...,f(c+m-1)\ntemplate <class mint>\nvector<mint>\
+    \ SamplingPointsShift(const vector<mint>& f, mint c, int m) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  using fact = Factorial<mint>;\n  int n = f.size();\n  fact::reserve(m);\n \
+    \ fps f1(n), ei(n);\n  for (int i = 0; i < n; i++) f1[i] = f[i] * fact::fact_inv(i);\n\
+    \  for (int i = 0; i < n; i++) ei[i] = fact::fact_inv(i) * (i % 2 ? -1 : 1);\n\
+    \  f1 *= ei;\n  for (int i = n; i < f1.size(); i++) f1[i] = 0;\n  for (int i =\
+    \ 0; i < n; i++) f1[i] *= fact::fact(i);\n  fps g(n, 1);\n  for (int i = 1; i\
+    \ < n; i++) g[i] = g[i - 1] * (c + 1 - i) * fact::inv(i);\n  g = g.middle_product(f1);\n\
+    \  for (int i = 0; i < n; i++) g[i] *= fact::fact_inv(i);\n  fps e(m);\n  for\
+    \ (int i = 0; i < m; i++) e[i] = fact::fact_inv(i);\n  g *= e;\n  g.resize(m);\n\
+    \  for (int i = 0; i < m; i++) g[i] *= fact::fact(i);\n  return g;\n}\n/**\n *\
+    \ @brief \u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8\n * @docs docs/fps/sampling-points-shift.md\n\
+    \ */"
   dependsOn:
   - modint/factorial.hpp
   - fps/formal-power-series.hpp
   isVerificationFile: false
-  path: fps/taylor-shift.hpp
-  requiredBy:
-  - fps/composition.hpp
-  timestamp: '2025-10-25 18:30:13+09:00'
+  path: fps/sampling-points-shift.hpp
+  requiredBy: []
+  timestamp: '2025-10-26 03:52:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series.test.cpp
-documentation_of: fps/taylor-shift.hpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+documentation_of: fps/sampling-points-shift.hpp
 layout: document
 redirect_from:
-- /library/fps/taylor-shift.hpp
-- /library/fps/taylor-shift.hpp.html
-title: Taylor Shift
+- /library/fps/sampling-points-shift.hpp
+- /library/fps/sampling-points-shift.hpp.html
+title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
 ---
-Taylor Shift．
+以下の問題を $O((N+M)\log(N+M))$ 時間で解く．
 
-$f(x+a)$ を計算する．
+> 次数 $N$ 未満の多項式 $f(x)$ について $f(0),f(1),\dots,f(N-1)$ が与えられる．
+> $f(c),f(c+1),\dots,f(c+M-1)$ を列挙せよ．
 
-$f$ の次数を $N$ として $O(N\log N)$ 時間．
+## アルゴリズム
+
+下降階乗冪を用いて $f(x)=\sum_{i=0}^{N-1}a_ix^{\underline{i}}$ とおくと $0\leq i\lt N$ に対し
+
+$$f(k)=k!\sum_{i=0}^{k}\frac{a_i}{(k-i)!}$$
+
+が成り立つため，$a_i$ は
+
+$$a_i=[x^i]e^{-x}\sum_{k=0}^{N-1}\frac{f(k)}{k!}x^k$$
+
+として計算できる．
+
+また下降階乗冪について $(a+b)^{\underline{n}}=\sum_{i=0}^{n}\binom{n}{i}a^{\underline{i}}b^{\underline{n-i}}$ が成り立つため，$f(x+c)=\sum_{i=0}^{N-1}b_ix^{\underline{i}}$ とおくと
+
+$$b_i=\frac{1}{i!}\sum_{j}(i+j)!a_{i+j}\cdot\frac{c^{\underline{j}}}{j!}$$
+
+が成り立つ．あとは $a_i$ の計算の逆をすればよい．

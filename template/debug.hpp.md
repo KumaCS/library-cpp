@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
   _extendedVerifiedWith:
@@ -58,6 +58,9 @@ data:
     path: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
     title: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_division_of_polynomials.test.cpp
+    title: verify/fps/LC_division_of_polynomials.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
@@ -99,7 +102,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+    title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
@@ -159,9 +165,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind_with_potential.test.cpp
     title: verify/union-find/LC_unionfind_with_potential.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define\
@@ -183,7 +189,7 @@ data:
   requiredBy:
   - template/template.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
   - verify/math/LC_stern_brocot_tree.test.cpp
@@ -202,9 +208,11 @@ data:
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
   - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
+  - verify/fps/LC_division_of_polynomials.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp

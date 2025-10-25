@@ -4,19 +4,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/stern-brocot-tree.hpp
     title: Stern-Brocot Tree
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
@@ -85,9 +85,9 @@ data:
     \      x -= d * y;\n      if (is_right)\n        go_right(d - (x == 0 ? 1 : 0));\n\
     \      else\n        go_left(d - (x == 0 ? 1 : 0));\n      swap(x, y);\n     \
     \ is_right = !is_right;\n    }\n  }\n  SternBrocotTreeNode(pair<T, T> p) : SternBrocotTreeNode(p.first,\
-    \ p.second) {}\n  SternBrocotTreeNode(const vector<T> seq_) {\n    for (auto &v\
-    \ : seq_) {\n      assert(v != 0);\n      if (v > 0)\n        go_right(v);\n \
-    \     else\n        go_left(v);\n    }\n    assert(seq == seq_);\n  }\n  pair<T,\
+    \ p.second) {}\n  SternBrocotTreeNode(const vector<T> seq_) {\n    for (auto&\
+    \ v : seq_) {\n      assert(v != 0);\n      if (v > 0)\n        go_right(v);\n\
+    \      else\n        go_left(v);\n    }\n    assert(seq == seq_);\n  }\n  pair<T,\
     \ T> get() const { return {a, b}; }\n  pair<T, T> lower_bound() const { return\
     \ {la, lb}; }\n  pair<T, T> upper_bound() const { return {ra, rb}; }\n\n  void\
     \ go_left(const T d = 1) {\n    if (d <= 0) return;\n    if (seq.empty() || seq.back()\
@@ -95,8 +95,8 @@ data:
     \    a = la + ra, b = lb + rb;\n  }\n  void go_right(const T d = 1) {\n    if\
     \ (d <= 0) return;\n    if (seq.empty() || seq.back() < 0) seq.push_back(0);\n\
     \    seq.back() += d;\n    la += ra * d, lb += rb * d;\n    a = la + ra, b = lb\
-    \ + rb;\n  }\n  T depth() const {\n    T d = 0;\n    for (auto &v : seq) d +=\
-    \ abs(v);\n    return d;\n  }\n  static Node lca(const Node &x, const Node &y)\
+    \ + rb;\n  }\n  T depth() const {\n    T d = 0;\n    for (auto& v : seq) d +=\
+    \ abs(v);\n    return d;\n  }\n  static Node lca(const Node& x, const Node& y)\
     \ {\n    Node res;\n    for (int i = 0; i < min(x.seq.size(), y.seq.size()); i++)\
     \ {\n      T d1 = x.seq[i], d2 = y.seq[i];\n      if ((d1 > 0) != (d2 > 0)) break;\n\
     \      if (d1 > 0)\n        res.go_right(min(d1, d2));\n      else\n        res.go_left(min(-d1,\
@@ -117,23 +117,22 @@ data:
     \ / res.rb : n) + 1;\n        while (ng - ok > 1) {\n          T mid = (ok + ng)\
     \ / 2;\n          (f(res.la + mid * res.ra, res.lb + mid * res.rb) ? ok : ng)\
     \ = mid;\n        }\n        if (ok == 0) return res;\n        res.go_left(ok);\n\
-    \      }\n    }\n  }\n};  // namespace SternBrocotTree\n\n/**\n * @brief Stern-Brocot\
-    \ Tree\n * @docs docs/math/stern-brocot-tree.md\n */\n#line 5 \"verify/math/LC_stern_brocot_tree.test.cpp\"\
-    \nusing sbt = SternBrocotTreeNode<ll>;\n\nint main() {\n  int t;\n  in(t);\n \
-    \ while (t--) {\n    string s;\n    in(s);\n    if (s == \"ENCODE_PATH\") {\n\
-    \      ll a, b;\n      in(a, b);\n      sbt x(a, b);\n      cout << x.seq.size();\n\
-    \      for (auto v : x.seq) cout << \" \" << \"LR\"[v > 0] << \" \" << abs(v);\n\
-    \      cout << \"\\n\";\n    } else if (s == \"DECODE_PATH\") {\n      sbt x;\n\
-    \      int k;\n      in(k);\n      rep(i, 0, k) {\n        char dir;\n       \
-    \ ll n;\n        in(dir, n);\n        if (dir == 'L')\n          x.go_left(n);\n\
-    \        else\n          x.go_right(n);\n      }\n      out(x.a, x.b);\n    }\
-    \ else if (s == \"LCA\") {\n      ll a, b, c, d;\n      in(a, b, c, d);\n    \
-    \  sbt x = sbt::lca(sbt(a, b), sbt(c, d));\n      out(x.a, x.b);\n    } else if\
-    \ (s == \"ANCESTOR\") {\n      ll k, a, b;\n      in(k, a, b);\n      sbt x(a,\
-    \ b);\n      ll d = x.depth() - k;\n      if (d >= 0 && x.go_parent(d))\n    \
-    \    out(x.a, x.b);\n      else\n        out(-1);\n    } else if (s == \"RANGE\"\
-    ) {\n      ll a, b;\n      in(a, b);\n      sbt x(a, b);\n      out(x.lower_bound(),\
-    \ x.upper_bound());\n    }\n  }\n}\n"
+    \      }\n    }\n  }\n};\n\n/**\n * @brief Stern-Brocot Tree\n * @docs docs/math/stern-brocot-tree.md\n\
+    \ */\n#line 5 \"verify/math/LC_stern_brocot_tree.test.cpp\"\nusing sbt = SternBrocotTreeNode<ll>;\n\
+    \nint main() {\n  int t;\n  in(t);\n  while (t--) {\n    string s;\n    in(s);\n\
+    \    if (s == \"ENCODE_PATH\") {\n      ll a, b;\n      in(a, b);\n      sbt x(a,\
+    \ b);\n      cout << x.seq.size();\n      for (auto v : x.seq) cout << \" \" <<\
+    \ \"LR\"[v > 0] << \" \" << abs(v);\n      cout << \"\\n\";\n    } else if (s\
+    \ == \"DECODE_PATH\") {\n      sbt x;\n      int k;\n      in(k);\n      rep(i,\
+    \ 0, k) {\n        char dir;\n        ll n;\n        in(dir, n);\n        if (dir\
+    \ == 'L')\n          x.go_left(n);\n        else\n          x.go_right(n);\n \
+    \     }\n      out(x.a, x.b);\n    } else if (s == \"LCA\") {\n      ll a, b,\
+    \ c, d;\n      in(a, b, c, d);\n      sbt x = sbt::lca(sbt(a, b), sbt(c, d));\n\
+    \      out(x.a, x.b);\n    } else if (s == \"ANCESTOR\") {\n      ll k, a, b;\n\
+    \      in(k, a, b);\n      sbt x(a, b);\n      ll d = x.depth() - k;\n      if\
+    \ (d >= 0 && x.go_parent(d))\n        out(x.a, x.b);\n      else\n        out(-1);\n\
+    \    } else if (s == \"RANGE\") {\n      ll a, b;\n      in(a, b);\n      sbt\
+    \ x(a, b);\n      out(x.lower_bound(), x.upper_bound());\n    }\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/stern_brocot_tree\"\n\n\
     #include \"template/template.hpp\"\n#include \"math/stern-brocot-tree.hpp\"\n\
     using sbt = SternBrocotTreeNode<ll>;\n\nint main() {\n  int t;\n  in(t);\n  while\
@@ -161,7 +160,7 @@ data:
   isVerificationFile: true
   path: verify/math/LC_stern_brocot_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-10-23 01:57:19+09:00'
+  timestamp: '2025-10-26 03:52:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/math/LC_stern_brocot_tree.test.cpp

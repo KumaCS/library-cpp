@@ -61,7 +61,7 @@ data:
       title: data-structure/sparse-table.hpp
   - name: fft
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fft/ntt.hpp
       title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - name: flow
@@ -83,16 +83,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/compositional-inv.hpp
       title: "\u9006\u95A2\u6570"
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fps/fps-ntt-friendly.hpp
       title: fps/fps-ntt-friendly.hpp
     - icon: ':warning:'
       path: fps/fps-rational.hpp
       title: fps/fps-rational.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fps/fps-sqrt.hpp
       title: fps/fps-sqrt.hpp
     - icon: ':heavy_check_mark:'
@@ -119,9 +119,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/product-of-polynomials.hpp
       title: "\u591A\u9805\u5F0F\u306E\u7A4D"
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: fps/relaxed.hpp
-      title: "Relaxed \u7573\u307F\u8FBC\u307F"
+      title: Relaxed
+    - icon: ':heavy_check_mark:'
+      path: fps/sampling-points-shift.hpp
+      title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
     - icon: ':heavy_check_mark:'
       path: fps/sum-of-exp-poly.hpp
       title: $\sum_{i}r^i poly(i)$
@@ -177,16 +180,16 @@ data:
       title: math/util.hpp
   - name: modint
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: modint/factorial.hpp
       title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: modint/mod-pow.hpp
       title: modint/mod-pow.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: modint/mod-sqrt.hpp
       title: modint/mod-sqrt.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: modint/modint.hpp
       title: modint/modint.hpp
     - icon: ':warning:'
@@ -242,19 +245,19 @@ data:
       title: set/zeta-mobius-transform.hpp
   - name: template
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/debug.hpp
       title: template/debug.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/inout.hpp
       title: template/inout.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/macro.hpp
       title: template/macro.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/template.hpp
       title: template/template.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: template/util.hpp
       title: template/util.hpp
   - name: union-find
@@ -331,6 +334,9 @@ data:
       path: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
       title: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_division_of_polynomials.test.cpp
+      title: verify/fps/LC_division_of_polynomials.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
       title: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
     - icon: ':heavy_check_mark:'
@@ -372,7 +378,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
       title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+      title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     - icon: ':heavy_check_mark:'

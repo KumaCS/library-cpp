@@ -17,9 +17,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/prefix-sum-of-polynomial.hpp
     title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/relaxed.hpp
-    title: "Relaxed \u7573\u307F\u8FBC\u307F"
+    title: Relaxed
+  - icon: ':heavy_check_mark:'
+    path: fps/sampling-points-shift.hpp
+    title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
   - icon: ':heavy_check_mark:'
     path: fps/sum-of-exp-poly.hpp
     title: $\sum_{i}r^i poly(i)$
@@ -57,7 +60,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+    title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
@@ -69,9 +75,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
     links: []
@@ -149,8 +155,9 @@ data:
   - fps/compositional-inv.hpp
   - fps/interpolate.hpp
   - fps/sum-of-exp-poly.hpp
+  - fps/sampling-points-shift.hpp
   timestamp: '2025-10-25 18:30:13+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
@@ -161,6 +168,7 @@ data:
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp

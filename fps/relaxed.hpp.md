@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
   _extendedRequiredBy: []
@@ -30,15 +30,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/fps/relaxed.md
-    document_title: "Relaxed \u7573\u307F\u8FBC\u307F"
+    document_title: Relaxed
     links: []
   bundledCode: "#line 2 \"modint/factorial.hpp\"\n\ntemplate <class mint>\nstruct\
     \ Factorial {\n  static void reserve(int n) {\n    inv(n);\n    fact(n);\n   \
@@ -210,8 +210,8 @@ data:
     \ append(mint a) {\n    if (n == 0) {\n      long long sq = ModSqrt(a.val(), mint::get_mod());\n\
     \      assert(sq != -1 && sq != 0);\n      c = mint(2 * sq).inv();\n      n++;\n\
     \      return sq;\n    } else {\n      return v = (n++ == 1 ? a : a - mul.append(v,\
-    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \u7573\u307F\u8FBC\u307F\n\
-    \ * @docs docs/fps/relaxed.md\n */\n"
+    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \n * @docs docs/fps/relaxed.md\n\
+    \ */\n"
   code: "#pragma once\n#include \"modint/factorial.hpp\"\n#include \"fps/formal-power-series.hpp\"\
     \n#include \"modint/mod-sqrt.hpp\"\n\ntemplate <class mint>\nclass RelaxedMultiply\
     \ {\n  const int B = 6;\n  using fps = FormalPowerSeries<mint>;\n  int n;\n  fps\
@@ -271,8 +271,8 @@ data:
     \ append(mint a) {\n    if (n == 0) {\n      long long sq = ModSqrt(a.val(), mint::get_mod());\n\
     \      assert(sq != -1 && sq != 0);\n      c = mint(2 * sq).inv();\n      n++;\n\
     \      return sq;\n    } else {\n      return v = (n++ == 1 ? a : a - mul.append(v,\
-    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \u7573\u307F\u8FBC\u307F\n\
-    \ * @docs docs/fps/relaxed.md\n */"
+    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \n * @docs docs/fps/relaxed.md\n\
+    \ */"
   dependsOn:
   - modint/factorial.hpp
   - fps/formal-power-series.hpp
@@ -281,8 +281,8 @@ data:
   isVerificationFile: false
   path: fps/relaxed.hpp
   requiredBy: []
-  timestamp: '2025-10-25 18:30:13+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-10-26 03:52:03+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
@@ -295,7 +295,7 @@ layout: document
 redirect_from:
 - /library/fps/relaxed.hpp
 - /library/fps/relaxed.hpp.html
-title: "Relaxed \u7573\u307F\u8FBC\u307F"
+title: Relaxed
 ---
 多項式 $f(x),g(x)$ について $i=0,1,\dots$ について順に以下を処理する．
 

@@ -14,13 +14,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/compositional-inv.hpp
     title: "\u9006\u95A2\u6570"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   - icon: ':warning:'
     path: fps/fps-rational.hpp
     title: fps/fps-rational.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
   - icon: ':heavy_check_mark:'
@@ -44,9 +44,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/product-of-polynomials.hpp
     title: "\u591A\u9805\u5F0F\u306E\u7A4D"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/relaxed.hpp
-    title: "Relaxed \u7573\u307F\u8FBC\u307F"
+    title: Relaxed
+  - icon: ':heavy_check_mark:'
+    path: fps/sampling-points-shift.hpp
+    title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
   - icon: ':warning:'
     path: fps/sum-of-rationals.hpp
     title: "\u6709\u7406\u5F0F\u306E\u548C"
@@ -75,6 +78,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
     title: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_division_of_polynomials.test.cpp
+    title: verify/fps/LC_division_of_polynomials.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
@@ -117,7 +123,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+    title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
@@ -126,9 +135,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\n\
@@ -287,8 +296,9 @@ data:
   - fps/fps-sqrt.hpp
   - fps/fps-rational.hpp
   - fps/berlekamp-massey.hpp
+  - fps/sampling-points-shift.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
@@ -303,9 +313,11 @@ data:
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.test.cpp
   - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
+  - verify/fps/LC_division_of_polynomials.test.cpp
   - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
