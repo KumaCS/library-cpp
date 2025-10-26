@@ -1,40 +1,40 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []

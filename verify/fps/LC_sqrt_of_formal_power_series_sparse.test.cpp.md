@@ -1,60 +1,57 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':question:'
-    path: fps/fps-sqrt.hpp
-    title: fps/fps-sqrt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/sparse.hpp
     title: "Sparse \u306A FPS \u6F14\u7B97"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
+    PROBLEM: https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse
     links:
-    - https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
+    - https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse
   bundledCode: "#line 1 \"verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp\"\
-    \n#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
+    \n#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse\"\
     \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
     \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
@@ -383,52 +380,39 @@ data:
     \ for (int i = n - 1; i > 0; i--) g[i] = g[i - 1] * Factorial<mint>::inv(i);\n\
     \  g[0] = 0;\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> pow(map<int,\
     \ mint> f, long long m, int n) {\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
-    \ g(n, 0);\n  if (m == 0) {\n    g[0] = 1;\n    return g;\n  }\n  if (f[0] ==\
-    \ 0) {\n    if (m >= n) return g;\n    int s = 1;\n    while (s < n && f[s] ==\
-    \ 0) s++;\n    if (s * m >= n) return g;\n    map<int, mint> f1;\n    for (auto\
-    \ [i, v] : f) f1[i - s] = v;\n    auto g1 = pow(f1, m, int(n - s * m));\n    copy(g1.begin(),\
-    \ g1.end(), g.begin() + int(s * m));\n    return g;\n  }\n  g[0] = f[0].pow(m);\n\
-    \  mint c = f[0].inv();\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v]\
-    \ : f) {\n      if (0 < j && j <= i) g[i] += j * f[j] * g[i - j] * m;\n      if\
-    \ (0 < j && j < i) g[i] -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c *\
-    \ Factorial<mint>::inv(i);\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
-    \ sqrt(map<int, mint> f, int n) {\n  if (n == 0) return {};\n  if (f.empty())\
-    \ return FormalPowerSeries<mint>(n, 0);\n  FormalPowerSeries<mint> g(n, 0);\n\
-    \  if (f[0] == 0) {\n    int s = 1;\n    while (s < n * 2 && f[s] == 0) s++;\n\
-    \    if (s & 1) return {};\n    s /= 2;\n    if (s >= n) return g;\n    map<int,\
-    \ mint> f1;\n    for (auto [i, v] : f) f1[i - s * 2] = v;\n    auto g1 = sqrt(f1,\
-    \ int(n - s));\n    if (g1.empty()) return {};\n    copy(g1.begin(), g1.end(),\
-    \ g.begin() + s);\n    return g;\n  }\n  long long sq = ModSqrt(f[0].val(), mint::get_mod());\n\
+    \ g(n, 0);\n  if (m == 0) {\n    g[0] = 1;\n    return g;\n  }\n  if (!f.contains(0)\
+    \ || f[0] == 0) {\n    if (m >= n) return g;\n    int s = n;\n    for (auto [i,\
+    \ v] : f)\n      if (v != 0 && i < s) s = i;\n    if (s * m >= n) return g;\n\
+    \    map<int, mint> f1;\n    for (auto [i, v] : f) f1[i - s] = v;\n    auto g1\
+    \ = pow(f1, m, int(n - s * m));\n    copy(g1.begin(), g1.end(), g.begin() + int(s\
+    \ * m));\n    return g;\n  }\n  g[0] = f[0].pow(m);\n  mint c = f[0].inv();\n\
+    \  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j\
+    \ && j <= i) g[i] += j * f[j] * g[i - j] * m;\n      if (0 < j && j < i) g[i]\
+    \ -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n\
+    \  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> sqrt(map<int,\
+    \ mint> f, int n) {\n  if (n == 0) return {};\n  if (f.empty()) return FormalPowerSeries<mint>(n,\
+    \ 0);\n  FormalPowerSeries<mint> g(n, 0);\n  if (f[0] == 0) {\n    int s = n *\
+    \ 2;\n    for (auto [i, v] : f)\n      if (v != 0 && i < s) s = i;\n    if (s\
+    \ & 1) return {};\n    s /= 2;\n    if (s >= n) return g;\n    map<int, mint>\
+    \ f1;\n    for (auto [i, v] : f) f1[i - s * 2] = v;\n    auto g1 = sqrt(f1, int(n\
+    \ - s));\n    if (g1.empty()) return {};\n    copy(g1.begin(), g1.end(), g.begin()\
+    \ + s);\n    return g;\n  }\n  long long sq = ModSqrt(f[0].val(), mint::get_mod());\n\
     \  if (sq < 0) return {};\n  g[0] = sq;\n  mint c = f[0].inv(), inv2 = mint(2).inv();\n\
     \  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j\
     \ && j <= i) g[i] += j * f[j] * g[i - j] * inv2;\n      if (0 < j && j < i) g[i]\
     \ -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n\
     \  }\n  return g;\n}\n};  // namespace FPSSparse\n\n/**\n * @brief Sparse \u306A\
     \ FPS \u6F14\u7B97\n * @docs docs/fps/sparse.md\n */\n#line 9 \"verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp\"\
-    \n\n#line 2 \"fps/fps-sqrt.hpp\"\n\n#line 5 \"fps/fps-sqrt.hpp\"\n\ntemplate <typename\
-    \ mint>\nFormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint> &f, int\
-    \ deg = -1) {\n  if (deg == -1) deg = (int)f.size();\n  if ((int)f.size() == 0)\
-    \ return FormalPowerSeries<mint>(deg, 0);\n  if (f[0] == mint(0)) {\n    for (int\
-    \ i = 1; i < (int)f.size(); i++) {\n      if (f[i] != mint(0)) {\n        if (i\
-    \ & 1) return {};\n        if (deg - i / 2 <= 0) break;\n        auto ret = FpsSqrt(f\
-    \ >> i, deg - i / 2);\n        if (ret.empty()) return {};\n        ret = ret\
-    \ << (i / 2);\n        if ((int)ret.size() < deg) ret.resize(deg, mint(0));\n\
-    \        return ret;\n      }\n    }\n    return FormalPowerSeries<mint>(deg,\
-    \ 0);\n  }\n  int64_t sqr = ModSqrt(f[0].val(), mint::get_mod());\n  if (sqr ==\
-    \ -1) return {};\n  assert(sqr * sqr % mint::get_mod() == f[0].val());\n  FormalPowerSeries<mint>\
-    \ ret = {mint(sqr)};\n  mint inv2 = mint(2).inv();\n  for (int i = 1; i < deg;\
-    \ i <<= 1) {\n    ret = (ret + f.pre(i << 1) * ret.inv(i << 1)) * inv2;\n  }\n\
-    \  return ret.pre(deg);\n}\n#line 11 \"verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp\"\
     \n\nint main() {\n  int n, k;\n  in(n, k);\n  map<int, mint> f;\n  rep(i, 0, k)\
     \ {\n    int j;\n    mint a;\n    in(j, a);\n    f[j] = a;\n  }\n  auto g = FPSSparse::sqrt(f,\
     \ n);\n  if (g.empty())\n    out(-1);\n  else\n    out(g);\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"fps/fps-ntt-friendly.hpp\"\nusing fps\
-    \ = FormalPowerSeries<mint>;\n#include \"fps/sparse.hpp\"\n\n#include \"fps/fps-sqrt.hpp\"\
-    \n\nint main() {\n  int n, k;\n  in(n, k);\n  map<int, mint> f;\n  rep(i, 0, k)\
-    \ {\n    int j;\n    mint a;\n    in(j, a);\n    f[j] = a;\n  }\n  auto g = FPSSparse::sqrt(f,\
-    \ n);\n  if (g.empty())\n    out(-1);\n  else\n    out(g);\n}"
+    \ = FormalPowerSeries<mint>;\n#include \"fps/sparse.hpp\"\n\nint main() {\n  int\
+    \ n, k;\n  in(n, k);\n  map<int, mint> f;\n  rep(i, 0, k) {\n    int j;\n    mint\
+    \ a;\n    in(j, a);\n    f[j] = a;\n  }\n  auto g = FPSSparse::sqrt(f, n);\n \
+    \ if (g.empty())\n    out(-1);\n  else\n    out(g);\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -443,12 +427,11 @@ data:
   - modint/factorial.hpp
   - modint/mod-sqrt.hpp
   - modint/mod-pow.hpp
-  - fps/fps-sqrt.hpp
   isVerificationFile: true
   path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   requiredBy: []
-  timestamp: '2025-10-26 20:24:31+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-10-26 20:36:04+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
 layout: document

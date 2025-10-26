@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
   _extendedRequiredBy: []
@@ -18,12 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':x:'
-    path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-    title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"fps/fps-sqrt.hpp\"\n\n#line 2 \"modint/mod-sqrt.hpp\"\n\n\
@@ -143,9 +140,8 @@ data:
   path: fps/fps-sqrt.hpp
   requiredBy: []
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
 documentation_of: fps/fps-sqrt.hpp

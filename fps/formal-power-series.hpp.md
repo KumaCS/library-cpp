@@ -14,13 +14,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/compositional-inv.hpp
     title: "\u9006\u95A2\u6570"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   - icon: ':warning:'
     path: fps/fps-rational.hpp
     title: fps/fps-rational.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
   - icon: ':heavy_check_mark:'
@@ -50,7 +50,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/sampling-points-shift.hpp
     title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/sparse.hpp
     title: "Sparse \u306A FPS \u6F14\u7B97"
   - icon: ':warning:'
@@ -147,15 +147,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\n\
@@ -317,7 +317,7 @@ data:
   - fps/berlekamp-massey.hpp
   - fps/sampling-points-shift.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
