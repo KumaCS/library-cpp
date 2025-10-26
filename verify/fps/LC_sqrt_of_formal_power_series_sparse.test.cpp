@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse"
+#define PROBLEM "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse"
 
 #include "template/template.hpp"
 #include "modint/modint.hpp"
@@ -6,8 +6,6 @@ using mint = ModInt<998244353>;
 #include "fps/fps-ntt-friendly.hpp"
 using fps = FormalPowerSeries<mint>;
 #include "fps/sparse.hpp"
-
-#include "fps/fps-sqrt.hpp"
 
 int main() {
   int n, k;

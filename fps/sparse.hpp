@@ -55,10 +55,11 @@ FormalPowerSeries<mint> pow(map<int, mint> f, long long m, int n) {
     g[0] = 1;
     return g;
   }
-  if (f[0] == 0) {
+  if (!f.contains(0) || f[0] == 0) {
     if (m >= n) return g;
-    int s = 1;
-    while (s < n && f[s] == 0) s++;
+    int s = n;
+    for (auto [i, v] : f)
+      if (v != 0 && i < s) s = i;
     if (s * m >= n) return g;
     map<int, mint> f1;
     for (auto [i, v] : f) f1[i - s] = v;
@@ -83,8 +84,9 @@ FormalPowerSeries<mint> sqrt(map<int, mint> f, int n) {
   if (f.empty()) return FormalPowerSeries<mint>(n, 0);
   FormalPowerSeries<mint> g(n, 0);
   if (f[0] == 0) {
-    int s = 1;
-    while (s < n * 2 && f[s] == 0) s++;
+    int s = n * 2;
+    for (auto [i, v] : f)
+      if (v != 0 && i < s) s = i;
     if (s & 1) return {};
     s /= 2;
     if (s >= n) return g;
