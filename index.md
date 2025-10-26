@@ -61,7 +61,7 @@ data:
       title: data-structure/sparse-table.hpp
   - name: fft
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fft/ntt.hpp
       title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - name: flow
@@ -83,16 +83,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/compositional-inv.hpp
       title: "\u9006\u95A2\u6570"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/fps-ntt-friendly.hpp
       title: fps/fps-ntt-friendly.hpp
     - icon: ':warning:'
       path: fps/fps-rational.hpp
       title: fps/fps-rational.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/fps-sqrt.hpp
       title: fps/fps-sqrt.hpp
     - icon: ':heavy_check_mark:'
@@ -125,6 +125,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/sampling-points-shift.hpp
       title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
+    - icon: ':question:'
+      path: fps/sparse.hpp
+      title: "Sparse \u306A FPS \u6F14\u7B97"
     - icon: ':heavy_check_mark:'
       path: fps/sum-of-exp-poly.hpp
       title: $\sum_{i}r^i poly(i)$
@@ -180,16 +183,16 @@ data:
       title: math/util.hpp
   - name: modint
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/factorial.hpp
       title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/mod-pow.hpp
       title: modint/mod-pow.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/mod-sqrt.hpp
       title: modint/mod-sqrt.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/modint.hpp
       title: modint/modint.hpp
     - icon: ':warning:'
@@ -245,19 +248,19 @@ data:
       title: set/zeta-mobius-transform.hpp
   - name: template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/debug.hpp
       title: template/debug.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/inout.hpp
       title: template/inout.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/macro.hpp
       title: template/macro.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/template.hpp
       title: template/template.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/util.hpp
       title: template/util.hpp
   - name: union-find
@@ -343,6 +346,9 @@ data:
       path: verify/fps/LC_exp_of_formal_power_series.test.cpp
       title: verify/fps/LC_exp_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+      title: verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_find_linear_recurrence.test.cpp
       title: verify/fps/LC_find_linear_recurrence.test.cpp
     - icon: ':heavy_check_mark:'
@@ -352,6 +358,9 @@ data:
       path: verify/fps/LC_inv_of_formal_power_series.test.cpp
       title: verify/fps/LC_inv_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+      title: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
       title: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
     - icon: ':heavy_check_mark:'
@@ -360,6 +369,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_log_of_formal_power_series.test.cpp
       title: verify/fps/LC_log_of_formal_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+      title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_multipoint_evaluation.test.cpp
       title: verify/fps/LC_multipoint_evaluation.test.cpp
@@ -376,6 +388,9 @@ data:
       path: verify/fps/LC_pow_of_formal_power_series.test.cpp
       title: verify/fps/LC_pow_of_formal_power_series.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+      title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
       title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     - icon: ':heavy_check_mark:'
@@ -387,6 +402,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+    - icon: ':x:'
+      path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+      title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp

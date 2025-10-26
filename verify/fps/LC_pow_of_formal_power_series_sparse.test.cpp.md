@@ -11,11 +11,8 @@ data:
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   - icon: ':question:'
-    path: fps/fps-sqrt.hpp
-    title: fps/fps-sqrt.hpp
-  - icon: ':heavy_check_mark:'
-    path: fps/relaxed.hpp
-    title: Relaxed
+    path: fps/sparse.hpp
+    title: "Sparse \u306A FPS \u6F14\u7B97"
   - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
@@ -50,11 +47,11 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
+    PROBLEM: https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
     links:
-    - https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
-  bundledCode: "#line 1 \"verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp\"\
-    \n#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_of_formal_power_series\"\
+    - https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
+  bundledCode: "#line 1 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\
+    \n#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
     \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
     \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
@@ -133,52 +130,51 @@ data:
     \ &operator>>(istream &is, mint &x) {\n    return is >> x._v;\n  }\n  friend ostream\
     \ &operator<<(ostream &os, const mint &x) {\n    return os << x.val();\n  }\n\n\
     \ private:\n  static constexpr unsigned int umod() { return m; }\n};\n#line 5\
-    \ \"verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp\"\nusing mint =\
-    \ ModInt<998244353>;\n#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\
-    \n\ntemplate <class mint>\nstruct NTT {\n  static constexpr unsigned int mod =\
-    \ mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
-    \ long long x, unsigned long long n, unsigned long long m) {\n    unsigned long\
-    \ long y = 1;\n    while (n) {\n      if (n & 1) y = y * x % m;\n      x = x *\
-    \ x % m;\n      n >>= 1;\n    }\n    return y;\n  }\n  static constexpr unsigned\
-    \ int get_g() {\n    unsigned long long x = 2;\n    while (pow_constexpr(x, (mod\
-    \ - 1) >> 1, mod) == 1) x += 1;\n    return x;\n  }\n  static constexpr unsigned\
-    \ int g = get_g();\n  static constexpr int rank2 = __builtin_ctzll(mod - 1);\n\
-    \  array<mint, rank2 + 1> root;\n  array<mint, rank2 + 1> iroot;\n  array<mint,\
-    \ max(0, rank2 - 2 + 1)> rate2;\n  array<mint, max(0, rank2 - 2 + 1)> irate2;\n\
-    \  array<mint, max(0, rank2 - 3 + 1)> rate3;\n  array<mint, max(0, rank2 - 3 +\
-    \ 1)> irate3;\n\n  NTT() {\n    root[rank2] = mint(g).pow((mod - 1) >> rank2);\n\
-    \    iroot[rank2] = root[rank2].inv();\n    for (int i = rank2 - 1; i >= 0; i--)\
-    \ {\n      root[i] = root[i + 1] * root[i + 1];\n      iroot[i] = iroot[i + 1]\
-    \ * iroot[i + 1];\n    }\n    {\n      mint prod = 1, iprod = 1;\n      for (int\
-    \ i = 0; i <= rank2 - 2; i++) {\n        rate2[i] = root[i + 2] * prod;\n    \
-    \    irate2[i] = iroot[i + 2] * iprod;\n        prod *= iroot[i + 2];\n      \
-    \  iprod *= root[i + 2];\n      }\n    }\n    {\n      mint prod = 1, iprod =\
-    \ 1;\n      for (int i = 0; i <= rank2 - 3; i++) {\n        rate3[i] = root[i\
-    \ + 3] * prod;\n        irate3[i] = iroot[i + 3] * iprod;\n        prod *= iroot[i\
-    \ + 3];\n        iprod *= root[i + 3];\n      }\n    }\n  }\n  void ntt(vector<mint>&\
-    \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
-    \    a.resize(1 << h);\n    int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..]\
-    \ is transformed\n    while (len < h) {\n      if (h - len == 1) {\n        int\
-    \ p = 1 << (h - len - 1);\n        mint rot = 1;\n        for (int s = 0; s <\
-    \ (1 << len); s++) {\n          int offset = s << (h - len);\n          for (int\
-    \ i = 0; i < p; i++) {\n            auto l = a[i + offset];\n            auto\
-    \ r = a[i + offset + p] * rot;\n            a[i + offset] = l + r;\n         \
-    \   a[i + offset + p] = l - r;\n          }\n          if (s + 1 != (1 << len))\
-    \ rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];\n        }\n        len++;\n\
-    \      } else {\n        // 4-base\n        int p = 1 << (h - len - 2);\n    \
-    \    mint rot = 1, imag = root[2];\n        for (int s = 0; s < (1 << len); s++)\
-    \ {\n          mint rot2 = rot * rot;\n          mint rot3 = rot2 * rot;\n   \
-    \       int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n\
-    \            auto mod2 = 1ULL * mint::get_mod() * mint::get_mod();\n         \
-    \   auto a0 = 1ULL * a[i + offset].val();\n            auto a1 = 1ULL * a[i +\
-    \ offset + p].val() * rot.val();\n            auto a2 = 1ULL * a[i + offset +\
-    \ 2 * p].val() * rot2.val();\n            auto a3 = 1ULL * a[i + offset + 3 *\
-    \ p].val() * rot3.val();\n            auto a1na3imag = 1ULL * mint(a1 + mod2 -\
-    \ a3).val() * imag.val();\n            auto na2 = mod2 - a2;\n            a[i\
-    \ + offset] = a0 + a2 + a1 + a3;\n            a[i + offset + 1 * p] = a0 + a2\
-    \ + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 * p] = a0 + na2 + a1na3imag;\n\
-    \            a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);\n        \
-    \  }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
+    \ \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\nusing mint = ModInt<998244353>;\n\
+    #line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\ntemplate <class\
+    \ mint>\nstruct NTT {\n  static constexpr unsigned int mod = mint::get_mod();\n\
+    \  static constexpr unsigned long long pow_constexpr(unsigned long long x, unsigned\
+    \ long long n, unsigned long long m) {\n    unsigned long long y = 1;\n    while\
+    \ (n) {\n      if (n & 1) y = y * x % m;\n      x = x * x % m;\n      n >>= 1;\n\
+    \    }\n    return y;\n  }\n  static constexpr unsigned int get_g() {\n    unsigned\
+    \ long long x = 2;\n    while (pow_constexpr(x, (mod - 1) >> 1, mod) == 1) x +=\
+    \ 1;\n    return x;\n  }\n  static constexpr unsigned int g = get_g();\n  static\
+    \ constexpr int rank2 = __builtin_ctzll(mod - 1);\n  array<mint, rank2 + 1> root;\n\
+    \  array<mint, rank2 + 1> iroot;\n  array<mint, max(0, rank2 - 2 + 1)> rate2;\n\
+    \  array<mint, max(0, rank2 - 2 + 1)> irate2;\n  array<mint, max(0, rank2 - 3\
+    \ + 1)> rate3;\n  array<mint, max(0, rank2 - 3 + 1)> irate3;\n\n  NTT() {\n  \
+    \  root[rank2] = mint(g).pow((mod - 1) >> rank2);\n    iroot[rank2] = root[rank2].inv();\n\
+    \    for (int i = rank2 - 1; i >= 0; i--) {\n      root[i] = root[i + 1] * root[i\
+    \ + 1];\n      iroot[i] = iroot[i + 1] * iroot[i + 1];\n    }\n    {\n      mint\
+    \ prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 2; i++) {\n       \
+    \ rate2[i] = root[i + 2] * prod;\n        irate2[i] = iroot[i + 2] * iprod;\n\
+    \        prod *= iroot[i + 2];\n        iprod *= root[i + 2];\n      }\n    }\n\
+    \    {\n      mint prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 3;\
+    \ i++) {\n        rate3[i] = root[i + 3] * prod;\n        irate3[i] = iroot[i\
+    \ + 3] * iprod;\n        prod *= iroot[i + 3];\n        iprod *= root[i + 3];\n\
+    \      }\n    }\n  }\n  void ntt(vector<mint>& a) {\n    int n = int(a.size());\n\
+    \    int h = __builtin_ctzll((unsigned int)n);\n    a.resize(1 << h);\n    int\
+    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
+    \ < h) {\n      if (h - len == 1) {\n        int p = 1 << (h - len - 1);\n   \
+    \     mint rot = 1;\n        for (int s = 0; s < (1 << len); s++) {\n        \
+    \  int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n   \
+    \         auto l = a[i + offset];\n            auto r = a[i + offset + p] * rot;\n\
+    \            a[i + offset] = l + r;\n            a[i + offset + p] = l - r;\n\
+    \          }\n          if (s + 1 != (1 << len)) rot *= rate2[__builtin_ctzll(~(unsigned\
+    \ int)(s))];\n        }\n        len++;\n      } else {\n        // 4-base\n \
+    \       int p = 1 << (h - len - 2);\n        mint rot = 1, imag = root[2];\n \
+    \       for (int s = 0; s < (1 << len); s++) {\n          mint rot2 = rot * rot;\n\
+    \          mint rot3 = rot2 * rot;\n          int offset = s << (h - len);\n \
+    \         for (int i = 0; i < p; i++) {\n            auto mod2 = 1ULL * mint::get_mod()\
+    \ * mint::get_mod();\n            auto a0 = 1ULL * a[i + offset].val();\n    \
+    \        auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n            auto\
+    \ a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n            auto a3 =\
+    \ 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n            auto a1na3imag\
+    \ = 1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n            auto na2 = mod2\
+    \ - a2;\n            a[i + offset] = a0 + a2 + a1 + a3;\n            a[i + offset\
+    \ + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 *\
+    \ p] = a0 + na2 + a1na3imag;\n            a[i + offset + 3 * p] = a0 + na2 + (mod2\
+    \ - a1na3imag);\n          }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
     \ int)(s))];\n        }\n        len += 2;\n      }\n    }\n  }\n  void intt(vector<mint>&\
     \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
     \    a.resize(1 << h);\n\n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len),\
@@ -319,41 +315,13 @@ data:
     \ FormalPowerSeries<mint>::exp(int deg) const {\n  assert((*this)[0] == mint(0));\n\
     \  if (deg == -1) deg = (*this).size();\n  FPS ret{mint(1)};\n  for (int i = 1;\
     \ i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i << 1) - ret.log(i << 1) +\
-    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp\"\
-    \nusing fps = FormalPowerSeries<mint>;\n#line 2 \"fps/fps-sqrt.hpp\"\n\n#line\
-    \ 2 \"modint/mod-sqrt.hpp\"\n\n#line 2 \"modint/mod-pow.hpp\"\n\nunsigned int\
-    \ ModPow(unsigned int a, unsigned long long n, unsigned int m) {\n  unsigned long\
-    \ long x = a, y = 1;\n  while (n) {\n    if (n & 1) y = y * x % m;\n    x = x\
-    \ * x % m;\n    n >>= 1;\n  }\n  return y;\n}\n#line 4 \"modint/mod-sqrt.hpp\"\
-    \n\nlong long ModSqrt(long long a, long long p) {\n  if (a >= p) a %= p;\n  if\
-    \ (p == 2) return a & 1;\n  if (a == 0) return 0;\n  if (ModPow(a, (p - 1) / 2,\
-    \ p) != 1) return -1;\n  if (p % 4 == 3) return ModPow(a, (3 * p - 1) / 4, p);\n\
-    \  unsigned int z = 2, q = p - 1;\n  while (ModPow(z, (p - 1) / 2, p) == 1) z++;\n\
-    \  int s = 0;\n  while (!(q & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n\
-    \  unsigned int c = ModPow(z, q, p);\n  unsigned int t = ModPow(a, q, p);\n  unsigned\
-    \ int r = ModPow(a, (q + 1) / 2, p);\n  while (true) {\n    if (t == 1) return\
-    \ r;\n    unsigned int pow = t;\n    int j = 1;\n    for (; j < m; j++) {\n  \
-    \    pow = 1ll * pow * pow % p;\n      if (pow == 1) break;\n    }\n    unsigned\
-    \ int b = c;\n    for (int i = 0; i < m - j - 1; i++) b = 1ll * b * b % p;\n \
-    \   m = j;\n    c = 1ll * b * b % p;\n    t = 1ll * t * c % p;\n    r = 1ll *\
-    \ r * b % p;\n  }\n}\n#line 5 \"fps/fps-sqrt.hpp\"\n\ntemplate <typename mint>\n\
-    FormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint> &f, int deg = -1)\
-    \ {\n  if (deg == -1) deg = (int)f.size();\n  if ((int)f.size() == 0) return FormalPowerSeries<mint>(deg,\
-    \ 0);\n  if (f[0] == mint(0)) {\n    for (int i = 1; i < (int)f.size(); i++) {\n\
-    \      if (f[i] != mint(0)) {\n        if (i & 1) return {};\n        if (deg\
-    \ - i / 2 <= 0) break;\n        auto ret = FpsSqrt(f >> i, deg - i / 2);\n   \
-    \     if (ret.empty()) return {};\n        ret = ret << (i / 2);\n        if ((int)ret.size()\
-    \ < deg) ret.resize(deg, mint(0));\n        return ret;\n      }\n    }\n    return\
-    \ FormalPowerSeries<mint>(deg, 0);\n  }\n  int64_t sqr = ModSqrt(f[0].val(), mint::get_mod());\n\
-    \  if (sqr == -1) return {};\n  assert(sqr * sqr % mint::get_mod() == f[0].val());\n\
-    \  FormalPowerSeries<mint> ret = {mint(sqr)};\n  mint inv2 = mint(2).inv();\n\
-    \  for (int i = 1; i < deg; i <<= 1) {\n    ret = (ret + f.pre(i << 1) * ret.inv(i\
-    \ << 1)) * inv2;\n  }\n  return ret.pre(deg);\n}\n#line 2 \"modint/factorial.hpp\"\
-    \n\ntemplate <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n\
-    \    inv(n);\n    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n\
-    \    static long long mod = mint::get_mod();\n    static vector<mint> buf({0,\
-    \ 1});\n    assert(n != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
+    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\
+    \nusing fps = FormalPowerSeries<mint>;\n#line 2 \"modint/factorial.hpp\"\n\ntemplate\
+    \ <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n    inv(n);\n\
+    \    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long\
+    \ long mod = mint::get_mod();\n    static vector<mint> buf({0, 1});\n    assert(n\
+    \ != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n  \
+    \    buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
     \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
     \ long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q * buf[k\
     \ * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int n) {\n\
@@ -379,81 +347,70 @@ data:
     \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
     \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
     \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
-    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 5 \"fps/relaxed.hpp\"\
-    \n\ntemplate <class mint>\nclass RelaxedMultiply {\n  const int B = 6;\n  using\
-    \ fps = FormalPowerSeries<mint>;\n  int n;\n  fps f, g, h;\n  vector<fps> f0,\
-    \ g0;\n\n public:\n  RelaxedMultiply() : n(0), f(1), g(1), f0(B), g0(B) {}\n \
-    \ mint append(mint a, mint b) {\n    f[n] = a, g[n] = b;\n    n++;\n    int m\
-    \ = n & -n;\n    int l = __builtin_ctz((unsigned int)m);\n    if (n == m) {\n\
-    \      f.resize(2 * m);\n      g.resize(2 * m);\n      h.resize(2 * m);\n    \
-    \  if (l < B) {\n        for (int i = 0; i < m; i++)\n          for (int j = m\
-    \ - 1 - i; j < m; j++)\n            h[i + j] += f[i] * g[j];\n      } else {\n\
-    \        auto f1 = f;\n        f1.ntt();\n        f0.push_back(fps(f1.begin(),\
-    \ f1.begin() + m));\n        auto g1 = g;\n        g1.ntt();\n        g0.push_back(fps(g1.begin(),\
-    \ g1.begin() + m));\n        for (int i = 0; i < 2 * m; i++) f1[i] *= g1[i];\n\
-    \        f1.intt();\n        for (int i = m - 1; i < 2 * m - 1; i++) h[i] += f1[i];\n\
-    \      }\n    } else {\n      if (l < B) {\n        int s = n - m;\n        for\
-    \ (int i = 0; i < m; i++) {\n          int t = m - 1 - i;\n          for (int\
-    \ j = 0; j < m; j++)\n            h[n - 1 + j] += f[s + i] * g[t + j] + g[s +\
-    \ i] * f[t + j];\n        }\n      } else {\n        fps f1(2 * m), g1(2 * m),\
-    \ h1(2 * m);\n        copy(f.begin() + (n - m), f.begin() + n, f1.begin());\n\
-    \        copy(g.begin() + (n - m), g.begin() + n, g1.begin());\n        f1.ntt(),\
-    \ g1.ntt();\n        for (int i = 0; i < 2 * m; i++) h1[i] += f1[i] * g0[l + 1][i]\
-    \ + f0[l + 1][i] * g1[i];\n        h1.intt();\n        for (int i = m - 1; i <\
-    \ 2 * m - 1; i++) h[n - m + i] += h1[i];\n      }\n    }\n    return h[n - 1];\n\
-    \  }\n};\n\ntemplate <class mint>\nclass SemiRelaxedMultiply {\n  const int B\
-    \ = 6;\n  using fps = FormalPowerSeries<mint>;\n  int n, m0;\n  fps f, g, h;\n\
-    \  vector<fps> g0;\n\n public:\n  SemiRelaxedMultiply(const fps& g_) : n(0), m0(1\
-    \ << B), f(1), g(g_) {\n    while (m0 < g.size()) m0 <<= 1;\n    g.resize(m0);\n\
-    \    for (int k = 1; k <= m0; k <<= 1) {\n      fps g1(2 * k);\n      copy(g.begin(),\
-    \ g.begin() + min(2 * k, m0), g1.begin());\n      g1.ntt();\n      g0.push_back(g1);\n\
-    \    }\n  }\n  mint append(mint a) {\n    f[n] = a;\n    n++;\n    int m = n &\
-    \ -n;\n    int l = __builtin_ctz((unsigned int)m);\n    if (n == m) {\n      f.resize(2\
-    \ * m);\n      h.resize(2 * m);\n    }\n    while (l >= g0.size()) {\n      g0.push_back(g0.back());\n\
-    \      g0.back().ntt_doubling();\n    }\n    if (l < B) {\n      int s = n - m;\n\
-    \      for (int i = 0; i < m; i++) {\n        int t = m - 1 - i;\n        for\
-    \ (int j = 0; j < m; j++)\n          h[n - 1 + j] += f[s + i] * g[t + j];\n  \
-    \    }\n    } else {\n      fps f1(2 * m);\n      copy(f.begin() + (n - m), f.begin()\
-    \ + n, f1.begin());\n      f1.ntt();\n      for (int i = 0; i < 2 * m; i++) f1[i]\
-    \ *= g0[l][i];\n      f1.intt();\n      for (int i = m - 1; i < 2 * m - 1; i++)\
-    \ h[n - m + i] += f1[i];\n    }\n    return h[n - 1];\n  }\n};\n\n// f(x)/g(x)\n\
-    template <class mint>\nclass RelaxedDivide {\n  RelaxedMultiply<mint> mul;\n \
-    \ int n;\n  mint c, v;\n\n public:\n  RelaxedDivide() : n(0) {}\n  mint append(mint\
-    \ a, mint b) { return v = n++ == 0 ? a * (c = b.inv()) : (a - mul.append(v, b))\
-    \ * c; }\n};\n\ntemplate <class mint>\nclass RelaxedInv {\n  RelaxedMultiply<mint>\
-    \ mul;\n  int n;\n  mint c, v;\n\n public:\n  RelaxedInv() : n(0) {}\n  mint append(mint\
-    \ a) { return v = n++ == 0 ? (c = a.inv()) : -mul.append(v, a) * c; }\n};\n\n\
-    template <class mint>\nclass RelaxedExp {\n  using fact = Factorial<mint>;\n \
-    \ RelaxedMultiply<mint> mul;\n  int n;\n  mint v;\n\n public:\n  RelaxedExp()\
-    \ : n(0) {}\n  mint append(mint a) {\n    if (n++ == 0) {\n      assert(a == 0);\n\
-    \      v = 1;\n    } else {\n      v = mul.append((n - 1) * a, v) * fact::inv(n\
-    \ - 1);\n    }\n    return v;\n  }\n};\n\ntemplate <class mint>\nclass RelaxedLog\
-    \ {\n  using fact = Factorial<mint>;\n  RelaxedMultiply<mint> mul;\n  int n;\n\
-    \  mint a0, v;\n\n public:\n  RelaxedLog() : n(0) {}\n  mint append(mint a) {\n\
-    \    if (n == 0) {\n      assert(a == 1);\n      n++;\n      return 0;\n    }\
-    \ else if (n == 1) {\n      a0 = a, n++;\n      return v = a;\n    } else {\n\
-    \      v = n * a - mul.append(v, a0);\n      a0 = a;\n      return v * fact::inv(n++);\n\
-    \    }\n  }\n};\n\ntemplate <class mint>\nclass RelaxedSqrt {\n  RelaxedMultiply<mint>\
-    \ mul;\n  int n;\n  mint c, v;\n\n public:\n  RelaxedSqrt() : n(0) {}\n  mint\
-    \ append(mint a) {\n    if (n == 0) {\n      long long sq = ModSqrt(a.val(), mint::get_mod());\n\
-    \      assert(sq != -1 && sq != 0);\n      c = mint(2 * sq).inv();\n      n++;\n\
-    \      return sq;\n    } else {\n      return v = (n++ == 1 ? a : a - mul.append(v,\
-    \ v)) * c;\n    }\n  }\n};\n\n/**\n * @brief Relaxed \n * @docs docs/fps/relaxed.md\n\
-    \ */\n#line 10 \"verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp\"\n\
-    \nint main() {\n  int n;\n  in(n);\n  fps a(n);\n  in(a);\n  if (a[0] == 0) {\n\
-    \    a = FpsSqrt(a);\n    if (a.empty())\n      out(-1);\n    else\n      out(a);\n\
-    \  } else if (ModSqrt(a[0].val(), mint::get_mod()) == -1) {\n    out(-1);\n  }\
-    \ else {\n    fps b(n);\n    RelaxedSqrt<mint> sqrt;\n    rep(i, 0, n) b[i] =\
-    \ sqrt.append(a[i]);\n    out(b);\n  }\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_of_formal_power_series\"\
+    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"modint/mod-sqrt.hpp\"\
+    \n\n#line 2 \"modint/mod-pow.hpp\"\n\nunsigned int ModPow(unsigned int a, unsigned\
+    \ long long n, unsigned int m) {\n  unsigned long long x = a, y = 1;\n  while\
+    \ (n) {\n    if (n & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n\
+    \  return y;\n}\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long long\
+    \ a, long long p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n  if\
+    \ (a == 0) return 0;\n  if (ModPow(a, (p - 1) / 2, p) != 1) return -1;\n  if (p\
+    \ % 4 == 3) return ModPow(a, (3 * p - 1) / 4, p);\n  unsigned int z = 2, q = p\
+    \ - 1;\n  while (ModPow(z, (p - 1) / 2, p) == 1) z++;\n  int s = 0;\n  while (!(q\
+    \ & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n  unsigned int c = ModPow(z,\
+    \ q, p);\n  unsigned int t = ModPow(a, q, p);\n  unsigned int r = ModPow(a, (q\
+    \ + 1) / 2, p);\n  while (true) {\n    if (t == 1) return r;\n    unsigned int\
+    \ pow = t;\n    int j = 1;\n    for (; j < m; j++) {\n      pow = 1ll * pow *\
+    \ pow % p;\n      if (pow == 1) break;\n    }\n    unsigned int b = c;\n    for\
+    \ (int i = 0; i < m - j - 1; i++) b = 1ll * b * b % p;\n    m = j;\n    c = 1ll\
+    \ * b * b % p;\n    t = 1ll * t * c % p;\n    r = 1ll * r * b % p;\n  }\n}\n#line\
+    \ 5 \"fps/sparse.hpp\"\n\nnamespace FPSSparse {\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ inv(map<int, mint> f, int n) {\n  assert(f[0] != 0);\n  if (n == 0) return {};\n\
+    \  mint c = f[0].inv();\n  FormalPowerSeries<mint> g(n);\n  g[0] = c;\n  for (int\
+    \ i = 1; i < n; i++) {\n    for (auto [j, v] : f)\n      if (j <= i) g[i] -= v\
+    \ * g[i - j];\n    g[i] *= c;\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ exp(map<int, mint> f, int n) {\n  assert(f[0] == 0);\n  if (n == 0) return {};\n\
+    \  FormalPowerSeries<mint> g(n);\n  g[0] = 1;\n  for (int i = 1; i < n; i++) {\n\
+    \    for (auto [j, v] : f)\n      if (j <= i) g[i] += j * v * g[i - j];\n    g[i]\
+    \ *= Factorial<mint>::inv(i);\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ log(map<int, mint> f, int n) {\n  assert(f[0] == 1);\n  if (n == 0) return {};\n\
+    \  FormalPowerSeries<mint> g(n);\n  g[0] = 0;\n  for (auto [j, v] : f)\n    if\
+    \ (0 < j && j < n) g[j - 1] = v * j;\n  for (int i = 1; i < n; i++) {\n    for\
+    \ (auto [j, v] : f)\n      if (0 < j && j <= i) g[i] -= v * g[i - j];\n  }\n \
+    \ for (int i = n - 1; i > 0; i--) g[i] = g[i - 1] * Factorial<mint>::inv(i);\n\
+    \  g[0] = 0;\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> pow(map<int,\
+    \ mint> f, long long m, int n) {\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
+    \ g(n, 0);\n  if (m == 0) {\n    g[0] = 1;\n    return g;\n  }\n  if (f[0] ==\
+    \ 0) {\n    if (m >= n) return g;\n    int s = 1;\n    while (s < n && f[s] ==\
+    \ 0) s++;\n    if (s * m >= n) return g;\n    map<int, mint> f1;\n    for (auto\
+    \ [i, v] : f) f1[i - s] = v;\n    auto g1 = pow(f1, m, int(n - s * m));\n    copy(g1.begin(),\
+    \ g1.end(), g.begin() + int(s * m));\n    return g;\n  }\n  g[0] = f[0].pow(m);\n\
+    \  mint c = f[0].inv();\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v]\
+    \ : f) {\n      if (0 < j && j <= i) g[i] += j * f[j] * g[i - j] * m;\n      if\
+    \ (0 < j && j < i) g[i] -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c *\
+    \ Factorial<mint>::inv(i);\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ sqrt(map<int, mint> f, int n) {\n  if (n == 0) return {};\n  if (f.empty())\
+    \ return FormalPowerSeries<mint>(n, 0);\n  FormalPowerSeries<mint> g(n, 0);\n\
+    \  if (f[0] == 0) {\n    int s = 1;\n    while (s < n * 2 && f[s] == 0) s++;\n\
+    \    if (s & 1) return {};\n    s /= 2;\n    if (s >= n) return g;\n    map<int,\
+    \ mint> f1;\n    for (auto [i, v] : f) f1[i - s * 2] = v;\n    auto g1 = sqrt(f1,\
+    \ int(n - s));\n    if (g1.empty()) return {};\n    copy(g1.begin(), g1.end(),\
+    \ g.begin() + s);\n    return g;\n  }\n  long long sq = ModSqrt(f[0].val(), mint::get_mod());\n\
+    \  if (sq < 0) return {};\n  g[0] = sq;\n  mint c = f[0].inv(), inv2 = mint(2).inv();\n\
+    \  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j\
+    \ && j <= i) g[i] += j * f[j] * g[i - j] * inv2;\n      if (0 < j && j < i) g[i]\
+    \ -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n\
+    \  }\n  return g;\n}\n};  // namespace FPSSparse\n\n/**\n * @brief Sparse \u306A\
+    \ FPS \u6F14\u7B97\n * @docs docs/fps/sparse.md\n */\n#line 9 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\
+    \n\nint main() {\n  int n, k;\n  ll m;\n  in(n, k, m);\n  map<int, mint> f;\n\
+    \  rep(i, 0, k) {\n    int j;\n    mint a;\n    in(j, a);\n    f[j] = a;\n  }\n\
+    \  out(FPSSparse::pow(f, m, n));\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"fps/fps-ntt-friendly.hpp\"\nusing fps\
-    \ = FormalPowerSeries<mint>;\n#include \"fps/fps-sqrt.hpp\"\n#include \"fps/relaxed.hpp\"\
-    \n\nint main() {\n  int n;\n  in(n);\n  fps a(n);\n  in(a);\n  if (a[0] == 0)\
-    \ {\n    a = FpsSqrt(a);\n    if (a.empty())\n      out(-1);\n    else\n     \
-    \ out(a);\n  } else if (ModSqrt(a[0].val(), mint::get_mod()) == -1) {\n    out(-1);\n\
-    \  } else {\n    fps b(n);\n    RelaxedSqrt<mint> sqrt;\n    rep(i, 0, n) b[i]\
-    \ = sqrt.append(a[i]);\n    out(b);\n  }\n}"
+    \ = FormalPowerSeries<mint>;\n#include \"fps/sparse.hpp\"\n\nint main() {\n  int\
+    \ n, k;\n  ll m;\n  in(n, k, m);\n  map<int, mint> f;\n  rep(i, 0, k) {\n    int\
+    \ j;\n    mint a;\n    in(j, a);\n    f[j] = a;\n  }\n  out(FPSSparse::pow(f,\
+    \ m, n));\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -464,21 +421,20 @@ data:
   - fps/fps-ntt-friendly.hpp
   - fft/ntt.hpp
   - fps/formal-power-series.hpp
-  - fps/fps-sqrt.hpp
+  - fps/sparse.hpp
+  - modint/factorial.hpp
   - modint/mod-sqrt.hpp
   - modint/mod-pow.hpp
-  - fps/relaxed.hpp
-  - modint/factorial.hpp
   isVerificationFile: true
-  path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
   requiredBy: []
-  timestamp: '2025-10-26 03:52:03+09:00'
+  timestamp: '2025-10-26 20:24:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+documentation_of: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-- /verify/verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp.html
-title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+- /verify/verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+- /verify/verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp.html
+title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
 ---

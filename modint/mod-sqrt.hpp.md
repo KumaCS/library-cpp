@@ -1,16 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
   - icon: ':heavy_check_mark:'
     path: fps/relaxed.hpp
     title: Relaxed
+  - icon: ':question:'
+    path: fps/sparse.hpp
+    title: "Sparse \u306A FPS \u6F14\u7B97"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_convolution_mod.relaxed.test.cpp
@@ -22,20 +25,35 @@ data:
     path: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"modint/mod-sqrt.hpp\"\n\n#line 2 \"modint/mod-pow.hpp\"\n\
@@ -72,15 +90,21 @@ data:
   path: modint/mod-sqrt.hpp
   requiredBy:
   - fps/relaxed.hpp
+  - fps/sparse.hpp
   - fps/fps-sqrt.hpp
   timestamp: '2025-10-10 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
 documentation_of: modint/mod-sqrt.hpp
