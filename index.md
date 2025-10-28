@@ -235,11 +235,20 @@ data:
       path: set/and-convolution.hpp
       title: set/and-convolution.hpp
     - icon: ':heavy_check_mark:'
+      path: set/composite-set-power-series.hpp
+      title: Polynomial Composite Set Power Series
+    - icon: ':heavy_check_mark:'
+      path: set/exp-of-set-power-series.hpp
+      title: Exp Of Set Power Series
+    - icon: ':heavy_check_mark:'
       path: set/hadamard-transform.hpp
       title: set/hadamard-transform.hpp
     - icon: ':heavy_check_mark:'
       path: set/or-convolution.hpp
       title: set/or-convolution.hpp
+    - icon: ':heavy_check_mark:'
+      path: set/subset-convolution.hpp
+      title: Subset Convolution
     - icon: ':heavy_check_mark:'
       path: set/xor-convolution.hpp
       title: set/xor-convolution.hpp
@@ -461,6 +470,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/set/LC_bitwise_xor_convolution.test.cpp
       title: verify/set/LC_bitwise_xor_convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/set/LC_exp_of_set_power_series.test.cpp
+      title: verify/set/LC_exp_of_set_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+      title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/set/LC_subset_convolution.test.cpp
+      title: verify/set/LC_subset_convolution.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/set/UNIT_composite_set_power_series.test.cpp
+      title: verify/set/UNIT_composite_set_power_series.test.cpp
   - name: verify/union-find
     pages:
     - icon: ':heavy_check_mark:'

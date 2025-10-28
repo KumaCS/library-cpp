@@ -117,19 +117,19 @@ data:
     \ \"verify/set/LC_bitwise_and_convolution.test.cpp\"\nusing mint = ModInt<998244353>;\n\
     #line 2 \"set/and-convolution.hpp\"\n\n#line 2 \"set/zeta-mobius-transform.hpp\"\
     \n\ntemplate <class T>\nvoid SupsetZetaTransform(vector<T>& f) {\n  int n = f.size();\n\
-    \  assert((n & (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1) {\n    for (int\
-    \ j = 0; j < n; j++) {\n      if ((j & i) == 0) {\n        f[j] += f[j | i];\n\
-    \      }\n    }\n  }\n}\n\ntemplate <class T>\nvoid SupsetMobiusTransform(vector<T>&\
+    \  assert((n & (n - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1)\n    for (int\
+    \ j = 0; j < n; j += i * 2)\n      for (int k = 0; k < i; k++)\n        f[j +\
+    \ k] += f[i + j + k];\n}\n\ntemplate <class T>\nvoid SupsetMobiusTransform(vector<T>&\
     \ f) {\n  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1;\
-    \ i < n; i <<= 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0)\
-    \ {\n        f[j] -= f[j | i];\n      }\n    }\n  }\n}\n\ntemplate <class T>\n\
+    \ i < n; i <<= 1)\n    for (int j = 0; j < n; j += i * 2)\n      for (int k =\
+    \ 0; k < i; k++)\n        f[j + k] -= f[i + j + k];\n}\n\ntemplate <class T>\n\
     void SubsetZetaTransform(vector<T>& f) {\n  int n = f.size();\n  assert((n & (n\
-    \ - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1) {\n    for (int j = 0; j < n;\
-    \ j++) {\n      if ((j & i) == 0) {\n        f[j | i] += f[j];\n      }\n    }\n\
-    \  }\n}\n\ntemplate <class T>\nvoid SubsetMobiusTransform(vector<T>& f) {\n  int\
-    \ n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1; i < n; i <<=\
-    \ 1) {\n    for (int j = 0; j < n; j++) {\n      if ((j & i) == 0) {\n       \
-    \ f[j | i] -= f[j];\n      }\n    }\n  }\n}\n#line 4 \"set/and-convolution.hpp\"\
+    \ - 1)) == 0);\n  for (int i = 1; i < n; i <<= 1)\n    for (int j = 0; j < n;\
+    \ j += i * 2)\n      for (int k = 0; k < i; k++)\n        f[i + j + k] += f[j\
+    \ + k];\n}\n\ntemplate <class T>\nvoid SubsetMobiusTransform(vector<T>& f) {\n\
+    \  int n = f.size();\n  assert((n & (n - 1)) == 0);\n  for (int i = 1; i < n;\
+    \ i <<= 1)\n    for (int j = 0; j < n; j += i * 2)\n      for (int k = 0; k <\
+    \ i; k++)\n        f[i + j + k] -= f[j + k];\n}\n#line 4 \"set/and-convolution.hpp\"\
     \n\ntemplate <class T>\nvector<T> AndConvolution(vector<T> a, vector<T> b) {\n\
     \  assert(a.size() == b.size());\n  SupsetZetaTransform(a);\n  SupsetZetaTransform(b);\n\
     \  for (int i = 0; i < a.size(); i++) a[i] *= b[i];\n  SupsetMobiusTransform(a);\n\
@@ -153,7 +153,7 @@ data:
   isVerificationFile: true
   path: verify/set/LC_bitwise_and_convolution.test.cpp
   requiredBy: []
-  timestamp: '2025-10-25 18:30:13+09:00'
+  timestamp: '2025-10-29 02:30:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/set/LC_bitwise_and_convolution.test.cpp

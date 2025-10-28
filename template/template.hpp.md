@@ -184,6 +184,18 @@ data:
     path: verify/set/LC_bitwise_xor_convolution.test.cpp
     title: verify/set/LC_bitwise_xor_convolution.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/set/LC_exp_of_set_power_series.test.cpp
+    title: verify/set/LC_exp_of_set_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+    title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/set/LC_subset_convolution.test.cpp
+    title: verify/set/LC_subset_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/set/UNIT_composite_set_power_series.test.cpp
+    title: verify/set/UNIT_composite_set_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind.test.cpp
     title: verify/union-find/LC_unionfind.test.cpp
   - icon: ':heavy_check_mark:'
@@ -322,8 +334,12 @@ data:
   - verify/data-structure/LC_point_add_range_sum.test.cpp
   - verify/data-structure/LC_staticrmq.test.cpp
   - verify/data-structure/LC_predecessor_problem.test.cpp
+  - verify/set/UNIT_composite_set_power_series.test.cpp
+  - verify/set/LC_polynomial_composite_set_power_series.test.cpp
   - verify/set/LC_bitwise_xor_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_subset_convolution.test.cpp
+  - verify/set/LC_exp_of_set_power_series.test.cpp
   - verify/set/LC_bitwise_and_convolution.or.test.cpp
   - verify/union-find/LC_unionfind.test.cpp
   - verify/union-find/LC_unionfind_with_potential.test.cpp

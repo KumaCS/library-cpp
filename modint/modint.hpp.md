@@ -136,6 +136,18 @@ data:
     path: verify/set/LC_bitwise_xor_convolution.test.cpp
     title: verify/set/LC_bitwise_xor_convolution.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/set/LC_exp_of_set_power_series.test.cpp
+    title: verify/set/LC_exp_of_set_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+    title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/set/LC_subset_convolution.test.cpp
+    title: verify/set/LC_subset_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/set/UNIT_composite_set_power_series.test.cpp
+    title: verify/set/UNIT_composite_set_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind_with_potential.test.cpp
     title: verify/union-find/LC_unionfind_with_potential.test.cpp
   _isVerificationFailed: false
@@ -254,8 +266,12 @@ data:
   - verify/segment-tree/LC_range_affine_range_sum.test.cpp
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
   - verify/segment-tree/LC_range_affine_point_get.test.cpp
+  - verify/set/UNIT_composite_set_power_series.test.cpp
+  - verify/set/LC_polynomial_composite_set_power_series.test.cpp
   - verify/set/LC_bitwise_xor_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_subset_convolution.test.cpp
+  - verify/set/LC_exp_of_set_power_series.test.cpp
   - verify/set/LC_bitwise_and_convolution.or.test.cpp
   - verify/union-find/LC_unionfind_with_potential.test.cpp
 documentation_of: modint/modint.hpp
