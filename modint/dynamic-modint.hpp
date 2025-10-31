@@ -1,18 +1,23 @@
 #pragma once
 #include "math/util.hpp"
+#include "math/barrett.hpp"
 
-template <unsigned int m = 998244353>
-struct ModInt {
-  using mint = ModInt;
-  static constexpr unsigned int get_mod() { return m; }
+template <int id>
+struct DynamicModInt {
+  using mint = DynamicModInt;
+  static void set_mod(int m) {
+    assert(1 <= m);
+    bar = barrett(m);
+  }
+  static constexpr unsigned int get_mod() { return (int)bar.umod(); }
   static mint raw(int v) {
     mint x;
     x._v = v;
     return x;
   }
-  ModInt() : _v(0) {}
-  ModInt(int64_t v) {
-    long long x = (long long)(v % (long long)(umod()));
+  DynamicModInt() : _v(0) {}
+  DynamicModInt(int64_t v) {
+    long long x = (long long)(v % (long long)(bar.umod()));
     if (x < 0) x += umod();
     _v = (unsigned int)(x);
   }
@@ -48,9 +53,7 @@ struct ModInt {
     return *this;
   }
   mint& operator*=(const mint& rhs) {
-    unsigned long long z = _v;
-    z *= rhs._v;
-    _v = (unsigned int)(z % umod());
+    _v = bar.mul(_v, rhs._v);
     return *this;
   }
   mint& operator/=(const mint& rhs) { return *this = *this * rhs.inv(); }
@@ -67,13 +70,8 @@ struct ModInt {
     return r;
   }
   mint inv() const {
-    if (is_prime) {
-      assert(_v);
-      return pow(umod() - 2);
-    } else {
-      auto inv = Math::inv_mod(_v, umod());
-      return raw(inv);
-    }
+    auto inv = Math::inv_mod(_v, umod());
+    return raw(inv);
   }
   friend mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs; }
   friend mint operator-(const mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }
@@ -86,6 +84,8 @@ struct ModInt {
 
  private:
   unsigned int _v;
-  static constexpr unsigned int umod() { return m; }
-  static constexpr bool is_prime = Math::is_prime<m>;
+  static constexpr unsigned int umod() { return bar.umod(); }
+  static barrett bar;
 };
+template <int id>
+barrett DynamicModInt<id>::bar(998244353);
