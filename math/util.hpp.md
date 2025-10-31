@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: convolution/intmod.hpp
+    title: "\u4EFB\u610F mod \u7573\u307F\u8FBC\u307F"
   - icon: ':warning:'
     path: math/garner-online.hpp
     title: "Garner \u306E\u30A2\u30EB\u30B4\u30EA\u30BA\u30E0 (\u30AA\u30F3\u30E9\u30A4\
@@ -12,16 +15,184 @@ data:
   - icon: ':warning:'
     path: math/polynomial-floor-sum.hpp
     title: "\u591A\u9805\u5F0F\u7248 floor sum"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: modint/dynamic-modint.hpp
+    title: modint/dynamic-modint.hpp
+  - icon: ':question:'
+    path: modint/modint.hpp
+    title: modint/modint.hpp
+  - icon: ':x:'
     path: number-theory/enumerate-quotients.hpp
     title: "\u5546\u306E\u5217\u6319"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_convolution_mod.test.cpp
+    title: verify/convolution/LC_convolution_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_convolution_mod_1000000007.test.cpp
+    title: verify/convolution/LC_convolution_mod_1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_gcd_convolution.test.cpp
+    title: verify/convolution/LC_gcd_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_lcm_convolution.test.cpp
+    title: verify/convolution/LC_lcm_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_composition_of_formal_power_series.test.cpp
+    title: verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+    title: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+    title: verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+    title: verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+    title: verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_convolution_mod.relaxed.test.cpp
+    title: verify/fps/LC_convolution_mod.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+    title: verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_division_of_polynomials.test.cpp
+    title: verify/fps/LC_division_of_polynomials.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_exp_of_formal_power_series.test.cpp
+    title: verify/fps/LC_exp_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_find_linear_recurrence.test.cpp
+    title: verify/fps/LC_find_linear_recurrence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_formal_power_series.test.cpp
+    title: verify/fps/LC_inv_of_formal_power_series.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_polynomials.test.cpp
+    title: verify/fps/LC_inv_of_polynomials.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+    title: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_log_of_formal_power_series.test.cpp
+    title: verify/fps/LC_log_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_multipoint_evaluation.test.cpp
+    title: verify/fps/LC_multipoint_evaluation.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+    title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_polynomial_interpolation.test.cpp
+    title: verify/fps/LC_polynomial_interpolation.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+    title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_polynomial_taylor_shift.test.cpp
+    title: verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_pow_of_formal_power_series.test.cpp
+    title: verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+    title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sharp_p_subset_sum.test.cpp
+    title: verify/fps/LC_sharp_p_subset_sum.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+    title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+    title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+    title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+    title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+    title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+    title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - icon: ':x:'
+    path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+    title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - icon: ':x:'
+    path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+    title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - icon: ':x:'
+    path: verify/modint/UNIT_multi_inverse.test.cpp
+    title: verify/modint/UNIT_multi_inverse.test.cpp
+  - icon: ':x:'
     path: verify/number-theory/LC_enumerate_quotients.test.cpp
     title: verify/number-theory/LC_enumerate_quotients.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/segment-tree/LC_point_set_range_composite.test.cpp
+    title: verify/segment-tree/LC_point_set_range_composite.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_range_affine_point_get.test.cpp
+    title: verify/segment-tree/LC_range_affine_point_get.test.cpp
+  - icon: ':x:'
+    path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
+    title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_and_convolution.or.test.cpp
+    title: verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_and_convolution.test.cpp
+    title: verify/set/LC_bitwise_and_convolution.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_bitwise_xor_convolution.test.cpp
+    title: verify/set/LC_bitwise_xor_convolution.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_exp_of_set_power_series.test.cpp
+    title: verify/set/LC_exp_of_set_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+    title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_power_projection_of_set_power_series.test.cpp
+    title: verify/set/LC_power_projection_of_set_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_subset_convolution.test.cpp
+    title: verify/set/LC_subset_convolution.test.cpp
+  - icon: ':x:'
+    path: verify/set/UNIT_composite_set_power_series.test.cpp
+    title: verify/set/UNIT_composite_set_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/union-find/LC_unionfind_with_potential.test.cpp
+    title: verify/union-find/LC_unionfind_with_potential.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\n\
@@ -51,7 +222,15 @@ data:
     \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
     \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
     \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
-    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\n};  // namespace Math\n"
+    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
+    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
+    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
+    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
+    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
+    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
+    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
+    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math\n"
   code: "#pragma once\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T a, T b)\
     \ {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  a %= b;\n  return a >=\
     \ 0 ? a : a + b;\n}\ntemplate <class T>\nT floor(T a, T b) {\n  assert(b != 0);\n\
@@ -79,19 +258,84 @@ data:
     \ long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n\
     \  unsigned long long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y\
     \ += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n\
-    \    n >>= 1;\n  }\n  return r;\n}\n};  // namespace Math"
+    \    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n\
+    \  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n\
+    \  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0)\
+    \ d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a :\
+    \ bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n\
+    \    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n    \
+    \  t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
+    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math"
   dependsOn: []
   isVerificationFile: false
   path: math/util.hpp
   requiredBy:
+  - modint/dynamic-modint.hpp
+  - modint/modint.hpp
   - math/polynomial-floor-sum.hpp
   - math/garner.hpp
   - math/garner-online.hpp
+  - convolution/intmod.hpp
   - number-theory/enumerate-quotients.hpp
-  timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-11-01 00:19:27+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - verify/modint/UNIT_multi_inverse.test.cpp
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_convolution_mod.relaxed.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_inv_of_polynomials.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.test.cpp
+  - verify/fps/LC_find_linear_recurrence.test.cpp
+  - verify/fps/LC_multipoint_evaluation.test.cpp
+  - verify/fps/LC_division_of_polynomials.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+  - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_sharp_p_subset_sum.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/convolution/LC_convolution_mod_1000000007.test.cpp
+  - verify/convolution/LC_lcm_convolution.test.cpp
+  - verify/convolution/LC_convolution_mod.test.cpp
+  - verify/convolution/LC_gcd_convolution.test.cpp
   - verify/number-theory/LC_enumerate_quotients.test.cpp
+  - verify/segment-tree/LC_range_affine_range_sum.test.cpp
+  - verify/segment-tree/LC_point_set_range_composite.test.cpp
+  - verify/segment-tree/LC_range_affine_point_get.test.cpp
+  - verify/set/UNIT_composite_set_power_series.test.cpp
+  - verify/set/LC_polynomial_composite_set_power_series.test.cpp
+  - verify/set/LC_bitwise_xor_convolution.test.cpp
+  - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_subset_convolution.test.cpp
+  - verify/set/LC_exp_of_set_power_series.test.cpp
+  - verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - verify/set/LC_power_projection_of_set_power_series.test.cpp
+  - verify/union-find/LC_unionfind_with_potential.test.cpp
 documentation_of: math/util.hpp
 layout: document
 redirect_from:

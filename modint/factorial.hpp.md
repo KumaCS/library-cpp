@@ -8,31 +8,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/compositional-inv.hpp
     title: "\u9006\u95A2\u6570"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/count-subset-sum.hpp
     title: Count Subset Sum
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/interpolate.hpp
     title: Interpolate
   - icon: ':heavy_check_mark:'
     path: fps/power-projection.hpp
     title: Power Projection
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/prefix-sum-of-polynomial.hpp
     title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/relaxed.hpp
     title: Relaxed
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/sampling-points-shift.hpp
     title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/sparse.hpp
     title: "Sparse \u306A FPS \u6F14\u7B97"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/sum-of-exp-poly.hpp
     title: $\sum_{i}r^i poly(i)$
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/taylor-shift.hpp
     title: Taylor Shift
   _extendedVerifiedWith:
@@ -69,39 +69,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sharp_p_subset_sum.test.cpp
     title: verify/fps/LC_sharp_p_subset_sum.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
     title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+    title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     document_title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
     links: []
@@ -183,8 +186,9 @@ data:
   - fps/sum-of-exp-poly.hpp
   - fps/sampling-points-shift.hpp
   timestamp: '2025-10-25 18:30:13+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp

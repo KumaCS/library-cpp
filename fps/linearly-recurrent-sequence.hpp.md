@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/bostan-mori.hpp
     title: Bostan-Mori
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   - icon: ':heavy_check_mark:'

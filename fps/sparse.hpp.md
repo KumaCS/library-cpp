@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
   _extendedRequiredBy: []
@@ -21,18 +21,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/fps/sparse.md
     document_title: "Sparse \u306A FPS \u6F14\u7B97"
@@ -242,7 +242,7 @@ data:
   path: fps/sparse.hpp
   requiredBy: []
   timestamp: '2025-10-31 21:40:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp

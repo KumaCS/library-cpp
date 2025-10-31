@@ -1,12 +1,18 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':x:'
+    path: math/barrett.hpp
+    title: math/barrett.hpp
   - icon: ':question:'
     path: math/util.hpp
     title: math/util.hpp
+  - icon: ':x:'
+    path: modint/dynamic-modint.hpp
+    title: modint/dynamic-modint.hpp
   - icon: ':question:'
-    path: modint/modint.hpp
-    title: modint/modint.hpp
+    path: modint/factorial.hpp
+    title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -22,9 +28,6 @@ data:
   - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
-  - icon: ':x:'
-    path: union-find/potentialized-union-find.hpp
-    title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D Union Find"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: true
@@ -32,11 +35,11 @@ data:
   _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/unionfind_with_potential
+    PROBLEM: https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod
     links:
-    - https://judge.yosupo.jp/problem/unionfind_with_potential
-  bundledCode: "#line 1 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\
-    \n#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind_with_potential\"\
+    - https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod
+  bundledCode: "#line 1 \"verify/modint/LC_binomial_coefficient_prime_mod.test.cpp\"\
+    \n#define PROBLEM \"https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod\"\
     \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
     \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
@@ -119,29 +122,36 @@ data:
     \ (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t <<= 1;\n\
     \    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n    }\n  }\n\
     \  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
-    \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
-    \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
-    \    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0) {}\n  ModInt(int64_t v)\
-    \ {\n    long long x = (long long)(v % (long long)(umod()));\n    if (x < 0) x\
-    \ += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return\
-    \ _v; }\n  mint& operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n  \
-    \  return *this;\n  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n\
-    \    _v--;\n    return *this;\n  }\n  mint operator++(int) {\n    mint result\
-    \ = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int) {\n\
-    \    mint result = *this;\n    --*this;\n    return result;\n  }\n  mint& operator+=(const\
-    \ mint& rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return\
-    \ *this;\n  }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if\
-    \ (_v >= umod()) _v += umod();\n    return *this;\n  }\n  mint& operator*=(const\
-    \ mint& rhs) {\n    unsigned long long z = _v;\n    z *= rhs._v;\n    _v = (unsigned\
-    \ int)(z % umod());\n    return *this;\n  }\n  mint& operator/=(const mint& rhs)\
-    \ { return *this = *this * rhs.inv(); }\n  mint operator+() const { return *this;\
-    \ }\n  mint operator-() const { return mint() - *this; }\n  mint pow(long long\
-    \ n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n    while (n) {\n\
-    \      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n    }\n    return r;\n\
-    \  }\n  mint inv() const {\n    if (is_prime) {\n      assert(_v);\n      return\
-    \ pow(umod() - 2);\n    } else {\n      auto inv = Math::inv_mod(_v, umod());\n\
-    \      return raw(inv);\n    }\n  }\n  friend mint operator+(const mint& lhs,\
+    };  // namespace Math\n#line 2 \"math/barrett.hpp\"\n\nstruct barrett {\n  unsigned\
+    \ int _m;\n  unsigned long long im;\n  explicit barrett(unsigned int m) : _m(m),\
+    \ im((unsigned long long)(-1) / m + 1) {}\n  unsigned int umod() const { return\
+    \ _m; }\n  unsigned int mul(unsigned int a, unsigned int b) const {\n    unsigned\
+    \ long long z = a;\n    z *= b;\n#ifdef _MSC_VER\n    unsigned long long x;\n\
+    \    _umul128(z, im, &x);\n#else\n    unsigned long long x = (unsigned long long)(((unsigned\
+    \ __int128)(z)*im) >> 64);\n#endif\n    unsigned long long y = x * _m;\n    return\
+    \ (unsigned int)(z - y + (z < y ? _m : 0));\n  }\n};\n#line 4 \"modint/dynamic-modint.hpp\"\
+    \n\ntemplate <int id>\nstruct DynamicModInt {\n  using mint = DynamicModInt;\n\
+    \  static void set_mod(int m) {\n    assert(1 <= m);\n    bar = barrett(m);\n\
+    \  }\n  static constexpr unsigned int get_mod() { return (int)bar.umod(); }\n\
+    \  static mint raw(int v) {\n    mint x;\n    x._v = v;\n    return x;\n  }\n\
+    \  DynamicModInt() : _v(0) {}\n  DynamicModInt(int64_t v) {\n    long long x =\
+    \ (long long)(v % (long long)(bar.umod()));\n    if (x < 0) x += umod();\n   \
+    \ _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return _v; }\n  mint&\
+    \ operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n    return *this;\n\
+    \  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n    _v--;\n    return\
+    \ *this;\n  }\n  mint operator++(int) {\n    mint result = *this;\n    ++*this;\n\
+    \    return result;\n  }\n  mint operator--(int) {\n    mint result = *this;\n\
+    \    --*this;\n    return result;\n  }\n  mint& operator+=(const mint& rhs) {\n\
+    \    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return *this;\n \
+    \ }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if (_v >= umod())\
+    \ _v += umod();\n    return *this;\n  }\n  mint& operator*=(const mint& rhs) {\n\
+    \    _v = bar.mul(_v, rhs._v);\n    return *this;\n  }\n  mint& operator/=(const\
+    \ mint& rhs) { return *this = *this * rhs.inv(); }\n  mint operator+() const {\
+    \ return *this; }\n  mint operator-() const { return mint() - *this; }\n  mint\
+    \ pow(long long n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n\
+    \    while (n) {\n      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n  \
+    \  }\n    return r;\n  }\n  mint inv() const {\n    auto inv = Math::inv_mod(_v,\
+    \ umod());\n    return raw(inv);\n  }\n  friend mint operator+(const mint& lhs,\
     \ const mint& rhs) { return mint(lhs) += rhs; }\n  friend mint operator-(const\
     \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n  friend mint operator*(const\
     \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n  friend mint operator/(const\
@@ -150,54 +160,70 @@ data:
     \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream&\
     \ operator>>(istream& is, mint& x) { return is >> x._v; }\n  friend ostream& operator<<(ostream&\
     \ os, const mint& x) { return os << x.val(); }\n\n private:\n  unsigned int _v;\n\
-    \  static constexpr unsigned int umod() { return m; }\n  static constexpr bool\
-    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\
-    \nusing mint = ModInt<998244353>;\n#line 2 \"union-find/potentialized-union-find.hpp\"\
-    \n\ntemplate <class T>\nstruct PotentializedUnionFind {\n private:\n  vector<int>\
-    \ a;\n  vector<T> p;\n\n public:\n  PotentializedUnionFind(int n) : a(n, -1),\
-    \ p(n, 0) {}\n  int find(int v) {\n    if (a[v] < 0) return v;\n    int r = find(a[v]);\n\
-    \    p[v] += p[a[v]];\n    return a[v] = r;\n  }\n  int size(int v) { return -a[find(v)];\
-    \ }\n  bool same(int u, int v) { return find(u) == find(v); }\n  // p[u]-p[v]=w\n\
-    \  bool unite(int u, int v, T w) {\n    int x = find(u), y = find(v);\n    if\
-    \ (x == y) return p[u] - p[v] == w;\n    w -= p[u], w += p[v];\n    if (a[x] <\
-    \ a[y]) {\n      p[y] = p[x] - w;\n      a[x] += a[y];\n      a[y] = x;\n    }\
-    \ else {\n      p[x] = p[y] + w;\n      a[y] += a[x];\n      a[x] = y;\n    }\n\
-    \    return true;\n  }\n  // p[u]-p[v]\n  T diff(int u, int v) { return p[u] -\
-    \ p[v]; }\n};\n/**\n * @brief \u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D\
-    \ Union Find\n * @docs docs/union-find/potentialized-union-find.md\n */\n#line\
-    \ 7 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\n\nint main() {\n\
-    \  int n, q;\n  in(n, q);\n  PotentializedUnionFind<mint> uf(n);\n  while (q--)\
-    \ {\n    int type, u, v;\n    in(type, u, v);\n    if (type == 0) {\n      mint\
-    \ w;\n      in(w);\n      out(uf.unite(u, v, w));\n    } else {\n      if (uf.same(u,\
-    \ v))\n        out(uf.diff(u, v));\n      else\n        out(-1);\n    }\n  }\n\
-    }\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind_with_potential\"\
-    \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
-    \ mint = ModInt<998244353>;\n#include \"union-find/potentialized-union-find.hpp\"\
-    \n\nint main() {\n  int n, q;\n  in(n, q);\n  PotentializedUnionFind<mint> uf(n);\n\
-    \  while (q--) {\n    int type, u, v;\n    in(type, u, v);\n    if (type == 0)\
-    \ {\n      mint w;\n      in(w);\n      out(uf.unite(u, v, w));\n    } else {\n\
-    \      if (uf.same(u, v))\n        out(uf.diff(u, v));\n      else\n        out(-1);\n\
-    \    }\n  }\n}"
+    \  static constexpr unsigned int umod() { return bar.umod(); }\n  static barrett\
+    \ bar;\n};\ntemplate <int id>\nbarrett DynamicModInt<id>::bar(998244353);\n#line\
+    \ 5 \"verify/modint/LC_binomial_coefficient_prime_mod.test.cpp\"\nusing mint =\
+    \ DynamicModInt<0>;\n#line 2 \"modint/factorial.hpp\"\n\ntemplate <class mint>\n\
+    struct Factorial {\n  static void reserve(int n) {\n    inv(n);\n    fact(n);\n\
+    \    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long long mod =\
+    \ mint::get_mod();\n    static vector<mint> buf({0, 1});\n    assert(n != 0);\n\
+    \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
+    \ vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity()\
+    \ * 2);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size(), q\
+    \ = (mod + k - 1) / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n  \
+    \  return buf[n];\n  }\n  static mint fact(int n) {\n    static long long mod\
+    \ = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n\
+    \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
+    \ vector<mint>({1, 1});\n    }\n    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity()\
+    \ * 2);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n\
+    \      buf.push_back(buf.back() * k);\n    }\n    return buf[n];\n  }\n  static\
+    \ mint fact_inv(int n) {\n    static long long mod = mint::get_mod();\n    static\
+    \ vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
+    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
+    \    if ((int)buf.size() <= n) inv(n);\n    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity()\
+    \ * 2);\n    while ((int)buf.size() <= n) {\n      long long k = buf.size();\n\
+    \      buf.push_back(buf.back() * inv(k));\n    }\n    return buf[n];\n  }\n \
+    \ static mint binom(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return\
+    \ fact(n) * fact_inv(r) * fact_inv(n - r);\n  }\n  static mint binom_naive(int\
+    \ n, int r) {\n    if (r < 0 || r > n) return 0;\n    mint res = fact_inv(r);\n\
+    \    for (int i = 0; i < r; i++) res *= n - i;\n    return res;\n  }\n  static\
+    \ mint multinom(const vector<int>& r) {\n    int n = 0;\n    for (auto& x : r)\
+    \ {\n      if (x < 0) return 0;\n      n += x;\n    }\n    mint res = fact(n);\n\
+    \    for (auto& x : r) res *= fact_inv(x);\n    return res;\n  }\n  static mint\
+    \ P(int n, int r) {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(n\
+    \ - r);\n  }\n  // partition n items to r groups (allow empty group)\n  static\
+    \ mint H(int n, int r) {\n    if (n < 0 || r < 0) return 0;\n    return r == 0\
+    \ ? 1 : binom(n + r - 1, r);\n  }\n};\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\
+    \u4FC2\u6570\n */\n#line 7 \"verify/modint/LC_binomial_coefficient_prime_mod.test.cpp\"\
+    \nusing fact = Factorial<mint>;\n\nint main() {\n  int t, m;\n  in(t, m);\n  mint::set_mod(m);\n\
+    \  while (t--) {\n    int n, k;\n    in(n, k);\n    out(fact::binom(n, k));\n\
+    \  }\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod\"\
+    \n\n#include \"template/template.hpp\"\n#include \"modint/dynamic-modint.hpp\"\
+    \nusing mint = DynamicModInt<0>;\n#include \"modint/factorial.hpp\"\nusing fact\
+    \ = Factorial<mint>;\n\nint main() {\n  int t, m;\n  in(t, m);\n  mint::set_mod(m);\n\
+    \  while (t--) {\n    int n, k;\n    in(n, k);\n    out(fact::binom(n, k));\n\
+    \  }\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
   - template/util.hpp
   - template/inout.hpp
   - template/debug.hpp
-  - modint/modint.hpp
+  - modint/dynamic-modint.hpp
   - math/util.hpp
-  - union-find/potentialized-union-find.hpp
+  - math/barrett.hpp
+  - modint/factorial.hpp
   isVerificationFile: true
-  path: verify/union-find/LC_unionfind_with_potential.test.cpp
+  path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   requiredBy: []
   timestamp: '2025-11-01 00:19:27+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: verify/union-find/LC_unionfind_with_potential.test.cpp
+documentation_of: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/union-find/LC_unionfind_with_potential.test.cpp
-- /verify/verify/union-find/LC_unionfind_with_potential.test.cpp.html
-title: verify/union-find/LC_unionfind_with_potential.test.cpp
+- /verify/verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+- /verify/verify/modint/LC_binomial_coefficient_prime_mod.test.cpp.html
+title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
 ---

@@ -1,30 +1,30 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/multipoint-evaluation.hpp
     title: "\u591A\u70B9\u8A55\u4FA1"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: modint/multi-inverse.hpp
     title: "\u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\
       \u8A08\u7B97"
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/fps/polynomial-interpolation.md
     document_title: "\u591A\u9805\u5F0F\u88DC\u9593"
@@ -187,7 +187,7 @@ data:
   path: fps/polynomial-interpolation.hpp
   requiredBy: []
   timestamp: '2025-10-31 21:54:34+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp

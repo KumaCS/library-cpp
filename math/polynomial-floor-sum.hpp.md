@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/floor-monoid-product.hpp
     title: "\u30E2\u30CE\u30A4\u30C9\u7248 Floor Sum"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []
@@ -43,15 +43,22 @@ data:
     \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
     \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
     \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
-    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\n};  // namespace Math\n\
-    #line 2 \"math/floor-monoid-product.hpp\"\n\ntemplate <class T, T (*op)(T, T),\
-    \ T (*e)(), std::unsigned_integral U = uint64_t>\nT FloorMonoidProduct(U n, U\
-    \ m, U a, U b, T x, T y, function<T(T, U)> pow = nullptr) {\n  if (!pow) {\n \
-    \   pow = [](T t, U n) {\n      T p = e();\n      while (n) {\n        if (n &\
-    \ 1) p = op(p, t);\n        t = op(t, t);\n        n >>= 1;\n      }\n      return\
-    \ p;\n    };\n  }\n  assert(m != 0);\n  T pl = e(), pr = e();\n  while (true)\
-    \ {\n    if (a >= m) {\n      U q = a / m;\n      x = op(x, pow(y, q));\n    \
-    \  a -= m * q;\n    }\n    if (b >= m) {\n      U q = b / m;\n      pl = op(pl,\
+    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
+    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
+    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
+    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
+    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
+    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
+    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
+    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math\n#line 2 \"math/floor-monoid-product.hpp\"\n\ntemplate <class\
+    \ T, T (*op)(T, T), T (*e)(), std::unsigned_integral U = uint64_t>\nT FloorMonoidProduct(U\
+    \ n, U m, U a, U b, T x, T y, function<T(T, U)> pow = nullptr) {\n  if (!pow)\
+    \ {\n    pow = [](T t, U n) {\n      T p = e();\n      while (n) {\n        if\
+    \ (n & 1) p = op(p, t);\n        t = op(t, t);\n        n >>= 1;\n      }\n  \
+    \    return p;\n    };\n  }\n  assert(m != 0);\n  T pl = e(), pr = e();\n  while\
+    \ (true) {\n    if (a >= m) {\n      U q = a / m;\n      x = op(x, pow(y, q));\n\
+    \      a -= m * q;\n    }\n    if (b >= m) {\n      U q = b / m;\n      pl = op(pl,\
     \ pow(y, q));\n      b -= m * q;\n    }\n    U c = a * n + b;\n    if (c < m)\
     \ {\n      pl = op(pl, pow(x, n));\n      break;\n    }\n    pr = op(op(y, pow(x,\
     \ c % m / a)), pr);\n    n = c / m - 1;\n    b = m + a - b - 1;\n    swap(a, m);\n\
@@ -137,7 +144,7 @@ data:
   isVerificationFile: false
   path: math/polynomial-floor-sum.hpp
   requiredBy: []
-  timestamp: '2025-10-17 21:43:09+09:00'
+  timestamp: '2025-11-01 00:19:27+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/polynomial-floor-sum.hpp

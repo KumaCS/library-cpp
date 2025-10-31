@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []
@@ -40,13 +40,20 @@ data:
     \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
     \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
     \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
-    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\n};  // namespace Math\n\
-    #line 3 \"math/garner.hpp\"\n\ntemplate <class T>\nT Garner(const vector<T>& r,\
-    \ const vector<T>& m) {\n  int n = r.size();\n  if (n == 0) return 0;\n  T p =\
-    \ 1, x = 0;\n  for (int i = 0; i < n; i++) {\n    T t = (r[i] - x % m[i] + m[i])\
-    \ * Math::inv_mod(p, m[i]) % m[i];\n    x += t * p;\n    p *= m[i];\n  }\n  return\
-    \ x;\n}\ntemplate <class T>\nT Garner(const vector<T>& r, const vector<T>& m,\
-    \ T mod) {\n  int n = r.size();\n  if (n == 0) return 0;\n  vector<T> y(n);\n\
+    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
+    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
+    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
+    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
+    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
+    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
+    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
+    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math\n#line 3 \"math/garner.hpp\"\n\ntemplate <class T>\nT Garner(const\
+    \ vector<T>& r, const vector<T>& m) {\n  int n = r.size();\n  if (n == 0) return\
+    \ 0;\n  T p = 1, x = 0;\n  for (int i = 0; i < n; i++) {\n    T t = (r[i] - x\
+    \ % m[i] + m[i]) * Math::inv_mod(p, m[i]) % m[i];\n    x += t * p;\n    p *= m[i];\n\
+    \  }\n  return x;\n}\ntemplate <class T>\nT Garner(const vector<T>& r, const vector<T>&\
+    \ m, T mod) {\n  int n = r.size();\n  if (n == 0) return 0;\n  vector<T> y(n);\n\
     \  for (int i = 0; i < n; i++) {\n    T x = 0, p = 1;\n    for (int j = 0; j <\
     \ i; j++) {\n      x = (x + y[j] * p) % m[i];\n      p = p * m[j] % m[i];\n  \
     \  }\n    y[i] = (r[i] - x + m[i]) * Math::inv_mod(p, m[i]) % m[i];\n  }\n  T\
@@ -70,7 +77,7 @@ data:
   isVerificationFile: false
   path: math/garner.hpp
   requiredBy: []
-  timestamp: '2025-10-17 21:43:09+09:00'
+  timestamp: '2025-11-01 00:19:27+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/garner.hpp

@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/hadamard-transform.hpp
     title: set/hadamard-transform.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/set/LC_bitwise_xor_convolution.test.cpp
     title: verify/set/LC_bitwise_xor_convolution.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"set/xor-convolution.hpp\"\n\n#line 2 \"set/hadamard-transform.hpp\"\
@@ -37,7 +37,7 @@ data:
   path: set/xor-convolution.hpp
   requiredBy: []
   timestamp: '2025-10-10 17:35:46+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/set/LC_bitwise_xor_convolution.test.cpp
 documentation_of: set/xor-convolution.hpp

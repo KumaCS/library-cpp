@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
     title: verify/segment-tree/LC_range_affine_range_sum.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/segment-tree/lazy-segment-tree.md
     document_title: Lazy Segment Tree
@@ -123,7 +123,7 @@ data:
   path: segment-tree/lazy-segment-tree.hpp
   requiredBy: []
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/segment-tree/LC_range_affine_range_sum.test.cpp
 documentation_of: segment-tree/lazy-segment-tree.hpp

@@ -1,34 +1,37 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - icon: ':heavy_check_mark:'
     path: fps/berlekamp-massey.hpp
     title: Berlekamp-Massey
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: math/util.hpp
+    title: math/util.hpp
+  - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
@@ -88,83 +91,120 @@ data:
     \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
     \ T3>\nvoid _show(int i, const T1 &a, const T2 &b, const T3 &...c) {\n  for (;\
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"modint/modint.hpp\"\n\ntemplate\
-    \ <unsigned int m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  unsigned\
-    \ int _v;\n  static constexpr unsigned int get_mod() { return m; }\n  static mint\
-    \ raw(int v) {\n    mint x;\n    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0)\
-    \ {}\n  ModInt(int64_t v) {\n    long long x = (long long)(v % (long long)(umod()));\n\
-    \    if (x < 0) x += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int\
-    \ val() const { return _v; }\n  mint &operator++() {\n    _v++;\n    if (_v ==\
-    \ umod()) _v = 0;\n    return *this;\n  }\n  mint &operator--() {\n    if (_v\
-    \ == 0) _v = umod();\n    _v--;\n    return *this;\n  }\n  mint operator++(int)\
-    \ {\n    mint result = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int)\
-    \ {\n    mint result = *this;\n    --*this;\n    return result;\n  }\n\n  mint\
-    \ &operator+=(const mint &rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v\
-    \ -= umod();\n    return *this;\n  }\n  mint &operator-=(const mint &rhs) {\n\
-    \    _v -= rhs._v;\n    if (_v >= umod()) _v += umod();\n    return *this;\n \
-    \ }\n  mint &operator*=(const mint &rhs) {\n    unsigned long long z = _v;\n \
-    \   z *= rhs._v;\n    _v = (unsigned int)(z % umod());\n    return *this;\n  }\n\
-    \  mint &operator/=(const mint &rhs) { return *this = *this * rhs.inv(); }\n\n\
-    \  mint operator+() const { return *this; }\n  mint operator-() const { return\
-    \ mint() - *this; }\n\n  mint pow(long long n) const {\n    assert(0 <= n);\n\
-    \    mint x = *this, r = 1;\n    while (n) {\n      if (n & 1) r *= x;\n     \
-    \ x *= x;\n      n >>= 1;\n    }\n    return r;\n  }\n  mint inv() const {\n \
-    \   assert(_v);\n    return pow(umod() - 2);\n  }\n\n  friend mint operator+(const\
-    \ mint &lhs, const mint &rhs) {\n    return mint(lhs) += rhs;\n  }\n  friend mint\
-    \ operator-(const mint &lhs, const mint &rhs) {\n    return mint(lhs) -= rhs;\n\
-    \  }\n  friend mint operator*(const mint &lhs, const mint &rhs) {\n    return\
-    \ mint(lhs) *= rhs;\n  }\n  friend mint operator/(const mint &lhs, const mint\
-    \ &rhs) {\n    return mint(lhs) /= rhs;\n  }\n  friend bool operator==(const mint\
-    \ &lhs, const mint &rhs) {\n    return lhs._v == rhs._v;\n  }\n  friend bool operator!=(const\
-    \ mint &lhs, const mint &rhs) {\n    return lhs._v != rhs._v;\n  }\n  friend istream\
-    \ &operator>>(istream &is, mint &x) {\n    return is >> x._v;\n  }\n  friend ostream\
-    \ &operator<<(ostream &os, const mint &x) {\n    return os << x.val();\n  }\n\n\
-    \ private:\n  static constexpr unsigned int umod() { return m; }\n};\n#line 5\
-    \ \"verify/fps/LC_find_linear_recurrence.test.cpp\"\nusing mint = ModInt<998244353>;\n\
-    #line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\ntemplate <class\
-    \ mint>\nstruct NTT {\n  static constexpr unsigned int mod = mint::get_mod();\n\
-    \  static constexpr unsigned long long pow_constexpr(unsigned long long x, unsigned\
-    \ long long n, unsigned long long m) {\n    unsigned long long y = 1;\n    while\
-    \ (n) {\n      if (n & 1) y = y * x % m;\n      x = x * x % m;\n      n >>= 1;\n\
-    \    }\n    return y;\n  }\n  static constexpr unsigned int get_g() {\n    unsigned\
-    \ long long x = 2;\n    while (pow_constexpr(x, (mod - 1) >> 1, mod) == 1) x +=\
-    \ 1;\n    return x;\n  }\n  static constexpr unsigned int g = get_g();\n  static\
-    \ constexpr int rank2 = __builtin_ctzll(mod - 1);\n  array<mint, rank2 + 1> root;\n\
-    \  array<mint, rank2 + 1> iroot;\n  array<mint, max(0, rank2 - 2 + 1)> rate2;\n\
-    \  array<mint, max(0, rank2 - 2 + 1)> irate2;\n  array<mint, max(0, rank2 - 3\
-    \ + 1)> rate3;\n  array<mint, max(0, rank2 - 3 + 1)> irate3;\n\n  NTT() {\n  \
-    \  root[rank2] = mint(g).pow((mod - 1) >> rank2);\n    iroot[rank2] = root[rank2].inv();\n\
-    \    for (int i = rank2 - 1; i >= 0; i--) {\n      root[i] = root[i + 1] * root[i\
-    \ + 1];\n      iroot[i] = iroot[i + 1] * iroot[i + 1];\n    }\n    {\n      mint\
-    \ prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 2; i++) {\n       \
-    \ rate2[i] = root[i + 2] * prod;\n        irate2[i] = iroot[i + 2] * iprod;\n\
-    \        prod *= iroot[i + 2];\n        iprod *= root[i + 2];\n      }\n    }\n\
-    \    {\n      mint prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 3;\
-    \ i++) {\n        rate3[i] = root[i + 3] * prod;\n        irate3[i] = iroot[i\
-    \ + 3] * iprod;\n        prod *= iroot[i + 3];\n        iprod *= root[i + 3];\n\
-    \      }\n    }\n  }\n  void ntt(vector<mint>& a) {\n    int n = int(a.size());\n\
-    \    int h = __builtin_ctzll((unsigned int)n);\n    a.resize(1 << h);\n    int\
-    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
-    \ < h) {\n      if (h - len == 1) {\n        int p = 1 << (h - len - 1);\n   \
-    \     mint rot = 1;\n        for (int s = 0; s < (1 << len); s++) {\n        \
-    \  int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n   \
-    \         auto l = a[i + offset];\n            auto r = a[i + offset + p] * rot;\n\
-    \            a[i + offset] = l + r;\n            a[i + offset + p] = l - r;\n\
-    \          }\n          if (s + 1 != (1 << len)) rot *= rate2[__builtin_ctzll(~(unsigned\
-    \ int)(s))];\n        }\n        len++;\n      } else {\n        // 4-base\n \
-    \       int p = 1 << (h - len - 2);\n        mint rot = 1, imag = root[2];\n \
-    \       for (int s = 0; s < (1 << len); s++) {\n          mint rot2 = rot * rot;\n\
-    \          mint rot3 = rot2 * rot;\n          int offset = s << (h - len);\n \
-    \         for (int i = 0; i < p; i++) {\n            auto mod2 = 1ULL * mint::get_mod()\
-    \ * mint::get_mod();\n            auto a0 = 1ULL * a[i + offset].val();\n    \
-    \        auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n            auto\
-    \ a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n            auto a3 =\
-    \ 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n            auto a1na3imag\
-    \ = 1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n            auto na2 = mod2\
-    \ - a2;\n            a[i + offset] = a0 + a2 + a1 + a3;\n            a[i + offset\
-    \ + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 *\
-    \ p] = a0 + na2 + a1na3imag;\n            a[i + offset + 3 * p] = a0 + na2 + (mod2\
-    \ - a1na3imag);\n          }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"math/util.hpp\"\n\nnamespace Math\
+    \ {\ntemplate <class T>\nT safe_mod(T a, T b) {\n  assert(b != 0);\n  if (b <\
+    \ 0) a = -a, b = -b;\n  a %= b;\n  return a >= 0 ? a : a + b;\n}\ntemplate <class\
+    \ T>\nT floor(T a, T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n \
+    \ return a >= 0 ? a / b : (a + 1) / b - 1;\n}\ntemplate <class T>\nT ceil(T a,\
+    \ T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  return a > 0 ? (a\
+    \ - 1) / b + 1 : a / b;\n}\nlong long isqrt(long long n) {\n  if (n <= 0) return\
+    \ 0;\n  long long x = sqrt(n);\n  while ((x + 1) * (x + 1) <= n) x++;\n  while\
+    \ (x * x > n) x--;\n  return x;\n}\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0\
+    \ -> 0<=x<|b|/g\n// - b=0  -> ax=g\ntemplate <class T>\nT ext_gcd(T a, T b, T&\
+    \ x, T& y) {\n  T a0 = a, b0 = b;\n  bool sgn_a = a < 0, sgn_b = b < 0;\n  if\
+    \ (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n  if (b == 0) {\n    x = sgn_a ? -1 :\
+    \ 1;\n    y = 0;\n    return a;\n  }\n  T x00 = 1, x01 = 0, x10 = 0, x11 = 1;\n\
+    \  while (b != 0) {\n    T q = a / b, r = a - b * q;\n    x00 -= q * x01;\n  \
+    \  x10 -= q * x11;\n    swap(x00, x01);\n    swap(x10, x11);\n    a = b, b = r;\n\
+    \  }\n  x = x00, y = x10;\n  if (sgn_a) x = -x;\n  if (sgn_b) y = -y;\n  if (b0\
+    \ != 0) {\n    a0 /= a, b0 /= a;\n    if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q\
+    \ = x >= 0 ? x / b0 : (x + 1) / b0 - 1;\n    x -= b0 * q;\n    y += a0 * q;\n\
+    \  }\n  return a;\n}\ntemplate <class T>\nT inv_mod(T x, T m) {\n  x %= m;\n \
+    \ if (x < 0) x += m;\n  T a = m, b = x;\n  T y0 = 0, y1 = 1;\n  while (b > 0)\
+    \ {\n    T q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
+    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\ntemplate <class T>\nT pow_mod(T\
+    \ x, T n, T m) {\n  x = (x % m + m) % m;\n  T y = 1;\n  while (n) {\n    if (n\
+    \ & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n  return y;\n}\n\
+    constexpr long long pow_mod_constexpr(long long x, long long n, int m) {\n  if\
+    \ (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n  unsigned long\
+    \ long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y += m;\n  while\
+    \ (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n    n >>= 1;\n\
+    \  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n  if (n <= 1)\
+    \ return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n  if (n % 2\
+    \ == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0) d /= 2;\n\
+    \  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a : bases) {\n\
+    \    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n    while\
+    \ (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t <<= 1;\n\
+    \    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n    }\n  }\n\
+    \  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
+    \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
+    \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
+    \    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0) {}\n  ModInt(int64_t v)\
+    \ {\n    long long x = (long long)(v % (long long)(umod()));\n    if (x < 0) x\
+    \ += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return\
+    \ _v; }\n  mint& operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n  \
+    \  return *this;\n  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n\
+    \    _v--;\n    return *this;\n  }\n  mint operator++(int) {\n    mint result\
+    \ = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int) {\n\
+    \    mint result = *this;\n    --*this;\n    return result;\n  }\n  mint& operator+=(const\
+    \ mint& rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return\
+    \ *this;\n  }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if\
+    \ (_v >= umod()) _v += umod();\n    return *this;\n  }\n  mint& operator*=(const\
+    \ mint& rhs) {\n    unsigned long long z = _v;\n    z *= rhs._v;\n    _v = (unsigned\
+    \ int)(z % umod());\n    return *this;\n  }\n  mint& operator/=(const mint& rhs)\
+    \ { return *this = *this * rhs.inv(); }\n  mint operator+() const { return *this;\
+    \ }\n  mint operator-() const { return mint() - *this; }\n  mint pow(long long\
+    \ n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n    while (n) {\n\
+    \      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n    }\n    return r;\n\
+    \  }\n  mint inv() const {\n    if (is_prime) {\n      assert(_v);\n      return\
+    \ pow(umod() - 2);\n    } else {\n      auto inv = Math::inv_mod(_v, umod());\n\
+    \      return raw(inv);\n    }\n  }\n  friend mint operator+(const mint& lhs,\
+    \ const mint& rhs) { return mint(lhs) += rhs; }\n  friend mint operator-(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n  friend mint operator*(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n  friend mint operator/(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }\n  friend bool operator==(const\
+    \ mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }\n  friend bool operator!=(const\
+    \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream&\
+    \ operator>>(istream& is, mint& x) { return is >> x._v; }\n  friend ostream& operator<<(ostream&\
+    \ os, const mint& x) { return os << x.val(); }\n\n private:\n  unsigned int _v;\n\
+    \  static constexpr unsigned int umod() { return m; }\n  static constexpr bool\
+    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/fps/LC_find_linear_recurrence.test.cpp\"\
+    \nusing mint = ModInt<998244353>;\n#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line\
+    \ 2 \"fft/ntt.hpp\"\n\ntemplate <class mint>\nstruct NTT {\n  static constexpr\
+    \ unsigned int mod = mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
+    \ long long x, unsigned long long n, unsigned long long m) {\n    unsigned long\
+    \ long y = 1;\n    while (n) {\n      if (n & 1) y = y * x % m;\n      x = x *\
+    \ x % m;\n      n >>= 1;\n    }\n    return y;\n  }\n  static constexpr unsigned\
+    \ int get_g() {\n    unsigned long long x = 2;\n    while (pow_constexpr(x, (mod\
+    \ - 1) >> 1, mod) == 1) x += 1;\n    return x;\n  }\n  static constexpr unsigned\
+    \ int g = get_g();\n  static constexpr int rank2 = __builtin_ctzll(mod - 1);\n\
+    \  array<mint, rank2 + 1> root;\n  array<mint, rank2 + 1> iroot;\n  array<mint,\
+    \ max(0, rank2 - 2 + 1)> rate2;\n  array<mint, max(0, rank2 - 2 + 1)> irate2;\n\
+    \  array<mint, max(0, rank2 - 3 + 1)> rate3;\n  array<mint, max(0, rank2 - 3 +\
+    \ 1)> irate3;\n\n  NTT() {\n    root[rank2] = mint(g).pow((mod - 1) >> rank2);\n\
+    \    iroot[rank2] = root[rank2].inv();\n    for (int i = rank2 - 1; i >= 0; i--)\
+    \ {\n      root[i] = root[i + 1] * root[i + 1];\n      iroot[i] = iroot[i + 1]\
+    \ * iroot[i + 1];\n    }\n    {\n      mint prod = 1, iprod = 1;\n      for (int\
+    \ i = 0; i <= rank2 - 2; i++) {\n        rate2[i] = root[i + 2] * prod;\n    \
+    \    irate2[i] = iroot[i + 2] * iprod;\n        prod *= iroot[i + 2];\n      \
+    \  iprod *= root[i + 2];\n      }\n    }\n    {\n      mint prod = 1, iprod =\
+    \ 1;\n      for (int i = 0; i <= rank2 - 3; i++) {\n        rate3[i] = root[i\
+    \ + 3] * prod;\n        irate3[i] = iroot[i + 3] * iprod;\n        prod *= iroot[i\
+    \ + 3];\n        iprod *= root[i + 3];\n      }\n    }\n  }\n  void ntt(vector<mint>&\
+    \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
+    \    a.resize(1 << h);\n    int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..]\
+    \ is transformed\n    while (len < h) {\n      if (h - len == 1) {\n        int\
+    \ p = 1 << (h - len - 1);\n        mint rot = 1;\n        for (int s = 0; s <\
+    \ (1 << len); s++) {\n          int offset = s << (h - len);\n          for (int\
+    \ i = 0; i < p; i++) {\n            auto l = a[i + offset];\n            auto\
+    \ r = a[i + offset + p] * rot;\n            a[i + offset] = l + r;\n         \
+    \   a[i + offset + p] = l - r;\n          }\n          if (s + 1 != (1 << len))\
+    \ rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];\n        }\n        len++;\n\
+    \      } else {\n        // 4-base\n        int p = 1 << (h - len - 2);\n    \
+    \    mint rot = 1, imag = root[2];\n        for (int s = 0; s < (1 << len); s++)\
+    \ {\n          mint rot2 = rot * rot;\n          mint rot3 = rot2 * rot;\n   \
+    \       int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n\
+    \            auto mod2 = 1ULL * mint::get_mod() * mint::get_mod();\n         \
+    \   auto a0 = 1ULL * a[i + offset].val();\n            auto a1 = 1ULL * a[i +\
+    \ offset + p].val() * rot.val();\n            auto a2 = 1ULL * a[i + offset +\
+    \ 2 * p].val() * rot2.val();\n            auto a3 = 1ULL * a[i + offset + 3 *\
+    \ p].val() * rot3.val();\n            auto a1na3imag = 1ULL * mint(a1 + mod2 -\
+    \ a3).val() * imag.val();\n            auto na2 = mod2 - a2;\n            a[i\
+    \ + offset] = a0 + a2 + a1 + a3;\n            a[i + offset + 1 * p] = a0 + a2\
+    \ + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 * p] = a0 + na2 + a1na3imag;\n\
+    \            a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);\n        \
+    \  }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
     \ int)(s))];\n        }\n        len += 2;\n      }\n    }\n  }\n  void intt(vector<mint>&\
     \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
     \    a.resize(1 << h);\n\n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len),\
@@ -337,6 +377,7 @@ data:
   - template/inout.hpp
   - template/debug.hpp
   - modint/modint.hpp
+  - math/util.hpp
   - fps/fps-ntt-friendly.hpp
   - fft/ntt.hpp
   - fps/formal-power-series.hpp
@@ -344,7 +385,7 @@ data:
   isVerificationFile: true
   path: verify/fps/LC_find_linear_recurrence.test.cpp
   requiredBy: []
-  timestamp: '2025-10-31 21:40:36+09:00'
+  timestamp: '2025-11-01 00:19:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/LC_find_linear_recurrence.test.cpp

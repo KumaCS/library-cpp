@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/subset-convolution.hpp
     title: Subset Convolution
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/set/LC_power_projection_of_set_power_series.test.cpp
     title: verify/set/LC_power_projection_of_set_power_series.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/set/power-projection-of-set-power-series.md
     document_title: Power Projection Of Set Power Series
@@ -88,7 +88,7 @@ data:
   path: set/power-projection-of-set-power-series.hpp
   requiredBy: []
   timestamp: '2025-10-31 21:40:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/set/LC_power_projection_of_set_power_series.test.cpp
 documentation_of: set/power-projection-of-set-power-series.hpp

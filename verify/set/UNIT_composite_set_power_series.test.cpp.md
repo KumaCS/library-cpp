@@ -1,38 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: math/util.hpp
+    title: math/util.hpp
+  - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/composite-set-power-series.hpp
     title: Polynomial Composite Set Power Series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/exp-of-set-power-series.hpp
     title: Exp Of Set Power Series
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/subset-convolution.hpp
     title: Subset Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
@@ -85,96 +88,133 @@ data:
     \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
     \ T3>\nvoid _show(int i, const T1 &a, const T2 &b, const T3 &...c) {\n  for (;\
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"modint/modint.hpp\"\n\ntemplate\
-    \ <unsigned int m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  unsigned\
-    \ int _v;\n  static constexpr unsigned int get_mod() { return m; }\n  static mint\
-    \ raw(int v) {\n    mint x;\n    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0)\
-    \ {}\n  ModInt(int64_t v) {\n    long long x = (long long)(v % (long long)(umod()));\n\
-    \    if (x < 0) x += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int\
-    \ val() const { return _v; }\n  mint &operator++() {\n    _v++;\n    if (_v ==\
-    \ umod()) _v = 0;\n    return *this;\n  }\n  mint &operator--() {\n    if (_v\
-    \ == 0) _v = umod();\n    _v--;\n    return *this;\n  }\n  mint operator++(int)\
-    \ {\n    mint result = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int)\
-    \ {\n    mint result = *this;\n    --*this;\n    return result;\n  }\n\n  mint\
-    \ &operator+=(const mint &rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v\
-    \ -= umod();\n    return *this;\n  }\n  mint &operator-=(const mint &rhs) {\n\
-    \    _v -= rhs._v;\n    if (_v >= umod()) _v += umod();\n    return *this;\n \
-    \ }\n  mint &operator*=(const mint &rhs) {\n    unsigned long long z = _v;\n \
-    \   z *= rhs._v;\n    _v = (unsigned int)(z % umod());\n    return *this;\n  }\n\
-    \  mint &operator/=(const mint &rhs) { return *this = *this * rhs.inv(); }\n\n\
-    \  mint operator+() const { return *this; }\n  mint operator-() const { return\
-    \ mint() - *this; }\n\n  mint pow(long long n) const {\n    assert(0 <= n);\n\
-    \    mint x = *this, r = 1;\n    while (n) {\n      if (n & 1) r *= x;\n     \
-    \ x *= x;\n      n >>= 1;\n    }\n    return r;\n  }\n  mint inv() const {\n \
-    \   assert(_v);\n    return pow(umod() - 2);\n  }\n\n  friend mint operator+(const\
-    \ mint &lhs, const mint &rhs) {\n    return mint(lhs) += rhs;\n  }\n  friend mint\
-    \ operator-(const mint &lhs, const mint &rhs) {\n    return mint(lhs) -= rhs;\n\
-    \  }\n  friend mint operator*(const mint &lhs, const mint &rhs) {\n    return\
-    \ mint(lhs) *= rhs;\n  }\n  friend mint operator/(const mint &lhs, const mint\
-    \ &rhs) {\n    return mint(lhs) /= rhs;\n  }\n  friend bool operator==(const mint\
-    \ &lhs, const mint &rhs) {\n    return lhs._v == rhs._v;\n  }\n  friend bool operator!=(const\
-    \ mint &lhs, const mint &rhs) {\n    return lhs._v != rhs._v;\n  }\n  friend istream\
-    \ &operator>>(istream &is, mint &x) {\n    return is >> x._v;\n  }\n  friend ostream\
-    \ &operator<<(ostream &os, const mint &x) {\n    return os << x.val();\n  }\n\n\
-    \ private:\n  static constexpr unsigned int umod() { return m; }\n};\n#line 5\
-    \ \"verify/set/UNIT_composite_set_power_series.test.cpp\"\nusing mint = ModInt<998244353>;\n\
-    #line 2 \"set/subset-convolution.hpp\"\n\ntemplate <class mint, int n_>\nstruct\
-    \ SubsetConvolution {\n  static constexpr int n = n_;\n  using poly = array<mint,\
-    \ n_ + 1>;\n  vector<int> pc;\n  SubsetConvolution() {\n    pc.assign(1 << n,\
-    \ 0);\n    for (int i = 1; i < pc.size(); i++) pc[i] = pc[i >> 1] + (i & 1);\n\
-    \  }\n  void poly_add(poly& p, const poly& q, int d) {\n    for (int i = 0; i\
-    \ < d; i++) p[i] += q[i];\n  }\n  void poly_sub(poly& p, const poly& q, int d)\
-    \ {\n    for (int i = d; i <= n; i++) p[i] -= q[i];\n  }\n  void poly_mul(poly&\
-    \ p, const poly& q) {\n    poly r{};\n    for (int i = 0; i <= n; i++)\n     \
-    \ for (int j = 0; j <= n - i; j++)\n        r[i + j] += p[i] * q[j];\n    swap(p,\
-    \ r);\n  }\n  vector<poly> lift(const vector<mint>& a) {\n    int n = a.size();\n\
-    \    assert(n == (n & -n));\n    vector<poly> b(n);\n    for (int i = 0; i < n;\
-    \ i++) {\n      b[i].fill(0);\n      b[i][pc[i]] = a[i];\n    }\n    return b;\n\
-    \  }\n  vector<mint> unlift(const vector<poly>& b) {\n    int n = b.size();\n\
-    \    assert(n == (n & -n));\n    vector<mint> a(n);\n    for (int i = 0; i < n;\
-    \ i++) a[i] = b[i][pc[i]];\n    return a;\n  }\n  void ranked_zeta(vector<poly>&\
-    \ a) {\n    int n = a.size();\n    for (int i = 1; i < n; i <<= 1)\n      for\
-    \ (int j = 0; j < n; j += i * 2)\n        for (int k = 0; k < i; k++)\n      \
-    \    poly_add(a[i + j + k], a[j + k], pc[i + j + k]);\n  }\n  void ranked_mobius(vector<poly>&\
-    \ a) {\n    int n = a.size();\n    for (int i = 1; i < n; i <<= 1)\n      for\
-    \ (int j = 0; j < n; j += i * 2)\n        for (int k = 0; k < i; k++)\n      \
-    \    poly_sub(a[i + j + k], a[j + k], pc[i + j + k]);\n  }\n  void ranked_mul(vector<poly>&\
-    \ a, const vector<poly>& b) {\n    for (int i = 0; i < a.size(); i++) poly_mul(a[i],\
-    \ b[i]);\n  }\n  vector<mint> multiply(const vector<mint>& a, const vector<mint>&\
-    \ b) {\n    auto p = lift(a);\n    auto q = lift(b);\n    ranked_zeta(p);\n  \
-    \  ranked_zeta(q);\n    ranked_mul(p, q);\n    ranked_mobius(p);\n    return unlift(p);\n\
-    \  }\n};\n\n/**\n * @brief Subset Convolution\n * @docs docs/set/subset-convolution.md\n\
-    \ */\n#line 3 \"set/exp-of-set-power-series.hpp\"\n\nnamespace SetPowerSeries\
-    \ {\ntemplate <class mint, int sz = 21>\nvector<mint> exp(const vector<mint>&\
-    \ a) {\n  static SubsetConvolution<mint, sz> sc;\n  assert(a[0] == 0);\n  int\
-    \ l = __builtin_ctz(a.size());\n  assert(a.size() == (1 << l));\n\n  vector<mint>\
-    \ f(1 << l, 0);\n  f[0] = 1;\n  for (int k = 0; k < l; k++) {\n    vector<mint>\
-    \ g(f.begin(), f.begin() + (1 << k));\n    vector<mint> h(a.begin() + (1 << k),\
-    \ a.begin() + (2 << k));\n    g = sc.multiply(g, h);\n    copy(g.begin(), g.end(),\
-    \ f.begin() + (1 << k));\n  }\n  return f;\n}\n};  // namespace SetPowerSeries\n\
-    /**\n * @brief Exp Of Set Power Series\n */\n#line 3 \"set/composite-set-power-series.hpp\"\
-    \n\nnamespace SetPowerSeries {\ntemplate <class mint, int sz = 21>\nvector<mint>\
-    \ composite_egf(vector<mint> f, vector<mint> a) {\n  static SubsetConvolution<mint,\
-    \ sz> sc;\n  assert(a[0] == 0);\n  if (f.empty()) return vector<mint>(a.size());\n\
-    \  int l = __builtin_ctz(a.size());\n  f.resize(l + 1);\n  vector<vector<mint>>\
-    \ g(l + 1);\n  for (int i = 0; i <= l; i++) g[i] = vector<mint>(1 << (l - i),\
-    \ 0);\n  for (int i = 0; i <= l; i++) g[i][0] = f[i];\n  for (int k = 0; k < l;\
-    \ k++) {\n    auto p = sc.lift(vector<mint>(a.begin() + (1 << k), a.begin() +\
-    \ (2 << k)));\n    sc.ranked_zeta(p);\n    for (int i = 0; i < l - k; i++) {\n\
-    \      auto q = sc.lift(vector<mint>(g[i + 1].begin(), g[i + 1].begin() + (1 <<\
-    \ k)));\n      sc.ranked_zeta(q);\n      sc.ranked_mul(q, p);\n      sc.ranked_mobius(q);\n\
-    \      auto h = sc.unlift(q);\n      copy(h.begin(), h.end(), g[i].begin() + (1\
-    \ << k));\n    }\n  }\n  return g[0];\n}\ntemplate <class mint, int sz = 21>\n\
-    vector<mint> composite_polynomial(vector<mint> p, vector<mint> a) {\n  if (p.empty())\
-    \ return vector<mint>(a.size());\n  int l = __builtin_ctz(a.size());\n  if (a[0]\
-    \ != 0) {\n    mint c = a[0];\n    a[0] = 0;\n    vector<mint> p1(l + 1, 0), binom(l\
-    \ + 1, 0);\n    binom[0] = 1;\n    mint r0 = 1;\n    for (int i = 0; i < p.size();\
-    \ i++) {\n      if (i > l) r0 *= c;\n      mint r = r0;\n      for (int j = min(i,\
-    \ l); j >= 0; j--, r *= c) p1[j] += p[i] * binom[j] * r;\n      for (int j = l;\
-    \ j > 0; j--) binom[j] += binom[j - 1];\n    }\n    swap(p, p1);\n  }\n  mint\
-    \ r = 1;\n  for (int i = 1; i <= l; i++) p[i] *= (r *= i);\n  return composite_egf<mint,\
-    \ sz>(p, a);\n}\n\n// log(a), [x^0]a=1\n// require inverse of 1,...,sz\ntemplate\
-    \ <class mint, int sz = 21>\nvector<mint> log(vector<mint> a) {\n  static SubsetConvolution<mint,\
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"math/util.hpp\"\n\nnamespace Math\
+    \ {\ntemplate <class T>\nT safe_mod(T a, T b) {\n  assert(b != 0);\n  if (b <\
+    \ 0) a = -a, b = -b;\n  a %= b;\n  return a >= 0 ? a : a + b;\n}\ntemplate <class\
+    \ T>\nT floor(T a, T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n \
+    \ return a >= 0 ? a / b : (a + 1) / b - 1;\n}\ntemplate <class T>\nT ceil(T a,\
+    \ T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  return a > 0 ? (a\
+    \ - 1) / b + 1 : a / b;\n}\nlong long isqrt(long long n) {\n  if (n <= 0) return\
+    \ 0;\n  long long x = sqrt(n);\n  while ((x + 1) * (x + 1) <= n) x++;\n  while\
+    \ (x * x > n) x--;\n  return x;\n}\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0\
+    \ -> 0<=x<|b|/g\n// - b=0  -> ax=g\ntemplate <class T>\nT ext_gcd(T a, T b, T&\
+    \ x, T& y) {\n  T a0 = a, b0 = b;\n  bool sgn_a = a < 0, sgn_b = b < 0;\n  if\
+    \ (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n  if (b == 0) {\n    x = sgn_a ? -1 :\
+    \ 1;\n    y = 0;\n    return a;\n  }\n  T x00 = 1, x01 = 0, x10 = 0, x11 = 1;\n\
+    \  while (b != 0) {\n    T q = a / b, r = a - b * q;\n    x00 -= q * x01;\n  \
+    \  x10 -= q * x11;\n    swap(x00, x01);\n    swap(x10, x11);\n    a = b, b = r;\n\
+    \  }\n  x = x00, y = x10;\n  if (sgn_a) x = -x;\n  if (sgn_b) y = -y;\n  if (b0\
+    \ != 0) {\n    a0 /= a, b0 /= a;\n    if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q\
+    \ = x >= 0 ? x / b0 : (x + 1) / b0 - 1;\n    x -= b0 * q;\n    y += a0 * q;\n\
+    \  }\n  return a;\n}\ntemplate <class T>\nT inv_mod(T x, T m) {\n  x %= m;\n \
+    \ if (x < 0) x += m;\n  T a = m, b = x;\n  T y0 = 0, y1 = 1;\n  while (b > 0)\
+    \ {\n    T q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
+    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\ntemplate <class T>\nT pow_mod(T\
+    \ x, T n, T m) {\n  x = (x % m + m) % m;\n  T y = 1;\n  while (n) {\n    if (n\
+    \ & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n  return y;\n}\n\
+    constexpr long long pow_mod_constexpr(long long x, long long n, int m) {\n  if\
+    \ (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n  unsigned long\
+    \ long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y += m;\n  while\
+    \ (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n    n >>= 1;\n\
+    \  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n  if (n <= 1)\
+    \ return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n  if (n % 2\
+    \ == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0) d /= 2;\n\
+    \  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a : bases) {\n\
+    \    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n    while\
+    \ (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t <<= 1;\n\
+    \    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n    }\n  }\n\
+    \  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
+    \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
+    \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
+    \    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0) {}\n  ModInt(int64_t v)\
+    \ {\n    long long x = (long long)(v % (long long)(umod()));\n    if (x < 0) x\
+    \ += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return\
+    \ _v; }\n  mint& operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n  \
+    \  return *this;\n  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n\
+    \    _v--;\n    return *this;\n  }\n  mint operator++(int) {\n    mint result\
+    \ = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int) {\n\
+    \    mint result = *this;\n    --*this;\n    return result;\n  }\n  mint& operator+=(const\
+    \ mint& rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return\
+    \ *this;\n  }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if\
+    \ (_v >= umod()) _v += umod();\n    return *this;\n  }\n  mint& operator*=(const\
+    \ mint& rhs) {\n    unsigned long long z = _v;\n    z *= rhs._v;\n    _v = (unsigned\
+    \ int)(z % umod());\n    return *this;\n  }\n  mint& operator/=(const mint& rhs)\
+    \ { return *this = *this * rhs.inv(); }\n  mint operator+() const { return *this;\
+    \ }\n  mint operator-() const { return mint() - *this; }\n  mint pow(long long\
+    \ n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n    while (n) {\n\
+    \      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n    }\n    return r;\n\
+    \  }\n  mint inv() const {\n    if (is_prime) {\n      assert(_v);\n      return\
+    \ pow(umod() - 2);\n    } else {\n      auto inv = Math::inv_mod(_v, umod());\n\
+    \      return raw(inv);\n    }\n  }\n  friend mint operator+(const mint& lhs,\
+    \ const mint& rhs) { return mint(lhs) += rhs; }\n  friend mint operator-(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n  friend mint operator*(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n  friend mint operator/(const\
+    \ mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }\n  friend bool operator==(const\
+    \ mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }\n  friend bool operator!=(const\
+    \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream&\
+    \ operator>>(istream& is, mint& x) { return is >> x._v; }\n  friend ostream& operator<<(ostream&\
+    \ os, const mint& x) { return os << x.val(); }\n\n private:\n  unsigned int _v;\n\
+    \  static constexpr unsigned int umod() { return m; }\n  static constexpr bool\
+    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/set/UNIT_composite_set_power_series.test.cpp\"\
+    \nusing mint = ModInt<998244353>;\n#line 2 \"set/subset-convolution.hpp\"\n\n\
+    template <class mint, int n_>\nstruct SubsetConvolution {\n  static constexpr\
+    \ int n = n_;\n  using poly = array<mint, n_ + 1>;\n  vector<int> pc;\n  SubsetConvolution()\
+    \ {\n    pc.assign(1 << n, 0);\n    for (int i = 1; i < pc.size(); i++) pc[i]\
+    \ = pc[i >> 1] + (i & 1);\n  }\n  void poly_add(poly& p, const poly& q, int d)\
+    \ {\n    for (int i = 0; i < d; i++) p[i] += q[i];\n  }\n  void poly_sub(poly&\
+    \ p, const poly& q, int d) {\n    for (int i = d; i <= n; i++) p[i] -= q[i];\n\
+    \  }\n  void poly_mul(poly& p, const poly& q) {\n    poly r{};\n    for (int i\
+    \ = 0; i <= n; i++)\n      for (int j = 0; j <= n - i; j++)\n        r[i + j]\
+    \ += p[i] * q[j];\n    swap(p, r);\n  }\n  vector<poly> lift(const vector<mint>&\
+    \ a) {\n    int n = a.size();\n    assert(n == (n & -n));\n    vector<poly> b(n);\n\
+    \    for (int i = 0; i < n; i++) {\n      b[i].fill(0);\n      b[i][pc[i]] = a[i];\n\
+    \    }\n    return b;\n  }\n  vector<mint> unlift(const vector<poly>& b) {\n \
+    \   int n = b.size();\n    assert(n == (n & -n));\n    vector<mint> a(n);\n  \
+    \  for (int i = 0; i < n; i++) a[i] = b[i][pc[i]];\n    return a;\n  }\n  void\
+    \ ranked_zeta(vector<poly>& a) {\n    int n = a.size();\n    for (int i = 1; i\
+    \ < n; i <<= 1)\n      for (int j = 0; j < n; j += i * 2)\n        for (int k\
+    \ = 0; k < i; k++)\n          poly_add(a[i + j + k], a[j + k], pc[i + j + k]);\n\
+    \  }\n  void ranked_mobius(vector<poly>& a) {\n    int n = a.size();\n    for\
+    \ (int i = 1; i < n; i <<= 1)\n      for (int j = 0; j < n; j += i * 2)\n    \
+    \    for (int k = 0; k < i; k++)\n          poly_sub(a[i + j + k], a[j + k], pc[i\
+    \ + j + k]);\n  }\n  void ranked_mul(vector<poly>& a, const vector<poly>& b) {\n\
+    \    for (int i = 0; i < a.size(); i++) poly_mul(a[i], b[i]);\n  }\n  vector<mint>\
+    \ multiply(const vector<mint>& a, const vector<mint>& b) {\n    auto p = lift(a);\n\
+    \    auto q = lift(b);\n    ranked_zeta(p);\n    ranked_zeta(q);\n    ranked_mul(p,\
+    \ q);\n    ranked_mobius(p);\n    return unlift(p);\n  }\n};\n\n/**\n * @brief\
+    \ Subset Convolution\n * @docs docs/set/subset-convolution.md\n */\n#line 3 \"\
+    set/exp-of-set-power-series.hpp\"\n\nnamespace SetPowerSeries {\ntemplate <class\
+    \ mint, int sz = 21>\nvector<mint> exp(const vector<mint>& a) {\n  static SubsetConvolution<mint,\
+    \ sz> sc;\n  assert(a[0] == 0);\n  int l = __builtin_ctz(a.size());\n  assert(a.size()\
+    \ == (1 << l));\n\n  vector<mint> f(1 << l, 0);\n  f[0] = 1;\n  for (int k = 0;\
+    \ k < l; k++) {\n    vector<mint> g(f.begin(), f.begin() + (1 << k));\n    vector<mint>\
+    \ h(a.begin() + (1 << k), a.begin() + (2 << k));\n    g = sc.multiply(g, h);\n\
+    \    copy(g.begin(), g.end(), f.begin() + (1 << k));\n  }\n  return f;\n}\n};\
+    \  // namespace SetPowerSeries\n/**\n * @brief Exp Of Set Power Series\n */\n\
+    #line 3 \"set/composite-set-power-series.hpp\"\n\nnamespace SetPowerSeries {\n\
+    template <class mint, int sz = 21>\nvector<mint> composite_egf(vector<mint> f,\
+    \ vector<mint> a) {\n  static SubsetConvolution<mint, sz> sc;\n  assert(a[0] ==\
+    \ 0);\n  if (f.empty()) return vector<mint>(a.size());\n  int l = __builtin_ctz(a.size());\n\
+    \  f.resize(l + 1);\n  vector<vector<mint>> g(l + 1);\n  for (int i = 0; i <=\
+    \ l; i++) g[i] = vector<mint>(1 << (l - i), 0);\n  for (int i = 0; i <= l; i++)\
+    \ g[i][0] = f[i];\n  for (int k = 0; k < l; k++) {\n    auto p = sc.lift(vector<mint>(a.begin()\
+    \ + (1 << k), a.begin() + (2 << k)));\n    sc.ranked_zeta(p);\n    for (int i\
+    \ = 0; i < l - k; i++) {\n      auto q = sc.lift(vector<mint>(g[i + 1].begin(),\
+    \ g[i + 1].begin() + (1 << k)));\n      sc.ranked_zeta(q);\n      sc.ranked_mul(q,\
+    \ p);\n      sc.ranked_mobius(q);\n      auto h = sc.unlift(q);\n      copy(h.begin(),\
+    \ h.end(), g[i].begin() + (1 << k));\n    }\n  }\n  return g[0];\n}\ntemplate\
+    \ <class mint, int sz = 21>\nvector<mint> composite_polynomial(vector<mint> p,\
+    \ vector<mint> a) {\n  if (p.empty()) return vector<mint>(a.size());\n  int l\
+    \ = __builtin_ctz(a.size());\n  if (a[0] != 0) {\n    mint c = a[0];\n    a[0]\
+    \ = 0;\n    vector<mint> p1(l + 1, 0), binom(l + 1, 0);\n    binom[0] = 1;\n \
+    \   mint r0 = 1;\n    for (int i = 0; i < p.size(); i++) {\n      if (i > l) r0\
+    \ *= c;\n      mint r = r0;\n      for (int j = min(i, l); j >= 0; j--, r *= c)\
+    \ p1[j] += p[i] * binom[j] * r;\n      for (int j = l; j > 0; j--) binom[j] +=\
+    \ binom[j - 1];\n    }\n    swap(p, p1);\n  }\n  mint r = 1;\n  for (int i = 1;\
+    \ i <= l; i++) p[i] *= (r *= i);\n  return composite_egf<mint, sz>(p, a);\n}\n\
+    \n// log(a), [x^0]a=1\n// require inverse of 1,...,sz\ntemplate <class mint, int\
+    \ sz = 21>\nvector<mint> log(vector<mint> a) {\n  static SubsetConvolution<mint,\
     \ sz> sc;\n  assert(a[0] == 1);\n  int l = __builtin_ctz(a.size());\n  if (l ==\
     \ 0) return {0};\n  vector<mint> inv(l + 1, 1);\n  rep(i, 1, l + 1) inv[i] = mint(i).inv();\n\
     \  auto p = sc.lift(a);\n  sc.ranked_zeta(p);\n  for (int k = 0; k < p.size();\
@@ -242,14 +282,15 @@ data:
   - template/inout.hpp
   - template/debug.hpp
   - modint/modint.hpp
+  - math/util.hpp
   - set/subset-convolution.hpp
   - set/exp-of-set-power-series.hpp
   - set/composite-set-power-series.hpp
   isVerificationFile: true
   path: verify/set/UNIT_composite_set_power_series.test.cpp
   requiredBy: []
-  timestamp: '2025-10-31 21:40:36+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-11-01 00:19:27+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/set/UNIT_composite_set_power_series.test.cpp
 layout: document

@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/number-theory/LC_enumerate_quotients.test.cpp
     title: verify/number-theory/LC_enumerate_quotients.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     _deprecated_at_docs: docs/number-theory/enumerate-quotients.md
     document_title: "\u5546\u306E\u5217\u6319"
@@ -44,22 +44,30 @@ data:
     \ (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n  unsigned long\
     \ long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y += m;\n  while\
     \ (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n    n >>= 1;\n\
-    \  }\n  return r;\n}\n};  // namespace Math\n#line 4 \"number-theory/enumerate-quotients.hpp\"\
-    \n\nnamespace EnumerateQuotients {\nusing i64 = int64_t;\ni64 div(i64 a, i64 b)\
-    \ { return double(a) / b; };\nvector<i64> table(i64 N) {\n  i64 sq = Math::isqrt(N);\n\
-    \  vector<i64> xs(sq);\n  iota(xs.begin(), xs.end(), 1);\n  if (N <= 1e12) {\n\
-    \    for (i64 i = div(N, sq + 1); i > 0; i--) xs.push_back(div(N, i));\n  } else\
-    \ {\n    for (i64 i = N / (sq + 1); i > 0; i--) xs.push_back(N / i);\n  }\n  return\
-    \ xs;\n}\npair<i64, i64> get_range(i64 N, i64 q) {\n  return N <= 1e12 ? pair<i64,\
-    \ i64>{div(N, q + 1), div(N, q)} : pair<i64, i64>{N / (q + 1), N / q};\n}\ntemplate\
-    \ <class F>\nvoid iterate(i64 N, F f) {\n  i64 sq = Math::isqrt(N);\n  vector<i64>\
-    \ xs;\n  if (N <= 1e12) {\n    i64 x = N;\n    for (i64 q = 1; x <= sq; q++) {\n\
-    \      i64 y = div(N, q + 1);\n      f(q, y, x);\n      x = y;\n    }\n    for\
-    \ (; x > 0; x--) f(div(N, x), x - 1, x);\n  } else {\n    i64 x = N;\n    for\
-    \ (i64 q = 1; x <= sq; q++) {\n      i64 y = N / (q + 1);\n      f(q, y, x);\n\
-    \      x = y;\n    }\n    for (; x > 0; x--) f(N / x, x - 1, x);\n  }\n}\n}; \
-    \ // namespace EnumerateQuotients\n\n/**\n * @brief \u5546\u306E\u5217\u6319\n\
-    \ * @docs docs/number-theory/enumerate-quotients.md\n */\n"
+    \  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n  if (n <= 1)\
+    \ return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n  if (n % 2\
+    \ == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0) d /= 2;\n\
+    \  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a : bases) {\n\
+    \    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n    while\
+    \ (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t <<= 1;\n\
+    \    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n    }\n  }\n\
+    \  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    };  // namespace Math\n#line 4 \"number-theory/enumerate-quotients.hpp\"\n\nnamespace\
+    \ EnumerateQuotients {\nusing i64 = int64_t;\ni64 div(i64 a, i64 b) { return double(a)\
+    \ / b; };\nvector<i64> table(i64 N) {\n  i64 sq = Math::isqrt(N);\n  vector<i64>\
+    \ xs(sq);\n  iota(xs.begin(), xs.end(), 1);\n  if (N <= 1e12) {\n    for (i64\
+    \ i = div(N, sq + 1); i > 0; i--) xs.push_back(div(N, i));\n  } else {\n    for\
+    \ (i64 i = N / (sq + 1); i > 0; i--) xs.push_back(N / i);\n  }\n  return xs;\n\
+    }\npair<i64, i64> get_range(i64 N, i64 q) {\n  return N <= 1e12 ? pair<i64, i64>{div(N,\
+    \ q + 1), div(N, q)} : pair<i64, i64>{N / (q + 1), N / q};\n}\ntemplate <class\
+    \ F>\nvoid iterate(i64 N, F f) {\n  i64 sq = Math::isqrt(N);\n  vector<i64> xs;\n\
+    \  if (N <= 1e12) {\n    i64 x = N;\n    for (i64 q = 1; x <= sq; q++) {\n   \
+    \   i64 y = div(N, q + 1);\n      f(q, y, x);\n      x = y;\n    }\n    for (;\
+    \ x > 0; x--) f(div(N, x), x - 1, x);\n  } else {\n    i64 x = N;\n    for (i64\
+    \ q = 1; x <= sq; q++) {\n      i64 y = N / (q + 1);\n      f(q, y, x);\n    \
+    \  x = y;\n    }\n    for (; x > 0; x--) f(N / x, x - 1, x);\n  }\n}\n};  // namespace\
+    \ EnumerateQuotients\n\n/**\n * @brief \u5546\u306E\u5217\u6319\n * @docs docs/number-theory/enumerate-quotients.md\n\
+    \ */\n"
   code: "#pragma once\n\n#include \"math/util.hpp\"\n\nnamespace EnumerateQuotients\
     \ {\nusing i64 = int64_t;\ni64 div(i64 a, i64 b) { return double(a) / b; };\n\
     vector<i64> table(i64 N) {\n  i64 sq = Math::isqrt(N);\n  vector<i64> xs(sq);\n\
@@ -81,8 +89,8 @@ data:
   isVerificationFile: false
   path: number-theory/enumerate-quotients.hpp
   requiredBy: []
-  timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-11-01 00:19:27+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/number-theory/LC_enumerate_quotients.test.cpp
 documentation_of: number-theory/enumerate-quotients.hpp
