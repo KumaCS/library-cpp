@@ -18,12 +18,8 @@ fps prefix_sum_with_multieval_and_interpolation(fps f) {
 }
 
 void test(fps f) {
-  bool print = f.size() < 100;
-  if (print) show(f);
   auto g = prefix_sum_with_multieval_and_interpolation(f);
-  if (print) show(g);
   auto h = PrefixSumOfPolynomial(f);
-  if (print) show(h);
   assert(g == h);
 }
 

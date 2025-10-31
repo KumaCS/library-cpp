@@ -47,6 +47,6 @@ vector<mint> MultipointEvaluationGeometric(FormalPowerSeries<mint> f, mint a, mi
 }
 
 /**
- * @brief Multipoint Evaluation
+ * @brief 多点評価
  * @docs docs/fps/multipoint-evaluation.md
  */

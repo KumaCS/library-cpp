@@ -35,8 +35,10 @@ vector<mint> composite_polynomial(vector<mint> p, vector<mint> a) {
     a[0] = 0;
     vector<mint> p1(l + 1, 0), binom(l + 1, 0);
     binom[0] = 1;
+    mint r0 = 1;
     for (int i = 0; i < p.size(); i++) {
-      mint r = i <= l ? 1 : c.pow(i - l);
+      if (i > l) r0 *= c;
+      mint r = r0;
       for (int j = min(i, l); j >= 0; j--, r *= c) p1[j] += p[i] * binom[j] * r;
       for (int j = l; j > 0; j--) binom[j] += binom[j - 1];
     }

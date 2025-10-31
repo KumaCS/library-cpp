@@ -4,31 +4,37 @@ template <class mint>
 struct FormalPowerSeries : vector<mint> {
   using vector<mint>::vector;
   using FPS = FormalPowerSeries;
-  FPS &operator+=(const FPS &r) {
+  FormalPowerSeries(const vector<mint>& r) : vector<mint>(r) {}
+  FormalPowerSeries(vector<mint>&& r) : vector<mint>(std::move(r)) {}
+  FPS& operator=(const vector<mint>& r) {
+    vector<mint>::operator=(r);
+    return *this;
+  }
+  FPS& operator+=(const FPS& r) {
     if (r.size() > this->size()) this->resize(r.size());
     for (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];
     return *this;
   }
-  FPS &operator+=(const mint &r) {
+  FPS& operator+=(const mint& r) {
     if (this->empty()) this->resize(1);
     (*this)[0] += r;
     return *this;
   }
-  FPS &operator-=(const FPS &r) {
+  FPS& operator-=(const FPS& r) {
     if (r.size() > this->size()) this->resize(r.size());
     for (int i = 0; i < (int)r.size(); i++) (*this)[i] -= r[i];
     return *this;
   }
-  FPS &operator-=(const mint &r) {
+  FPS& operator-=(const mint& r) {
     if (this->empty()) this->resize(1);
     (*this)[0] -= r;
     return *this;
   }
-  FPS &operator*=(const mint &v) {
+  FPS& operator*=(const mint& v) {
     for (int k = 0; k < (int)this->size(); k++) (*this)[k] *= v;
     return *this;
   }
-  FPS &operator/=(const FPS &r) {
+  FPS& operator/=(const FPS& r) {
     if (this->size() < r.size()) {
       this->clear();
       return *this;
@@ -38,7 +44,7 @@ struct FormalPowerSeries : vector<mint> {
       FPS f(*this), g(r);
       g.shrink();
       mint coeff = g.at(g.size() - 1).inv();
-      for (auto &x : g) x *= coeff;
+      for (auto& x : g) x *= coeff;
       int deg = (int)f.size() - (int)g.size() + 1;
       int gs = g.size();
       FPS quo(deg);
@@ -52,19 +58,19 @@ struct FormalPowerSeries : vector<mint> {
     }
     return *this = ((*this).rev().pre(n) * r.rev().inv(n)).pre(n).rev();
   }
-  FPS &operator%=(const FPS &r) {
+  FPS& operator%=(const FPS& r) {
     *this -= *this / r * r;
     shrink();
     return *this;
   }
-  FPS operator+(const FPS &r) const { return FPS(*this) += r; }
-  FPS operator+(const mint &v) const { return FPS(*this) += v; }
-  FPS operator-(const FPS &r) const { return FPS(*this) -= r; }
-  FPS operator-(const mint &v) const { return FPS(*this) -= v; }
-  FPS operator*(const FPS &r) const { return FPS(*this) *= r; }
-  FPS operator*(const mint &v) const { return FPS(*this) *= v; }
-  FPS operator/(const FPS &r) const { return FPS(*this) /= r; }
-  FPS operator%(const FPS &r) const { return FPS(*this) %= r; }
+  FPS operator+(const FPS& r) const { return FPS(*this) += r; }
+  FPS operator+(const mint& v) const { return FPS(*this) += v; }
+  FPS operator-(const FPS& r) const { return FPS(*this) -= r; }
+  FPS operator-(const mint& v) const { return FPS(*this) -= v; }
+  FPS operator*(const FPS& r) const { return FPS(*this) *= r; }
+  FPS operator*(const mint& v) const { return FPS(*this) *= v; }
+  FPS operator/(const FPS& r) const { return FPS(*this) /= r; }
+  FPS operator%(const FPS& r) const { return FPS(*this) %= r; }
   FPS operator-() const {
     FPS ret(this->size());
     for (int i = 0; i < (int)this->size(); i++) ret[i] = -(*this)[i];
@@ -130,7 +136,7 @@ struct FormalPowerSeries : vector<mint> {
   }
   mint eval(mint x) const {
     mint r = 0, w = 1;
-    for (auto &v : *this) r += w * v, w *= x;
+    for (auto& v : *this) r += w * v, w *= x;
     return r;
   }
   FPS log(int deg = -1) const {
@@ -160,10 +166,10 @@ struct FormalPowerSeries : vector<mint> {
     return FPS(deg, mint(0));
   }
 
-  static void *ntt_ptr;
+  static void* ntt_ptr;
   static void set_ntt();
-  FPS &operator*=(const FPS &r);
-  FPS middle_product(const FPS &r) const;
+  FPS& operator*=(const FPS& r);
+  FPS middle_product(const FPS& r) const;
   void ntt();
   void intt();
   void ntt_doubling();
@@ -172,4 +178,4 @@ struct FormalPowerSeries : vector<mint> {
   FPS exp(int deg = -1) const;
 };
 template <typename mint>
-void *FormalPowerSeries<mint>::ntt_ptr = nullptr;
+void* FormalPowerSeries<mint>::ntt_ptr = nullptr;
