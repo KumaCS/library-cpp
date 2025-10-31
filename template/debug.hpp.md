@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
   _extendedVerifiedWith:
@@ -96,43 +96,43 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation.test.cpp
     title: verify/fps/LC_multipoint_evaluation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sharp_p_subset_sum.test.cpp
     title: verify/fps/LC_sharp_p_subset_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
     title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - icon: ':heavy_check_mark:'
@@ -141,7 +141,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - icon: ':heavy_check_mark:'
@@ -153,7 +153,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/math/LC_sum_of_floor_of_linear.test.cpp
     title: verify/math/LC_sum_of_floor_of_linear.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_multi_inverse.test.cpp
     title: verify/modint/UNIT_multi_inverse.test.cpp
   - icon: ':heavy_check_mark:'
@@ -189,16 +189,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_exp_of_set_power_series.test.cpp
     title: verify/set/LC_exp_of_set_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
     title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_power_projection_of_set_power_series.test.cpp
     title: verify/set/LC_power_projection_of_set_power_series.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_subset_convolution.test.cpp
     title: verify/set/LC_subset_convolution.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/UNIT_composite_set_power_series.test.cpp
     title: verify/set/UNIT_composite_set_power_series.test.cpp
   - icon: ':heavy_check_mark:'
@@ -207,9 +207,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind_with_potential.test.cpp
     title: verify/union-find/LC_unionfind_with_potential.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define\
@@ -231,7 +231,7 @@ data:
   requiredBy:
   - template/template.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
   - verify/modint/UNIT_multi_inverse.test.cpp

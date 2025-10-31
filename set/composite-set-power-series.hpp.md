@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: set/subset-convolution.hpp
     title: Subset Convolution
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
     title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/UNIT_composite_set_power_series.test.cpp
     title: verify/set/UNIT_composite_set_power_series.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/set/composite-set-power-series.md
     document_title: Polynomial Composite Set Power Series
@@ -151,7 +151,7 @@ data:
   path: set/composite-set-power-series.hpp
   requiredBy: []
   timestamp: '2025-10-31 21:40:36+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/set/UNIT_composite_set_power_series.test.cpp
   - verify/set/LC_polynomial_composite_set_power_series.test.cpp

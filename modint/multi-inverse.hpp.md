@@ -2,25 +2,25 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/polynomial-interpolation.hpp
     title: "\u591A\u9805\u5F0F\u88DC\u9593"
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_multi_inverse.test.cpp
     title: verify/modint/UNIT_multi_inverse.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\
       \u3067\u8A08\u7B97"
@@ -44,7 +44,7 @@ data:
   requiredBy:
   - fps/polynomial-interpolation.hpp
   timestamp: '2025-10-31 21:40:36+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/modint/UNIT_multi_inverse.test.cpp
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp

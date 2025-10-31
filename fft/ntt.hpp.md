@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: convolution/intmod.hpp
     title: "\u4EFB\u610F mod \u7573\u307F\u8FBC\u307F"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   _extendedVerifiedWith:
@@ -75,51 +75,51 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation.test.cpp
     title: verify/fps/LC_multipoint_evaluation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sharp_p_subset_sum.test.cpp
     title: verify/fps/LC_sharp_p_subset_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
     title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/fft/ntt.md
     document_title: "NTT (\u6570\u8AD6\u5909\u63DB)"
@@ -323,7 +323,7 @@ data:
   - fps/fps-ntt-friendly.hpp
   - convolution/intmod.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp

@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: fps/multipoint-evaluation.hpp
     title: "\u591A\u70B9\u8A55\u4FA1"
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/multipoint_evaluation
@@ -313,12 +313,12 @@ data:
     \n\n// f(x0),f(x1),...\ntemplate <class mint>\nvector<mint> MultipointEvaluation(FormalPowerSeries<mint>\
     \ f, const vector<mint>& x) {\n  using fps = FormalPowerSeries<mint>;\n  int m\
     \ = x.size();\n  if (m == 0) return {};\n  vector<fps> prod(2 * m);\n  for (int\
-    \ i = 0; i < m; i++) prod[i + m] = {-x[i], 1};\n  for (int i = m - 1; i > 0; i--)\
-    \ prod[i] = prod[i * 2] * prod[i * 2 + 1];\n  vector<fps> rem(2 * m);\n  rem[1]\
-    \ = f % prod[1];\n  for (int i = 2; i < 2 * m; i++) rem[i] = rem[i / 2] % prod[i];\n\
-    \  vector<mint> y(m);\n  for (int i = 0; i < m; i++) y[i] = rem[i + m].empty()\
-    \ ? 0 : rem[i + m][0];\n  return y;\n}\n\n// f(a),f(ar),...,f(ar^{n-1})\ntemplate\
-    \ <class mint>\nvector<mint> MultipointEvaluationGeometric(FormalPowerSeries<mint>\
+    \ i = 0; i < m; i++) prod[i + m] = fps{-x[i], 1};\n  for (int i = m - 1; i > 0;\
+    \ i--) prod[i] = prod[i * 2] * prod[i * 2 + 1];\n  vector<fps> rem(2 * m);\n \
+    \ rem[1] = f % prod[1];\n  for (int i = 2; i < 2 * m; i++) rem[i] = rem[i / 2]\
+    \ % prod[i];\n  vector<mint> y(m);\n  for (int i = 0; i < m; i++) y[i] = rem[i\
+    \ + m].empty() ? 0 : rem[i + m][0];\n  return y;\n}\n\n// f(a),f(ar),...,f(ar^{n-1})\n\
+    template <class mint>\nvector<mint> MultipointEvaluationGeometric(FormalPowerSeries<mint>\
     \ f, mint a, mint r, int n) {\n  using fps = FormalPowerSeries<mint>;\n  assert(n\
     \ >= 0);\n  if (n == 0) return {};\n  if (f.empty()) return vector<mint>(n);\n\
     \  mint pa = 1;\n  for (int i = 1; i < f.size(); i++) f[i] *= (pa *= a);\n  if\
@@ -352,8 +352,8 @@ data:
   isVerificationFile: true
   path: verify/fps/LC_multipoint_evaluation.test.cpp
   requiredBy: []
-  timestamp: '2025-10-31 21:40:36+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-10-31 21:54:34+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/LC_multipoint_evaluation.test.cpp
 layout: document

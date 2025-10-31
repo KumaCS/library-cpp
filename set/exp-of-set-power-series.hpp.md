@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: set/subset-convolution.hpp
     title: Subset Convolution
   _extendedRequiredBy: []
@@ -9,12 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_exp_of_set_power_series.test.cpp
     title: verify/set/LC_exp_of_set_power_series.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/set/UNIT_composite_set_power_series.test.cpp
     title: verify/set/UNIT_composite_set_power_series.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: Exp Of Set Power Series
     links: []
@@ -68,7 +68,7 @@ data:
   path: set/exp-of-set-power-series.hpp
   requiredBy: []
   timestamp: '2025-10-29 02:30:28+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/set/UNIT_composite_set_power_series.test.cpp
   - verify/set/LC_exp_of_set_power_series.test.cpp
