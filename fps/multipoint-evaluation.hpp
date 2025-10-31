@@ -8,7 +8,7 @@ vector<mint> MultipointEvaluation(FormalPowerSeries<mint> f, const vector<mint>&
   int m = x.size();
   if (m == 0) return {};
   vector<fps> prod(2 * m);
-  for (int i = 0; i < m; i++) prod[i + m] = {-x[i], 1};
+  for (int i = 0; i < m; i++) prod[i + m] = fps{-x[i], 1};
   for (int i = m - 1; i > 0; i--) prod[i] = prod[i * 2] * prod[i * 2 + 1];
   vector<fps> rem(2 * m);
   rem[1] = f % prod[1];
