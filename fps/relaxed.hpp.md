@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-pow.hpp
     title: modint/mod-pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
   _extendedRequiredBy: []
@@ -30,12 +30,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/fps/relaxed.md
     document_title: Relaxed
@@ -72,33 +72,36 @@ data:
     \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
     };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"fps/formal-power-series.hpp\"\
     \n\ntemplate <class mint>\nstruct FormalPowerSeries : vector<mint> {\n  using\
-    \ vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n  FPS &operator+=(const\
-    \ FPS &r) {\n    if (r.size() > this->size()) this->resize(r.size());\n    for\
+    \ vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n  FormalPowerSeries(const\
+    \ vector<mint>& r) : vector<mint>(r) {}\n  FormalPowerSeries(vector<mint>&& r)\
+    \ : vector<mint>(std::move(r)) {}\n  FPS& operator=(const vector<mint>& r) {\n\
+    \    vector<mint>::operator=(r);\n    return *this;\n  }\n  FPS& operator+=(const\
+    \ FPS& r) {\n    if (r.size() > this->size()) this->resize(r.size());\n    for\
     \ (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];\n    return *this;\n\
-    \  }\n  FPS &operator+=(const mint &r) {\n    if (this->empty()) this->resize(1);\n\
-    \    (*this)[0] += r;\n    return *this;\n  }\n  FPS &operator-=(const FPS &r)\
+    \  }\n  FPS& operator+=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
+    \    (*this)[0] += r;\n    return *this;\n  }\n  FPS& operator-=(const FPS& r)\
     \ {\n    if (r.size() > this->size()) this->resize(r.size());\n    for (int i\
     \ = 0; i < (int)r.size(); i++) (*this)[i] -= r[i];\n    return *this;\n  }\n \
-    \ FPS &operator-=(const mint &r) {\n    if (this->empty()) this->resize(1);\n\
-    \    (*this)[0] -= r;\n    return *this;\n  }\n  FPS &operator*=(const mint &v)\
+    \ FPS& operator-=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
+    \    (*this)[0] -= r;\n    return *this;\n  }\n  FPS& operator*=(const mint& v)\
     \ {\n    for (int k = 0; k < (int)this->size(); k++) (*this)[k] *= v;\n    return\
-    \ *this;\n  }\n  FPS &operator/=(const FPS &r) {\n    if (this->size() < r.size())\
+    \ *this;\n  }\n  FPS& operator/=(const FPS& r) {\n    if (this->size() < r.size())\
     \ {\n      this->clear();\n      return *this;\n    }\n    int n = this->size()\
     \ - r.size() + 1;\n    if ((int)r.size() <= 64) {\n      FPS f(*this), g(r);\n\
-    \      g.shrink();\n      mint coeff = g.at(g.size() - 1).inv();\n      for (auto\
-    \ &x : g) x *= coeff;\n      int deg = (int)f.size() - (int)g.size() + 1;\n  \
-    \    int gs = g.size();\n      FPS quo(deg);\n      for (int i = deg - 1; i >=\
+    \      g.shrink();\n      mint coeff = g.at(g.size() - 1).inv();\n      for (auto&\
+    \ x : g) x *= coeff;\n      int deg = (int)f.size() - (int)g.size() + 1;\n   \
+    \   int gs = g.size();\n      FPS quo(deg);\n      for (int i = deg - 1; i >=\
     \ 0; i--) {\n        quo[i] = f[i + gs - 1];\n        for (int j = 0; j < gs;\
     \ j++) f[i + j] -= quo[i] * g[j];\n      }\n      *this = quo * coeff;\n     \
     \ this->resize(n, mint(0));\n      return *this;\n    }\n    return *this = ((*this).rev().pre(n)\
-    \ * r.rev().inv(n)).pre(n).rev();\n  }\n  FPS &operator%=(const FPS &r) {\n  \
+    \ * r.rev().inv(n)).pre(n).rev();\n  }\n  FPS& operator%=(const FPS& r) {\n  \
     \  *this -= *this / r * r;\n    shrink();\n    return *this;\n  }\n  FPS operator+(const\
-    \ FPS &r) const { return FPS(*this) += r; }\n  FPS operator+(const mint &v) const\
-    \ { return FPS(*this) += v; }\n  FPS operator-(const FPS &r) const { return FPS(*this)\
-    \ -= r; }\n  FPS operator-(const mint &v) const { return FPS(*this) -= v; }\n\
-    \  FPS operator*(const FPS &r) const { return FPS(*this) *= r; }\n  FPS operator*(const\
-    \ mint &v) const { return FPS(*this) *= v; }\n  FPS operator/(const FPS &r) const\
-    \ { return FPS(*this) /= r; }\n  FPS operator%(const FPS &r) const { return FPS(*this)\
+    \ FPS& r) const { return FPS(*this) += r; }\n  FPS operator+(const mint& v) const\
+    \ { return FPS(*this) += v; }\n  FPS operator-(const FPS& r) const { return FPS(*this)\
+    \ -= r; }\n  FPS operator-(const mint& v) const { return FPS(*this) -= v; }\n\
+    \  FPS operator*(const FPS& r) const { return FPS(*this) *= r; }\n  FPS operator*(const\
+    \ mint& v) const { return FPS(*this) *= v; }\n  FPS operator/(const FPS& r) const\
+    \ { return FPS(*this) /= r; }\n  FPS operator%(const FPS& r) const { return FPS(*this)\
     \ %= r; }\n  FPS operator-() const {\n    FPS ret(this->size());\n    for (int\
     \ i = 0; i < (int)this->size(); i++) ret[i] = -(*this)[i];\n    return ret;\n\
     \  }\n  void shrink() {\n    while (this->size() && this->back() == mint(0)) this->pop_back();\n\
@@ -121,7 +124,7 @@ data:
     \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
     \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
     \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto &v : *this) r += w * v, w\
+    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
     \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
     \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
     \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
@@ -133,10 +136,10 @@ data:
     \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
     \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
     \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void *ntt_ptr;\n  static void set_ntt();\n  FPS &operator*=(const FPS\
-    \ &r);\n  FPS middle_product(const FPS &r) const;\n  void ntt();\n  void intt();\n\
+    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
+    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
     \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid *FormalPowerSeries<mint>::ntt_ptr\
+    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
     \ = nullptr;\n#line 2 \"modint/mod-sqrt.hpp\"\n\n#line 2 \"modint/mod-pow.hpp\"\
     \n\nunsigned int ModPow(unsigned int a, unsigned long long n, unsigned int m)\
     \ {\n  unsigned long long x = a, y = 1;\n  while (n) {\n    if (n & 1) y = y *\
@@ -281,8 +284,8 @@ data:
   isVerificationFile: false
   path: fps/relaxed.hpp
   requiredBy: []
-  timestamp: '2025-10-26 03:52:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-10-31 21:40:36+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp

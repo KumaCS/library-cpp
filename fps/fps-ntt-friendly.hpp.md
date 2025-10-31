@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   _extendedRequiredBy: []
@@ -55,6 +55,9 @@ data:
     path: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_inv_of_polynomials.test.cpp
+    title: verify/fps/LC_inv_of_polynomials.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
     title: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
   - icon: ':heavy_check_mark:'
@@ -66,45 +69,51 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_multipoint_evaluation.test.cpp
     title: verify/fps/LC_multipoint_evaluation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+    title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - icon: ':x:'
     path: verify/fps/LC_polynomial_taylor_shift.test.cpp
     title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_pow_of_formal_power_series.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
     title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: verify/fps/LC_sharp_p_subset_sum.test.cpp
+    title: verify/fps/LC_sharp_p_subset_sum.test.cpp
+  - icon: ':x:'
     path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
     title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\n\
@@ -205,32 +214,35 @@ data:
     \ @brief NTT (\u6570\u8AD6\u5909\u63DB)\n * @docs docs/fft/ntt.md\n */\n#line\
     \ 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\nstruct FormalPowerSeries\
     \ : vector<mint> {\n  using vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n\
-    \  FPS &operator+=(const FPS &r) {\n    if (r.size() > this->size()) this->resize(r.size());\n\
-    \    for (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];\n    return *this;\n\
-    \  }\n  FPS &operator+=(const mint &r) {\n    if (this->empty()) this->resize(1);\n\
-    \    (*this)[0] += r;\n    return *this;\n  }\n  FPS &operator-=(const FPS &r)\
+    \  FormalPowerSeries(const vector<mint>& r) : vector<mint>(r) {}\n  FormalPowerSeries(vector<mint>&&\
+    \ r) : vector<mint>(std::move(r)) {}\n  FPS& operator=(const vector<mint>& r)\
+    \ {\n    vector<mint>::operator=(r);\n    return *this;\n  }\n  FPS& operator+=(const\
+    \ FPS& r) {\n    if (r.size() > this->size()) this->resize(r.size());\n    for\
+    \ (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];\n    return *this;\n\
+    \  }\n  FPS& operator+=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
+    \    (*this)[0] += r;\n    return *this;\n  }\n  FPS& operator-=(const FPS& r)\
     \ {\n    if (r.size() > this->size()) this->resize(r.size());\n    for (int i\
     \ = 0; i < (int)r.size(); i++) (*this)[i] -= r[i];\n    return *this;\n  }\n \
-    \ FPS &operator-=(const mint &r) {\n    if (this->empty()) this->resize(1);\n\
-    \    (*this)[0] -= r;\n    return *this;\n  }\n  FPS &operator*=(const mint &v)\
+    \ FPS& operator-=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
+    \    (*this)[0] -= r;\n    return *this;\n  }\n  FPS& operator*=(const mint& v)\
     \ {\n    for (int k = 0; k < (int)this->size(); k++) (*this)[k] *= v;\n    return\
-    \ *this;\n  }\n  FPS &operator/=(const FPS &r) {\n    if (this->size() < r.size())\
+    \ *this;\n  }\n  FPS& operator/=(const FPS& r) {\n    if (this->size() < r.size())\
     \ {\n      this->clear();\n      return *this;\n    }\n    int n = this->size()\
     \ - r.size() + 1;\n    if ((int)r.size() <= 64) {\n      FPS f(*this), g(r);\n\
-    \      g.shrink();\n      mint coeff = g.at(g.size() - 1).inv();\n      for (auto\
-    \ &x : g) x *= coeff;\n      int deg = (int)f.size() - (int)g.size() + 1;\n  \
-    \    int gs = g.size();\n      FPS quo(deg);\n      for (int i = deg - 1; i >=\
+    \      g.shrink();\n      mint coeff = g.at(g.size() - 1).inv();\n      for (auto&\
+    \ x : g) x *= coeff;\n      int deg = (int)f.size() - (int)g.size() + 1;\n   \
+    \   int gs = g.size();\n      FPS quo(deg);\n      for (int i = deg - 1; i >=\
     \ 0; i--) {\n        quo[i] = f[i + gs - 1];\n        for (int j = 0; j < gs;\
     \ j++) f[i + j] -= quo[i] * g[j];\n      }\n      *this = quo * coeff;\n     \
     \ this->resize(n, mint(0));\n      return *this;\n    }\n    return *this = ((*this).rev().pre(n)\
-    \ * r.rev().inv(n)).pre(n).rev();\n  }\n  FPS &operator%=(const FPS &r) {\n  \
+    \ * r.rev().inv(n)).pre(n).rev();\n  }\n  FPS& operator%=(const FPS& r) {\n  \
     \  *this -= *this / r * r;\n    shrink();\n    return *this;\n  }\n  FPS operator+(const\
-    \ FPS &r) const { return FPS(*this) += r; }\n  FPS operator+(const mint &v) const\
-    \ { return FPS(*this) += v; }\n  FPS operator-(const FPS &r) const { return FPS(*this)\
-    \ -= r; }\n  FPS operator-(const mint &v) const { return FPS(*this) -= v; }\n\
-    \  FPS operator*(const FPS &r) const { return FPS(*this) *= r; }\n  FPS operator*(const\
-    \ mint &v) const { return FPS(*this) *= v; }\n  FPS operator/(const FPS &r) const\
-    \ { return FPS(*this) /= r; }\n  FPS operator%(const FPS &r) const { return FPS(*this)\
+    \ FPS& r) const { return FPS(*this) += r; }\n  FPS operator+(const mint& v) const\
+    \ { return FPS(*this) += v; }\n  FPS operator-(const FPS& r) const { return FPS(*this)\
+    \ -= r; }\n  FPS operator-(const mint& v) const { return FPS(*this) -= v; }\n\
+    \  FPS operator*(const FPS& r) const { return FPS(*this) *= r; }\n  FPS operator*(const\
+    \ mint& v) const { return FPS(*this) *= v; }\n  FPS operator/(const FPS& r) const\
+    \ { return FPS(*this) /= r; }\n  FPS operator%(const FPS& r) const { return FPS(*this)\
     \ %= r; }\n  FPS operator-() const {\n    FPS ret(this->size());\n    for (int\
     \ i = 0; i < (int)this->size(); i++) ret[i] = -(*this)[i];\n    return ret;\n\
     \  }\n  void shrink() {\n    while (this->size() && this->back() == mint(0)) this->pop_back();\n\
@@ -253,7 +265,7 @@ data:
     \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
     \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
     \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto &v : *this) r += w * v, w\
+    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
     \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
     \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
     \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
@@ -265,10 +277,10 @@ data:
     \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
     \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
     \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void *ntt_ptr;\n  static void set_ntt();\n  FPS &operator*=(const FPS\
-    \ &r);\n  FPS middle_product(const FPS &r) const;\n  void ntt();\n  void intt();\n\
+    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
+    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
     \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid *FormalPowerSeries<mint>::ntt_ptr\
+    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
     \ = nullptr;\n#line 5 \"fps/fps-ntt-friendly.hpp\"\n\ntemplate <class mint>\n\
     void FormalPowerSeries<mint>::set_ntt() {\n  if (!ntt_ptr) ntt_ptr = new NTT<mint>;\n\
     }\ntemplate <class mint>\nFormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(const\
@@ -322,10 +334,11 @@ data:
   isVerificationFile: false
   path: fps/fps-ntt-friendly.hpp
   requiredBy: []
-  timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-10-31 21:40:36+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
@@ -336,6 +349,7 @@ data:
   - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_inv_of_polynomials.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
@@ -351,6 +365,7 @@ data:
   - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_sharp_p_subset_sum.test.cpp
   - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
   - verify/fps/LC_pow_of_formal_power_series.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp

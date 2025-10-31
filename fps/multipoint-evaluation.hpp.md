@@ -1,56 +1,68 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':question:'
+    path: fps/polynomial-interpolation.hpp
+    title: "\u591A\u9805\u5F0F\u88DC\u9593"
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/fps/LC_multipoint_evaluation.test.cpp
     title: verify/fps/LC_multipoint_evaluation.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - icon: ':x:'
+    path: verify/fps/LC_polynomial_interpolation.test.cpp
+    title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+    title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - icon: ':x:'
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/fps/multipoint-evaluation.md
-    document_title: Multipoint Evaluation
+    document_title: "\u591A\u70B9\u8A55\u4FA1"
     links: []
   bundledCode: "#line 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\n\
     struct FormalPowerSeries : vector<mint> {\n  using vector<mint>::vector;\n  using\
-    \ FPS = FormalPowerSeries;\n  FPS &operator+=(const FPS &r) {\n    if (r.size()\
-    \ > this->size()) this->resize(r.size());\n    for (int i = 0; i < (int)r.size();\
-    \ i++) (*this)[i] += r[i];\n    return *this;\n  }\n  FPS &operator+=(const mint\
-    \ &r) {\n    if (this->empty()) this->resize(1);\n    (*this)[0] += r;\n    return\
-    \ *this;\n  }\n  FPS &operator-=(const FPS &r) {\n    if (r.size() > this->size())\
+    \ FPS = FormalPowerSeries;\n  FormalPowerSeries(const vector<mint>& r) : vector<mint>(r)\
+    \ {}\n  FormalPowerSeries(vector<mint>&& r) : vector<mint>(std::move(r)) {}\n\
+    \  FPS& operator=(const vector<mint>& r) {\n    vector<mint>::operator=(r);\n\
+    \    return *this;\n  }\n  FPS& operator+=(const FPS& r) {\n    if (r.size() >\
+    \ this->size()) this->resize(r.size());\n    for (int i = 0; i < (int)r.size();\
+    \ i++) (*this)[i] += r[i];\n    return *this;\n  }\n  FPS& operator+=(const mint&\
+    \ r) {\n    if (this->empty()) this->resize(1);\n    (*this)[0] += r;\n    return\
+    \ *this;\n  }\n  FPS& operator-=(const FPS& r) {\n    if (r.size() > this->size())\
     \ this->resize(r.size());\n    for (int i = 0; i < (int)r.size(); i++) (*this)[i]\
-    \ -= r[i];\n    return *this;\n  }\n  FPS &operator-=(const mint &r) {\n    if\
+    \ -= r[i];\n    return *this;\n  }\n  FPS& operator-=(const mint& r) {\n    if\
     \ (this->empty()) this->resize(1);\n    (*this)[0] -= r;\n    return *this;\n\
-    \  }\n  FPS &operator*=(const mint &v) {\n    for (int k = 0; k < (int)this->size();\
-    \ k++) (*this)[k] *= v;\n    return *this;\n  }\n  FPS &operator/=(const FPS &r)\
-    \ {\n    if (this->size() < r.size()) {\n      this->clear();\n      return *this;\n\
-    \    }\n    int n = this->size() - r.size() + 1;\n    if ((int)r.size() <= 64)\
-    \ {\n      FPS f(*this), g(r);\n      g.shrink();\n      mint coeff = g.at(g.size()\
-    \ - 1).inv();\n      for (auto &x : g) x *= coeff;\n      int deg = (int)f.size()\
+    \  }\n  FPS& operator*=(const mint& v) {\n    for (int k = 0; k < (int)this->size();\
+    \ k++) (*this)[k] *= v;\n    return *this;\n  }\n  FPS& operator/=(const FPS&\
+    \ r) {\n    if (this->size() < r.size()) {\n      this->clear();\n      return\
+    \ *this;\n    }\n    int n = this->size() - r.size() + 1;\n    if ((int)r.size()\
+    \ <= 64) {\n      FPS f(*this), g(r);\n      g.shrink();\n      mint coeff = g.at(g.size()\
+    \ - 1).inv();\n      for (auto& x : g) x *= coeff;\n      int deg = (int)f.size()\
     \ - (int)g.size() + 1;\n      int gs = g.size();\n      FPS quo(deg);\n      for\
     \ (int i = deg - 1; i >= 0; i--) {\n        quo[i] = f[i + gs - 1];\n        for\
     \ (int j = 0; j < gs; j++) f[i + j] -= quo[i] * g[j];\n      }\n      *this =\
     \ quo * coeff;\n      this->resize(n, mint(0));\n      return *this;\n    }\n\
     \    return *this = ((*this).rev().pre(n) * r.rev().inv(n)).pre(n).rev();\n  }\n\
-    \  FPS &operator%=(const FPS &r) {\n    *this -= *this / r * r;\n    shrink();\n\
-    \    return *this;\n  }\n  FPS operator+(const FPS &r) const { return FPS(*this)\
-    \ += r; }\n  FPS operator+(const mint &v) const { return FPS(*this) += v; }\n\
-    \  FPS operator-(const FPS &r) const { return FPS(*this) -= r; }\n  FPS operator-(const\
-    \ mint &v) const { return FPS(*this) -= v; }\n  FPS operator*(const FPS &r) const\
-    \ { return FPS(*this) *= r; }\n  FPS operator*(const mint &v) const { return FPS(*this)\
-    \ *= v; }\n  FPS operator/(const FPS &r) const { return FPS(*this) /= r; }\n \
-    \ FPS operator%(const FPS &r) const { return FPS(*this) %= r; }\n  FPS operator-()\
+    \  FPS& operator%=(const FPS& r) {\n    *this -= *this / r * r;\n    shrink();\n\
+    \    return *this;\n  }\n  FPS operator+(const FPS& r) const { return FPS(*this)\
+    \ += r; }\n  FPS operator+(const mint& v) const { return FPS(*this) += v; }\n\
+    \  FPS operator-(const FPS& r) const { return FPS(*this) -= r; }\n  FPS operator-(const\
+    \ mint& v) const { return FPS(*this) -= v; }\n  FPS operator*(const FPS& r) const\
+    \ { return FPS(*this) *= r; }\n  FPS operator*(const mint& v) const { return FPS(*this)\
+    \ *= v; }\n  FPS operator/(const FPS& r) const { return FPS(*this) /= r; }\n \
+    \ FPS operator%(const FPS& r) const { return FPS(*this) %= r; }\n  FPS operator-()\
     \ const {\n    FPS ret(this->size());\n    for (int i = 0; i < (int)this->size();\
     \ i++) ret[i] = -(*this)[i];\n    return ret;\n  }\n  void shrink() {\n    while\
     \ (this->size() && this->back() == mint(0)) this->pop_back();\n  }\n  FPS rev()\
@@ -73,7 +85,7 @@ data:
     \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
     \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
     \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto &v : *this) r += w * v, w\
+    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
     \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
     \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
     \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
@@ -85,10 +97,10 @@ data:
     \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
     \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
     \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void *ntt_ptr;\n  static void set_ntt();\n  FPS &operator*=(const FPS\
-    \ &r);\n  FPS middle_product(const FPS &r) const;\n  void ntt();\n  void intt();\n\
+    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
+    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
     \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid *FormalPowerSeries<mint>::ntt_ptr\
+    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
     \ = nullptr;\n#line 3 \"fps/multipoint-evaluation.hpp\"\n\n// f(x0),f(x1),...\n\
     template <class mint>\nvector<mint> MultipointEvaluation(FormalPowerSeries<mint>\
     \ f, const vector<mint>& x) {\n  using fps = FormalPowerSeries<mint>;\n  int m\
@@ -108,8 +120,8 @@ data:
     \  for (int i = 2; i < sz; i++) {\n    rs[i] = rs[i - 1] * (pr *= r);\n    irs[i]\
     \ = irs[i - 1] * (pir *= ir);\n  }\n  for (int i = 0; i < f.size(); i++) f[i]\
     \ *= irs[i];\n  f = f.middle_product(rs);\n  for (int i = 0; i < f.size(); i++)\
-    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief Multipoint Evaluation\n *\
-    \ @docs docs/fps/multipoint-evaluation.md\n */\n"
+    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief \u591A\u70B9\u8A55\u4FA1\n\
+    \ * @docs docs/fps/multipoint-evaluation.md\n */\n"
   code: "#pragma once\n#include \"fps/formal-power-series.hpp\"\n\n// f(x0),f(x1),...\n\
     template <class mint>\nvector<mint> MultipointEvaluation(FormalPowerSeries<mint>\
     \ f, const vector<mint>& x) {\n  using fps = FormalPowerSeries<mint>;\n  int m\
@@ -129,25 +141,28 @@ data:
     \  for (int i = 2; i < sz; i++) {\n    rs[i] = rs[i - 1] * (pr *= r);\n    irs[i]\
     \ = irs[i - 1] * (pir *= ir);\n  }\n  for (int i = 0; i < f.size(); i++) f[i]\
     \ *= irs[i];\n  f = f.middle_product(rs);\n  for (int i = 0; i < f.size(); i++)\
-    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief Multipoint Evaluation\n *\
-    \ @docs docs/fps/multipoint-evaluation.md\n */"
+    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief \u591A\u70B9\u8A55\u4FA1\n\
+    \ * @docs docs/fps/multipoint-evaluation.md\n */"
   dependsOn:
   - fps/formal-power-series.hpp
   isVerificationFile: false
   path: fps/multipoint-evaluation.hpp
-  requiredBy: []
-  timestamp: '2025-10-21 21:13:36+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  requiredBy:
+  - fps/polynomial-interpolation.hpp
+  timestamp: '2025-10-31 21:40:36+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
 documentation_of: fps/multipoint-evaluation.hpp
 layout: document
 redirect_from:
 - /library/fps/multipoint-evaluation.hpp
 - /library/fps/multipoint-evaluation.hpp.html
-title: Multipoint Evaluation
+title: "\u591A\u70B9\u8A55\u4FA1"
 ---
 多点評価．
 

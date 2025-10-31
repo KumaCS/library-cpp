@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/composite-set-power-series.hpp
     title: Polynomial Composite Set Power Series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: set/subset-convolution.hpp
     title: Subset Convolution
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/polynomial_composite_set_power_series
@@ -159,28 +159,28 @@ data:
     \ vector<mint> a) {\n  if (p.empty()) return vector<mint>(a.size());\n  int l\
     \ = __builtin_ctz(a.size());\n  if (a[0] != 0) {\n    mint c = a[0];\n    a[0]\
     \ = 0;\n    vector<mint> p1(l + 1, 0), binom(l + 1, 0);\n    binom[0] = 1;\n \
-    \   for (int i = 0; i < p.size(); i++) {\n      mint r = i <= l ? 1 : c.pow(i\
-    \ - l);\n      for (int j = min(i, l); j >= 0; j--, r *= c) p1[j] += p[i] * binom[j]\
-    \ * r;\n      for (int j = l; j > 0; j--) binom[j] += binom[j - 1];\n    }\n \
-    \   swap(p, p1);\n  }\n  mint r = 1;\n  for (int i = 1; i <= l; i++) p[i] *= (r\
-    \ *= i);\n  return composite_egf<mint, sz>(p, a);\n}\n\n// log(a), [x^0]a=1\n\
-    // require inverse of 1,...,sz\ntemplate <class mint, int sz = 21>\nvector<mint>\
-    \ log(vector<mint> a) {\n  static SubsetConvolution<mint, sz> sc;\n  assert(a[0]\
-    \ == 1);\n  int l = __builtin_ctz(a.size());\n  if (l == 0) return {0};\n  vector<mint>\
-    \ inv(l + 1, 1);\n  rep(i, 1, l + 1) inv[i] = mint(i).inv();\n  auto p = sc.lift(a);\n\
-    \  sc.ranked_zeta(p);\n  for (int k = 0; k < p.size(); k++) {\n    auto q = p[k];\n\
-    \    p[k][0] = 0;\n    for (int i = 1; i <= l; i++) {\n      mint v = i * q[i];\n\
-    \      for (int j = 1; j < i; j++) v -= j * p[k][j] * q[i - j];\n      p[k][i]\
-    \ = v * inv[i];\n    }\n  }\n  sc.ranked_mobius(p);\n  return sc.unlift(p);\n\
-    }\n// log(a), [x^0]a=1\n// not require inverse of 1,...,sz\ntemplate <class mint,\
-    \ int sz = 21>\nvector<mint> log_arbitrary(vector<mint> a) {\n  assert(a[0] ==\
-    \ 1);\n  int l = __builtin_ctz(a.size());\n  if (l == 0) return {0};\n  a[0] =\
-    \ 0;\n  vector<mint> f(l + 1, 0);\n  f[1] = 1;\n  for (int i = 2; i <= l; i++)\
-    \ f[i] = f[i - 1] * (1 - i);\n  return composite_egf<mint, sz>(f, a);\n}\n// a^m,\
-    \ [x^0]a=1\n// require inverse of 1,...,sz\ntemplate <class mint, int sz = 21>\n\
-    vector<mint> pow(vector<mint> a, mint m) {\n  static SubsetConvolution<mint, sz>\
-    \ sc;\n  assert(a[0] == 1);\n  int l = __builtin_ctz(a.size());\n  if (l == 0)\
-    \ return {1};\n  vector<mint> inv(l + 1, 1);\n  rep(i, 1, l + 1) inv[i] = mint(i).inv();\n\
+    \   mint r0 = 1;\n    for (int i = 0; i < p.size(); i++) {\n      if (i > l) r0\
+    \ *= c;\n      mint r = r0;\n      for (int j = min(i, l); j >= 0; j--, r *= c)\
+    \ p1[j] += p[i] * binom[j] * r;\n      for (int j = l; j > 0; j--) binom[j] +=\
+    \ binom[j - 1];\n    }\n    swap(p, p1);\n  }\n  mint r = 1;\n  for (int i = 1;\
+    \ i <= l; i++) p[i] *= (r *= i);\n  return composite_egf<mint, sz>(p, a);\n}\n\
+    \n// log(a), [x^0]a=1\n// require inverse of 1,...,sz\ntemplate <class mint, int\
+    \ sz = 21>\nvector<mint> log(vector<mint> a) {\n  static SubsetConvolution<mint,\
+    \ sz> sc;\n  assert(a[0] == 1);\n  int l = __builtin_ctz(a.size());\n  if (l ==\
+    \ 0) return {0};\n  vector<mint> inv(l + 1, 1);\n  rep(i, 1, l + 1) inv[i] = mint(i).inv();\n\
+    \  auto p = sc.lift(a);\n  sc.ranked_zeta(p);\n  for (int k = 0; k < p.size();\
+    \ k++) {\n    auto q = p[k];\n    p[k][0] = 0;\n    for (int i = 1; i <= l; i++)\
+    \ {\n      mint v = i * q[i];\n      for (int j = 1; j < i; j++) v -= j * p[k][j]\
+    \ * q[i - j];\n      p[k][i] = v * inv[i];\n    }\n  }\n  sc.ranked_mobius(p);\n\
+    \  return sc.unlift(p);\n}\n// log(a), [x^0]a=1\n// not require inverse of 1,...,sz\n\
+    template <class mint, int sz = 21>\nvector<mint> log_arbitrary(vector<mint> a)\
+    \ {\n  assert(a[0] == 1);\n  int l = __builtin_ctz(a.size());\n  if (l == 0) return\
+    \ {0};\n  a[0] = 0;\n  vector<mint> f(l + 1, 0);\n  f[1] = 1;\n  for (int i =\
+    \ 2; i <= l; i++) f[i] = f[i - 1] * (1 - i);\n  return composite_egf<mint, sz>(f,\
+    \ a);\n}\n// a^m, [x^0]a=1\n// require inverse of 1,...,sz\ntemplate <class mint,\
+    \ int sz = 21>\nvector<mint> pow(vector<mint> a, mint m) {\n  static SubsetConvolution<mint,\
+    \ sz> sc;\n  assert(a[0] == 1);\n  int l = __builtin_ctz(a.size());\n  if (l ==\
+    \ 0) return {1};\n  vector<mint> inv(l + 1, 1);\n  rep(i, 1, l + 1) inv[i] = mint(i).inv();\n\
     \  auto p = sc.lift(a);\n  sc.ranked_zeta(p);\n  for (int k = 0; k < p.size();\
     \ k++) {\n    auto q = p[k];\n    p[k][0] = 1;\n    for (int i = 1; i <= l; i++)\
     \ {\n      mint v = 0;\n      for (int j = 1; j < i; j++) v += (m * j - (i - j))\
@@ -213,8 +213,8 @@ data:
   isVerificationFile: true
   path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
   requiredBy: []
-  timestamp: '2025-10-29 02:30:28+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-10-31 21:40:36+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/set/LC_polynomial_composite_set_power_series.test.cpp
 layout: document

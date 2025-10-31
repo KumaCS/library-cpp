@@ -61,7 +61,7 @@ data:
       title: data-structure/sparse-table.hpp
   - name: fft
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fft/ntt.hpp
       title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - name: flow
@@ -83,16 +83,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/compositional-inv.hpp
       title: "\u9006\u95A2\u6570"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
+      path: fps/count-subset-sum.hpp
+      title: Count Subset Sum
+    - icon: ':question:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/fps-ntt-friendly.hpp
       title: fps/fps-ntt-friendly.hpp
     - icon: ':warning:'
       path: fps/fps-rational.hpp
       title: fps/fps-rational.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: fps/fps-sqrt.hpp
       title: fps/fps-sqrt.hpp
     - icon: ':heavy_check_mark:'
@@ -104,28 +107,31 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/linearly-recurrent-sequence.hpp
       title: "\u7DDA\u5F62\u6F38\u5316\u5F0F\u7528"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/multipoint-evaluation.hpp
-      title: Multipoint Evaluation
+      title: "\u591A\u70B9\u8A55\u4FA1"
     - icon: ':heavy_check_mark:'
+      path: fps/polynomial-gcd.hpp
+      title: Polynomial Gcd
+    - icon: ':question:'
       path: fps/polynomial-interpolation.hpp
       title: "\u591A\u9805\u5F0F\u88DC\u9593"
     - icon: ':heavy_check_mark:'
       path: fps/power-projection.hpp
       title: Power Projection
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: fps/prefix-sum-of-polynomial.hpp
       title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: fps/product-of-polynomials.hpp
       title: "\u591A\u9805\u5F0F\u306E\u7A4D"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/relaxed.hpp
       title: Relaxed
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: fps/sampling-points-shift.hpp
       title: "\u8A55\u4FA1\u70B9\u30B7\u30D5\u30C8"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/sparse.hpp
       title: "Sparse \u306A FPS \u6F14\u7B97"
     - icon: ':heavy_check_mark:'
@@ -134,7 +140,7 @@ data:
     - icon: ':warning:'
       path: fps/sum-of-rationals.hpp
       title: "\u6709\u7406\u5F0F\u306E\u548C"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: fps/taylor-shift.hpp
       title: Taylor Shift
   - name: heuristic
@@ -183,21 +189,25 @@ data:
       title: math/util.hpp
   - name: modint
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/factorial.hpp
       title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/mod-pow.hpp
       title: modint/mod-pow.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/mod-sqrt.hpp
       title: modint/mod-sqrt.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: modint/modint.hpp
       title: modint/modint.hpp
     - icon: ':warning:'
       path: modint/modint261.hpp
       title: modint/modint261.hpp
+    - icon: ':question:'
+      path: modint/multi-inverse.hpp
+      title: "\u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\
+        \u8A08\u7B97"
     - icon: ':heavy_check_mark:'
       path: modint/power-table.hpp
       title: Power Table
@@ -234,10 +244,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: set/and-convolution.hpp
       title: set/and-convolution.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: set/composite-set-power-series.hpp
       title: Polynomial Composite Set Power Series
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: set/exp-of-set-power-series.hpp
       title: Exp Of Set Power Series
     - icon: ':heavy_check_mark:'
@@ -246,7 +256,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: set/or-convolution.hpp
       title: set/or-convolution.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
+      path: set/power-projection-of-set-power-series.hpp
+      title: Power Projection Of Set Power Series
+    - icon: ':question:'
       path: set/subset-convolution.hpp
       title: Subset Convolution
     - icon: ':heavy_check_mark:'
@@ -257,19 +270,19 @@ data:
       title: set/zeta-mobius-transform.hpp
   - name: template
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/debug.hpp
       title: template/debug.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/inout.hpp
       title: template/inout.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/macro.hpp
       title: template/macro.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/template.hpp
       title: template/template.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: template/util.hpp
       title: template/util.hpp
   - name: union-find
@@ -370,6 +383,9 @@ data:
       path: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
       title: verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_inv_of_polynomials.test.cpp
+      title: verify/fps/LC_inv_of_polynomials.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
       title: verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
     - icon: ':heavy_check_mark:'
@@ -381,37 +397,43 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
       title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_multipoint_evaluation.test.cpp
       title: verify/fps/LC_multipoint_evaluation.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
       title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_polynomial_interpolation.test.cpp
       title: verify/fps/LC_polynomial_interpolation.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+      title: verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+    - icon: ':x:'
       path: verify/fps/LC_polynomial_taylor_shift.test.cpp
       title: verify/fps/LC_polynomial_taylor_shift.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_pow_of_formal_power_series.test.cpp
       title: verify/fps/LC_pow_of_formal_power_series.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
       title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_product_of_polynomial_sequence.test.cpp
       title: verify/fps/LC_product_of_polynomial_sequence.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
+      path: verify/fps/LC_sharp_p_subset_sum.test.cpp
+      title: verify/fps/LC_sharp_p_subset_sum.test.cpp
+    - icon: ':x:'
       path: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
       title: verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     - icon: ':heavy_check_mark:'
@@ -420,7 +442,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
       title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - name: verify/math
@@ -434,6 +456,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/math/LC_sum_of_floor_of_linear.test.cpp
       title: verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - name: verify/modint
+    pages:
+    - icon: ':x:'
+      path: verify/modint/UNIT_multi_inverse.test.cpp
+      title: verify/modint/UNIT_multi_inverse.test.cpp
   - name: verify/number-theory
     pages:
     - icon: ':heavy_check_mark:'
@@ -473,13 +500,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/set/LC_exp_of_set_power_series.test.cpp
       title: verify/set/LC_exp_of_set_power_series.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
       title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+    - icon: ':x:'
+      path: verify/set/LC_power_projection_of_set_power_series.test.cpp
+      title: verify/set/LC_power_projection_of_set_power_series.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/set/LC_subset_convolution.test.cpp
       title: verify/set/LC_subset_convolution.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: verify/set/UNIT_composite_set_power_series.test.cpp
       title: verify/set/UNIT_composite_set_power_series.test.cpp
   - name: verify/union-find

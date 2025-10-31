@@ -2,28 +2,34 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: set/composite-set-power-series.hpp
     title: Polynomial Composite Set Power Series
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: set/exp-of-set-power-series.hpp
     title: Exp Of Set Power Series
+  - icon: ':x:'
+    path: set/power-projection-of-set-power-series.hpp
+    title: Power Projection Of Set Power Series
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_exp_of_set_power_series.test.cpp
     title: verify/set/LC_exp_of_set_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/set/LC_polynomial_composite_set_power_series.test.cpp
     title: verify/set/LC_polynomial_composite_set_power_series.test.cpp
+  - icon: ':x:'
+    path: verify/set/LC_power_projection_of_set_power_series.test.cpp
+    title: verify/set/LC_power_projection_of_set_power_series.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/set/LC_subset_convolution.test.cpp
     title: verify/set/LC_subset_convolution.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: verify/set/UNIT_composite_set_power_series.test.cpp
     title: verify/set/UNIT_composite_set_power_series.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/set/subset-convolution.md
     document_title: Subset Convolution
@@ -87,13 +93,15 @@ data:
   requiredBy:
   - set/composite-set-power-series.hpp
   - set/exp-of-set-power-series.hpp
+  - set/power-projection-of-set-power-series.hpp
   timestamp: '2025-10-29 02:30:28+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/set/UNIT_composite_set_power_series.test.cpp
   - verify/set/LC_polynomial_composite_set_power_series.test.cpp
   - verify/set/LC_subset_convolution.test.cpp
   - verify/set/LC_exp_of_set_power_series.test.cpp
+  - verify/set/LC_power_projection_of_set_power_series.test.cpp
 documentation_of: set/subset-convolution.hpp
 layout: document
 redirect_from:

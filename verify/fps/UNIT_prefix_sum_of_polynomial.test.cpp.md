@@ -1,50 +1,54 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: fps/multipoint-evaluation.hpp
-    title: Multipoint Evaluation
-  - icon: ':heavy_check_mark:'
+    title: "\u591A\u70B9\u8A55\u4FA1"
+  - icon: ':question:'
     path: fps/polynomial-interpolation.hpp
     title: "\u591A\u9805\u5F0F\u88DC\u9593"
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: fps/prefix-sum-of-polynomial.hpp
     title: "\u591A\u9805\u5F0F\u306E Prefix Sum"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: modint/multi-inverse.hpp
+    title: "\u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\
+      \u8A08\u7B97"
+  - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/inout.hpp
     title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/macro.hpp
     title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: template/util.hpp
     title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
@@ -228,32 +232,35 @@ data:
     \ @brief NTT (\u6570\u8AD6\u5909\u63DB)\n * @docs docs/fft/ntt.md\n */\n#line\
     \ 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\nstruct FormalPowerSeries\
     \ : vector<mint> {\n  using vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n\
-    \  FPS &operator+=(const FPS &r) {\n    if (r.size() > this->size()) this->resize(r.size());\n\
-    \    for (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];\n    return *this;\n\
-    \  }\n  FPS &operator+=(const mint &r) {\n    if (this->empty()) this->resize(1);\n\
-    \    (*this)[0] += r;\n    return *this;\n  }\n  FPS &operator-=(const FPS &r)\
+    \  FormalPowerSeries(const vector<mint>& r) : vector<mint>(r) {}\n  FormalPowerSeries(vector<mint>&&\
+    \ r) : vector<mint>(std::move(r)) {}\n  FPS& operator=(const vector<mint>& r)\
+    \ {\n    vector<mint>::operator=(r);\n    return *this;\n  }\n  FPS& operator+=(const\
+    \ FPS& r) {\n    if (r.size() > this->size()) this->resize(r.size());\n    for\
+    \ (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];\n    return *this;\n\
+    \  }\n  FPS& operator+=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
+    \    (*this)[0] += r;\n    return *this;\n  }\n  FPS& operator-=(const FPS& r)\
     \ {\n    if (r.size() > this->size()) this->resize(r.size());\n    for (int i\
     \ = 0; i < (int)r.size(); i++) (*this)[i] -= r[i];\n    return *this;\n  }\n \
-    \ FPS &operator-=(const mint &r) {\n    if (this->empty()) this->resize(1);\n\
-    \    (*this)[0] -= r;\n    return *this;\n  }\n  FPS &operator*=(const mint &v)\
+    \ FPS& operator-=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
+    \    (*this)[0] -= r;\n    return *this;\n  }\n  FPS& operator*=(const mint& v)\
     \ {\n    for (int k = 0; k < (int)this->size(); k++) (*this)[k] *= v;\n    return\
-    \ *this;\n  }\n  FPS &operator/=(const FPS &r) {\n    if (this->size() < r.size())\
+    \ *this;\n  }\n  FPS& operator/=(const FPS& r) {\n    if (this->size() < r.size())\
     \ {\n      this->clear();\n      return *this;\n    }\n    int n = this->size()\
     \ - r.size() + 1;\n    if ((int)r.size() <= 64) {\n      FPS f(*this), g(r);\n\
-    \      g.shrink();\n      mint coeff = g.at(g.size() - 1).inv();\n      for (auto\
-    \ &x : g) x *= coeff;\n      int deg = (int)f.size() - (int)g.size() + 1;\n  \
-    \    int gs = g.size();\n      FPS quo(deg);\n      for (int i = deg - 1; i >=\
+    \      g.shrink();\n      mint coeff = g.at(g.size() - 1).inv();\n      for (auto&\
+    \ x : g) x *= coeff;\n      int deg = (int)f.size() - (int)g.size() + 1;\n   \
+    \   int gs = g.size();\n      FPS quo(deg);\n      for (int i = deg - 1; i >=\
     \ 0; i--) {\n        quo[i] = f[i + gs - 1];\n        for (int j = 0; j < gs;\
     \ j++) f[i + j] -= quo[i] * g[j];\n      }\n      *this = quo * coeff;\n     \
     \ this->resize(n, mint(0));\n      return *this;\n    }\n    return *this = ((*this).rev().pre(n)\
-    \ * r.rev().inv(n)).pre(n).rev();\n  }\n  FPS &operator%=(const FPS &r) {\n  \
+    \ * r.rev().inv(n)).pre(n).rev();\n  }\n  FPS& operator%=(const FPS& r) {\n  \
     \  *this -= *this / r * r;\n    shrink();\n    return *this;\n  }\n  FPS operator+(const\
-    \ FPS &r) const { return FPS(*this) += r; }\n  FPS operator+(const mint &v) const\
-    \ { return FPS(*this) += v; }\n  FPS operator-(const FPS &r) const { return FPS(*this)\
-    \ -= r; }\n  FPS operator-(const mint &v) const { return FPS(*this) -= v; }\n\
-    \  FPS operator*(const FPS &r) const { return FPS(*this) *= r; }\n  FPS operator*(const\
-    \ mint &v) const { return FPS(*this) *= v; }\n  FPS operator/(const FPS &r) const\
-    \ { return FPS(*this) /= r; }\n  FPS operator%(const FPS &r) const { return FPS(*this)\
+    \ FPS& r) const { return FPS(*this) += r; }\n  FPS operator+(const mint& v) const\
+    \ { return FPS(*this) += v; }\n  FPS operator-(const FPS& r) const { return FPS(*this)\
+    \ -= r; }\n  FPS operator-(const mint& v) const { return FPS(*this) -= v; }\n\
+    \  FPS operator*(const FPS& r) const { return FPS(*this) *= r; }\n  FPS operator*(const\
+    \ mint& v) const { return FPS(*this) *= v; }\n  FPS operator/(const FPS& r) const\
+    \ { return FPS(*this) /= r; }\n  FPS operator%(const FPS& r) const { return FPS(*this)\
     \ %= r; }\n  FPS operator-() const {\n    FPS ret(this->size());\n    for (int\
     \ i = 0; i < (int)this->size(); i++) ret[i] = -(*this)[i];\n    return ret;\n\
     \  }\n  void shrink() {\n    while (this->size() && this->back() == mint(0)) this->pop_back();\n\
@@ -276,7 +283,7 @@ data:
     \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
     \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
     \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto &v : *this) r += w * v, w\
+    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
     \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
     \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
     \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
@@ -288,10 +295,10 @@ data:
     \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
     \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
     \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void *ntt_ptr;\n  static void set_ntt();\n  FPS &operator*=(const FPS\
-    \ &r);\n  FPS middle_product(const FPS &r) const;\n  void ntt();\n  void intt();\n\
+    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
+    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
     \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid *FormalPowerSeries<mint>::ntt_ptr\
+    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
     \ = nullptr;\n#line 5 \"fps/fps-ntt-friendly.hpp\"\n\ntemplate <class mint>\n\
     void FormalPowerSeries<mint>::set_ntt() {\n  if (!ntt_ptr) ntt_ptr = new NTT<mint>;\n\
     }\ntemplate <class mint>\nFormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(const\
@@ -334,45 +341,65 @@ data:
     \  for (int i = 2; i < sz; i++) {\n    rs[i] = rs[i - 1] * (pr *= r);\n    irs[i]\
     \ = irs[i - 1] * (pir *= ir);\n  }\n  for (int i = 0; i < f.size(); i++) f[i]\
     \ *= irs[i];\n  f = f.middle_product(rs);\n  for (int i = 0; i < f.size(); i++)\
-    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief Multipoint Evaluation\n *\
-    \ @docs docs/fps/multipoint-evaluation.md\n */\n#line 3 \"fps/polynomial-interpolation.hpp\"\
-    \n\ntemplate <class mint>\nFormalPowerSeries<mint> PolynomialInterpolation(const\
-    \ vector<mint>& x, const vector<mint>& y) {\n  using fps = FormalPowerSeries<mint>;\n\
-    \  assert(x.size() == y.size());\n  int n = x.size();\n  if (n == 0) return {y[0]};\n\
-    \  vector<fps> prod(2 * n);\n  for (int i = 0; i < n; i++) prod[i + n] = {-x[i],\
-    \ 1};\n  for (int i = n - 1; i > 0; i--) prod[i] = prod[i * 2] * prod[i * 2 +\
-    \ 1];\n  vector<fps> fs(2 * n);\n  fs[1] = prod[1].diff();\n  for (int i = 2;\
-    \ i < 2 * n; i++) fs[i] = fs[i / 2] % prod[i];\n  for (int i = n; i < n * 2; i++)\
-    \ fs[i] = {y[i - n] / fs[i][0]};\n  for (int i = n - 1; i > 0; i--) fs[i] = fs[(i\
-    \ << 1) | 0] * prod[(i << 1) | 1] + fs[(i << 1) | 1] * prod[(i << 1) | 0];\n \
-    \ return fs[1];\n}\n\n/**\n * @brief \u591A\u9805\u5F0F\u88DC\u9593\n * @docs\
-    \ docs/fps/polynomial-interpolation.md\n */\n#line 2 \"modint/factorial.hpp\"\n\
-    \ntemplate <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n\
-    \    inv(n);\n    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n\
-    \    static long long mod = mint::get_mod();\n    static vector<mint> buf({0,\
-    \ 1});\n    assert(n != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
-    \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
-    \ long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q * buf[k\
-    \ * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int n) {\n\
-    \    static long long mod = mint::get_mod();\n    static vector<mint> buf({1,\
-    \ 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      buf = vector<mint>({1, 1});\n    }\n    while ((int)buf.capacity() <= n)\
-    \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
-    \ long long k = buf.size();\n      buf.push_back(buf.back() * k);\n    }\n   \
-    \ return buf[n];\n  }\n  static mint fact_inv(int n) {\n    static long long mod\
-    \ = mint::get_mod();\n    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n\
-    \    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n      buf =\
-    \ vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) inv(n);\n    while\
-    \ ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size()\
-    \ <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back() * inv(k));\n\
-    \    }\n    return buf[n];\n  }\n  static mint binom(int n, int r) {\n    if (r\
-    \ < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r) * fact_inv(n - r);\n\
-    \  }\n  static mint binom_naive(int n, int r) {\n    if (r < 0 || r > n) return\
-    \ 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i < r; i++) res *= n -\
-    \ i;\n    return res;\n  }\n  static mint multinom(const vector<int>& r) {\n \
-    \   int n = 0;\n    for (auto& x : r) {\n      if (x < 0) return 0;\n      n +=\
-    \ x;\n    }\n    mint res = fact(n);\n    for (auto& x : r) res *= fact_inv(x);\n\
+    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief \u591A\u70B9\u8A55\u4FA1\n\
+    \ * @docs docs/fps/multipoint-evaluation.md\n */\n#line 2 \"modint/multi-inverse.hpp\"\
+    \n\ntemplate <class mint>\nvector<mint> MultiInverse(const vector<mint>& a) {\n\
+    \  if (a.empty()) return {};\n  vector<mint> b(a.begin(), a.end());\n  for (int\
+    \ i = 0; i + 1 < b.size(); i++) b[i + 1] *= b[i];\n  mint c = b.back().inv();\n\
+    \  for (int i = a.size() - 1; i > 0; i--) {\n    b[i] = c * b[i - 1];\n    c *=\
+    \ a[i];\n  }\n  b[0] = c;\n  return b;\n}\n/**\n * @brief \u8907\u6570\u306E\u8981\
+    \u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\u8A08\u7B97\n */\n#line 5 \"\
+    fps/polynomial-interpolation.hpp\"\n\n// f(x[i])=y[i]\ntemplate <class mint>\n\
+    FormalPowerSeries<mint> PolynomialInterpolation(const vector<mint>& x, const vector<mint>&\
+    \ y) {\n  using fps = FormalPowerSeries<mint>;\n  assert(x.size() == y.size());\n\
+    \  int n = x.size();\n  if (n == 0) return {};\n  vector<fps> prod(2 * n);\n \
+    \ for (int i = 0; i < n; i++) prod[i + n] = {-x[i], 1};\n  for (int i = n - 1;\
+    \ i > 0; i--) prod[i] = prod[i * 2] * prod[i * 2 + 1];\n  vector<fps> fs(2 * n);\n\
+    \  fs[1] = prod[1].diff();\n  for (int i = 2; i < 2 * n; i++) fs[i] = fs[i / 2]\
+    \ % prod[i];\n  for (int i = n; i < n * 2; i++) fs[i] = {y[i - n] / fs[i][0]};\n\
+    \  for (int i = n - 1; i > 0; i--) fs[i] = fs[(i << 1) | 0] * prod[(i << 1) |\
+    \ 1] + fs[(i << 1) | 1] * prod[(i << 1) | 0];\n  return fs[1];\n}\n\n// f(ar^i)=y[i]\n\
+    template <class mint>\nFormalPowerSeries<mint> PolynomialInterpolationGeometric(mint\
+    \ a, mint r, const vector<mint>& y) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  int n = y.size();\n  if (n == 0) return {};\n  if (n == 1) return {y[0]};\n\
+    \  assert(a != 0);\n  assert(r != 1);\n  vector<mint> rs(n + 1, 1);\n  for (int\
+    \ i = 1; i <= n; i++) rs[i] = rs[i - 1] * r;\n  vector<mint> rs1(n - 1);\n  for\
+    \ (int i = 0; i < n - 1; i++) rs1[i] = 1 - rs[i + 1];\n  rs1 = MultiInverse(rs1);\n\
+    \  fps f(n, 1);\n  for (int i = 1; i < n; i++) f[i] = f[i - 1] * a * (rs[n] -\
+    \ rs[i - 1]) * rs1[i - 1];\n\n  fps g(n, 1);\n  {\n    vector<mint> s(n, 1);\n\
+    \    for (int i = 1; i < n; i++) s[i] = s[i - 1] * a * (1 - rs[i]);\n    for (int\
+    \ i = 1; i < n; i++) g[i] = -g[i - 1] * rs[n - 1 - i];\n    for (int i = 0; i\
+    \ < n; i++) g[i] *= s[i] * s[n - 1 - i];\n    g = MultiInverse(g);\n  }\n  for\
+    \ (int i = 0; i < n; i++) g[i] *= y[i];\n  g = MultipointEvaluationGeometric(g,\
+    \ mint(1), r, n);\n  mint c = 1;\n  for (int i = 1; i < n; i++) g[i] *= (c *=\
+    \ a);\n  f *= g;\n  f.resize(n);\n  reverse(f.begin(), f.end());\n  return f;\n\
+    }\n\n/**\n * @brief \u591A\u9805\u5F0F\u88DC\u9593\n * @docs docs/fps/polynomial-interpolation.md\n\
+    \ */\n#line 2 \"modint/factorial.hpp\"\n\ntemplate <class mint>\nstruct Factorial\
+    \ {\n  static void reserve(int n) {\n    inv(n);\n    fact(n);\n    fact_inv(n);\n\
+    \  }\n  static mint inv(int n) {\n    static long long mod = mint::get_mod();\n\
+    \    static vector<mint> buf({0, 1});\n    assert(n != 0);\n    if (mod != mint::get_mod())\
+    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({0, 1});\n    }\n\
+    \    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while\
+    \ ((int)buf.size() <= n) {\n      long long k = buf.size(), q = (mod + k - 1)\
+    \ / k;\n      buf.push_back(q * buf[k * q - mod]);\n    }\n    return buf[n];\n\
+    \  }\n  static mint fact(int n) {\n    static long long mod = mint::get_mod();\n\
+    \    static vector<mint> buf({1, 1});\n    assert(n >= 0);\n    if (mod != mint::get_mod())\
+    \ {\n      mod = mint::get_mod();\n      buf = vector<mint>({1, 1});\n    }\n\
+    \    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while\
+    \ ((int)buf.size() <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back()\
+    \ * k);\n    }\n    return buf[n];\n  }\n  static mint fact_inv(int n) {\n   \
+    \ static long long mod = mint::get_mod();\n    static vector<mint> buf({1, 1});\n\
+    \    assert(n >= 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
+    \      buf = vector<mint>({1, 1});\n    }\n    if ((int)buf.size() <= n) inv(n);\n\
+    \    while ((int)buf.capacity() <= n) buf.reserve(buf.capacity() * 2);\n    while\
+    \ ((int)buf.size() <= n) {\n      long long k = buf.size();\n      buf.push_back(buf.back()\
+    \ * inv(k));\n    }\n    return buf[n];\n  }\n  static mint binom(int n, int r)\
+    \ {\n    if (r < 0 || r > n) return 0;\n    return fact(n) * fact_inv(r) * fact_inv(n\
+    \ - r);\n  }\n  static mint binom_naive(int n, int r) {\n    if (r < 0 || r >\
+    \ n) return 0;\n    mint res = fact_inv(r);\n    for (int i = 0; i < r; i++) res\
+    \ *= n - i;\n    return res;\n  }\n  static mint multinom(const vector<int>& r)\
+    \ {\n    int n = 0;\n    for (auto& x : r) {\n      if (x < 0) return 0;\n   \
+    \   n += x;\n    }\n    mint res = fact(n);\n    for (auto& x : r) res *= fact_inv(x);\n\
     \    return res;\n  }\n  static mint P(int n, int r) {\n    if (r < 0 || r > n)\
     \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
     \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
@@ -390,13 +417,12 @@ data:
     \ */\n#line 11 \"verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp\"\n\nfps prefix_sum_with_multieval_and_interpolation(fps\
     \ f) {\n  vector<mint> x(f.size() + 1);\n  iota(ALL(x), 0);\n  auto y = MultipointEvaluation(f,\
     \ x);\n  rep(i, 1, y.size()) y[i] += y[i - 1];\n  return PolynomialInterpolation(x,\
-    \ y);\n}\n\nvoid test(fps f) {\n  bool print = f.size() < 100;\n  if (print) show(f);\n\
-    \  auto g = prefix_sum_with_multieval_and_interpolation(f);\n  if (print) show(g);\n\
-    \  auto h = PrefixSumOfPolynomial(f);\n  if (print) show(h);\n  assert(g == h);\n\
-    }\n\nint main() {\n  {\n    fps f(10);\n    fill(ALL(f), 1);\n    test(f);\n \
-    \ }\n  {\n    fps f(10);\n    iota(ALL(f), 1);\n    test(f);\n  }\n  {\n    fps\
-    \ f(100000);\n    f[0] = 998;\n    rep(i, 1, f.size()) f[i] = f[i - 1] * 244 +\
-    \ 353;\n    test(f);\n  }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
+    \ y);\n}\n\nvoid test(fps f) {\n  auto g = prefix_sum_with_multieval_and_interpolation(f);\n\
+    \  auto h = PrefixSumOfPolynomial(f);\n  assert(g == h);\n}\n\nint main() {\n\
+    \  {\n    fps f(10);\n    fill(ALL(f), 1);\n    test(f);\n  }\n  {\n    fps f(10);\n\
+    \    iota(ALL(f), 1);\n    test(f);\n  }\n  {\n    fps f(100000);\n    f[0] =\
+    \ 998;\n    rep(i, 1, f.size()) f[i] = f[i - 1] * 244 + 353;\n    test(f);\n \
+    \ }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
     template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing mint = ModInt<998244353>;\n\
     #include \"fps/fps-ntt-friendly.hpp\"\nusing fps = FormalPowerSeries<mint>;\n\
@@ -404,13 +430,12 @@ data:
     \n#include \"fps/prefix-sum-of-polynomial.hpp\"\n\nfps prefix_sum_with_multieval_and_interpolation(fps\
     \ f) {\n  vector<mint> x(f.size() + 1);\n  iota(ALL(x), 0);\n  auto y = MultipointEvaluation(f,\
     \ x);\n  rep(i, 1, y.size()) y[i] += y[i - 1];\n  return PolynomialInterpolation(x,\
-    \ y);\n}\n\nvoid test(fps f) {\n  bool print = f.size() < 100;\n  if (print) show(f);\n\
-    \  auto g = prefix_sum_with_multieval_and_interpolation(f);\n  if (print) show(g);\n\
-    \  auto h = PrefixSumOfPolynomial(f);\n  if (print) show(h);\n  assert(g == h);\n\
-    }\n\nint main() {\n  {\n    fps f(10);\n    fill(ALL(f), 1);\n    test(f);\n \
-    \ }\n  {\n    fps f(10);\n    iota(ALL(f), 1);\n    test(f);\n  }\n  {\n    fps\
-    \ f(100000);\n    f[0] = 998;\n    rep(i, 1, f.size()) f[i] = f[i - 1] * 244 +\
-    \ 353;\n    test(f);\n  }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}"
+    \ y);\n}\n\nvoid test(fps f) {\n  auto g = prefix_sum_with_multieval_and_interpolation(f);\n\
+    \  auto h = PrefixSumOfPolynomial(f);\n  assert(g == h);\n}\n\nint main() {\n\
+    \  {\n    fps f(10);\n    fill(ALL(f), 1);\n    test(f);\n  }\n  {\n    fps f(10);\n\
+    \    iota(ALL(f), 1);\n    test(f);\n  }\n  {\n    fps f(100000);\n    f[0] =\
+    \ 998;\n    rep(i, 1, f.size()) f[i] = f[i - 1] * 244 + 353;\n    test(f);\n \
+    \ }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -423,13 +448,14 @@ data:
   - fps/formal-power-series.hpp
   - fps/multipoint-evaluation.hpp
   - fps/polynomial-interpolation.hpp
+  - modint/multi-inverse.hpp
   - fps/prefix-sum-of-polynomial.hpp
   - modint/factorial.hpp
   isVerificationFile: true
   path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   requiredBy: []
-  timestamp: '2025-10-25 18:30:13+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-10-31 21:40:36+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
 layout: document
