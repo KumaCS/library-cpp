@@ -1,24 +1,24 @@
 #pragma once
 
-#include "./mod-pow.hpp"
+#include "math/util.hpp"
 
 long long ModSqrt(long long a, long long p) {
   if (a >= p) a %= p;
   if (p == 2) return a & 1;
   if (a == 0) return 0;
-  if (ModPow(a, (p - 1) / 2, p) != 1) return -1;
-  if (p % 4 == 3) return ModPow(a, (3 * p - 1) / 4, p);
+  if (Math::pow_mod(a, (p - 1) / 2, p) != 1) return -1;
+  if (p % 4 == 3) return Math::pow_mod(a, (3 * p - 1) / 4, p);
   unsigned int z = 2, q = p - 1;
-  while (ModPow(z, (p - 1) / 2, p) == 1) z++;
+  while (Math::pow_mod(z, (p - 1) / 2, p) == 1) z++;
   int s = 0;
   while (!(q & 1)) {
     s++;
     q >>= 1;
   }
   int m = s;
-  unsigned int c = ModPow(z, q, p);
-  unsigned int t = ModPow(a, q, p);
-  unsigned int r = ModPow(a, (q + 1) / 2, p);
+  unsigned int c = Math::pow_mod(z, q, p);
+  unsigned int t = Math::pow_mod(a, q, p);
+  unsigned int r = Math::pow_mod(a, (q + 1) / 2, p);
   while (true) {
     if (t == 1) return r;
     unsigned int pow = t;

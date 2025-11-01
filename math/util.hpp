@@ -63,24 +63,22 @@ T ext_gcd(T a, T b, T& x, T& y) {
   }
   return a;
 }
-template <class T>
-T inv_mod(T x, T m) {
+long long inv_mod(long long x, long long m) {
   x %= m;
   if (x < 0) x += m;
-  T a = m, b = x;
-  T y0 = 0, y1 = 1;
+  long long a = m, b = x;
+  long long y0 = 0, y1 = 1;
   while (b > 0) {
-    T q = a / b;
+    long long q = a / b;
     swap(a -= q * b, b);
     swap(y0 -= q * y1, y1);
   }
   if (y0 < 0) y0 += m / a;
   return y0;
 }
-template <class T>
-T pow_mod(T x, T n, T m) {
+long long pow_mod(long long x, long long n, long long m) {
   x = (x % m + m) % m;
-  T y = 1;
+  long long y = 1;
   while (n) {
     if (n & 1) y = y * x % m;
     x = x * x % m;
