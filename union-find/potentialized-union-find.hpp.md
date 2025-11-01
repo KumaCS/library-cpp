@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind_with_potential.test.cpp
     title: verify/union-find/LC_unionfind_with_potential.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/union-find/potentialized-union-find.md
     document_title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D Union Find"
@@ -44,7 +44,7 @@ data:
   path: union-find/potentialized-union-find.hpp
   requiredBy: []
   timestamp: '2025-10-24 10:50:32+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/union-find/LC_unionfind_with_potential.test.cpp
 documentation_of: union-find/potentialized-union-find.hpp

@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: math/barrett.hpp
     title: math/barrett.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
     title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_dynamic_modint.test.cpp
     title: verify/modint/UNIT_dynamic_modint.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\n\
@@ -136,7 +136,7 @@ data:
   path: modint/dynamic-modint.hpp
   requiredBy: []
   timestamp: '2025-11-01 12:35:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_dynamic_modint.test.cpp
