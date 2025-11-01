@@ -7,10 +7,6 @@ data:
   - icon: ':question:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':x:'
-    path: modint/multi-inverse.hpp
-    title: "\u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\
-      \u8A08\u7B97"
   - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -36,9 +32,9 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
     links:
     - https://judge.yosupo.jp/problem/aplusb
-  bundledCode: "#line 1 \"verify/modint/UNIT_multi_inverse.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\
-    \n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
+  bundledCode: "#line 1 \"verify/modint/UNIT_modint.test.cpp\"\n#define PROBLEM \"\
+    https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\n\
+    #include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
     \n#define rep(i, a, b) for (int i = (a); i < (int)(b); i++)\n#define rrep(i, a,\
     \ b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define ALL(v) (v).begin(), (v).end()\n\
     #define UNIQUE(v) sort(ALL(v)), (v).erase(unique(ALL(v)), (v).end())\n#define\
@@ -151,27 +147,33 @@ data:
     \ operator>>(istream& is, mint& x) { return is >> x._v; }\n  friend ostream& operator<<(ostream&\
     \ os, const mint& x) { return os << x.val(); }\n\n private:\n  unsigned int _v;\n\
     \  static constexpr unsigned int umod() { return m; }\n  static constexpr bool\
-    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/modint/UNIT_multi_inverse.test.cpp\"\
-    \nusing mint = ModInt<998244353>;\n#line 2 \"modint/multi-inverse.hpp\"\n\ntemplate\
-    \ <class mint>\nvector<mint> MultiInverse(const vector<mint>& a) {\n  if (a.empty())\
-    \ return {};\n  vector<mint> b(a.begin(), a.end());\n  for (int i = 0; i + 1 <\
-    \ b.size(); i++) b[i + 1] *= b[i];\n  mint c = b.back().inv();\n  for (int i =\
-    \ a.size() - 1; i > 0; i--) {\n    b[i] = c * b[i - 1];\n    c *= a[i];\n  }\n\
-    \  b[0] = c;\n  return b;\n}\n/**\n * @brief \u8907\u6570\u306E\u8981\u7D20\u306E\
-    \u9006\u5143\u3092\u4E00\u62EC\u3067\u8A08\u7B97\n */\n#line 7 \"verify/modint/UNIT_multi_inverse.test.cpp\"\
-    \n\nvoid test(vector<mint> a) {\n  vector<mint> b = MultiInverse(a);\n  rep(i,\
-    \ 0, a.size()) assert(a[i] * b[i] == 1);\n}\n\nint main() {\n  {\n    vector<mint>\
-    \ a(1000000);\n    iota(ALL(a), 1);\n    test(a);\n  }\n  {\n    vector<mint>\
-    \ a(1000000);\n    a[0] = 998;\n    rep(i, 1, a.size()) a[i] = a[i - 1] * 244\
-    \ + 353;\n    test(a);\n  }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
+    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/modint/UNIT_modint.test.cpp\"\
+    \n\ntemplate <unsigned int mod>\nvoid test() {\n  using mint = ModInt<mod>;\n\
+    \  unsigned int m = mint::get_mod();\n  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n\
+    \    assert(mint(n).val() == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b\
+    \ = 271;\n    rep(i, 0, 100) {\n      mint x(a), y(b);\n      assert((x + y).val()\
+    \ == (a + b) % m);\n      assert((x - y).val() == (a - b + m) % m);\n      assert((x\
+    \ * y).val() == (a * b) % m);\n      if (gcd(m, b) == 1) {\n        if((x / y)\
+    \ * y != x)show(m,x,y,x/y,x/y*y);\n        assert((x / y) * y == x);\n      }\n\
+    \      mint z = 1;\n      rep(j, 0, 100) {\n        assert(z == x.pow(j));\n \
+    \       z *= x;\n      }\n      a = (a * 159 + 265) % m;\n      b = (b * 828 +\
+    \ 182) % m;\n    }\n  }\n}\n\nint main() {\n  test<998244353>();\n  test<1000000007>();\n\
+    \  test<1>();\n  test<2>();\n  test<3>();\n  test<1000000000>();\n\n  int a, b;\n\
+    \  in(a, b);\n  out(a + b);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
-    template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing mint = ModInt<998244353>;\n\
-    #include \"modint/multi-inverse.hpp\"\n\nvoid test(vector<mint> a) {\n  vector<mint>\
-    \ b = MultiInverse(a);\n  rep(i, 0, a.size()) assert(a[i] * b[i] == 1);\n}\n\n\
-    int main() {\n  {\n    vector<mint> a(1000000);\n    iota(ALL(a), 1);\n    test(a);\n\
-    \  }\n  {\n    vector<mint> a(1000000);\n    a[0] = 998;\n    rep(i, 1, a.size())\
-    \ a[i] = a[i - 1] * 244 + 353;\n    test(a);\n  }\n\n  int a, b;\n  in(a, b);\n\
-    \  out(a + b);\n}"
+    template/template.hpp\"\n#include \"modint/modint.hpp\"\n\ntemplate <unsigned\
+    \ int mod>\nvoid test() {\n  using mint = ModInt<mod>;\n  unsigned int m = mint::get_mod();\n\
+    \  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n    assert(mint(n).val()\
+    \ == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b = 271;\n    rep(i, 0, 100)\
+    \ {\n      mint x(a), y(b);\n      assert((x + y).val() == (a + b) % m);\n   \
+    \   assert((x - y).val() == (a - b + m) % m);\n      assert((x * y).val() == (a\
+    \ * b) % m);\n      if (gcd(m, b) == 1) {\n        if((x / y) * y != x)show(m,x,y,x/y,x/y*y);\n\
+    \        assert((x / y) * y == x);\n      }\n      mint z = 1;\n      rep(j, 0,\
+    \ 100) {\n        assert(z == x.pow(j));\n        z *= x;\n      }\n      a =\
+    \ (a * 159 + 265) % m;\n      b = (b * 828 + 182) % m;\n    }\n  }\n}\n\nint main()\
+    \ {\n  test<998244353>();\n  test<1000000007>();\n  test<1>();\n  test<2>();\n\
+    \  test<3>();\n  test<1000000000>();\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n\
+    }"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -180,17 +182,16 @@ data:
   - template/debug.hpp
   - modint/modint.hpp
   - math/util.hpp
-  - modint/multi-inverse.hpp
   isVerificationFile: true
-  path: verify/modint/UNIT_multi_inverse.test.cpp
+  path: verify/modint/UNIT_modint.test.cpp
   requiredBy: []
   timestamp: '2025-11-01 12:35:25+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: verify/modint/UNIT_multi_inverse.test.cpp
+documentation_of: verify/modint/UNIT_modint.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/modint/UNIT_multi_inverse.test.cpp
-- /verify/verify/modint/UNIT_multi_inverse.test.cpp.html
-title: verify/modint/UNIT_multi_inverse.test.cpp
+- /verify/verify/modint/UNIT_modint.test.cpp
+- /verify/verify/modint/UNIT_modint.test.cpp.html
+title: verify/modint/UNIT_modint.test.cpp
 ---

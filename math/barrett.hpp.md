@@ -9,6 +9,9 @@ data:
   - icon: ':x:'
     path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
     title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - icon: ':x:'
+    path: verify/modint/UNIT_dynamic_modint.test.cpp
+    title: verify/modint/UNIT_dynamic_modint.test.cpp
   _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':x:'
@@ -39,6 +42,7 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - verify/modint/UNIT_dynamic_modint.test.cpp
 documentation_of: math/barrett.hpp
 layout: document
 redirect_from:

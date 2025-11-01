@@ -120,7 +120,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.test.cpp
   - icon: ':x:'

@@ -1,16 +1,15 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':x:'
+    path: math/barrett.hpp
+    title: math/barrett.hpp
   - icon: ':question:'
     path: math/util.hpp
     title: math/util.hpp
-  - icon: ':question:'
-    path: modint/modint.hpp
-    title: modint/modint.hpp
   - icon: ':x:'
-    path: modint/multi-inverse.hpp
-    title: "\u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\
-      \u8A08\u7B97"
+    path: modint/dynamic-modint.hpp
+    title: modint/dynamic-modint.hpp
   - icon: ':question:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -36,7 +35,7 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
     links:
     - https://judge.yosupo.jp/problem/aplusb
-  bundledCode: "#line 1 \"verify/modint/UNIT_multi_inverse.test.cpp\"\n#define PROBLEM\
+  bundledCode: "#line 1 \"verify/modint/UNIT_dynamic_modint.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\
     \n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
     \n#define rep(i, a, b) for (int i = (a); i < (int)(b); i++)\n#define rrep(i, a,\
@@ -119,29 +118,36 @@ data:
     \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
     \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
     \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
-    \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
-    \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
-    \    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0) {}\n  ModInt(int64_t v)\
-    \ {\n    long long x = (long long)(v % (long long)(umod()));\n    if (x < 0) x\
-    \ += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return\
-    \ _v; }\n  mint& operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n  \
-    \  return *this;\n  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n\
-    \    _v--;\n    return *this;\n  }\n  mint operator++(int) {\n    mint result\
-    \ = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int) {\n\
-    \    mint result = *this;\n    --*this;\n    return result;\n  }\n  mint& operator+=(const\
-    \ mint& rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return\
-    \ *this;\n  }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if\
-    \ (_v >= umod()) _v += umod();\n    return *this;\n  }\n  mint& operator*=(const\
-    \ mint& rhs) {\n    unsigned long long z = _v;\n    z *= rhs._v;\n    _v = (unsigned\
-    \ int)(z % umod());\n    return *this;\n  }\n  mint& operator/=(const mint& rhs)\
-    \ { return *this = *this * rhs.inv(); }\n  mint operator+() const { return *this;\
-    \ }\n  mint operator-() const { return mint() - *this; }\n  mint pow(long long\
-    \ n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n    while (n) {\n\
-    \      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n    }\n    return r;\n\
-    \  }\n  mint inv() const {\n    if (is_prime) {\n      assert(_v);\n      return\
-    \ pow(umod() - 2);\n    } else {\n      auto inv = Math::inv_mod(_v, umod());\n\
-    \      return raw(inv);\n    }\n  }\n  friend mint operator+(const mint& lhs,\
+    };  // namespace Math\n#line 2 \"math/barrett.hpp\"\n\nstruct barrett {\n  unsigned\
+    \ int _m;\n  unsigned long long im;\n  explicit barrett(unsigned int m) : _m(m),\
+    \ im((unsigned long long)(-1) / m + 1) {}\n  unsigned int umod() const { return\
+    \ _m; }\n  unsigned int mul(unsigned int a, unsigned int b) const {\n    unsigned\
+    \ long long z = a;\n    z *= b;\n#ifdef _MSC_VER\n    unsigned long long x;\n\
+    \    _umul128(z, im, &x);\n#else\n    unsigned long long x = (unsigned long long)(((unsigned\
+    \ __int128)(z)*im) >> 64);\n#endif\n    unsigned long long y = x * _m;\n    return\
+    \ (unsigned int)(z - y + (z < y ? _m : 0));\n  }\n};\n#line 4 \"modint/dynamic-modint.hpp\"\
+    \n\ntemplate <int id>\nstruct DynamicModInt {\n  using mint = DynamicModInt;\n\
+    \  static void set_mod(int m) {\n    assert(1 <= m);\n    bar = barrett(m);\n\
+    \  }\n  static constexpr unsigned int get_mod() { return (int)bar.umod(); }\n\
+    \  static mint raw(int v) {\n    mint x;\n    x._v = v;\n    return x;\n  }\n\
+    \  DynamicModInt() : _v(0) {}\n  DynamicModInt(int64_t v) {\n    long long x =\
+    \ (long long)(v % (long long)(bar.umod()));\n    if (x < 0) x += umod();\n   \
+    \ _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return _v; }\n  mint&\
+    \ operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n    return *this;\n\
+    \  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n    _v--;\n    return\
+    \ *this;\n  }\n  mint operator++(int) {\n    mint result = *this;\n    ++*this;\n\
+    \    return result;\n  }\n  mint operator--(int) {\n    mint result = *this;\n\
+    \    --*this;\n    return result;\n  }\n  mint& operator+=(const mint& rhs) {\n\
+    \    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return *this;\n \
+    \ }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if (_v >= umod())\
+    \ _v += umod();\n    return *this;\n  }\n  mint& operator*=(const mint& rhs) {\n\
+    \    _v = bar.mul(_v, rhs._v);\n    return *this;\n  }\n  mint& operator/=(const\
+    \ mint& rhs) { return *this = *this * rhs.inv(); }\n  mint operator+() const {\
+    \ return *this; }\n  mint operator-() const { return mint() - *this; }\n  mint\
+    \ pow(long long n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n\
+    \    while (n) {\n      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n  \
+    \  }\n    return r;\n  }\n  mint inv() const {\n    auto inv = Math::inv_mod(_v,\
+    \ umod());\n    return raw(inv);\n  }\n  friend mint operator+(const mint& lhs,\
     \ const mint& rhs) { return mint(lhs) += rhs; }\n  friend mint operator-(const\
     \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n  friend mint operator*(const\
     \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n  friend mint operator/(const\
@@ -150,47 +156,56 @@ data:
     \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream&\
     \ operator>>(istream& is, mint& x) { return is >> x._v; }\n  friend ostream& operator<<(ostream&\
     \ os, const mint& x) { return os << x.val(); }\n\n private:\n  unsigned int _v;\n\
-    \  static constexpr unsigned int umod() { return m; }\n  static constexpr bool\
-    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/modint/UNIT_multi_inverse.test.cpp\"\
-    \nusing mint = ModInt<998244353>;\n#line 2 \"modint/multi-inverse.hpp\"\n\ntemplate\
-    \ <class mint>\nvector<mint> MultiInverse(const vector<mint>& a) {\n  if (a.empty())\
-    \ return {};\n  vector<mint> b(a.begin(), a.end());\n  for (int i = 0; i + 1 <\
-    \ b.size(); i++) b[i + 1] *= b[i];\n  mint c = b.back().inv();\n  for (int i =\
-    \ a.size() - 1; i > 0; i--) {\n    b[i] = c * b[i - 1];\n    c *= a[i];\n  }\n\
-    \  b[0] = c;\n  return b;\n}\n/**\n * @brief \u8907\u6570\u306E\u8981\u7D20\u306E\
-    \u9006\u5143\u3092\u4E00\u62EC\u3067\u8A08\u7B97\n */\n#line 7 \"verify/modint/UNIT_multi_inverse.test.cpp\"\
-    \n\nvoid test(vector<mint> a) {\n  vector<mint> b = MultiInverse(a);\n  rep(i,\
-    \ 0, a.size()) assert(a[i] * b[i] == 1);\n}\n\nint main() {\n  {\n    vector<mint>\
-    \ a(1000000);\n    iota(ALL(a), 1);\n    test(a);\n  }\n  {\n    vector<mint>\
-    \ a(1000000);\n    a[0] = 998;\n    rep(i, 1, a.size()) a[i] = a[i - 1] * 244\
-    \ + 353;\n    test(a);\n  }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
+    \  static constexpr unsigned int umod() { return bar.umod(); }\n  static barrett\
+    \ bar;\n};\ntemplate <int id>\nbarrett DynamicModInt<id>::bar(998244353);\n#line\
+    \ 5 \"verify/modint/UNIT_dynamic_modint.test.cpp\"\n\ntemplate <int id>\nvoid\
+    \ test(int mod) {\n  using mint = DynamicModInt<id>;\n  mint::set_mod(mod);\n\
+    \  unsigned int m = mint::get_mod();\n  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n\
+    \    assert(mint(n).val() == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b\
+    \ = 271;\n    rep(i, 0, 100) {\n      mint x(a), y(b);\n      assert((x + y).val()\
+    \ == (a + b) % m);\n      assert((x - y).val() == (a - b + m) % m);\n      assert((x\
+    \ * y).val() == (a * b) % m);\n      if (gcd(m, b) == 1) {\n        if ((x / y)\
+    \ * y != x) show(m, x, y, x / y, x / y * y);\n        assert((x / y) * y == x);\n\
+    \      }\n      mint z = 1;\n      rep(j, 0, 100) {\n        assert(z == x.pow(j));\n\
+    \        z *= x;\n      }\n      a = (a * 159 + 265) % m;\n      b = (b * 828\
+    \ + 182) % m;\n    }\n  }\n}\n\nint main() {\n  test<0>(998244353);\n  test<1>(1000000007);\n\
+    \  rep(m, 1, 5) test<2>(m);\n  {\n    ll m = 998;\n    rep(i, 0, 10) {\n     \
+    \ test<3>(m);\n      m = (m * 244 + 353) % 1000000007;\n    }\n  }\n\n  int a,\
+    \ b;\n  in(a, b);\n  out(a + b);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
-    template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing mint = ModInt<998244353>;\n\
-    #include \"modint/multi-inverse.hpp\"\n\nvoid test(vector<mint> a) {\n  vector<mint>\
-    \ b = MultiInverse(a);\n  rep(i, 0, a.size()) assert(a[i] * b[i] == 1);\n}\n\n\
-    int main() {\n  {\n    vector<mint> a(1000000);\n    iota(ALL(a), 1);\n    test(a);\n\
-    \  }\n  {\n    vector<mint> a(1000000);\n    a[0] = 998;\n    rep(i, 1, a.size())\
-    \ a[i] = a[i - 1] * 244 + 353;\n    test(a);\n  }\n\n  int a, b;\n  in(a, b);\n\
-    \  out(a + b);\n}"
+    template/template.hpp\"\n#include \"modint/dynamic-modint.hpp\"\n\ntemplate <int\
+    \ id>\nvoid test(int mod) {\n  using mint = DynamicModInt<id>;\n  mint::set_mod(mod);\n\
+    \  unsigned int m = mint::get_mod();\n  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n\
+    \    assert(mint(n).val() == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b\
+    \ = 271;\n    rep(i, 0, 100) {\n      mint x(a), y(b);\n      assert((x + y).val()\
+    \ == (a + b) % m);\n      assert((x - y).val() == (a - b + m) % m);\n      assert((x\
+    \ * y).val() == (a * b) % m);\n      if (gcd(m, b) == 1) {\n        if ((x / y)\
+    \ * y != x) show(m, x, y, x / y, x / y * y);\n        assert((x / y) * y == x);\n\
+    \      }\n      mint z = 1;\n      rep(j, 0, 100) {\n        assert(z == x.pow(j));\n\
+    \        z *= x;\n      }\n      a = (a * 159 + 265) % m;\n      b = (b * 828\
+    \ + 182) % m;\n    }\n  }\n}\n\nint main() {\n  test<0>(998244353);\n  test<1>(1000000007);\n\
+    \  rep(m, 1, 5) test<2>(m);\n  {\n    ll m = 998;\n    rep(i, 0, 10) {\n     \
+    \ test<3>(m);\n      m = (m * 244 + 353) % 1000000007;\n    }\n  }\n\n  int a,\
+    \ b;\n  in(a, b);\n  out(a + b);\n}"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
   - template/util.hpp
   - template/inout.hpp
   - template/debug.hpp
-  - modint/modint.hpp
+  - modint/dynamic-modint.hpp
   - math/util.hpp
-  - modint/multi-inverse.hpp
+  - math/barrett.hpp
   isVerificationFile: true
-  path: verify/modint/UNIT_multi_inverse.test.cpp
+  path: verify/modint/UNIT_dynamic_modint.test.cpp
   requiredBy: []
   timestamp: '2025-11-01 12:35:25+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: verify/modint/UNIT_multi_inverse.test.cpp
+documentation_of: verify/modint/UNIT_dynamic_modint.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/modint/UNIT_multi_inverse.test.cpp
-- /verify/verify/modint/UNIT_multi_inverse.test.cpp.html
-title: verify/modint/UNIT_multi_inverse.test.cpp
+- /verify/verify/modint/UNIT_dynamic_modint.test.cpp
+- /verify/verify/modint/UNIT_dynamic_modint.test.cpp.html
+title: verify/modint/UNIT_dynamic_modint.test.cpp
 ---

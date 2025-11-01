@@ -199,9 +199,6 @@ data:
       path: modint/factorial.hpp
       title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
     - icon: ':question:'
-      path: modint/mod-pow.hpp
-      title: modint/mod-pow.hpp
-    - icon: ':question:'
       path: modint/mod-sqrt.hpp
       title: modint/mod-sqrt.hpp
     - icon: ':question:'
@@ -397,7 +394,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
       title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_log_of_formal_power_series.test.cpp
       title: verify/fps/LC_log_of_formal_power_series.test.cpp
     - icon: ':x:'
@@ -467,6 +464,15 @@ data:
     - icon: ':x:'
       path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
       title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+    - icon: ':x:'
+      path: verify/modint/UNIT_dynamic_modint.test.cpp
+      title: verify/modint/UNIT_dynamic_modint.test.cpp
+    - icon: ':x:'
+      path: verify/modint/UNIT_mod_sqrt.test.cpp
+      title: verify/modint/UNIT_mod_sqrt.test.cpp
+    - icon: ':x:'
+      path: verify/modint/UNIT_modint.test.cpp
+      title: verify/modint/UNIT_modint.test.cpp
     - icon: ':x:'
       path: verify/modint/UNIT_multi_inverse.test.cpp
       title: verify/modint/UNIT_multi_inverse.test.cpp

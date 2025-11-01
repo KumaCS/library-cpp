@@ -90,7 +90,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series.test.cpp
     title: verify/fps/LC_log_of_formal_power_series.test.cpp
   - icon: ':x:'
@@ -156,6 +156,15 @@ data:
   - icon: ':x:'
     path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
     title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - icon: ':x:'
+    path: verify/modint/UNIT_dynamic_modint.test.cpp
+    title: verify/modint/UNIT_dynamic_modint.test.cpp
+  - icon: ':x:'
+    path: verify/modint/UNIT_mod_sqrt.test.cpp
+    title: verify/modint/UNIT_mod_sqrt.test.cpp
+  - icon: ':x:'
+    path: verify/modint/UNIT_modint.test.cpp
+    title: verify/modint/UNIT_modint.test.cpp
   - icon: ':x:'
     path: verify/modint/UNIT_multi_inverse.test.cpp
     title: verify/modint/UNIT_multi_inverse.test.cpp
@@ -237,8 +246,11 @@ data:
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
+  - verify/modint/UNIT_modint.test.cpp
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_multi_inverse.test.cpp
+  - verify/modint/UNIT_dynamic_modint.test.cpp
+  - verify/modint/UNIT_mod_sqrt.test.cpp
   - verify/math/LC_stern_brocot_tree.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp

@@ -23,9 +23,6 @@ data:
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   - icon: ':question:'
-    path: modint/mod-pow.hpp
-    title: modint/mod-pow.hpp
-  - icon: ':question:'
     path: modint/mod-sqrt.hpp
     title: modint/mod-sqrt.hpp
   - icon: ':question:'
@@ -122,24 +119,24 @@ data:
     \  }\n  x = x00, y = x10;\n  if (sgn_a) x = -x;\n  if (sgn_b) y = -y;\n  if (b0\
     \ != 0) {\n    a0 /= a, b0 /= a;\n    if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q\
     \ = x >= 0 ? x / b0 : (x + 1) / b0 - 1;\n    x -= b0 * q;\n    y += a0 * q;\n\
-    \  }\n  return a;\n}\ntemplate <class T>\nT inv_mod(T x, T m) {\n  x %= m;\n \
-    \ if (x < 0) x += m;\n  T a = m, b = x;\n  T y0 = 0, y1 = 1;\n  while (b > 0)\
-    \ {\n    T q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
-    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\ntemplate <class T>\nT pow_mod(T\
-    \ x, T n, T m) {\n  x = (x % m + m) % m;\n  T y = 1;\n  while (n) {\n    if (n\
-    \ & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n  return y;\n}\n\
-    constexpr long long pow_mod_constexpr(long long x, long long n, int m) {\n  if\
-    \ (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n  unsigned long\
-    \ long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y += m;\n  while\
-    \ (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n    n >>= 1;\n\
-    \  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n  if (n <= 1)\
-    \ return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n  if (n % 2\
-    \ == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0) d /= 2;\n\
-    \  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a : bases) {\n\
-    \    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n    while\
-    \ (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t <<= 1;\n\
-    \    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n    }\n  }\n\
-    \  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    \  }\n  return a;\n}\nlong long inv_mod(long long x, long long m) {\n  x %= m;\n\
+    \  if (x < 0) x += m;\n  long long a = m, b = x;\n  long long y0 = 0, y1 = 1;\n\
+    \  while (b > 0) {\n    long long q = a / b;\n    swap(a -= q * b, b);\n    swap(y0\
+    \ -= q * y1, y1);\n  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\nlong long\
+    \ pow_mod(long long x, long long n, long long m) {\n  x = (x % m + m) % m;\n \
+    \ long long y = 1;\n  while (n) {\n    if (n & 1) y = y * x % m;\n    x = x *\
+    \ x % m;\n    n >>= 1;\n  }\n  return y;\n}\nconstexpr long long pow_mod_constexpr(long\
+    \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
+    \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
+    \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
+    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
+    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
+    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
+    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
+    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
+    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
+    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
+    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
     };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
     \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
     \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
@@ -363,39 +360,37 @@ data:
     \ i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i << 1) - ret.log(i << 1) +\
     \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp\"\
     \nusing fps = FormalPowerSeries<mint>;\n#line 2 \"fps/fps-sqrt.hpp\"\n\n#line\
-    \ 2 \"modint/mod-sqrt.hpp\"\n\n#line 2 \"modint/mod-pow.hpp\"\n\nunsigned int\
-    \ ModPow(unsigned int a, unsigned long long n, unsigned int m) {\n  unsigned long\
-    \ long x = a, y = 1;\n  while (n) {\n    if (n & 1) y = y * x % m;\n    x = x\
-    \ * x % m;\n    n >>= 1;\n  }\n  return y;\n}\n#line 4 \"modint/mod-sqrt.hpp\"\
-    \n\nlong long ModSqrt(long long a, long long p) {\n  if (a >= p) a %= p;\n  if\
-    \ (p == 2) return a & 1;\n  if (a == 0) return 0;\n  if (ModPow(a, (p - 1) / 2,\
-    \ p) != 1) return -1;\n  if (p % 4 == 3) return ModPow(a, (3 * p - 1) / 4, p);\n\
-    \  unsigned int z = 2, q = p - 1;\n  while (ModPow(z, (p - 1) / 2, p) == 1) z++;\n\
+    \ 2 \"modint/mod-sqrt.hpp\"\n\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long\
+    \ long a, long long p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n\
+    \  if (a == 0) return 0;\n  if (Math::pow_mod(a, (p - 1) / 2, p) != 1) return\
+    \ -1;\n  if (p % 4 == 3) return Math::pow_mod(a, (3 * p - 1) / 4, p);\n  unsigned\
+    \ int z = 2, q = p - 1;\n  while (Math::pow_mod(z, (p - 1) / 2, p) == 1) z++;\n\
     \  int s = 0;\n  while (!(q & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n\
-    \  unsigned int c = ModPow(z, q, p);\n  unsigned int t = ModPow(a, q, p);\n  unsigned\
-    \ int r = ModPow(a, (q + 1) / 2, p);\n  while (true) {\n    if (t == 1) return\
-    \ r;\n    unsigned int pow = t;\n    int j = 1;\n    for (; j < m; j++) {\n  \
-    \    pow = 1ll * pow * pow % p;\n      if (pow == 1) break;\n    }\n    unsigned\
-    \ int b = c;\n    for (int i = 0; i < m - j - 1; i++) b = 1ll * b * b % p;\n \
-    \   m = j;\n    c = 1ll * b * b % p;\n    t = 1ll * t * c % p;\n    r = 1ll *\
-    \ r * b % p;\n  }\n}\n#line 5 \"fps/fps-sqrt.hpp\"\n\ntemplate <typename mint>\n\
-    FormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint> &f, int deg = -1)\
-    \ {\n  if (deg == -1) deg = (int)f.size();\n  if ((int)f.size() == 0) return FormalPowerSeries<mint>(deg,\
-    \ 0);\n  if (f[0] == mint(0)) {\n    for (int i = 1; i < (int)f.size(); i++) {\n\
-    \      if (f[i] != mint(0)) {\n        if (i & 1) return {};\n        if (deg\
-    \ - i / 2 <= 0) break;\n        auto ret = FpsSqrt(f >> i, deg - i / 2);\n   \
-    \     if (ret.empty()) return {};\n        ret = ret << (i / 2);\n        if ((int)ret.size()\
-    \ < deg) ret.resize(deg, mint(0));\n        return ret;\n      }\n    }\n    return\
-    \ FormalPowerSeries<mint>(deg, 0);\n  }\n  int64_t sqr = ModSqrt(f[0].val(), mint::get_mod());\n\
-    \  if (sqr == -1) return {};\n  assert(sqr * sqr % mint::get_mod() == f[0].val());\n\
-    \  FormalPowerSeries<mint> ret = {mint(sqr)};\n  mint inv2 = mint(2).inv();\n\
-    \  for (int i = 1; i < deg; i <<= 1) {\n    ret = (ret + f.pre(i << 1) * ret.inv(i\
-    \ << 1)) * inv2;\n  }\n  return ret.pre(deg);\n}\n#line 2 \"modint/factorial.hpp\"\
-    \n\ntemplate <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n\
-    \    inv(n);\n    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n\
-    \    static long long mod = mint::get_mod();\n    static vector<mint> buf({0,\
-    \ 1});\n    assert(n != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n\
-    \      buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
+    \  unsigned int c = Math::pow_mod(z, q, p);\n  unsigned int t = Math::pow_mod(a,\
+    \ q, p);\n  unsigned int r = Math::pow_mod(a, (q + 1) / 2, p);\n  while (true)\
+    \ {\n    if (t == 1) return r;\n    unsigned int pow = t;\n    int j = 1;\n  \
+    \  for (; j < m; j++) {\n      pow = 1ll * pow * pow % p;\n      if (pow == 1)\
+    \ break;\n    }\n    unsigned int b = c;\n    for (int i = 0; i < m - j - 1; i++)\
+    \ b = 1ll * b * b % p;\n    m = j;\n    c = 1ll * b * b % p;\n    t = 1ll * t\
+    \ * c % p;\n    r = 1ll * r * b % p;\n  }\n}\n#line 5 \"fps/fps-sqrt.hpp\"\n\n\
+    template <typename mint>\nFormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint>\
+    \ &f, int deg = -1) {\n  if (deg == -1) deg = (int)f.size();\n  if ((int)f.size()\
+    \ == 0) return FormalPowerSeries<mint>(deg, 0);\n  if (f[0] == mint(0)) {\n  \
+    \  for (int i = 1; i < (int)f.size(); i++) {\n      if (f[i] != mint(0)) {\n \
+    \       if (i & 1) return {};\n        if (deg - i / 2 <= 0) break;\n        auto\
+    \ ret = FpsSqrt(f >> i, deg - i / 2);\n        if (ret.empty()) return {};\n \
+    \       ret = ret << (i / 2);\n        if ((int)ret.size() < deg) ret.resize(deg,\
+    \ mint(0));\n        return ret;\n      }\n    }\n    return FormalPowerSeries<mint>(deg,\
+    \ 0);\n  }\n  int64_t sqr = ModSqrt(f[0].val(), mint::get_mod());\n  if (sqr ==\
+    \ -1) return {};\n  assert(sqr * sqr % mint::get_mod() == f[0].val());\n  FormalPowerSeries<mint>\
+    \ ret = {mint(sqr)};\n  mint inv2 = mint(2).inv();\n  for (int i = 1; i < deg;\
+    \ i <<= 1) {\n    ret = (ret + f.pre(i << 1) * ret.inv(i << 1)) * inv2;\n  }\n\
+    \  return ret.pre(deg);\n}\n#line 2 \"modint/factorial.hpp\"\n\ntemplate <class\
+    \ mint>\nstruct Factorial {\n  static void reserve(int n) {\n    inv(n);\n   \
+    \ fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long\
+    \ long mod = mint::get_mod();\n    static vector<mint> buf({0, 1});\n    assert(n\
+    \ != 0);\n    if (mod != mint::get_mod()) {\n      mod = mint::get_mod();\n  \
+    \    buf = vector<mint>({0, 1});\n    }\n    while ((int)buf.capacity() <= n)\
     \ buf.reserve(buf.capacity() * 2);\n    while ((int)buf.size() <= n) {\n     \
     \ long long k = buf.size(), q = (mod + k - 1) / k;\n      buf.push_back(q * buf[k\
     \ * q - mod]);\n    }\n    return buf[n];\n  }\n  static mint fact(int n) {\n\
@@ -509,13 +504,12 @@ data:
   - fps/formal-power-series.hpp
   - fps/fps-sqrt.hpp
   - modint/mod-sqrt.hpp
-  - modint/mod-pow.hpp
   - fps/relaxed.hpp
   - modint/factorial.hpp
   isVerificationFile: true
   path: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
   requiredBy: []
-  timestamp: '2025-11-01 00:19:27+09:00'
+  timestamp: '2025-11-01 12:35:25+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
