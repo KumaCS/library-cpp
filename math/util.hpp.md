@@ -116,6 +116,9 @@ data:
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_partition_function.test.cpp
+    title: verify/fps/LC_partition_function.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -148,6 +151,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
@@ -314,7 +329,9 @@ data:
   - verify/modint/UNIT_dynamic_modint.test.cpp
   - verify/modint/UNIT_mod_sqrt.test.cpp
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
@@ -325,10 +342,12 @@ data:
   - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
   - verify/fps/LC_inv_of_polynomials.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
@@ -346,6 +365,7 @@ data:
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
   - verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp

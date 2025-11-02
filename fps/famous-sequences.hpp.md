@@ -5,28 +5,22 @@ data:
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   - icon: ':heavy_check_mark:'
+    path: fps/taylor-shift.hpp
+    title: Taylor Shift
+  - icon: ':heavy_check_mark:'
+    path: math/lpf-table.hpp
+    title: LPF Table
+  - icon: ':heavy_check_mark:'
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
-  _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: fps/composition.hpp
-    title: "FPS \u5408\u6210"
-  - icon: ':heavy_check_mark:'
-    path: fps/famous-sequences.hpp
-    title: "\u6709\u540D\u6570\u5217"
+    path: modint/power-table.hpp
+    title: Power Table
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: verify/fps/LC_composition_of_formal_power_series.test.cpp
-    title: verify/fps/LC_composition_of_formal_power_series.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-    title: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_partition_function.test.cpp
     title: verify/fps/LC_partition_function.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: verify/fps/LC_polynomial_taylor_shift.test.cpp
-    title: verify/fps/LC_polynomial_taylor_shift.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
     title: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
@@ -43,8 +37,8 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    _deprecated_at_docs: docs/fps/taylor-shift.md
-    document_title: Taylor Shift
+    _deprecated_at_docs: docs/fps/famous-sequences.md
+    document_title: "\u6709\u540D\u6570\u5217"
     links: []
   bundledCode: "#line 2 \"modint/factorial.hpp\"\n\ntemplate <class mint>\nstruct\
     \ Factorial {\n  static void reserve(int n) {\n    inv(n);\n    fact(n);\n   \
@@ -76,12 +70,22 @@ data:
     \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
     \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
     \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
-    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"fps/formal-power-series.hpp\"\
-    \n\ntemplate <class mint>\nstruct FormalPowerSeries : vector<mint> {\n  using\
-    \ vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n  FormalPowerSeries(const\
-    \ vector<mint>& r) : vector<mint>(r) {}\n  FormalPowerSeries(vector<mint>&& r)\
-    \ : vector<mint>(std::move(r)) {}\n  FPS& operator=(const vector<mint>& r) {\n\
-    \    vector<mint>::operator=(r);\n    return *this;\n  }\n  FPS& operator+=(const\
+    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"math/lpf-table.hpp\"\
+    \n\nvector<int> LPFTable(int n) {\n  vector<int> lpf(n + 1, 0);\n  iota(lpf.begin(),\
+    \ lpf.end(), 0);\n  for (int p = 2; p * p <= n; p += (p & 1) + 1) {\n    if (lpf[p]\
+    \ != p) continue;\n    for (int i = p * p; i <= n; i += p)\n      if (lpf[i] ==\
+    \ i) lpf[i] = p;\n  }\n  return lpf;\n}\n/**\n * @brief LPF Table\n */\n#line\
+    \ 3 \"modint/power-table.hpp\"\n\n// 0^k,1^k,2^k,...,n^k\ntemplate <class T>\n\
+    vector<T> PowerTable(int n, int k) {\n  assert(k >= 0);\n  vector<T> f;\n  if\
+    \ (k == 0) {\n    f = vector<T>(n + 1, 0);\n    f[0] = 1;\n  } else {\n    f =\
+    \ vector<T>(n + 1, 1);\n    f[0] = 0;\n    auto lpf = LPFTable(n);\n    for (int\
+    \ i = 2; i <= n; i++)\n      f[i] = lpf[i] == i ? T(i).pow(k) : f[i / lpf[i]]\
+    \ * f[lpf[i]];\n  }\n  return f;\n}\n/**\n * @brief Power Table\n */\n#line 2\
+    \ \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\nstruct FormalPowerSeries\
+    \ : vector<mint> {\n  using vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n\
+    \  FormalPowerSeries(const vector<mint>& r) : vector<mint>(r) {}\n  FormalPowerSeries(vector<mint>&&\
+    \ r) : vector<mint>(std::move(r)) {}\n  FPS& operator=(const vector<mint>& r)\
+    \ {\n    vector<mint>::operator=(r);\n    return *this;\n  }\n  FPS& operator+=(const\
     \ FPS& r) {\n    if (r.size() > this->size()) this->resize(r.size());\n    for\
     \ (int i = 0; i < (int)r.size(); i++) (*this)[i] += r[i];\n    return *this;\n\
     \  }\n  FPS& operator+=(const mint& r) {\n    if (this->empty()) this->resize(1);\n\
@@ -153,44 +157,117 @@ data:
     \ reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n  for (int i = 1; i < n;\
     \ i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f * g).pre(n);\n  reverse(f.begin(),\
     \ f.end());\n  for (int i = 0; i < n; i++) f[i] *= fact::fact_inv(i);\n  return\
-    \ f;\n}\n/**\n * @brief Taylor Shift\n * @docs docs/fps/taylor-shift.md\n */\n"
-  code: "#pragma once\n#include \"modint/factorial.hpp\"\n#include \"fps/formal-power-series.hpp\"\
-    \n\n// f(x+a)\ntemplate <class mint>\nFormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint>\
-    \ f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n  int n = f.size();\n\
-    \  using fact = Factorial<mint>;\n  fact::reserve(n);\n  for (int i = 0; i < n;\
-    \ i++) f[i] *= fact::fact(i);\n  reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n\
-    \  for (int i = 1; i < n; i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f *\
-    \ g).pre(n);\n  reverse(f.begin(), f.end());\n  for (int i = 0; i < n; i++) f[i]\
-    \ *= fact::fact_inv(i);\n  return f;\n}\n/**\n * @brief Taylor Shift\n * @docs\
-    \ docs/fps/taylor-shift.md\n */"
+    \ f;\n}\n/**\n * @brief Taylor Shift\n * @docs docs/fps/taylor-shift.md\n */\n\
+    #line 6 \"fps/famous-sequences.hpp\"\n\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ PartitionFunction(int n) {\n  FormalPowerSeries<mint> g(n + 1);\n  for (int\
+    \ k = 0; k * (3 * k - 1) / 2 <= n; k++) g[k * (3 * k - 1) / 2] += k & 1 ? -1 :\
+    \ 1;\n  for (int k = 1; k * (3 * k + 1) / 2 <= n; k++) g[k * (3 * k + 1) / 2]\
+    \ += k & 1 ? -1 : 1;\n  return g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ FirstKindStirlingNumbers(int n) {\n  FormalPowerSeries<mint> f{1};\n  for (int\
+    \ l = 30; l >= 0; l--) {\n    if (f.size() > 1) f *= TaylorShift(f, mint(-(n >>\
+    \ (l + 1))));\n    if ((n >> l) & 1) f = (f << 1) - f * mint((n >> l) - 1);\n\
+    \  }\n  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbersFixedK(int\
+    \ n, int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
+    \ f[i] = fact::inv(i + 1) * (i & 1 ? -1 : 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
+    }\ntemplate <class mint>\nFormalPowerSeries<mint> SecondKindStirlingNumbers(int\
+    \ n) {\n  using fact = Factorial<mint>;\n  FormalPowerSeries<mint> f(n + 1);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] = fact::fact_inv(i) * (i & 1 ? -1 :\
+    \ 1);\n  FormalPowerSeries<mint> g(PowerTable<mint>(n, n));\n  for (int i = 0;\
+    \ i < g.size(); i++) g[i] *= fact::fact_inv(i);\n  f *= g;\n  f.resize(n + 1);\n\
+    \  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> SecondKindStirlingNumbersFixedK(int\
+    \ n, int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
+    \ f[i] = fact::fact_inv(i + 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
+    }\n\n/**\n * @brief \u6709\u540D\u6570\u5217\n * @docs docs/fps/famous-sequences.md\n\
+    \ */\n"
+  code: "#pragma once\n#include \"modint/factorial.hpp\"\n#include \"modint/power-table.hpp\"\
+    \n#include \"fps/formal-power-series.hpp\"\n#include \"fps/taylor-shift.hpp\"\n\
+    \ntemplate <class mint>\nFormalPowerSeries<mint> PartitionFunction(int n) {\n\
+    \  FormalPowerSeries<mint> g(n + 1);\n  for (int k = 0; k * (3 * k - 1) / 2 <=\
+    \ n; k++) g[k * (3 * k - 1) / 2] += k & 1 ? -1 : 1;\n  for (int k = 1; k * (3\
+    \ * k + 1) / 2 <= n; k++) g[k * (3 * k + 1) / 2] += k & 1 ? -1 : 1;\n  return\
+    \ g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbers(int\
+    \ n) {\n  FormalPowerSeries<mint> f{1};\n  for (int l = 30; l >= 0; l--) {\n \
+    \   if (f.size() > 1) f *= TaylorShift(f, mint(-(n >> (l + 1))));\n    if ((n\
+    \ >> l) & 1) f = (f << 1) - f * mint((n >> l) - 1);\n  }\n  return f;\n}\ntemplate\
+    \ <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbersFixedK(int n,\
+    \ int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
+    \ f[i] = fact::inv(i + 1) * (i & 1 ? -1 : 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
+    }\ntemplate <class mint>\nFormalPowerSeries<mint> SecondKindStirlingNumbers(int\
+    \ n) {\n  using fact = Factorial<mint>;\n  FormalPowerSeries<mint> f(n + 1);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] = fact::fact_inv(i) * (i & 1 ? -1 :\
+    \ 1);\n  FormalPowerSeries<mint> g(PowerTable<mint>(n, n));\n  for (int i = 0;\
+    \ i < g.size(); i++) g[i] *= fact::fact_inv(i);\n  f *= g;\n  f.resize(n + 1);\n\
+    \  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> SecondKindStirlingNumbersFixedK(int\
+    \ n, int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
+    \ f[i] = fact::fact_inv(i + 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
+    }\n\n/**\n * @brief \u6709\u540D\u6570\u5217\n * @docs docs/fps/famous-sequences.md\n\
+    \ */"
   dependsOn:
   - modint/factorial.hpp
+  - modint/power-table.hpp
+  - math/lpf-table.hpp
   - fps/formal-power-series.hpp
+  - fps/taylor-shift.hpp
   isVerificationFile: false
-  path: fps/taylor-shift.hpp
-  requiredBy:
-  - fps/composition.hpp
-  - fps/famous-sequences.hpp
-  timestamp: '2025-10-31 21:40:36+09:00'
+  path: fps/famous-sequences.hpp
+  requiredBy: []
+  timestamp: '2025-11-03 00:29:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - verify/fps/LC_partition_function.test.cpp
-  - verify/fps/LC_polynomial_taylor_shift.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series.test.cpp
-documentation_of: fps/taylor-shift.hpp
+documentation_of: fps/famous-sequences.hpp
 layout: document
 redirect_from:
-- /library/fps/taylor-shift.hpp
-- /library/fps/taylor-shift.hpp.html
-title: Taylor Shift
+- /library/fps/famous-sequences.hpp
+- /library/fps/famous-sequences.hpp.html
+title: "\u6709\u540D\u6570\u5217"
 ---
-Taylor Shift．
+## 分割数
 
-$f(x+a)$ を計算する．
+非負整数 $n$ の分割数 $p_n$ とは，$n$ をいくつかの正整数の和（順序を区別しない）で表す方法の数．
 
-$f$ の次数を $N$ として $O(N\log N)$ 時間．
+母関数は $\prod_{k=1}^{\infty}\frac{1}{1-x^k}$ である．
+
+オイラーの五角数定理より
+$$\prod_{k=1}^{\infty}(1-x^k)=\sum_{k=-\infty}^{\infty}(-1)^kx^{k(3k-1)/2}$$
+であることを用いれば $O(N\log N)$ 時間で $p_0,p_1,\dots,p_N$ が列挙できる．
+
+## 第一種スターリング数
+
+$s(n,k)$ を以下で定める．
+$$x(x-1)\cdots(x-(n-1))=\sum_{k=0}^{n}s(n,k)x^k$$
+
+$s(n,i)$ の $0\leq i\leq n$ での列挙が $O(n\log n)$ 時間でできる．
+- 分割統治をするが，一方の結果を Taylor Shift すればもう一方の結果を得られる．
+
+また 
+$$\sum_{i,j}s(i,j)\frac{x^i}{i!}y^j=(1+x)^y=\exp(y\log(1+x))=\sum_{j}(\log(1+x))^j\frac{y^j}{j!}$$
+となるので $s(i,k)$ の $k\leq i\leq n$ での列挙が $O((n-k)\log (n-k))$ 時間でできる．
+
+## 第二種スターリング数
+
+$S(n,k)$ を以下で定める．
+$$x^n=\sum_{k=0}^{n}S(n,k)x(x-1)\cdots(x-(k-1))$$
+
+整数 $i$ について $x=i$ としたとき
+$$i^n=i![y^i]\left(\sum_{k=0}^{n}S(n,k)y^k\right)e^y$$
+と表示できるので
+$$\sum_{k=0}^{n}S(n,k)y^k=e^{-y}\left(\sum_{i=0}^{\infty}\frac{i^n}{i!}y^i\right)$$
+であり，$S(n,i)$ の $0\leq i\leq n$ での列挙が $O(n\log n)$ 時間でできる．
+また
+$$\sum_{i=0}^{\infty}\frac{i^n}{i!}y^i=n![x^n]\sum_{i=0}^{\infty}\frac{e^{ix}}{i!}y^i=n![x^n]\exp(e^xy)$$
+より
+$$\sum_{n,k}S(n,k)\frac{x^n}{n!}y^k=\exp((e^x-1)y)=\sum_{i\geq 0}(e^x-1)^i\frac{y^i}{i!}$$
+となるので $S(i,k)$ の $k\leq i\leq n$ での列挙が $O((n-k)\log (n-k))$ 時間でできる．

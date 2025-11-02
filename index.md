@@ -87,6 +87,9 @@ data:
       path: fps/count-subset-sum.hpp
       title: Count Subset Sum
     - icon: ':heavy_check_mark:'
+      path: fps/famous-sequences.hpp
+      title: "\u6709\u540D\u6570\u5217"
+    - icon: ':heavy_check_mark:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
     - icon: ':heavy_check_mark:'
@@ -407,6 +410,9 @@ data:
       path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
       title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_partition_function.test.cpp
+      title: verify/fps/LC_partition_function.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/fps/LC_polynomial_interpolation.test.cpp
       title: verify/fps/LC_polynomial_interpolation.test.cpp
     - icon: ':heavy_check_mark:'
@@ -439,6 +445,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
       title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+      title: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+      title: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+      title: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+      title: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
       title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp

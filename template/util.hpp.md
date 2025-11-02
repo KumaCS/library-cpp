@@ -103,6 +103,9 @@ data:
     path: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
     title: verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_partition_function.test.cpp
+    title: verify/fps/LC_partition_function.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_polynomial_interpolation.test.cpp
     title: verify/fps/LC_polynomial_interpolation.test.cpp
   - icon: ':heavy_check_mark:'
@@ -135,6 +138,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
@@ -226,10 +241,10 @@ data:
     links: []
   bundledCode: "#line 2 \"template/util.hpp\"\nusing uint = unsigned int;\nusing ll\
     \ = long long int;\nusing ull = unsigned long long;\nusing i128 = __int128_t;\n\
-    using u128 = __uint128_t;\n\ntemplate <class T, class S = T>\nS SUM(const vector<T>\
-    \ &a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class T>\ninline bool\
-    \ chmin(T &a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n  }\n  return\
-    \ false;\n}\ntemplate <class T>\ninline bool chmax(T &a, T b) {\n  if (a < b)\
+    using u128 = __uint128_t;\n\ntemplate <class T, class S = T>\nS SUM(const vector<T>&\
+    \ a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class T>\ninline bool\
+    \ chmin(T& a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n  }\n  return\
+    \ false;\n}\ntemplate <class T>\ninline bool chmax(T& a, T b) {\n  if (a < b)\
     \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate <class\
     \ T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate <class\
     \ T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n}\n\
@@ -237,10 +252,10 @@ data:
     }\n"
   code: "#pragma once\nusing uint = unsigned int;\nusing ll = long long int;\nusing\
     \ ull = unsigned long long;\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\
-    \ntemplate <class T, class S = T>\nS SUM(const vector<T> &a) {\n  return accumulate(ALL(a),\
-    \ S(0));\n}\ntemplate <class T>\ninline bool chmin(T &a, T b) {\n  if (a > b)\
+    \ntemplate <class T, class S = T>\nS SUM(const vector<T>& a) {\n  return accumulate(ALL(a),\
+    \ S(0));\n}\ntemplate <class T>\ninline bool chmin(T& a, T b) {\n  if (a > b)\
     \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\ntemplate <class T>\n\
-    inline bool chmax(T &a, T b) {\n  if (a < b) {\n    a = b;\n    return true;\n\
+    inline bool chmax(T& a, T b) {\n  if (a < b) {\n    a = b;\n    return true;\n\
     \  }\n  return false;\n}\n\ntemplate <class T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n\
     }\ntemplate <class T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n\
     }\ntemplate <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
@@ -250,7 +265,7 @@ data:
   path: template/util.hpp
   requiredBy:
   - template/template.hpp
-  timestamp: '2025-10-17 21:43:09+09:00'
+  timestamp: '2025-11-03 00:29:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
@@ -263,7 +278,9 @@ data:
   - verify/math/LC_sum_of_floor_of_linear.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
   - verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
@@ -274,10 +291,12 @@ data:
   - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
   - verify/fps/LC_inv_of_polynomials.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
@@ -295,6 +314,7 @@ data:
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
   - verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp

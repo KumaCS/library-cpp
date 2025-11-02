@@ -4,8 +4,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/lpf-table.hpp
     title: LPF Table
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: fps/famous-sequences.hpp
+    title: "\u6709\u540D\u6570\u5217"
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_partition_function.test.cpp
+    title: verify/fps/LC_partition_function.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+    title: verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
     title: verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
@@ -39,12 +57,18 @@ data:
   - math/lpf-table.hpp
   isVerificationFile: false
   path: modint/power-table.hpp
-  requiredBy: []
+  requiredBy:
+  - fps/famous-sequences.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
 documentation_of: modint/power-table.hpp
 layout: document
 redirect_from:
