@@ -11,7 +11,7 @@ void _show(int i, T name) {
   cerr << '\n';
 }
 template <class T1, class T2, class... T3>
-void _show(int i, const T1 &a, const T2 &b, const T3 &...c) {
+void _show(int i, const T1& a, const T2& b, const T3&... c) {
   for (; a[i] != ',' && a[i] != '\0'; i++) cerr << a[i];
   cerr << ":" << b << " ";
   _show(i + 1, a, c...);

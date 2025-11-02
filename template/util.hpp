@@ -6,11 +6,11 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 template <class T, class S = T>
-S SUM(const vector<T> &a) {
+S SUM(const vector<T>& a) {
   return accumulate(ALL(a), S(0));
 }
 template <class T>
-inline bool chmin(T &a, T b) {
+inline bool chmin(T& a, T b) {
   if (a > b) {
     a = b;
     return true;
@@ -18,7 +18,7 @@ inline bool chmin(T &a, T b) {
   return false;
 }
 template <class T>
-inline bool chmax(T &a, T b) {
+inline bool chmax(T& a, T b) {
   if (a < b) {
     a = b;
     return true;
