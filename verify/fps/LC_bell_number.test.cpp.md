@@ -5,14 +5,20 @@ data:
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - icon: ':heavy_check_mark:'
+    path: fps/famous-sequences.hpp
+    title: "\u6709\u540D\u6570\u5217"
+  - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   - icon: ':heavy_check_mark:'
-    path: fps/sparse.hpp
-    title: "Sparse \u306A FPS \u6F14\u7B97"
+    path: fps/taylor-shift.hpp
+    title: Taylor Shift
+  - icon: ':heavy_check_mark:'
+    path: math/lpf-table.hpp
+    title: LPF Table
   - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
@@ -20,11 +26,11 @@ data:
     path: modint/factorial.hpp
     title: "\u968E\u4E57, \u4E8C\u9805\u4FC2\u6570"
   - icon: ':heavy_check_mark:'
-    path: modint/mod-sqrt.hpp
-    title: modint/mod-sqrt.hpp
-  - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
+  - icon: ':heavy_check_mark:'
+    path: modint/power-table.hpp
+    title: Power Table
   - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -47,31 +53,30 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
+    PROBLEM: https://judge.yosupo.jp/problem/bell_number
     links:
-    - https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse
-  bundledCode: "#line 1 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\
-    \n#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
-    \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
-    \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
-    \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
-    \ i--)\n#define ALL(v) (v).begin(), (v).end()\n#define UNIQUE(v) sort(ALL(v)),\
-    \ (v).erase(unique(ALL(v)), (v).end())\n#define SZ(v) (int)v.size()\n#define MIN(v)\
-    \ *min_element(ALL(v))\n#define MAX(v) *max_element(ALL(v))\n#define LB(v, x)\
-    \ int(lower_bound(ALL(v), (x)) - (v).begin())\n#define UB(v, x) int(upper_bound(ALL(v),\
-    \ (x)) - (v).begin())\n#define YN(b) cout << ((b) ? \"YES\" : \"NO\") << \"\\\
-    n\";\n#define Yn(b) cout << ((b) ? \"Yes\" : \"No\") << \"\\n\";\n#define yn(b)\
-    \ cout << ((b) ? \"yes\" : \"no\") << \"\\n\";\n#line 6 \"template/template.hpp\"\
-    \n\n#line 2 \"template/util.hpp\"\nusing uint = unsigned int;\nusing ll = long\
-    \ long int;\nusing ull = unsigned long long;\nusing i128 = __int128_t;\nusing\
-    \ u128 = __uint128_t;\n\ntemplate <class T, class S = T>\nS SUM(const vector<T>&\
-    \ a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class T>\ninline bool\
-    \ chmin(T& a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n  }\n  return\
-    \ false;\n}\ntemplate <class T>\ninline bool chmax(T& a, T b) {\n  if (a < b)\
-    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate <class\
-    \ T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate <class\
-    \ T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n}\n\
-    template <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
+    - https://judge.yosupo.jp/problem/bell_number
+  bundledCode: "#line 1 \"verify/fps/LC_bell_number.test.cpp\"\n#define PROBLEM \"\
+    https://judge.yosupo.jp/problem/bell_number\"\n\n#line 2 \"template/template.hpp\"\
+    \n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
+    \n#define rep(i, a, b) for (int i = (a); i < (int)(b); i++)\n#define rrep(i, a,\
+    \ b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define ALL(v) (v).begin(), (v).end()\n\
+    #define UNIQUE(v) sort(ALL(v)), (v).erase(unique(ALL(v)), (v).end())\n#define\
+    \ SZ(v) (int)v.size()\n#define MIN(v) *min_element(ALL(v))\n#define MAX(v) *max_element(ALL(v))\n\
+    #define LB(v, x) int(lower_bound(ALL(v), (x)) - (v).begin())\n#define UB(v, x)\
+    \ int(upper_bound(ALL(v), (x)) - (v).begin())\n#define YN(b) cout << ((b) ? \"\
+    YES\" : \"NO\") << \"\\n\";\n#define Yn(b) cout << ((b) ? \"Yes\" : \"No\") <<\
+    \ \"\\n\";\n#define yn(b) cout << ((b) ? \"yes\" : \"no\") << \"\\n\";\n#line\
+    \ 6 \"template/template.hpp\"\n\n#line 2 \"template/util.hpp\"\nusing uint = unsigned\
+    \ int;\nusing ll = long long int;\nusing ull = unsigned long long;\nusing i128\
+    \ = __int128_t;\nusing u128 = __uint128_t;\n\ntemplate <class T, class S = T>\n\
+    S SUM(const vector<T>& a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class\
+    \ T>\ninline bool chmin(T& a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n\
+    \  }\n  return false;\n}\ntemplate <class T>\ninline bool chmax(T& a, T b) {\n\
+    \  if (a < b) {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate\
+    \ <class T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate\
+    \ <class T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n\
+    }\ntemplate <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
     }\n#line 8 \"template/template.hpp\"\n\n#line 2 \"template/inout.hpp\"\nstruct\
     \ Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
     \    cout << fixed << setprecision(15);\n  }\n} fast;\n\ntemplate <class T1, class\
@@ -168,52 +173,51 @@ data:
     \  }\n  friend ostream& operator<<(ostream& os, const mint& x) { return os <<\
     \ x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr unsigned int\
     \ umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };\n#line 5 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\nusing\
-    \ mint = ModInt<998244353>;\n#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"\
-    fft/ntt.hpp\"\n\ntemplate <class mint>\nstruct NTT {\n  static constexpr unsigned\
-    \ int mod = mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
-    \ long long x, unsigned long long n, unsigned long long m) {\n    unsigned long\
-    \ long y = 1;\n    while (n) {\n      if (n & 1) y = y * x % m;\n      x = x *\
-    \ x % m;\n      n >>= 1;\n    }\n    return y;\n  }\n  static constexpr unsigned\
-    \ int get_g() {\n    unsigned long long x = 2;\n    while (pow_constexpr(x, (mod\
-    \ - 1) >> 1, mod) == 1) x += 1;\n    return x;\n  }\n  static constexpr unsigned\
-    \ int g = get_g();\n  static constexpr int rank2 = __builtin_ctzll(mod - 1);\n\
-    \  array<mint, rank2 + 1> root;\n  array<mint, rank2 + 1> iroot;\n  array<mint,\
-    \ max(0, rank2 - 2 + 1)> rate2;\n  array<mint, max(0, rank2 - 2 + 1)> irate2;\n\
-    \  array<mint, max(0, rank2 - 3 + 1)> rate3;\n  array<mint, max(0, rank2 - 3 +\
-    \ 1)> irate3;\n\n  NTT() {\n    root[rank2] = mint(g).pow((mod - 1) >> rank2);\n\
-    \    iroot[rank2] = root[rank2].inv();\n    for (int i = rank2 - 1; i >= 0; i--)\
-    \ {\n      root[i] = root[i + 1] * root[i + 1];\n      iroot[i] = iroot[i + 1]\
-    \ * iroot[i + 1];\n    }\n    {\n      mint prod = 1, iprod = 1;\n      for (int\
-    \ i = 0; i <= rank2 - 2; i++) {\n        rate2[i] = root[i + 2] * prod;\n    \
-    \    irate2[i] = iroot[i + 2] * iprod;\n        prod *= iroot[i + 2];\n      \
-    \  iprod *= root[i + 2];\n      }\n    }\n    {\n      mint prod = 1, iprod =\
-    \ 1;\n      for (int i = 0; i <= rank2 - 3; i++) {\n        rate3[i] = root[i\
-    \ + 3] * prod;\n        irate3[i] = iroot[i + 3] * iprod;\n        prod *= iroot[i\
-    \ + 3];\n        iprod *= root[i + 3];\n      }\n    }\n  }\n  void ntt(vector<mint>&\
-    \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
-    \    a.resize(1 << h);\n    int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..]\
-    \ is transformed\n    while (len < h) {\n      if (h - len == 1) {\n        int\
-    \ p = 1 << (h - len - 1);\n        mint rot = 1;\n        for (int s = 0; s <\
-    \ (1 << len); s++) {\n          int offset = s << (h - len);\n          for (int\
-    \ i = 0; i < p; i++) {\n            auto l = a[i + offset];\n            auto\
-    \ r = a[i + offset + p] * rot;\n            a[i + offset] = l + r;\n         \
-    \   a[i + offset + p] = l - r;\n          }\n          if (s + 1 != (1 << len))\
-    \ rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];\n        }\n        len++;\n\
-    \      } else {\n        // 4-base\n        int p = 1 << (h - len - 2);\n    \
-    \    mint rot = 1, imag = root[2];\n        for (int s = 0; s < (1 << len); s++)\
-    \ {\n          mint rot2 = rot * rot;\n          mint rot3 = rot2 * rot;\n   \
-    \       int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n\
-    \            auto mod2 = 1ULL * mint::get_mod() * mint::get_mod();\n         \
-    \   auto a0 = 1ULL * a[i + offset].val();\n            auto a1 = 1ULL * a[i +\
-    \ offset + p].val() * rot.val();\n            auto a2 = 1ULL * a[i + offset +\
-    \ 2 * p].val() * rot2.val();\n            auto a3 = 1ULL * a[i + offset + 3 *\
-    \ p].val() * rot3.val();\n            auto a1na3imag = 1ULL * mint(a1 + mod2 -\
-    \ a3).val() * imag.val();\n            auto na2 = mod2 - a2;\n            a[i\
-    \ + offset] = a0 + a2 + a1 + a3;\n            a[i + offset + 1 * p] = a0 + a2\
-    \ + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 * p] = a0 + na2 + a1na3imag;\n\
-    \            a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);\n        \
-    \  }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
+    };\n#line 5 \"verify/fps/LC_bell_number.test.cpp\"\nusing mint = ModInt<998244353>;\n\
+    #line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\ntemplate <class\
+    \ mint>\nstruct NTT {\n  static constexpr unsigned int mod = mint::get_mod();\n\
+    \  static constexpr unsigned long long pow_constexpr(unsigned long long x, unsigned\
+    \ long long n, unsigned long long m) {\n    unsigned long long y = 1;\n    while\
+    \ (n) {\n      if (n & 1) y = y * x % m;\n      x = x * x % m;\n      n >>= 1;\n\
+    \    }\n    return y;\n  }\n  static constexpr unsigned int get_g() {\n    unsigned\
+    \ long long x = 2;\n    while (pow_constexpr(x, (mod - 1) >> 1, mod) == 1) x +=\
+    \ 1;\n    return x;\n  }\n  static constexpr unsigned int g = get_g();\n  static\
+    \ constexpr int rank2 = __builtin_ctzll(mod - 1);\n  array<mint, rank2 + 1> root;\n\
+    \  array<mint, rank2 + 1> iroot;\n  array<mint, max(0, rank2 - 2 + 1)> rate2;\n\
+    \  array<mint, max(0, rank2 - 2 + 1)> irate2;\n  array<mint, max(0, rank2 - 3\
+    \ + 1)> rate3;\n  array<mint, max(0, rank2 - 3 + 1)> irate3;\n\n  NTT() {\n  \
+    \  root[rank2] = mint(g).pow((mod - 1) >> rank2);\n    iroot[rank2] = root[rank2].inv();\n\
+    \    for (int i = rank2 - 1; i >= 0; i--) {\n      root[i] = root[i + 1] * root[i\
+    \ + 1];\n      iroot[i] = iroot[i + 1] * iroot[i + 1];\n    }\n    {\n      mint\
+    \ prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 2; i++) {\n       \
+    \ rate2[i] = root[i + 2] * prod;\n        irate2[i] = iroot[i + 2] * iprod;\n\
+    \        prod *= iroot[i + 2];\n        iprod *= root[i + 2];\n      }\n    }\n\
+    \    {\n      mint prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 3;\
+    \ i++) {\n        rate3[i] = root[i + 3] * prod;\n        irate3[i] = iroot[i\
+    \ + 3] * iprod;\n        prod *= iroot[i + 3];\n        iprod *= root[i + 3];\n\
+    \      }\n    }\n  }\n  void ntt(vector<mint>& a) {\n    int n = int(a.size());\n\
+    \    int h = __builtin_ctzll((unsigned int)n);\n    a.resize(1 << h);\n    int\
+    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
+    \ < h) {\n      if (h - len == 1) {\n        int p = 1 << (h - len - 1);\n   \
+    \     mint rot = 1;\n        for (int s = 0; s < (1 << len); s++) {\n        \
+    \  int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n   \
+    \         auto l = a[i + offset];\n            auto r = a[i + offset + p] * rot;\n\
+    \            a[i + offset] = l + r;\n            a[i + offset + p] = l - r;\n\
+    \          }\n          if (s + 1 != (1 << len)) rot *= rate2[__builtin_ctzll(~(unsigned\
+    \ int)(s))];\n        }\n        len++;\n      } else {\n        // 4-base\n \
+    \       int p = 1 << (h - len - 2);\n        mint rot = 1, imag = root[2];\n \
+    \       for (int s = 0; s < (1 << len); s++) {\n          mint rot2 = rot * rot;\n\
+    \          mint rot3 = rot2 * rot;\n          int offset = s << (h - len);\n \
+    \         for (int i = 0; i < p; i++) {\n            auto mod2 = 1ULL * mint::get_mod()\
+    \ * mint::get_mod();\n            auto a0 = 1ULL * a[i + offset].val();\n    \
+    \        auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n            auto\
+    \ a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n            auto a3 =\
+    \ 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n            auto a1na3imag\
+    \ = 1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n            auto na2 = mod2\
+    \ - a2;\n            a[i + offset] = a0 + a2 + a1 + a3;\n            a[i + offset\
+    \ + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 *\
+    \ p] = a0 + na2 + a1na3imag;\n            a[i + offset + 3 * p] = a0 + na2 + (mod2\
+    \ - a1na3imag);\n          }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
     \ int)(s))];\n        }\n        len += 2;\n      }\n    }\n  }\n  void intt(vector<mint>&\
     \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
     \    a.resize(1 << h);\n\n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len),\
@@ -358,7 +362,7 @@ data:
     \ FormalPowerSeries<mint>::exp(int deg) const {\n  assert((*this)[0] == mint(0));\n\
     \  if (deg == -1) deg = (*this).size();\n  FPS ret{mint(1)};\n  for (int i = 1;\
     \ i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i << 1) - ret.log(i << 1) +\
-    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\
+    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_bell_number.test.cpp\"\
     \nusing fps = FormalPowerSeries<mint>;\n#line 2 \"modint/factorial.hpp\"\n\ntemplate\
     \ <class mint>\nstruct Factorial {\n  static void reserve(int n) {\n    inv(n);\n\
     \    fact(n);\n    fact_inv(n);\n  }\n  static mint inv(int n) {\n    static long\
@@ -390,69 +394,62 @@ data:
     \ return 0;\n    return fact(n) * fact_inv(n - r);\n  }\n  // partition n items\
     \ to r groups (allow empty group)\n  static mint H(int n, int r) {\n    if (n\
     \ < 0 || r < 0) return 0;\n    return r == 0 ? 1 : binom(n + r - 1, r);\n  }\n\
-    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"modint/mod-sqrt.hpp\"\
-    \n\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long long a, long long\
-    \ p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n  if (a == 0) return\
-    \ 0;\n  if (Math::pow_mod(a, (p - 1) / 2, p) != 1) return -1;\n  if (p % 4 ==\
-    \ 3) return Math::pow_mod(a, (3 * p - 1) / 4, p);\n  unsigned int z = 2, q = p\
-    \ - 1;\n  while (Math::pow_mod(z, (p - 1) / 2, p) == 1) z++;\n  int s = 0;\n \
-    \ while (!(q & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n  unsigned int\
-    \ c = Math::pow_mod(z, q, p);\n  unsigned int t = Math::pow_mod(a, q, p);\n  unsigned\
-    \ int r = Math::pow_mod(a, (q + 1) / 2, p);\n  while (true) {\n    if (t == 1)\
-    \ return r;\n    unsigned int pow = t;\n    int j = 1;\n    for (; j < m; j++)\
-    \ {\n      pow = 1ll * pow * pow % p;\n      if (pow == 1) break;\n    }\n   \
-    \ unsigned int b = c;\n    for (int i = 0; i < m - j - 1; i++) b = 1ll * b * b\
-    \ % p;\n    m = j;\n    c = 1ll * b * b % p;\n    t = 1ll * t * c % p;\n    r\
-    \ = 1ll * r * b % p;\n  }\n}\n#line 5 \"fps/sparse.hpp\"\n\nnamespace FPSSparse\
-    \ {\ntemplate <class mint>\nFormalPowerSeries<mint> inv(map<int, mint> f, int\
-    \ n) {\n  assert(f[0] != 0);\n  if (n == 0) return {};\n  mint c = f[0].inv();\n\
-    \  FormalPowerSeries<mint> g(n);\n  g[0] = c;\n  for (int i = 1; i < n; i++) {\n\
-    \    for (auto [j, v] : f)\n      if (j <= i) g[i] -= v * g[i - j];\n    g[i]\
-    \ *= c;\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> exp(map<int,\
-    \ mint> f, int n) {\n  assert(f[0] == 0);\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
-    \ g(n);\n  g[0] = 1;\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v] :\
-    \ f)\n      if (j <= i) g[i] += j * v * g[i - j];\n    g[i] *= Factorial<mint>::inv(i);\n\
-    \  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> log(map<int,\
-    \ mint> f, int n) {\n  assert(f[0] == 1);\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
-    \ g(n);\n  g[0] = 0;\n  for (auto [j, v] : f)\n    if (0 < j && j < n) g[j - 1]\
-    \ = v * j;\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f)\n     \
-    \ if (0 < j && j <= i) g[i] -= v * g[i - j];\n  }\n  for (int i = n - 1; i > 0;\
-    \ i--) g[i] = g[i - 1] * Factorial<mint>::inv(i);\n  g[0] = 0;\n  return g;\n\
-    }\ntemplate <class mint>\nFormalPowerSeries<mint> pow(map<int, mint> f, long long\
-    \ m, int n) {\n  if (n == 0) return {};\n  FormalPowerSeries<mint> g(n, 0);\n\
-    \  if (m == 0) {\n    g[0] = 1;\n    return g;\n  }\n  if (!f.contains(0) || f[0]\
-    \ == 0) {\n    if (m >= n) return g;\n    int s = n;\n    for (auto [i, v] : f)\n\
-    \      if (v != 0 && i < s) s = i;\n    if (s * m >= n) return g;\n    map<int,\
-    \ mint> f1;\n    for (auto [i, v] : f) f1[i - s] = v;\n    auto g1 = pow(f1, m,\
-    \ int(n - s * m));\n    copy(g1.begin(), g1.end(), g.begin() + int(s * m));\n\
-    \    return g;\n  }\n  g[0] = f[0].pow(m);\n  mint c = f[0].inv();\n  for (int\
-    \ i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j && j <= i)\
-    \ g[i] += j * f[j] * g[i - j] * m;\n      if (0 < j && j < i) g[i] -= f[j] * (i\
-    \ - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n  }\n  return\
-    \ g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> sqrt(map<int, mint> f,\
-    \ int n) {\n  if (n == 0) return {};\n  if (f.empty()) return FormalPowerSeries<mint>(n,\
-    \ 0);\n  FormalPowerSeries<mint> g(n, 0);\n  if (f[0] == 0) {\n    int s = n *\
-    \ 2;\n    for (auto [i, v] : f)\n      if (v != 0 && i < s) s = i;\n    if (s\
-    \ & 1) return {};\n    s /= 2;\n    if (s >= n) return g;\n    map<int, mint>\
-    \ f1;\n    for (auto [i, v] : f) f1[i - s * 2] = v;\n    auto g1 = sqrt(f1, int(n\
-    \ - s));\n    if (g1.empty()) return {};\n    copy(g1.begin(), g1.end(), g.begin()\
-    \ + s);\n    return g;\n  }\n  long long sq = ModSqrt(f[0].val(), mint::get_mod());\n\
-    \  if (sq < 0) return {};\n  g[0] = sq;\n  mint c = f[0].inv(), inv2 = mint(2).inv();\n\
-    \  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j\
-    \ && j <= i) g[i] += j * f[j] * g[i - j] * inv2;\n      if (0 < j && j < i) g[i]\
-    \ -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n\
-    \  }\n  return g;\n}\n};  // namespace FPSSparse\n\n/**\n * @brief Sparse \u306A\
-    \ FPS \u6F14\u7B97\n * @docs docs/fps/sparse.md\n */\n#line 9 \"verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp\"\
-    \n\nint main() {\n  int n, k;\n  ll m;\n  in(n, k, m);\n  map<int, mint> f;\n\
-    \  rep(i, 0, k) {\n    int j;\n    mint a;\n    in(j, a);\n    f[j] = a;\n  }\n\
-    \  out(FPSSparse::pow(f, m, n));\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse\"\
-    \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
-    \ mint = ModInt<998244353>;\n#include \"fps/fps-ntt-friendly.hpp\"\nusing fps\
-    \ = FormalPowerSeries<mint>;\n#include \"fps/sparse.hpp\"\n\nint main() {\n  int\
-    \ n, k;\n  ll m;\n  in(n, k, m);\n  map<int, mint> f;\n  rep(i, 0, k) {\n    int\
-    \ j;\n    mint a;\n    in(j, a);\n    f[j] = a;\n  }\n  out(FPSSparse::pow(f,\
-    \ m, n));\n}"
+    };\n/**\n * @brief \u968E\u4E57, \u4E8C\u9805\u4FC2\u6570\n */\n#line 2 \"math/lpf-table.hpp\"\
+    \n\nvector<int> LPFTable(int n) {\n  vector<int> lpf(n + 1, 0);\n  iota(lpf.begin(),\
+    \ lpf.end(), 0);\n  for (int p = 2; p * p <= n; p += (p & 1) + 1) {\n    if (lpf[p]\
+    \ != p) continue;\n    for (int i = p * p; i <= n; i += p)\n      if (lpf[i] ==\
+    \ i) lpf[i] = p;\n  }\n  return lpf;\n}\n/**\n * @brief LPF Table\n */\n#line\
+    \ 3 \"modint/power-table.hpp\"\n\n// 0^k,1^k,2^k,...,n^k\ntemplate <class T>\n\
+    vector<T> PowerTable(int n, int k) {\n  assert(k >= 0);\n  vector<T> f;\n  if\
+    \ (k == 0) {\n    f = vector<T>(n + 1, 0);\n    f[0] = 1;\n  } else {\n    f =\
+    \ vector<T>(n + 1, 1);\n    f[0] = 0;\n    auto lpf = LPFTable(n);\n    for (int\
+    \ i = 2; i <= n; i++)\n      f[i] = lpf[i] == i ? T(i).pow(k) : f[i / lpf[i]]\
+    \ * f[lpf[i]];\n  }\n  return f;\n}\n/**\n * @brief Power Table\n */\n#line 4\
+    \ \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  int n = f.size();\n  using fact = Factorial<mint>;\n  fact::reserve(n);\n \
+    \ for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n  reverse(f.begin(), f.end());\n\
+    \  fps g(n, mint(1));\n  for (int i = 1; i < n; i++) g[i] = g[i - 1] * a * fact::inv(i);\n\
+    \  f = (f * g).pre(n);\n  reverse(f.begin(), f.end());\n  for (int i = 0; i <\
+    \ n; i++) f[i] *= fact::fact_inv(i);\n  return f;\n}\n/**\n * @brief Taylor Shift\n\
+    \ * @docs docs/fps/taylor-shift.md\n */\n#line 6 \"fps/famous-sequences.hpp\"\n\
+    \ntemplate <class mint>\nFormalPowerSeries<mint> PartitionFunction(int n) {\n\
+    \  FormalPowerSeries<mint> g(n + 1);\n  for (int k = 0; k * (3 * k - 1) / 2 <=\
+    \ n; k++) g[k * (3 * k - 1) / 2] += k & 1 ? -1 : 1;\n  for (int k = 1; k * (3\
+    \ * k + 1) / 2 <= n; k++) g[k * (3 * k + 1) / 2] += k & 1 ? -1 : 1;\n  return\
+    \ g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint> BellNumber(int\
+    \ n) {\n  using fact = Factorial<mint>;\n  FormalPowerSeries<mint> f(n + 1);\n\
+    \  for (int i = 1; i < f.size(); i++) f[i] = fact::fact_inv(i);\n  f = f.exp();\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i);\n  return f;\n}\n\
+    template <class mint>\nvector<mint> MontmortNumber(int n) {\n  vector<mint> f(n\
+    \ + 1);\n  f[0] = 1, f[1] = 0;\n  for (int i = 2; i < f.size(); i++) f[i] = (i\
+    \ - 1) * (f[i - 1] + f[i - 2]);\n  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ FirstKindStirlingNumbers(int n) {\n  FormalPowerSeries<mint> f{1};\n  for (int\
+    \ l = 30; l >= 0; l--) {\n    if (f.size() > 1) f *= TaylorShift(f, mint(-(n >>\
+    \ (l + 1))));\n    if ((n >> l) & 1) f = (f << 1) - f * mint((n >> l) - 1);\n\
+    \  }\n  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbersFixedK(int\
+    \ n, int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
+    \ f[i] = fact::inv(i + 1) * (i & 1 ? -1 : 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
+    }\ntemplate <class mint>\nFormalPowerSeries<mint> SecondKindStirlingNumbers(int\
+    \ n) {\n  using fact = Factorial<mint>;\n  FormalPowerSeries<mint> f(n + 1);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] = fact::fact_inv(i) * (i & 1 ? -1 :\
+    \ 1);\n  FormalPowerSeries<mint> g(PowerTable<mint>(n, n));\n  for (int i = 0;\
+    \ i < g.size(); i++) g[i] *= fact::fact_inv(i);\n  f *= g;\n  f.resize(n + 1);\n\
+    \  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> SecondKindStirlingNumbersFixedK(int\
+    \ n, int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
+    \ f[i] = fact::fact_inv(i + 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
+    }\n\n/**\n * @brief \u6709\u540D\u6570\u5217\n * @docs docs/fps/famous-sequences.md\n\
+    \ */\n#line 9 \"verify/fps/LC_bell_number.test.cpp\"\n\nint main() {\n  int n;\n\
+    \  in(n);\n  out(BellNumber<mint>(n));\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/bell_number\"\n\n#include\
+    \ \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing mint = ModInt<998244353>;\n\
+    #include \"fps/fps-ntt-friendly.hpp\"\nusing fps = FormalPowerSeries<mint>;\n\
+    #include \"fps/famous-sequences.hpp\"\n\nint main() {\n  int n;\n  in(n);\n  out(BellNumber<mint>(n));\n\
+    }"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -464,19 +461,21 @@ data:
   - fps/fps-ntt-friendly.hpp
   - fft/ntt.hpp
   - fps/formal-power-series.hpp
-  - fps/sparse.hpp
+  - fps/famous-sequences.hpp
   - modint/factorial.hpp
-  - modint/mod-sqrt.hpp
+  - modint/power-table.hpp
+  - math/lpf-table.hpp
+  - fps/taylor-shift.hpp
   isVerificationFile: true
-  path: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  path: verify/fps/LC_bell_number.test.cpp
   requiredBy: []
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+documentation_of: verify/fps/LC_bell_number.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-- /verify/verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp.html
-title: verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+- /verify/verify/fps/LC_bell_number.test.cpp
+- /verify/verify/fps/LC_bell_number.test.cpp.html
+title: verify/fps/LC_bell_number.test.cpp
 ---

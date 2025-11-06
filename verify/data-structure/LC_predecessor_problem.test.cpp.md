@@ -78,7 +78,7 @@ data:
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
     \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"data-structure/integer-set.hpp\"\
     \n\ntemplate <class T = int, class U = unsigned long long>\nclass IntegerSet {\n\
-    \ private:\n  const static T B = 6, W = 64, MASK = W - 1;\n  T size;\n  vector<T>\
+    \ private:\n  static constexpr T B = 6, W = 64, MASK = W - 1;\n  T size;\n  vector<T>\
     \ start;\n  vector<U> data;\n  static T high_bit(U x) {\n    if (x == 0) return\
     \ 0;\n    return W - 1 - countl_zero(x);\n  }\n  static T low_bit(U x) {\n   \
     \ if (x == 0) return W;\n    return countr_zero(x);\n  }\n\n public:\n  IntegerSet(T\
@@ -134,7 +134,7 @@ data:
   isVerificationFile: true
   path: verify/data-structure/LC_predecessor_problem.test.cpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/data-structure/LC_predecessor_problem.test.cpp

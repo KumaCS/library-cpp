@@ -19,6 +19,12 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_bell_number.test.cpp
+    title: verify/fps/LC_bell_number.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_montmort_number_mod.test.cpp
+    title: verify/fps/LC_montmort_number_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_partition_function.test.cpp
     title: verify/fps/LC_partition_function.test.cpp
   - icon: ':heavy_check_mark:'
@@ -120,49 +126,56 @@ data:
     \ r.size()));\n    for (int i = 0; i < (int)ret.size(); i++) ret[i] = (*this)[i]\
     \ * r[i];\n    return ret;\n  }\n  FPS pre(int sz) const {\n    return FPS(begin(*this),\
     \ begin(*this) + min((int)this->size(), sz));\n  }\n  FPS operator>>=(int sz)\
-    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz) return {};\n    this->erase(this->begin(),\
-    \ this->begin() + sz);\n    return *this;\n  }\n  FPS operator>>(int sz) const\
-    \ {\n    if ((int)this->size() <= sz) return {};\n    FPS ret(*this);\n    ret.erase(ret.begin(),\
-    \ ret.begin() + sz);\n    return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz\
-    \ >= 0);\n    this->insert(this->begin(), sz, mint(0));\n    return *this;\n \
-    \ }\n  FPS operator<<(int sz) const {\n    FPS ret(*this);\n    ret.insert(ret.begin(),\
-    \ sz, mint(0));\n    return ret;\n  }\n  FPS diff() const {\n    const int n =\
-    \ (int)this->size();\n    FPS ret(max(0, n - 1));\n    mint one(1), coeff(1);\n\
-    \    for (int i = 1; i < n; i++) {\n      ret[i - 1] = (*this)[i] * coeff;\n \
-    \     coeff += one;\n    }\n    return ret;\n  }\n  FPS integral() const {\n \
-    \   const int n = (int)this->size();\n    FPS ret(n + 1);\n    ret[0] = mint(0);\n\
-    \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
-    \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
-    \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
-    \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
-    \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
-    \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
-    \ = -1) const {\n    const int n = (int)this->size();\n    if (deg == -1) deg\
-    \ = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if (deg) ret[0] = 1;\n \
-    \     return ret;\n    }\n    for (int i = 0; i < n; i++) {\n      if ((*this)[i]\
-    \ != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n        FPS ret = (((*this\
-    \ * rev) >> i).log(deg) * k).exp(deg);\n        ret *= (*this)[i].pow(k);\n  \
-    \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
-    \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
-    \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
-    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
-    \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
-    \ = nullptr;\n#line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\n\
-    FormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using\
-    \ fps = FormalPowerSeries<mint>;\n  int n = f.size();\n  using fact = Factorial<mint>;\n\
-    \  fact::reserve(n);\n  for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n \
-    \ reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n  for (int i = 1; i < n;\
-    \ i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f * g).pre(n);\n  reverse(f.begin(),\
-    \ f.end());\n  for (int i = 0; i < n; i++) f[i] *= fact::fact_inv(i);\n  return\
-    \ f;\n}\n/**\n * @brief Taylor Shift\n * @docs docs/fps/taylor-shift.md\n */\n\
-    #line 6 \"fps/famous-sequences.hpp\"\n\ntemplate <class mint>\nFormalPowerSeries<mint>\
-    \ PartitionFunction(int n) {\n  FormalPowerSeries<mint> g(n + 1);\n  for (int\
-    \ k = 0; k * (3 * k - 1) / 2 <= n; k++) g[k * (3 * k - 1) / 2] += k & 1 ? -1 :\
-    \ 1;\n  for (int k = 1; k * (3 * k + 1) / 2 <= n; k++) g[k * (3 * k + 1) / 2]\
-    \ += k & 1 ? -1 : 1;\n  return g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz)\n      this->clear();\n\
+    \    else\n      this->erase(this->begin(), this->begin() + sz);\n    return *this;\n\
+    \  }\n  FPS operator>>(int sz) const {\n    if ((int)this->size() <= sz) return\
+    \ {};\n    FPS ret(*this);\n    ret.erase(ret.begin(), ret.begin() + sz);\n  \
+    \  return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz >= 0);\n    this->insert(this->begin(),\
+    \ sz, mint(0));\n    return *this;\n  }\n  FPS operator<<(int sz) const {\n  \
+    \  FPS ret(*this);\n    ret.insert(ret.begin(), sz, mint(0));\n    return ret;\n\
+    \  }\n  FPS diff() const {\n    const int n = (int)this->size();\n    FPS ret(max(0,\
+    \ n - 1));\n    mint one(1), coeff(1);\n    for (int i = 1; i < n; i++) {\n  \
+    \    ret[i - 1] = (*this)[i] * coeff;\n      coeff += one;\n    }\n    return\
+    \ ret;\n  }\n  FPS integral() const {\n    const int n = (int)this->size();\n\
+    \    FPS ret(n + 1);\n    ret[0] = mint(0);\n    if (n > 0) ret[1] = mint(1);\n\
+    \    auto mod = mint::get_mod();\n    for (int i = 2; i <= n; i++) ret[i] = (-ret[mod\
+    \ % i]) * (mod / i);\n    for (int i = 0; i < n; i++) ret[i + 1] *= (*this)[i];\n\
+    \    return ret;\n  }\n  mint eval(mint x) const {\n    mint r = 0, w = 1;\n \
+    \   for (auto& v : *this) r += w * v, w *= x;\n    return r;\n  }\n  FPS log(int\
+    \ deg = -1) const {\n    assert((*this)[0] == mint(1));\n    if (deg == -1) deg\
+    \ = (int)this->size();\n    return (this->diff() * this->inv(deg)).pre(deg - 1).integral();\n\
+    \  }\n  FPS pow(int64_t k, int deg = -1) const {\n    const int n = (int)this->size();\n\
+    \    if (deg == -1) deg = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if\
+    \ (deg) ret[0] = 1;\n      return ret;\n    }\n    for (int i = 0; i < n; i++)\
+    \ {\n      if ((*this)[i] != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n\
+    \        FPS ret = (((*this * rev) >> i).log(deg) * k).exp(deg);\n        ret\
+    \ *= (*this)[i].pow(k);\n        ret = (ret << (i * k)).pre(deg);\n        if\
+    \ ((int)ret.size() < deg) ret.resize(deg, mint(0));\n        return ret;\n   \
+    \   }\n      if (__int128_t(i + 1) * k >= deg) return FPS(deg, mint(0));\n   \
+    \ }\n    return FPS(deg, mint(0));\n  }\n\n  static void* ntt_ptr;\n  static void\
+    \ set_ntt();\n  FPS& operator*=(const FPS& r);\n  FPS middle_product(const FPS&\
+    \ r) const;\n  void ntt();\n  void intt();\n  void ntt_doubling();\n  static int\
+    \ ntt_root();\n  FPS inv(int deg = -1) const;\n  FPS exp(int deg = -1) const;\n\
+    };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
+    #line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  int n = f.size();\n  using fact = Factorial<mint>;\n  fact::reserve(n);\n \
+    \ for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n  reverse(f.begin(), f.end());\n\
+    \  fps g(n, mint(1));\n  for (int i = 1; i < n; i++) g[i] = g[i - 1] * a * fact::inv(i);\n\
+    \  f = (f * g).pre(n);\n  reverse(f.begin(), f.end());\n  for (int i = 0; i <\
+    \ n; i++) f[i] *= fact::fact_inv(i);\n  return f;\n}\n/**\n * @brief Taylor Shift\n\
+    \ * @docs docs/fps/taylor-shift.md\n */\n#line 6 \"fps/famous-sequences.hpp\"\n\
+    \ntemplate <class mint>\nFormalPowerSeries<mint> PartitionFunction(int n) {\n\
+    \  FormalPowerSeries<mint> g(n + 1);\n  for (int k = 0; k * (3 * k - 1) / 2 <=\
+    \ n; k++) g[k * (3 * k - 1) / 2] += k & 1 ? -1 : 1;\n  for (int k = 1; k * (3\
+    \ * k + 1) / 2 <= n; k++) g[k * (3 * k + 1) / 2] += k & 1 ? -1 : 1;\n  return\
+    \ g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint> BellNumber(int\
+    \ n) {\n  using fact = Factorial<mint>;\n  FormalPowerSeries<mint> f(n + 1);\n\
+    \  for (int i = 1; i < f.size(); i++) f[i] = fact::fact_inv(i);\n  f = f.exp();\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i);\n  return f;\n}\n\
+    template <class mint>\nvector<mint> MontmortNumber(int n) {\n  vector<mint> f(n\
+    \ + 1);\n  f[0] = 1, f[1] = 0;\n  for (int i = 2; i < f.size(); i++) f[i] = (i\
+    \ - 1) * (f[i - 1] + f[i - 2]);\n  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
     \ FirstKindStirlingNumbers(int n) {\n  FormalPowerSeries<mint> f{1};\n  for (int\
     \ l = 30; l >= 0; l--) {\n    if (f.size() > 1) f *= TaylorShift(f, mint(-(n >>\
     \ (l + 1))));\n    if ((n >> l) & 1) f = (f << 1) - f * mint((n >> l) - 1);\n\
@@ -189,12 +202,18 @@ data:
     \  FormalPowerSeries<mint> g(n + 1);\n  for (int k = 0; k * (3 * k - 1) / 2 <=\
     \ n; k++) g[k * (3 * k - 1) / 2] += k & 1 ? -1 : 1;\n  for (int k = 1; k * (3\
     \ * k + 1) / 2 <= n; k++) g[k * (3 * k + 1) / 2] += k & 1 ? -1 : 1;\n  return\
-    \ g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbers(int\
-    \ n) {\n  FormalPowerSeries<mint> f{1};\n  for (int l = 30; l >= 0; l--) {\n \
-    \   if (f.size() > 1) f *= TaylorShift(f, mint(-(n >> (l + 1))));\n    if ((n\
-    \ >> l) & 1) f = (f << 1) - f * mint((n >> l) - 1);\n  }\n  return f;\n}\ntemplate\
-    \ <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbersFixedK(int n,\
-    \ int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
+    \ g.inv(n + 1);\n}\ntemplate <class mint>\nFormalPowerSeries<mint> BellNumber(int\
+    \ n) {\n  using fact = Factorial<mint>;\n  FormalPowerSeries<mint> f(n + 1);\n\
+    \  for (int i = 1; i < f.size(); i++) f[i] = fact::fact_inv(i);\n  f = f.exp();\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i);\n  return f;\n}\n\
+    template <class mint>\nvector<mint> MontmortNumber(int n) {\n  vector<mint> f(n\
+    \ + 1);\n  f[0] = 1, f[1] = 0;\n  for (int i = 2; i < f.size(); i++) f[i] = (i\
+    \ - 1) * (f[i - 1] + f[i - 2]);\n  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ FirstKindStirlingNumbers(int n) {\n  FormalPowerSeries<mint> f{1};\n  for (int\
+    \ l = 30; l >= 0; l--) {\n    if (f.size() > 1) f *= TaylorShift(f, mint(-(n >>\
+    \ (l + 1))));\n    if ((n >> l) & 1) f = (f << 1) - f * mint((n >> l) - 1);\n\
+    \  }\n  return f;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> FirstKindStirlingNumbersFixedK(int\
+    \ n, int k) {\n  using fact = Factorial<mint>;\n  if (k > n) return FormalPowerSeries<mint>{};\n\
     \  FormalPowerSeries<mint> f(n - k + 1);\n  for (int i = 0; i < f.size(); i++)\
     \ f[i] = fact::inv(i + 1) * (i & 1 ? -1 : 1);\n  f = f.pow(k);\n  f *= fact::fact_inv(k);\n\
     \  for (int i = 0; i < f.size(); i++) f[i] *= fact::fact(i + k);\n  return f;\n\
@@ -219,14 +238,16 @@ data:
   isVerificationFile: false
   path: fps/famous-sequences.hpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
   - verify/fps/LC_partition_function.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_montmort_number_mod.test.cpp
 documentation_of: fps/famous-sequences.hpp
 layout: document
 redirect_from:
@@ -243,6 +264,22 @@ title: "\u6709\u540D\u6570\u5217"
 オイラーの五角数定理より
 $$\prod_{k=1}^{\infty}(1-x^k)=\sum_{k=-\infty}^{\infty}(-1)^kx^{k(3k-1)/2}$$
 であることを用いれば $O(N\log N)$ 時間で $p_0,p_1,\dots,p_N$ が列挙できる．
+
+## ベル数
+
+$n$ 元集合を空でない部分集合に分割する方法の数 $B_n$ をベル数という．
+指数型母関数が下のように計算できる．
+$$\sum_{n}\frac{B_n}{n!}x^n
+=\prod_{i=1}^{\infty}\sum_{j=0}^{\infty}\frac{1}{(i!)^jj!}x^{ij}
+=\prod_{i=1}^{\infty}\exp\left(\frac{x^i}{i!}\right)
+=\exp\left(\sum_{i=1}^{\infty}\frac{x^i}{i!}\right)
+=\exp(e^x-1)$$
+
+## モンモール数
+
+長さ $n$ の撹乱順列，すなわち $(1,2,\dots,n)$ の順列 $(p_1,p_2,\dots,p_n)$ で $p_i\neq i$ を満たすものの個数．
+
+$a_n$ とおくと $a_n=(n-1)(a_{n-1}+a_{n-2})$ であるから $O(n)$ 時間で列挙できる．
 
 ## 第一種スターリング数
 

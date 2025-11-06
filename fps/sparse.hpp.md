@@ -85,25 +85,25 @@ data:
     \    swap(x10, x11);\n    a = b, b = r;\n  }\n  x = x00, y = x10;\n  if (sgn_a)\
     \ x = -x;\n  if (sgn_b) y = -y;\n  if (b0 != 0) {\n    a0 /= a, b0 /= a;\n   \
     \ if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q = x >= 0 ? x / b0 : (x + 1) / b0 -\
-    \ 1;\n    x -= b0 * q;\n    y += a0 * q;\n  }\n  return a;\n}\nlong long inv_mod(long\
-    \ long x, long long m) {\n  x %= m;\n  if (x < 0) x += m;\n  long long a = m,\
-    \ b = x;\n  long long y0 = 0, y1 = 1;\n  while (b > 0) {\n    long long q = a\
-    \ / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n  }\n  if (y0 <\
-    \ 0) y0 += m / a;\n  return y0;\n}\nlong long pow_mod(long long x, long long n,\
-    \ long long m) {\n  x = (x % m + m) % m;\n  long long y = 1;\n  while (n) {\n\
-    \    if (n & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n  return\
-    \ y;\n}\nconstexpr long long pow_mod_constexpr(long long x, long long n, int m)\
-    \ {\n  if (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n  unsigned\
-    \ long long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y += m;\n \
-    \ while (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n    n\
-    \ >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n  if\
-    \ (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n  if\
-    \ (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0) d /=\
-    \ 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a : bases)\
-    \ {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n   \
-    \ while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t\
-    \ <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n  \
-    \  }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    \ 1;\n    x -= b0 * q;\n    y += a0 * q;\n  }\n  return a;\n}\nconstexpr long\
+    \ long inv_mod(long long x, long long m) {\n  x %= m;\n  if (x < 0) x += m;\n\
+    \  long long a = m, b = x;\n  long long y0 = 0, y1 = 1;\n  while (b > 0) {\n \
+    \   long long q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
+    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\nlong long pow_mod(long long\
+    \ x, long long n, long long m) {\n  x = (x % m + m) % m;\n  long long y = 1;\n\
+    \  while (n) {\n    if (n & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n\
+    \  }\n  return y;\n}\nconstexpr long long pow_mod_constexpr(long long x, long\
+    \ long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n\
+    \  unsigned long long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y\
+    \ += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n\
+    \    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n\
+    \  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n\
+    \  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0)\
+    \ d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a :\
+    \ bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n\
+    \    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n    \
+    \  t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
+    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
     };  // namespace Math\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long\
     \ long a, long long p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n\
     \  if (a == 0) return 0;\n  if (Math::pow_mod(a, (p - 1) / 2, p) != 1) return\
@@ -156,64 +156,64 @@ data:
     \ r.size()));\n    for (int i = 0; i < (int)ret.size(); i++) ret[i] = (*this)[i]\
     \ * r[i];\n    return ret;\n  }\n  FPS pre(int sz) const {\n    return FPS(begin(*this),\
     \ begin(*this) + min((int)this->size(), sz));\n  }\n  FPS operator>>=(int sz)\
-    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz) return {};\n    this->erase(this->begin(),\
-    \ this->begin() + sz);\n    return *this;\n  }\n  FPS operator>>(int sz) const\
-    \ {\n    if ((int)this->size() <= sz) return {};\n    FPS ret(*this);\n    ret.erase(ret.begin(),\
-    \ ret.begin() + sz);\n    return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz\
-    \ >= 0);\n    this->insert(this->begin(), sz, mint(0));\n    return *this;\n \
-    \ }\n  FPS operator<<(int sz) const {\n    FPS ret(*this);\n    ret.insert(ret.begin(),\
-    \ sz, mint(0));\n    return ret;\n  }\n  FPS diff() const {\n    const int n =\
-    \ (int)this->size();\n    FPS ret(max(0, n - 1));\n    mint one(1), coeff(1);\n\
-    \    for (int i = 1; i < n; i++) {\n      ret[i - 1] = (*this)[i] * coeff;\n \
-    \     coeff += one;\n    }\n    return ret;\n  }\n  FPS integral() const {\n \
-    \   const int n = (int)this->size();\n    FPS ret(n + 1);\n    ret[0] = mint(0);\n\
-    \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
-    \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
-    \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
-    \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
-    \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
-    \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
-    \ = -1) const {\n    const int n = (int)this->size();\n    if (deg == -1) deg\
-    \ = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if (deg) ret[0] = 1;\n \
-    \     return ret;\n    }\n    for (int i = 0; i < n; i++) {\n      if ((*this)[i]\
-    \ != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n        FPS ret = (((*this\
-    \ * rev) >> i).log(deg) * k).exp(deg);\n        ret *= (*this)[i].pow(k);\n  \
-    \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
-    \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
-    \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
-    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
-    \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
-    \ = nullptr;\n#line 5 \"fps/sparse.hpp\"\n\nnamespace FPSSparse {\ntemplate <class\
-    \ mint>\nFormalPowerSeries<mint> inv(map<int, mint> f, int n) {\n  assert(f[0]\
-    \ != 0);\n  if (n == 0) return {};\n  mint c = f[0].inv();\n  FormalPowerSeries<mint>\
-    \ g(n);\n  g[0] = c;\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v] :\
-    \ f)\n      if (j <= i) g[i] -= v * g[i - j];\n    g[i] *= c;\n  }\n  return g;\n\
-    }\ntemplate <class mint>\nFormalPowerSeries<mint> exp(map<int, mint> f, int n)\
-    \ {\n  assert(f[0] == 0);\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
-    \ g(n);\n  g[0] = 1;\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v] :\
-    \ f)\n      if (j <= i) g[i] += j * v * g[i - j];\n    g[i] *= Factorial<mint>::inv(i);\n\
-    \  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> log(map<int,\
-    \ mint> f, int n) {\n  assert(f[0] == 1);\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
-    \ g(n);\n  g[0] = 0;\n  for (auto [j, v] : f)\n    if (0 < j && j < n) g[j - 1]\
-    \ = v * j;\n  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f)\n     \
-    \ if (0 < j && j <= i) g[i] -= v * g[i - j];\n  }\n  for (int i = n - 1; i > 0;\
-    \ i--) g[i] = g[i - 1] * Factorial<mint>::inv(i);\n  g[0] = 0;\n  return g;\n\
-    }\ntemplate <class mint>\nFormalPowerSeries<mint> pow(map<int, mint> f, long long\
-    \ m, int n) {\n  if (n == 0) return {};\n  FormalPowerSeries<mint> g(n, 0);\n\
-    \  if (m == 0) {\n    g[0] = 1;\n    return g;\n  }\n  if (!f.contains(0) || f[0]\
-    \ == 0) {\n    if (m >= n) return g;\n    int s = n;\n    for (auto [i, v] : f)\n\
-    \      if (v != 0 && i < s) s = i;\n    if (s * m >= n) return g;\n    map<int,\
-    \ mint> f1;\n    for (auto [i, v] : f) f1[i - s] = v;\n    auto g1 = pow(f1, m,\
-    \ int(n - s * m));\n    copy(g1.begin(), g1.end(), g.begin() + int(s * m));\n\
-    \    return g;\n  }\n  g[0] = f[0].pow(m);\n  mint c = f[0].inv();\n  for (int\
-    \ i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j && j <= i)\
-    \ g[i] += j * f[j] * g[i - j] * m;\n      if (0 < j && j < i) g[i] -= f[j] * (i\
-    \ - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n  }\n  return\
-    \ g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> sqrt(map<int, mint> f,\
-    \ int n) {\n  if (n == 0) return {};\n  if (f.empty()) return FormalPowerSeries<mint>(n,\
+    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz)\n      this->clear();\n\
+    \    else\n      this->erase(this->begin(), this->begin() + sz);\n    return *this;\n\
+    \  }\n  FPS operator>>(int sz) const {\n    if ((int)this->size() <= sz) return\
+    \ {};\n    FPS ret(*this);\n    ret.erase(ret.begin(), ret.begin() + sz);\n  \
+    \  return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz >= 0);\n    this->insert(this->begin(),\
+    \ sz, mint(0));\n    return *this;\n  }\n  FPS operator<<(int sz) const {\n  \
+    \  FPS ret(*this);\n    ret.insert(ret.begin(), sz, mint(0));\n    return ret;\n\
+    \  }\n  FPS diff() const {\n    const int n = (int)this->size();\n    FPS ret(max(0,\
+    \ n - 1));\n    mint one(1), coeff(1);\n    for (int i = 1; i < n; i++) {\n  \
+    \    ret[i - 1] = (*this)[i] * coeff;\n      coeff += one;\n    }\n    return\
+    \ ret;\n  }\n  FPS integral() const {\n    const int n = (int)this->size();\n\
+    \    FPS ret(n + 1);\n    ret[0] = mint(0);\n    if (n > 0) ret[1] = mint(1);\n\
+    \    auto mod = mint::get_mod();\n    for (int i = 2; i <= n; i++) ret[i] = (-ret[mod\
+    \ % i]) * (mod / i);\n    for (int i = 0; i < n; i++) ret[i + 1] *= (*this)[i];\n\
+    \    return ret;\n  }\n  mint eval(mint x) const {\n    mint r = 0, w = 1;\n \
+    \   for (auto& v : *this) r += w * v, w *= x;\n    return r;\n  }\n  FPS log(int\
+    \ deg = -1) const {\n    assert((*this)[0] == mint(1));\n    if (deg == -1) deg\
+    \ = (int)this->size();\n    return (this->diff() * this->inv(deg)).pre(deg - 1).integral();\n\
+    \  }\n  FPS pow(int64_t k, int deg = -1) const {\n    const int n = (int)this->size();\n\
+    \    if (deg == -1) deg = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if\
+    \ (deg) ret[0] = 1;\n      return ret;\n    }\n    for (int i = 0; i < n; i++)\
+    \ {\n      if ((*this)[i] != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n\
+    \        FPS ret = (((*this * rev) >> i).log(deg) * k).exp(deg);\n        ret\
+    \ *= (*this)[i].pow(k);\n        ret = (ret << (i * k)).pre(deg);\n        if\
+    \ ((int)ret.size() < deg) ret.resize(deg, mint(0));\n        return ret;\n   \
+    \   }\n      if (__int128_t(i + 1) * k >= deg) return FPS(deg, mint(0));\n   \
+    \ }\n    return FPS(deg, mint(0));\n  }\n\n  static void* ntt_ptr;\n  static void\
+    \ set_ntt();\n  FPS& operator*=(const FPS& r);\n  FPS middle_product(const FPS&\
+    \ r) const;\n  void ntt();\n  void intt();\n  void ntt_doubling();\n  static int\
+    \ ntt_root();\n  FPS inv(int deg = -1) const;\n  FPS exp(int deg = -1) const;\n\
+    };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
+    #line 5 \"fps/sparse.hpp\"\n\nnamespace FPSSparse {\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ inv(map<int, mint> f, int n) {\n  assert(f[0] != 0);\n  if (n == 0) return {};\n\
+    \  mint c = f[0].inv();\n  FormalPowerSeries<mint> g(n);\n  g[0] = c;\n  for (int\
+    \ i = 1; i < n; i++) {\n    for (auto [j, v] : f)\n      if (j <= i) g[i] -= v\
+    \ * g[i - j];\n    g[i] *= c;\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ exp(map<int, mint> f, int n) {\n  assert(f[0] == 0);\n  if (n == 0) return {};\n\
+    \  FormalPowerSeries<mint> g(n);\n  g[0] = 1;\n  for (int i = 1; i < n; i++) {\n\
+    \    for (auto [j, v] : f)\n      if (j <= i) g[i] += j * v * g[i - j];\n    g[i]\
+    \ *= Factorial<mint>::inv(i);\n  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ log(map<int, mint> f, int n) {\n  assert(f[0] == 1);\n  if (n == 0) return {};\n\
+    \  FormalPowerSeries<mint> g(n);\n  g[0] = 0;\n  for (auto [j, v] : f)\n    if\
+    \ (0 < j && j < n) g[j - 1] = v * j;\n  for (int i = 1; i < n; i++) {\n    for\
+    \ (auto [j, v] : f)\n      if (0 < j && j <= i) g[i] -= v * g[i - j];\n  }\n \
+    \ for (int i = n - 1; i > 0; i--) g[i] = g[i - 1] * Factorial<mint>::inv(i);\n\
+    \  g[0] = 0;\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> pow(map<int,\
+    \ mint> f, long long m, int n) {\n  if (n == 0) return {};\n  FormalPowerSeries<mint>\
+    \ g(n, 0);\n  if (m == 0) {\n    g[0] = 1;\n    return g;\n  }\n  if (!f.contains(0)\
+    \ || f[0] == 0) {\n    if (m >= n) return g;\n    int s = n;\n    for (auto [i,\
+    \ v] : f)\n      if (v != 0 && i < s) s = i;\n    if (s * m >= n) return g;\n\
+    \    map<int, mint> f1;\n    for (auto [i, v] : f) f1[i - s] = v;\n    auto g1\
+    \ = pow(f1, m, int(n - s * m));\n    copy(g1.begin(), g1.end(), g.begin() + int(s\
+    \ * m));\n    return g;\n  }\n  g[0] = f[0].pow(m);\n  mint c = f[0].inv();\n\
+    \  for (int i = 1; i < n; i++) {\n    for (auto [j, v] : f) {\n      if (0 < j\
+    \ && j <= i) g[i] += j * f[j] * g[i - j] * m;\n      if (0 < j && j < i) g[i]\
+    \ -= f[j] * (i - j) * g[i - j];\n    }\n    g[i] *= c * Factorial<mint>::inv(i);\n\
+    \  }\n  return g;\n}\ntemplate <class mint>\nFormalPowerSeries<mint> sqrt(map<int,\
+    \ mint> f, int n) {\n  if (n == 0) return {};\n  if (f.empty()) return FormalPowerSeries<mint>(n,\
     \ 0);\n  FormalPowerSeries<mint> g(n, 0);\n  if (f[0] == 0) {\n    int s = n *\
     \ 2;\n    for (auto [i, v] : f)\n      if (v != 0 && i < s) s = i;\n    if (s\
     \ & 1) return {};\n    s /= 2;\n    if (s >= n) return g;\n    map<int, mint>\
@@ -275,7 +275,7 @@ data:
   isVerificationFile: false
   path: fps/sparse.hpp
   requiredBy: []
-  timestamp: '2025-11-01 12:35:25+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp

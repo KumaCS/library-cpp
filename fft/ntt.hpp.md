@@ -6,6 +6,9 @@ data:
     path: convolution/intmod.hpp
     title: "\u4EFB\u610F mod \u7573\u307F\u8FBC\u307F"
   - icon: ':heavy_check_mark:'
+    path: convolution/mod2_64.hpp
+    title: "\u7573\u307F\u8FBC\u307F mod 2^64"
+  - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
   _extendedVerifiedWith:
@@ -15,6 +18,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/convolution/LC_convolution_mod_1000000007.test.cpp
     title: verify/convolution/LC_convolution_mod_1000000007.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/convolution/LC_convolution_mod_2_64.test.cpp
+    title: verify/convolution/LC_convolution_mod_2_64.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_bell_number.test.cpp
+    title: verify/fps/LC_bell_number.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_composition_of_formal_power_series.test.cpp
     title: verify/fps/LC_composition_of_formal_power_series.test.cpp
@@ -336,6 +345,7 @@ data:
   path: fft/ntt.hpp
   requiredBy:
   - fps/fps-ntt-friendly.hpp
+  - convolution/mod2_64.hpp
   - convolution/intmod.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -347,6 +357,7 @@ data:
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
   - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_log_of_formal_power_series.test.cpp
@@ -380,6 +391,7 @@ data:
   - verify/fps/LC_inv_of_formal_power_series.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
   - verify/convolution/LC_convolution_mod_1000000007.test.cpp
+  - verify/convolution/LC_convolution_mod_2_64.test.cpp
   - verify/convolution/LC_convolution_mod.test.cpp
 documentation_of: fft/ntt.hpp
 layout: document

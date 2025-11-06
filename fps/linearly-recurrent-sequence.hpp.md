@@ -68,59 +68,60 @@ data:
     \ r.size()));\n    for (int i = 0; i < (int)ret.size(); i++) ret[i] = (*this)[i]\
     \ * r[i];\n    return ret;\n  }\n  FPS pre(int sz) const {\n    return FPS(begin(*this),\
     \ begin(*this) + min((int)this->size(), sz));\n  }\n  FPS operator>>=(int sz)\
-    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz) return {};\n    this->erase(this->begin(),\
-    \ this->begin() + sz);\n    return *this;\n  }\n  FPS operator>>(int sz) const\
-    \ {\n    if ((int)this->size() <= sz) return {};\n    FPS ret(*this);\n    ret.erase(ret.begin(),\
-    \ ret.begin() + sz);\n    return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz\
-    \ >= 0);\n    this->insert(this->begin(), sz, mint(0));\n    return *this;\n \
-    \ }\n  FPS operator<<(int sz) const {\n    FPS ret(*this);\n    ret.insert(ret.begin(),\
-    \ sz, mint(0));\n    return ret;\n  }\n  FPS diff() const {\n    const int n =\
-    \ (int)this->size();\n    FPS ret(max(0, n - 1));\n    mint one(1), coeff(1);\n\
-    \    for (int i = 1; i < n; i++) {\n      ret[i - 1] = (*this)[i] * coeff;\n \
-    \     coeff += one;\n    }\n    return ret;\n  }\n  FPS integral() const {\n \
-    \   const int n = (int)this->size();\n    FPS ret(n + 1);\n    ret[0] = mint(0);\n\
-    \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
-    \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
-    \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
-    \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
-    \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
-    \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
-    \ = -1) const {\n    const int n = (int)this->size();\n    if (deg == -1) deg\
-    \ = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if (deg) ret[0] = 1;\n \
-    \     return ret;\n    }\n    for (int i = 0; i < n; i++) {\n      if ((*this)[i]\
-    \ != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n        FPS ret = (((*this\
-    \ * rev) >> i).log(deg) * k).exp(deg);\n        ret *= (*this)[i].pow(k);\n  \
-    \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
-    \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
-    \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
-    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
-    \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
-    \ = nullptr;\n#line 3 \"fps/berlekamp-massey.hpp\"\n\ntemplate <class mint>\n\
-    FormalPowerSeries<mint> BerlekampMassey(const FormalPowerSeries<mint>& a) {\n\
-    \  int n = a.size();\n  FormalPowerSeries<mint> b, c;\n  b.reserve(n + 1), c.reserve(n\
-    \ + 1);\n  b.push_back(1), c.push_back(1);\n  mint y = 1;\n  for (int k = 0; k\
-    \ < n; k++) {\n    mint x = 0;\n    for (int i = 0; i < c.size(); i++) x += c[i]\
-    \ * a[k - i];\n    b.insert(b.begin(), 0);\n    if (x == 0) continue;\n    mint\
-    \ v = x / y;\n    if (b.size() > c.size()) {\n      for (int i = 0; i < b.size();\
-    \ i++) b[i] *= -v;\n      for (int i = 0; i < c.size(); i++) b[i] += c[i];\n \
-    \     swap(b, c);\n      y = x;\n    } else {\n      for (int i = 0; i < b.size();\
-    \ i++) c[i] -= v * b[i];\n    }\n  }\n  return c;\n}\n\n/**\n * @brief Berlekamp-Massey\n\
-    \ * @docs docs/fps/berlekamp-massey.md\n */\n#line 3 \"fps/bostan-mori.hpp\"\n\
-    \n// [x^n]f(x)/g(x)\ntemplate <class mint>\nmint BostanMori(FormalPowerSeries<mint>\
-    \ f, FormalPowerSeries<mint> g, long long n) {\n  g.shrink();\n  mint ret = 0;\n\
-    \  if (f.size() >= g.size()) {\n    auto q = f / g;\n    if (n < q.size()) ret\
-    \ += q[n];\n    f -= q * g;\n    f.shrink();\n  }\n  if (f.empty()) return ret;\n\
-    \  FormalPowerSeries<mint>::set_ntt();\n  if (!FormalPowerSeries<mint>::ntt_ptr)\
-    \ {\n    f.resize(g.size() - 1);\n    for (; n > 0; n >>= 1) {\n      auto g1\
-    \ = g;\n      for (int i = 1; i < g1.size(); i += 2) g1[i] = -g1[i];\n      auto\
-    \ p = f * g1, q = g * g1;\n      if (n & 1) {\n        for (int i = 0; i < f.size();\
-    \ i++) f[i] = p[(i << 1) | 1];\n      } else {\n        for (int i = 0; i < f.size();\
-    \ i++) f[i] = p[i << 1];\n      }\n      for (int i = 0; i < g.size(); i++) g[i]\
-    \ = q[i << 1];\n    }\n    return ret + f[0] / g[0];\n  } else {\n    int m =\
-    \ 1, log = 0;\n    while (m < g.size()) m <<= 1, log++;\n    mint wi = mint(FormalPowerSeries<mint>::ntt_root()).inv().pow((mint::get_mod()\
+    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz)\n      this->clear();\n\
+    \    else\n      this->erase(this->begin(), this->begin() + sz);\n    return *this;\n\
+    \  }\n  FPS operator>>(int sz) const {\n    if ((int)this->size() <= sz) return\
+    \ {};\n    FPS ret(*this);\n    ret.erase(ret.begin(), ret.begin() + sz);\n  \
+    \  return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz >= 0);\n    this->insert(this->begin(),\
+    \ sz, mint(0));\n    return *this;\n  }\n  FPS operator<<(int sz) const {\n  \
+    \  FPS ret(*this);\n    ret.insert(ret.begin(), sz, mint(0));\n    return ret;\n\
+    \  }\n  FPS diff() const {\n    const int n = (int)this->size();\n    FPS ret(max(0,\
+    \ n - 1));\n    mint one(1), coeff(1);\n    for (int i = 1; i < n; i++) {\n  \
+    \    ret[i - 1] = (*this)[i] * coeff;\n      coeff += one;\n    }\n    return\
+    \ ret;\n  }\n  FPS integral() const {\n    const int n = (int)this->size();\n\
+    \    FPS ret(n + 1);\n    ret[0] = mint(0);\n    if (n > 0) ret[1] = mint(1);\n\
+    \    auto mod = mint::get_mod();\n    for (int i = 2; i <= n; i++) ret[i] = (-ret[mod\
+    \ % i]) * (mod / i);\n    for (int i = 0; i < n; i++) ret[i + 1] *= (*this)[i];\n\
+    \    return ret;\n  }\n  mint eval(mint x) const {\n    mint r = 0, w = 1;\n \
+    \   for (auto& v : *this) r += w * v, w *= x;\n    return r;\n  }\n  FPS log(int\
+    \ deg = -1) const {\n    assert((*this)[0] == mint(1));\n    if (deg == -1) deg\
+    \ = (int)this->size();\n    return (this->diff() * this->inv(deg)).pre(deg - 1).integral();\n\
+    \  }\n  FPS pow(int64_t k, int deg = -1) const {\n    const int n = (int)this->size();\n\
+    \    if (deg == -1) deg = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if\
+    \ (deg) ret[0] = 1;\n      return ret;\n    }\n    for (int i = 0; i < n; i++)\
+    \ {\n      if ((*this)[i] != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n\
+    \        FPS ret = (((*this * rev) >> i).log(deg) * k).exp(deg);\n        ret\
+    \ *= (*this)[i].pow(k);\n        ret = (ret << (i * k)).pre(deg);\n        if\
+    \ ((int)ret.size() < deg) ret.resize(deg, mint(0));\n        return ret;\n   \
+    \   }\n      if (__int128_t(i + 1) * k >= deg) return FPS(deg, mint(0));\n   \
+    \ }\n    return FPS(deg, mint(0));\n  }\n\n  static void* ntt_ptr;\n  static void\
+    \ set_ntt();\n  FPS& operator*=(const FPS& r);\n  FPS middle_product(const FPS&\
+    \ r) const;\n  void ntt();\n  void intt();\n  void ntt_doubling();\n  static int\
+    \ ntt_root();\n  FPS inv(int deg = -1) const;\n  FPS exp(int deg = -1) const;\n\
+    };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
+    #line 3 \"fps/berlekamp-massey.hpp\"\n\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ BerlekampMassey(const FormalPowerSeries<mint>& a) {\n  int n = a.size();\n \
+    \ FormalPowerSeries<mint> b, c;\n  b.reserve(n + 1), c.reserve(n + 1);\n  b.push_back(1),\
+    \ c.push_back(1);\n  mint y = 1;\n  for (int k = 0; k < n; k++) {\n    mint x\
+    \ = 0;\n    for (int i = 0; i < c.size(); i++) x += c[i] * a[k - i];\n    b.insert(b.begin(),\
+    \ 0);\n    if (x == 0) continue;\n    mint v = x / y;\n    if (b.size() > c.size())\
+    \ {\n      for (int i = 0; i < b.size(); i++) b[i] *= -v;\n      for (int i =\
+    \ 0; i < c.size(); i++) b[i] += c[i];\n      swap(b, c);\n      y = x;\n    }\
+    \ else {\n      for (int i = 0; i < b.size(); i++) c[i] -= v * b[i];\n    }\n\
+    \  }\n  return c;\n}\n\n/**\n * @brief Berlekamp-Massey\n * @docs docs/fps/berlekamp-massey.md\n\
+    \ */\n#line 3 \"fps/bostan-mori.hpp\"\n\n// [x^n]f(x)/g(x)\ntemplate <class mint>\n\
+    mint BostanMori(FormalPowerSeries<mint> f, FormalPowerSeries<mint> g, long long\
+    \ n) {\n  g.shrink();\n  mint ret = 0;\n  if (f.size() >= g.size()) {\n    auto\
+    \ q = f / g;\n    if (n < q.size()) ret += q[n];\n    f -= q * g;\n    f.shrink();\n\
+    \  }\n  if (f.empty()) return ret;\n  FormalPowerSeries<mint>::set_ntt();\n  if\
+    \ (!FormalPowerSeries<mint>::ntt_ptr) {\n    f.resize(g.size() - 1);\n    for\
+    \ (; n > 0; n >>= 1) {\n      auto g1 = g;\n      for (int i = 1; i < g1.size();\
+    \ i += 2) g1[i] = -g1[i];\n      auto p = f * g1, q = g * g1;\n      if (n & 1)\
+    \ {\n        for (int i = 0; i < f.size(); i++) f[i] = p[(i << 1) | 1];\n    \
+    \  } else {\n        for (int i = 0; i < f.size(); i++) f[i] = p[i << 1];\n  \
+    \    }\n      for (int i = 0; i < g.size(); i++) g[i] = q[i << 1];\n    }\n  \
+    \  return ret + f[0] / g[0];\n  } else {\n    int m = 1, log = 0;\n    while (m\
+    \ < g.size()) m <<= 1, log++;\n    mint wi = mint(FormalPowerSeries<mint>::ntt_root()).inv().pow((mint::get_mod()\
     \ - 1) >> (log + 1));\n    vector<int> rev(m);\n    for (int i = 0; i < rev.size();\
     \ i++) rev[i] = (rev[i / 2] / 2) | ((i & 1) << (log - 1));\n    vector<mint> pow(m,\
     \ 1);\n    for (int i = 1; i < m; i++) pow[rev[i]] = pow[rev[i - 1]] * wi;\n \
@@ -220,7 +221,7 @@ data:
   isVerificationFile: false
   path: fps/linearly-recurrent-sequence.hpp
   requiredBy: []
-  timestamp: '2025-10-31 21:40:36+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp

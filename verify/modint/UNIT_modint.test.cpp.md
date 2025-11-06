@@ -97,69 +97,71 @@ data:
     \  }\n  x = x00, y = x10;\n  if (sgn_a) x = -x;\n  if (sgn_b) y = -y;\n  if (b0\
     \ != 0) {\n    a0 /= a, b0 /= a;\n    if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q\
     \ = x >= 0 ? x / b0 : (x + 1) / b0 - 1;\n    x -= b0 * q;\n    y += a0 * q;\n\
-    \  }\n  return a;\n}\nlong long inv_mod(long long x, long long m) {\n  x %= m;\n\
-    \  if (x < 0) x += m;\n  long long a = m, b = x;\n  long long y0 = 0, y1 = 1;\n\
-    \  while (b > 0) {\n    long long q = a / b;\n    swap(a -= q * b, b);\n    swap(y0\
-    \ -= q * y1, y1);\n  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\nlong long\
-    \ pow_mod(long long x, long long n, long long m) {\n  x = (x % m + m) % m;\n \
-    \ long long y = 1;\n  while (n) {\n    if (n & 1) y = y * x % m;\n    x = x *\
-    \ x % m;\n    n >>= 1;\n  }\n  return y;\n}\nconstexpr long long pow_mod_constexpr(long\
-    \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
-    \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
-    \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
-    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
-    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
-    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
-    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
-    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
-    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
-    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
-    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
-    \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
-    \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
-    \    x._v = v;\n    return x;\n  }\n  ModInt() : _v(0) {}\n  ModInt(int64_t v)\
-    \ {\n    long long x = (long long)(v % (long long)(umod()));\n    if (x < 0) x\
-    \ += umod();\n    _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return\
-    \ _v; }\n  mint& operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n  \
-    \  return *this;\n  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n\
-    \    _v--;\n    return *this;\n  }\n  mint operator++(int) {\n    mint result\
-    \ = *this;\n    ++*this;\n    return result;\n  }\n  mint operator--(int) {\n\
-    \    mint result = *this;\n    --*this;\n    return result;\n  }\n  mint& operator+=(const\
-    \ mint& rhs) {\n    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return\
-    \ *this;\n  }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if\
-    \ (_v >= umod()) _v += umod();\n    return *this;\n  }\n  mint& operator*=(const\
-    \ mint& rhs) {\n    unsigned long long z = _v;\n    z *= rhs._v;\n    _v = (unsigned\
-    \ int)(z % umod());\n    return *this;\n  }\n  mint& operator/=(const mint& rhs)\
-    \ { return *this = *this * rhs.inv(); }\n  mint operator+() const { return *this;\
-    \ }\n  mint operator-() const { return mint() - *this; }\n  mint pow(long long\
-    \ n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n    while (n) {\n\
-    \      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n    }\n    return r;\n\
-    \  }\n  mint inv() const {\n    if (is_prime) {\n      assert(_v);\n      return\
-    \ pow(umod() - 2);\n    } else {\n      auto inv = Math::inv_mod(_v, umod());\n\
-    \      return raw(inv);\n    }\n  }\n  friend mint operator+(const mint& lhs,\
-    \ const mint& rhs) { return mint(lhs) += rhs; }\n  friend mint operator-(const\
-    \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n  friend mint operator*(const\
-    \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n  friend mint operator/(const\
-    \ mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }\n  friend bool operator==(const\
-    \ mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }\n  friend bool operator!=(const\
-    \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream&\
-    \ operator>>(istream& is, mint& x) { return is >> x._v; }\n  friend ostream& operator<<(ostream&\
-    \ os, const mint& x) { return os << x.val(); }\n\n private:\n  unsigned int _v;\n\
-    \  static constexpr unsigned int umod() { return m; }\n  static constexpr bool\
-    \ is_prime = Math::is_prime<m>;\n};\n#line 5 \"verify/modint/UNIT_modint.test.cpp\"\
-    \n\ntemplate <unsigned int mod>\nvoid test() {\n  using mint = ModInt<mod>;\n\
-    \  unsigned int m = mint::get_mod();\n  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n\
-    \    assert(mint(n).val() == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b\
-    \ = 271;\n    rep(i, 0, 100) {\n      mint x(a), y(b);\n      assert((x + y).val()\
-    \ == (a + b) % m);\n      assert((x - y).val() == (a - b + m) % m);\n      assert((x\
-    \ * y).val() == (a * b) % m);\n      if (gcd(m, b) == 1) {\n        if((x / y)\
-    \ * y != x)show(m,x,y,x/y,x/y*y);\n        assert((x / y) * y == x);\n      }\n\
-    \      mint z = 1;\n      rep(j, 0, 100) {\n        assert(z == x.pow(j));\n \
-    \       z *= x;\n      }\n      a = (a * 159 + 265) % m;\n      b = (b * 828 +\
-    \ 182) % m;\n    }\n  }\n}\n\nint main() {\n  test<998244353>();\n  test<1000000007>();\n\
-    \  test<1>();\n  test<2>();\n  test<3>();\n  test<1000000000>();\n\n  int a, b;\n\
-    \  in(a, b);\n  out(a + b);\n}\n"
+    \  }\n  return a;\n}\nconstexpr long long inv_mod(long long x, long long m) {\n\
+    \  x %= m;\n  if (x < 0) x += m;\n  long long a = m, b = x;\n  long long y0 =\
+    \ 0, y1 = 1;\n  while (b > 0) {\n    long long q = a / b;\n    swap(a -= q * b,\
+    \ b);\n    swap(y0 -= q * y1, y1);\n  }\n  if (y0 < 0) y0 += m / a;\n  return\
+    \ y0;\n}\nlong long pow_mod(long long x, long long n, long long m) {\n  x = (x\
+    \ % m + m) % m;\n  long long y = 1;\n  while (n) {\n    if (n & 1) y = y * x %\
+    \ m;\n    x = x * x % m;\n    n >>= 1;\n  }\n  return y;\n}\nconstexpr long long\
+    \ pow_mod_constexpr(long long x, long long n, int m) {\n  if (m == 1) return 0;\n\
+    \  unsigned int _m = (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned\
+    \ long long y = x % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r\
+    \ = (r * y) % _m;\n    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\n\
+    constexpr bool is_prime_constexpr(int n) {\n  if (n <= 1) return false;\n  if\
+    \ (n == 2 || n == 7 || n == 61) return true;\n  if (n % 2 == 0) return false;\n\
+    \  long long d = n - 1;\n  while (d % 2 == 0) d /= 2;\n  constexpr long long bases[3]\
+    \ = {2, 7, 61};\n  for (long long a : bases) {\n    long long t = d;\n    long\
+    \ long y = pow_mod_constexpr(a, t, n);\n    while (t != n - 1 && y != 1 && y !=\
+    \ n - 1) {\n      y = y * y % n;\n      t <<= 1;\n    }\n    if (y != n - 1 &&\
+    \ t % 2 == 0) {\n      return false;\n    }\n  }\n  return true;\n}\ntemplate\
+    \ <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n};  // namespace\
+    \ Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int m = 998244353>\n\
+    struct ModInt {\n  using mint = ModInt;\n  static constexpr unsigned int get_mod()\
+    \ { return m; }\n  static mint raw(int v) {\n    mint x;\n    x._v = v;\n    return\
+    \ x;\n  }\n  ModInt() : _v(0) {}\n  ModInt(int64_t v) {\n    long long x = (long\
+    \ long)(v % (long long)(umod()));\n    if (x < 0) x += umod();\n    _v = (unsigned\
+    \ int)(x);\n  }\n  unsigned int val() const { return _v; }\n  mint& operator++()\
+    \ {\n    _v++;\n    if (_v == umod()) _v = 0;\n    return *this;\n  }\n  mint&\
+    \ operator--() {\n    if (_v == 0) _v = umod();\n    _v--;\n    return *this;\n\
+    \  }\n  mint operator++(int) {\n    mint result = *this;\n    ++*this;\n    return\
+    \ result;\n  }\n  mint operator--(int) {\n    mint result = *this;\n    --*this;\n\
+    \    return result;\n  }\n  mint& operator+=(const mint& rhs) {\n    _v += rhs._v;\n\
+    \    if (_v >= umod()) _v -= umod();\n    return *this;\n  }\n  mint& operator-=(const\
+    \ mint& rhs) {\n    _v -= rhs._v;\n    if (_v >= umod()) _v += umod();\n    return\
+    \ *this;\n  }\n  mint& operator*=(const mint& rhs) {\n    unsigned long long z\
+    \ = _v;\n    z *= rhs._v;\n    _v = (unsigned int)(z % umod());\n    return *this;\n\
+    \  }\n  mint& operator/=(const mint& rhs) { return *this *= rhs.inv(); }\n  mint\
+    \ operator+() const { return *this; }\n  mint operator-() const { return mint()\
+    \ - *this; }\n  mint pow(long long n) const {\n    assert(0 <= n);\n    mint x\
+    \ = *this, r = 1;\n    while (n) {\n      if (n & 1) r *= x;\n      x *= x;\n\
+    \      n >>= 1;\n    }\n    return r;\n  }\n  mint inv() const {\n    if (is_prime)\
+    \ {\n      assert(_v);\n      return pow(umod() - 2);\n    } else {\n      auto\
+    \ inv = Math::inv_mod(_v, umod());\n      return raw(inv);\n    }\n  }\n  friend\
+    \ mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs;\
+    \ }\n  friend mint operator-(const mint& lhs, const mint& rhs) { return mint(lhs)\
+    \ -= rhs; }\n  friend mint operator*(const mint& lhs, const mint& rhs) { return\
+    \ mint(lhs) *= rhs; }\n  friend mint operator/(const mint& lhs, const mint& rhs)\
+    \ { return mint(lhs) /= rhs; }\n  friend bool operator==(const mint& lhs, const\
+    \ mint& rhs) { return lhs._v == rhs._v; }\n  friend bool operator!=(const mint&\
+    \ lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream& operator>>(istream&\
+    \ is, mint& x) {\n    int64_t v;\n    is >> v;\n    x = mint(v);\n    return is;\n\
+    \  }\n  friend ostream& operator<<(ostream& os, const mint& x) { return os <<\
+    \ x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr unsigned int\
+    \ umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
+    };\n#line 5 \"verify/modint/UNIT_modint.test.cpp\"\n\ntemplate <unsigned int mod>\n\
+    void test() {\n  using mint = ModInt<mod>;\n  unsigned int m = mint::get_mod();\n\
+    \  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n    assert(mint(n).val()\
+    \ == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b = 271;\n    rep(i, 0, 100)\
+    \ {\n      mint x(a), y(b);\n      assert((x + y).val() == (a + b) % m);\n   \
+    \   assert((x - y).val() == (a - b + m) % m);\n      assert((x * y).val() == (a\
+    \ * b) % m);\n      if (gcd(m, b) == 1) {\n        if((x / y) * y != x)show(m,x,y,x/y,x/y*y);\n\
+    \        assert((x / y) * y == x);\n      }\n      mint z = 1;\n      rep(j, 0,\
+    \ 100) {\n        assert(z == x.pow(j));\n        z *= x;\n      }\n      a =\
+    \ (a * 159 + 265) % m;\n      b = (b * 828 + 182) % m;\n    }\n  }\n}\n\nint main()\
+    \ {\n  test<998244353>();\n  test<1000000007>();\n  test<1>();\n  test<2>();\n\
+    \  test<3>();\n  test<1000000000>();\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n\
+    }\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
     template/template.hpp\"\n#include \"modint/modint.hpp\"\n\ntemplate <unsigned\
     \ int mod>\nvoid test() {\n  using mint = ModInt<mod>;\n  unsigned int m = mint::get_mod();\n\
@@ -185,7 +187,7 @@ data:
   isVerificationFile: true
   path: verify/modint/UNIT_modint.test.cpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/modint/UNIT_modint.test.cpp

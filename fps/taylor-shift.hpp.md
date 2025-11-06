@@ -16,11 +16,17 @@ data:
     title: "\u6709\u540D\u6570\u5217"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_bell_number.test.cpp
+    title: verify/fps/LC_bell_number.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_composition_of_formal_power_series.test.cpp
     title: verify/fps/LC_composition_of_formal_power_series.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
     title: verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_montmort_number_mod.test.cpp
+    title: verify/fps/LC_montmort_number_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_partition_function.test.cpp
     title: verify/fps/LC_partition_function.test.cpp
@@ -116,44 +122,45 @@ data:
     \ r.size()));\n    for (int i = 0; i < (int)ret.size(); i++) ret[i] = (*this)[i]\
     \ * r[i];\n    return ret;\n  }\n  FPS pre(int sz) const {\n    return FPS(begin(*this),\
     \ begin(*this) + min((int)this->size(), sz));\n  }\n  FPS operator>>=(int sz)\
-    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz) return {};\n    this->erase(this->begin(),\
-    \ this->begin() + sz);\n    return *this;\n  }\n  FPS operator>>(int sz) const\
-    \ {\n    if ((int)this->size() <= sz) return {};\n    FPS ret(*this);\n    ret.erase(ret.begin(),\
-    \ ret.begin() + sz);\n    return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz\
-    \ >= 0);\n    this->insert(this->begin(), sz, mint(0));\n    return *this;\n \
-    \ }\n  FPS operator<<(int sz) const {\n    FPS ret(*this);\n    ret.insert(ret.begin(),\
-    \ sz, mint(0));\n    return ret;\n  }\n  FPS diff() const {\n    const int n =\
-    \ (int)this->size();\n    FPS ret(max(0, n - 1));\n    mint one(1), coeff(1);\n\
-    \    for (int i = 1; i < n; i++) {\n      ret[i - 1] = (*this)[i] * coeff;\n \
-    \     coeff += one;\n    }\n    return ret;\n  }\n  FPS integral() const {\n \
-    \   const int n = (int)this->size();\n    FPS ret(n + 1);\n    ret[0] = mint(0);\n\
-    \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
-    \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
-    \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
-    \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
-    \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
-    \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
-    \ = -1) const {\n    const int n = (int)this->size();\n    if (deg == -1) deg\
-    \ = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if (deg) ret[0] = 1;\n \
-    \     return ret;\n    }\n    for (int i = 0; i < n; i++) {\n      if ((*this)[i]\
-    \ != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n        FPS ret = (((*this\
-    \ * rev) >> i).log(deg) * k).exp(deg);\n        ret *= (*this)[i].pow(k);\n  \
-    \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
-    \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
-    \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
-    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
-    \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
-    \ = nullptr;\n#line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\n\
-    FormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using\
-    \ fps = FormalPowerSeries<mint>;\n  int n = f.size();\n  using fact = Factorial<mint>;\n\
-    \  fact::reserve(n);\n  for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n \
-    \ reverse(f.begin(), f.end());\n  fps g(n, mint(1));\n  for (int i = 1; i < n;\
-    \ i++) g[i] = g[i - 1] * a * fact::inv(i);\n  f = (f * g).pre(n);\n  reverse(f.begin(),\
-    \ f.end());\n  for (int i = 0; i < n; i++) f[i] *= fact::fact_inv(i);\n  return\
-    \ f;\n}\n/**\n * @brief Taylor Shift\n * @docs docs/fps/taylor-shift.md\n */\n"
+    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz)\n      this->clear();\n\
+    \    else\n      this->erase(this->begin(), this->begin() + sz);\n    return *this;\n\
+    \  }\n  FPS operator>>(int sz) const {\n    if ((int)this->size() <= sz) return\
+    \ {};\n    FPS ret(*this);\n    ret.erase(ret.begin(), ret.begin() + sz);\n  \
+    \  return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz >= 0);\n    this->insert(this->begin(),\
+    \ sz, mint(0));\n    return *this;\n  }\n  FPS operator<<(int sz) const {\n  \
+    \  FPS ret(*this);\n    ret.insert(ret.begin(), sz, mint(0));\n    return ret;\n\
+    \  }\n  FPS diff() const {\n    const int n = (int)this->size();\n    FPS ret(max(0,\
+    \ n - 1));\n    mint one(1), coeff(1);\n    for (int i = 1; i < n; i++) {\n  \
+    \    ret[i - 1] = (*this)[i] * coeff;\n      coeff += one;\n    }\n    return\
+    \ ret;\n  }\n  FPS integral() const {\n    const int n = (int)this->size();\n\
+    \    FPS ret(n + 1);\n    ret[0] = mint(0);\n    if (n > 0) ret[1] = mint(1);\n\
+    \    auto mod = mint::get_mod();\n    for (int i = 2; i <= n; i++) ret[i] = (-ret[mod\
+    \ % i]) * (mod / i);\n    for (int i = 0; i < n; i++) ret[i + 1] *= (*this)[i];\n\
+    \    return ret;\n  }\n  mint eval(mint x) const {\n    mint r = 0, w = 1;\n \
+    \   for (auto& v : *this) r += w * v, w *= x;\n    return r;\n  }\n  FPS log(int\
+    \ deg = -1) const {\n    assert((*this)[0] == mint(1));\n    if (deg == -1) deg\
+    \ = (int)this->size();\n    return (this->diff() * this->inv(deg)).pre(deg - 1).integral();\n\
+    \  }\n  FPS pow(int64_t k, int deg = -1) const {\n    const int n = (int)this->size();\n\
+    \    if (deg == -1) deg = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if\
+    \ (deg) ret[0] = 1;\n      return ret;\n    }\n    for (int i = 0; i < n; i++)\
+    \ {\n      if ((*this)[i] != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n\
+    \        FPS ret = (((*this * rev) >> i).log(deg) * k).exp(deg);\n        ret\
+    \ *= (*this)[i].pow(k);\n        ret = (ret << (i * k)).pre(deg);\n        if\
+    \ ((int)ret.size() < deg) ret.resize(deg, mint(0));\n        return ret;\n   \
+    \   }\n      if (__int128_t(i + 1) * k >= deg) return FPS(deg, mint(0));\n   \
+    \ }\n    return FPS(deg, mint(0));\n  }\n\n  static void* ntt_ptr;\n  static void\
+    \ set_ntt();\n  FPS& operator*=(const FPS& r);\n  FPS middle_product(const FPS&\
+    \ r) const;\n  void ntt();\n  void intt();\n  void ntt_doubling();\n  static int\
+    \ ntt_root();\n  FPS inv(int deg = -1) const;\n  FPS exp(int deg = -1) const;\n\
+    };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
+    #line 4 \"fps/taylor-shift.hpp\"\n\n// f(x+a)\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ TaylorShift(FormalPowerSeries<mint> f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  int n = f.size();\n  using fact = Factorial<mint>;\n  fact::reserve(n);\n \
+    \ for (int i = 0; i < n; i++) f[i] *= fact::fact(i);\n  reverse(f.begin(), f.end());\n\
+    \  fps g(n, mint(1));\n  for (int i = 1; i < n; i++) g[i] = g[i - 1] * a * fact::inv(i);\n\
+    \  f = (f * g).pre(n);\n  reverse(f.begin(), f.end());\n  for (int i = 0; i <\
+    \ n; i++) f[i] *= fact::fact_inv(i);\n  return f;\n}\n/**\n * @brief Taylor Shift\n\
+    \ * @docs docs/fps/taylor-shift.md\n */\n"
   code: "#pragma once\n#include \"modint/factorial.hpp\"\n#include \"fps/formal-power-series.hpp\"\
     \n\n// f(x+a)\ntemplate <class mint>\nFormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint>\
     \ f, mint a) {\n  using fps = FormalPowerSeries<mint>;\n  int n = f.size();\n\
@@ -171,16 +178,18 @@ data:
   requiredBy:
   - fps/composition.hpp
   - fps/famous-sequences.hpp
-  timestamp: '2025-10-31 21:40:36+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
   - verify/fps/LC_partition_function.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
 documentation_of: fps/taylor-shift.hpp
 layout: document

@@ -40,6 +40,9 @@ data:
     title: Taylor Shift
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_bell_number.test.cpp
+    title: verify/fps/LC_bell_number.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/fps/LC_composition_of_formal_power_series.test.cpp
     title: verify/fps/LC_composition_of_formal_power_series.test.cpp
   - icon: ':heavy_check_mark:'
@@ -75,6 +78,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/fps/LC_montmort_number_mod.test.cpp
+    title: verify/fps/LC_montmort_number_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_partition_function.test.cpp
     title: verify/fps/LC_partition_function.test.cpp
@@ -213,6 +219,7 @@ data:
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
   - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
@@ -232,6 +239,7 @@ data:
   - verify/fps/LC_sharp_p_subset_sum.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
 documentation_of: modint/factorial.hpp

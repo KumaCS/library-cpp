@@ -69,85 +69,85 @@ data:
     \    for (int i = 0; i < (int)ret.size(); i++) ret[i] = (*this)[i] * r[i];\n \
     \   return ret;\n  }\n  FPS pre(int sz) const {\n    return FPS(begin(*this),\
     \ begin(*this) + min((int)this->size(), sz));\n  }\n  FPS operator>>=(int sz)\
-    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz) return {};\n    this->erase(this->begin(),\
-    \ this->begin() + sz);\n    return *this;\n  }\n  FPS operator>>(int sz) const\
-    \ {\n    if ((int)this->size() <= sz) return {};\n    FPS ret(*this);\n    ret.erase(ret.begin(),\
-    \ ret.begin() + sz);\n    return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz\
-    \ >= 0);\n    this->insert(this->begin(), sz, mint(0));\n    return *this;\n \
-    \ }\n  FPS operator<<(int sz) const {\n    FPS ret(*this);\n    ret.insert(ret.begin(),\
-    \ sz, mint(0));\n    return ret;\n  }\n  FPS diff() const {\n    const int n =\
-    \ (int)this->size();\n    FPS ret(max(0, n - 1));\n    mint one(1), coeff(1);\n\
-    \    for (int i = 1; i < n; i++) {\n      ret[i - 1] = (*this)[i] * coeff;\n \
-    \     coeff += one;\n    }\n    return ret;\n  }\n  FPS integral() const {\n \
-    \   const int n = (int)this->size();\n    FPS ret(n + 1);\n    ret[0] = mint(0);\n\
-    \    if (n > 0) ret[1] = mint(1);\n    auto mod = mint::get_mod();\n    for (int\
-    \ i = 2; i <= n; i++) ret[i] = (-ret[mod % i]) * (mod / i);\n    for (int i =\
-    \ 0; i < n; i++) ret[i + 1] *= (*this)[i];\n    return ret;\n  }\n  mint eval(mint\
-    \ x) const {\n    mint r = 0, w = 1;\n    for (auto& v : *this) r += w * v, w\
-    \ *= x;\n    return r;\n  }\n  FPS log(int deg = -1) const {\n    assert((*this)[0]\
-    \ == mint(1));\n    if (deg == -1) deg = (int)this->size();\n    return (this->diff()\
-    \ * this->inv(deg)).pre(deg - 1).integral();\n  }\n  FPS pow(int64_t k, int deg\
-    \ = -1) const {\n    const int n = (int)this->size();\n    if (deg == -1) deg\
-    \ = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if (deg) ret[0] = 1;\n \
-    \     return ret;\n    }\n    for (int i = 0; i < n; i++) {\n      if ((*this)[i]\
-    \ != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n        FPS ret = (((*this\
-    \ * rev) >> i).log(deg) * k).exp(deg);\n        ret *= (*this)[i].pow(k);\n  \
-    \      ret = (ret << (i * k)).pre(deg);\n        if ((int)ret.size() < deg) ret.resize(deg,\
-    \ mint(0));\n        return ret;\n      }\n      if (__int128_t(i + 1) * k >=\
-    \ deg) return FPS(deg, mint(0));\n    }\n    return FPS(deg, mint(0));\n  }\n\n\
-    \  static void* ntt_ptr;\n  static void set_ntt();\n  FPS& operator*=(const FPS&\
-    \ r);\n  FPS middle_product(const FPS& r) const;\n  void ntt();\n  void intt();\n\
-    \  void ntt_doubling();\n  static int ntt_root();\n  FPS inv(int deg = -1) const;\n\
-    \  FPS exp(int deg = -1) const;\n};\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr\
-    \ = nullptr;\n#line 3 \"fps/multipoint-evaluation.hpp\"\n\n// f(x0),f(x1),...\n\
-    template <class mint>\nvector<mint> MultipointEvaluation(FormalPowerSeries<mint>\
-    \ f, const vector<mint>& x) {\n  using fps = FormalPowerSeries<mint>;\n  int m\
-    \ = x.size();\n  if (m == 0) return {};\n  vector<fps> prod(2 * m);\n  for (int\
-    \ i = 0; i < m; i++) prod[i + m] = fps{-x[i], 1};\n  for (int i = m - 1; i > 0;\
-    \ i--) prod[i] = prod[i * 2] * prod[i * 2 + 1];\n  vector<fps> rem(2 * m);\n \
-    \ rem[1] = f % prod[1];\n  for (int i = 2; i < 2 * m; i++) rem[i] = rem[i / 2]\
-    \ % prod[i];\n  vector<mint> y(m);\n  for (int i = 0; i < m; i++) y[i] = rem[i\
-    \ + m].empty() ? 0 : rem[i + m][0];\n  return y;\n}\n\n// f(a),f(ar),...,f(ar^{n-1})\n\
-    template <class mint>\nvector<mint> MultipointEvaluationGeometric(FormalPowerSeries<mint>\
-    \ f, mint a, mint r, int n) {\n  using fps = FormalPowerSeries<mint>;\n  assert(n\
-    \ >= 0);\n  if (n == 0) return {};\n  if (f.empty()) return vector<mint>(n);\n\
-    \  mint pa = 1;\n  for (int i = 1; i < f.size(); i++) f[i] *= (pa *= a);\n  if\
-    \ (r == 0) {\n    vector<mint> res(n, f[0]);\n    for (int i = 1; i < f.size();\
-    \ i++) res[0] += f[i];\n    return res;\n  }\n  mint ir = r.inv();\n  int sz =\
-    \ n - 1 + (int)f.size();\n  fps rs(sz, 1), irs(sz, 1);\n  mint pr = 1, pir = 1;\n\
-    \  for (int i = 2; i < sz; i++) {\n    rs[i] = rs[i - 1] * (pr *= r);\n    irs[i]\
-    \ = irs[i - 1] * (pir *= ir);\n  }\n  for (int i = 0; i < f.size(); i++) f[i]\
-    \ *= irs[i];\n  f = f.middle_product(rs);\n  for (int i = 0; i < f.size(); i++)\
-    \ f[i] *= irs[i];\n  return f;\n}\n\n/**\n * @brief \u591A\u70B9\u8A55\u4FA1\n\
-    \ * @docs docs/fps/multipoint-evaluation.md\n */\n#line 2 \"modint/multi-inverse.hpp\"\
-    \n\ntemplate <class mint>\nvector<mint> MultiInverse(const vector<mint>& a) {\n\
-    \  if (a.empty()) return {};\n  vector<mint> b(a.begin(), a.end());\n  for (int\
-    \ i = 0; i + 1 < b.size(); i++) b[i + 1] *= b[i];\n  mint c = b.back().inv();\n\
-    \  for (int i = a.size() - 1; i > 0; i--) {\n    b[i] = c * b[i - 1];\n    c *=\
-    \ a[i];\n  }\n  b[0] = c;\n  return b;\n}\n/**\n * @brief \u8907\u6570\u306E\u8981\
-    \u7D20\u306E\u9006\u5143\u3092\u4E00\u62EC\u3067\u8A08\u7B97\n */\n#line 5 \"\
-    fps/polynomial-interpolation.hpp\"\n\n// f(x[i])=y[i]\ntemplate <class mint>\n\
-    FormalPowerSeries<mint> PolynomialInterpolation(const vector<mint>& x, const vector<mint>&\
-    \ y) {\n  using fps = FormalPowerSeries<mint>;\n  assert(x.size() == y.size());\n\
-    \  int n = x.size();\n  if (n == 0) return {};\n  vector<fps> prod(2 * n);\n \
-    \ for (int i = 0; i < n; i++) prod[i + n] = fps{-x[i], 1};\n  for (int i = n -\
-    \ 1; i > 0; i--) prod[i] = prod[i * 2] * prod[i * 2 + 1];\n  vector<fps> fs(2\
-    \ * n);\n  fs[1] = prod[1].diff();\n  for (int i = 2; i < 2 * n; i++) fs[i] =\
-    \ fs[i / 2] % prod[i];\n  for (int i = n; i < n * 2; i++) fs[i] = fps{y[i - n]\
-    \ / fs[i][0]};\n  for (int i = n - 1; i > 0; i--) fs[i] = fs[(i << 1) | 0] * prod[(i\
-    \ << 1) | 1] + fs[(i << 1) | 1] * prod[(i << 1) | 0];\n  return fs[1];\n}\n\n\
-    // f(ar^i)=y[i]\ntemplate <class mint>\nFormalPowerSeries<mint> PolynomialInterpolationGeometric(mint\
-    \ a, mint r, const vector<mint>& y) {\n  using fps = FormalPowerSeries<mint>;\n\
-    \  int n = y.size();\n  if (n == 0) return {};\n  if (n == 1) return {y[0]};\n\
-    \  assert(a != 0);\n  assert(r != 1);\n  vector<mint> rs(n + 1, 1);\n  for (int\
-    \ i = 1; i <= n; i++) rs[i] = rs[i - 1] * r;\n  vector<mint> rs1(n - 1);\n  for\
-    \ (int i = 0; i < n - 1; i++) rs1[i] = 1 - rs[i + 1];\n  rs1 = MultiInverse(rs1);\n\
-    \  fps f(n, 1);\n  for (int i = 1; i < n; i++) f[i] = f[i - 1] * a * (rs[n] -\
-    \ rs[i - 1]) * rs1[i - 1];\n\n  fps g(n, 1);\n  {\n    vector<mint> s(n, 1);\n\
-    \    for (int i = 1; i < n; i++) s[i] = s[i - 1] * a * (1 - rs[i]);\n    for (int\
-    \ i = 1; i < n; i++) g[i] = -g[i - 1] * rs[n - 1 - i];\n    for (int i = 0; i\
-    \ < n; i++) g[i] *= s[i] * s[n - 1 - i];\n    g = MultiInverse(g);\n  }\n  for\
-    \ (int i = 0; i < n; i++) g[i] *= y[i];\n  g = MultipointEvaluationGeometric(g,\
+    \ {\n    assert(sz >= 0);\n    if ((int)this->size() <= sz)\n      this->clear();\n\
+    \    else\n      this->erase(this->begin(), this->begin() + sz);\n    return *this;\n\
+    \  }\n  FPS operator>>(int sz) const {\n    if ((int)this->size() <= sz) return\
+    \ {};\n    FPS ret(*this);\n    ret.erase(ret.begin(), ret.begin() + sz);\n  \
+    \  return ret;\n  }\n  FPS operator<<=(int sz) {\n    assert(sz >= 0);\n    this->insert(this->begin(),\
+    \ sz, mint(0));\n    return *this;\n  }\n  FPS operator<<(int sz) const {\n  \
+    \  FPS ret(*this);\n    ret.insert(ret.begin(), sz, mint(0));\n    return ret;\n\
+    \  }\n  FPS diff() const {\n    const int n = (int)this->size();\n    FPS ret(max(0,\
+    \ n - 1));\n    mint one(1), coeff(1);\n    for (int i = 1; i < n; i++) {\n  \
+    \    ret[i - 1] = (*this)[i] * coeff;\n      coeff += one;\n    }\n    return\
+    \ ret;\n  }\n  FPS integral() const {\n    const int n = (int)this->size();\n\
+    \    FPS ret(n + 1);\n    ret[0] = mint(0);\n    if (n > 0) ret[1] = mint(1);\n\
+    \    auto mod = mint::get_mod();\n    for (int i = 2; i <= n; i++) ret[i] = (-ret[mod\
+    \ % i]) * (mod / i);\n    for (int i = 0; i < n; i++) ret[i + 1] *= (*this)[i];\n\
+    \    return ret;\n  }\n  mint eval(mint x) const {\n    mint r = 0, w = 1;\n \
+    \   for (auto& v : *this) r += w * v, w *= x;\n    return r;\n  }\n  FPS log(int\
+    \ deg = -1) const {\n    assert((*this)[0] == mint(1));\n    if (deg == -1) deg\
+    \ = (int)this->size();\n    return (this->diff() * this->inv(deg)).pre(deg - 1).integral();\n\
+    \  }\n  FPS pow(int64_t k, int deg = -1) const {\n    const int n = (int)this->size();\n\
+    \    if (deg == -1) deg = n;\n    if (k == 0) {\n      FPS ret(deg);\n      if\
+    \ (deg) ret[0] = 1;\n      return ret;\n    }\n    for (int i = 0; i < n; i++)\
+    \ {\n      if ((*this)[i] != mint(0)) {\n        mint rev = mint(1) / (*this)[i];\n\
+    \        FPS ret = (((*this * rev) >> i).log(deg) * k).exp(deg);\n        ret\
+    \ *= (*this)[i].pow(k);\n        ret = (ret << (i * k)).pre(deg);\n        if\
+    \ ((int)ret.size() < deg) ret.resize(deg, mint(0));\n        return ret;\n   \
+    \   }\n      if (__int128_t(i + 1) * k >= deg) return FPS(deg, mint(0));\n   \
+    \ }\n    return FPS(deg, mint(0));\n  }\n\n  static void* ntt_ptr;\n  static void\
+    \ set_ntt();\n  FPS& operator*=(const FPS& r);\n  FPS middle_product(const FPS&\
+    \ r) const;\n  void ntt();\n  void intt();\n  void ntt_doubling();\n  static int\
+    \ ntt_root();\n  FPS inv(int deg = -1) const;\n  FPS exp(int deg = -1) const;\n\
+    };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
+    #line 3 \"fps/multipoint-evaluation.hpp\"\n\n// f(x0),f(x1),...\ntemplate <class\
+    \ mint>\nvector<mint> MultipointEvaluation(FormalPowerSeries<mint> f, const vector<mint>&\
+    \ x) {\n  using fps = FormalPowerSeries<mint>;\n  int m = x.size();\n  if (m ==\
+    \ 0) return {};\n  vector<fps> prod(2 * m);\n  for (int i = 0; i < m; i++) prod[i\
+    \ + m] = fps{-x[i], 1};\n  for (int i = m - 1; i > 0; i--) prod[i] = prod[i *\
+    \ 2] * prod[i * 2 + 1];\n  vector<fps> rem(2 * m);\n  rem[1] = f % prod[1];\n\
+    \  for (int i = 2; i < 2 * m; i++) rem[i] = rem[i / 2] % prod[i];\n  vector<mint>\
+    \ y(m);\n  for (int i = 0; i < m; i++) y[i] = rem[i + m].empty() ? 0 : rem[i +\
+    \ m][0];\n  return y;\n}\n\n// f(a),f(ar),...,f(ar^{n-1})\ntemplate <class mint>\n\
+    vector<mint> MultipointEvaluationGeometric(FormalPowerSeries<mint> f, mint a,\
+    \ mint r, int n) {\n  using fps = FormalPowerSeries<mint>;\n  assert(n >= 0);\n\
+    \  if (n == 0) return {};\n  if (f.empty()) return vector<mint>(n);\n  mint pa\
+    \ = 1;\n  for (int i = 1; i < f.size(); i++) f[i] *= (pa *= a);\n  if (r == 0)\
+    \ {\n    vector<mint> res(n, f[0]);\n    for (int i = 1; i < f.size(); i++) res[0]\
+    \ += f[i];\n    return res;\n  }\n  mint ir = r.inv();\n  int sz = n - 1 + (int)f.size();\n\
+    \  fps rs(sz, 1), irs(sz, 1);\n  mint pr = 1, pir = 1;\n  for (int i = 2; i <\
+    \ sz; i++) {\n    rs[i] = rs[i - 1] * (pr *= r);\n    irs[i] = irs[i - 1] * (pir\
+    \ *= ir);\n  }\n  for (int i = 0; i < f.size(); i++) f[i] *= irs[i];\n  f = f.middle_product(rs);\n\
+    \  for (int i = 0; i < f.size(); i++) f[i] *= irs[i];\n  return f;\n}\n\n/**\n\
+    \ * @brief \u591A\u70B9\u8A55\u4FA1\n * @docs docs/fps/multipoint-evaluation.md\n\
+    \ */\n#line 2 \"modint/multi-inverse.hpp\"\n\ntemplate <class mint>\nvector<mint>\
+    \ MultiInverse(const vector<mint>& a) {\n  if (a.empty()) return {};\n  vector<mint>\
+    \ b(a.begin(), a.end());\n  for (int i = 0; i + 1 < b.size(); i++) b[i + 1] *=\
+    \ b[i];\n  mint c = b.back().inv();\n  for (int i = a.size() - 1; i > 0; i--)\
+    \ {\n    b[i] = c * b[i - 1];\n    c *= a[i];\n  }\n  b[0] = c;\n  return b;\n\
+    }\n/**\n * @brief \u8907\u6570\u306E\u8981\u7D20\u306E\u9006\u5143\u3092\u4E00\
+    \u62EC\u3067\u8A08\u7B97\n */\n#line 5 \"fps/polynomial-interpolation.hpp\"\n\n\
+    // f(x[i])=y[i]\ntemplate <class mint>\nFormalPowerSeries<mint> PolynomialInterpolation(const\
+    \ vector<mint>& x, const vector<mint>& y) {\n  using fps = FormalPowerSeries<mint>;\n\
+    \  assert(x.size() == y.size());\n  int n = x.size();\n  if (n == 0) return {};\n\
+    \  vector<fps> prod(2 * n);\n  for (int i = 0; i < n; i++) prod[i + n] = fps{-x[i],\
+    \ 1};\n  for (int i = n - 1; i > 0; i--) prod[i] = prod[i * 2] * prod[i * 2 +\
+    \ 1];\n  vector<fps> fs(2 * n);\n  fs[1] = prod[1].diff();\n  for (int i = 2;\
+    \ i < 2 * n; i++) fs[i] = fs[i / 2] % prod[i];\n  for (int i = n; i < n * 2; i++)\
+    \ fs[i] = fps{y[i - n] / fs[i][0]};\n  for (int i = n - 1; i > 0; i--) fs[i] =\
+    \ fs[(i << 1) | 0] * prod[(i << 1) | 1] + fs[(i << 1) | 1] * prod[(i << 1) | 0];\n\
+    \  return fs[1];\n}\n\n// f(ar^i)=y[i]\ntemplate <class mint>\nFormalPowerSeries<mint>\
+    \ PolynomialInterpolationGeometric(mint a, mint r, const vector<mint>& y) {\n\
+    \  using fps = FormalPowerSeries<mint>;\n  int n = y.size();\n  if (n == 0) return\
+    \ {};\n  if (n == 1) return {y[0]};\n  assert(a != 0);\n  assert(r != 1);\n  vector<mint>\
+    \ rs(n + 1, 1);\n  for (int i = 1; i <= n; i++) rs[i] = rs[i - 1] * r;\n  vector<mint>\
+    \ rs1(n - 1);\n  for (int i = 0; i < n - 1; i++) rs1[i] = 1 - rs[i + 1];\n  rs1\
+    \ = MultiInverse(rs1);\n  fps f(n, 1);\n  for (int i = 1; i < n; i++) f[i] = f[i\
+    \ - 1] * a * (rs[n] - rs[i - 1]) * rs1[i - 1];\n\n  fps g(n, 1);\n  {\n    vector<mint>\
+    \ s(n, 1);\n    for (int i = 1; i < n; i++) s[i] = s[i - 1] * a * (1 - rs[i]);\n\
+    \    for (int i = 1; i < n; i++) g[i] = -g[i - 1] * rs[n - 1 - i];\n    for (int\
+    \ i = 0; i < n; i++) g[i] *= s[i] * s[n - 1 - i];\n    g = MultiInverse(g);\n\
+    \  }\n  for (int i = 0; i < n; i++) g[i] *= y[i];\n  g = MultipointEvaluationGeometric(g,\
     \ mint(1), r, n);\n  mint c = 1;\n  for (int i = 1; i < n; i++) g[i] *= (c *=\
     \ a);\n  f *= g;\n  f.resize(n);\n  reverse(f.begin(), f.end());\n  return f;\n\
     }\n\n/**\n * @brief \u591A\u9805\u5F0F\u88DC\u9593\n * @docs docs/fps/polynomial-interpolation.md\n\
@@ -186,7 +186,7 @@ data:
   isVerificationFile: false
   path: fps/polynomial-interpolation.hpp
   requiredBy: []
-  timestamp: '2025-10-31 21:54:34+09:00'
+  timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
