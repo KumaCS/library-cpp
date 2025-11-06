@@ -4,12 +4,12 @@
 
 template <class mint>
 FPSRational<mint> SumOfRationals(vector<FPSRational<mint>> rs) {
-  if (ps.empty()) return {};
+  if (rs.empty()) return {};
   for (auto& r : rs) {
     r.num.shrink(), r.den.shrink();
     if (r.den.size() < r.num.size()) r.num.resize(r.den.size());
   }
-  const int B = 1 << 5;
+  static constexpr int B = 1 << 5;
   for (int i = 0, j = -1; i < rs.size(); i++) {
     if (rs[i].den.size() > B) continue;
     if (j == -1 || rs[i].den.size() + rs[j].den.size() - 1 > B) {
@@ -23,7 +23,7 @@ FPSRational<mint> SumOfRationals(vector<FPSRational<mint>> rs) {
   if (rs.size() == 1) return rs[0];
   for (auto& r : rs) {
     int sz = B;
-    while (sz < r.size()) sz <<= 1;
+    while (sz < r.num.size() || sz < r.den.size()) sz <<= 1;
     r.num.resize(sz);
     r.num.ntt();
     r.den.resize(sz);

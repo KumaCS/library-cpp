@@ -5,11 +5,11 @@
 
 namespace ConvolutionIntMod {
 using ll = long long;
-const ll Mod1 = 754974721;
-const ll Mod2 = 167772161;
-const ll Mod3 = 469762049;
-const ll M1invM2 = 95869806;
-const ll M12invM3 = 187290749;
+static constexpr ll Mod1 = 754974721;
+static constexpr ll Mod2 = 167772161;
+static constexpr ll Mod3 = 469762049;
+static constexpr ll M1invM2 = 95869806;
+static constexpr ll M12invM3 = 187290749;
 using M1 = ModInt<Mod1>;
 using M2 = ModInt<Mod2>;
 using M3 = ModInt<Mod3>;

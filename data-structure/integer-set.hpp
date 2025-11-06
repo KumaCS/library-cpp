@@ -3,7 +3,7 @@
 template <class T = int, class U = unsigned long long>
 class IntegerSet {
  private:
-  const static T B = 6, W = 64, MASK = W - 1;
+  static constexpr T B = 6, W = 64, MASK = W - 1;
   T size;
   vector<T> start;
   vector<U> data;

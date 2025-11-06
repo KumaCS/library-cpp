@@ -9,7 +9,7 @@ struct GarnerOnline {
   void push(T r, T m) {
     T x = 0, p = 1;
     for (int j = 0; j < ms.size(); j++) {
-      x = (x + y[j] * p) % ms[i];
+      x = (x + y[j] * p) % m;
       p = p * ms[j] % m;
     }
     ms.push_back(m);
@@ -23,12 +23,12 @@ struct GarnerOnline {
   }
   T get() {
     T res = 0;
-    for (int i = (int)ms.size() - 1; i >= 0; i--) res = res * m[i] + y[i];
+    for (int i = (int)ms.size() - 1; i >= 0; i--) res = res * ms[i] + y[i];
     return res;
   }
   T get(T mod) {
     T res = 0;
-    for (int i = (int)ms.size() - 1; i >= 0; i--) res = (res * m[i] + y[i]) % mod;
+    for (int i = (int)ms.size() - 1; i >= 0; i--) res = (res * ms[i] + y[i]) % mod;
     return res;
   }
 };

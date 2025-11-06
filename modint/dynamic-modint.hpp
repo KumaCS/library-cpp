@@ -79,7 +79,12 @@ struct DynamicModInt {
   friend mint operator/(const mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }
   friend bool operator==(const mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }
   friend bool operator!=(const mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }
-  friend istream& operator>>(istream& is, mint& x) { return is >> x._v; }
+  friend istream& operator>>(istream& is, mint& x) {
+    int64_t v;
+    is >> v;
+    x = mint(v);
+    return is;
+  }
   friend ostream& operator<<(ostream& os, const mint& x) { return os << x.val(); }
 
  private:

@@ -7,7 +7,7 @@ FormalPowerSeries<mint> ProductOfPolynomials(vector<FormalPowerSeries<mint>> fs)
   for (auto& f : fs) f.shrink();
   for (auto& f : fs)
     if (f.empty()) return {};
-  const int B = 1 << 6;
+  static constexpr int B = 1 << 6;
   for (int i = 0, j = -1; i < fs.size(); i++) {
     if (fs[i].size() > B) continue;
     if (j == -1 || fs[i].size() + fs[j].size() - 1 > B) {

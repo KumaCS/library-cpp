@@ -63,7 +63,7 @@ T ext_gcd(T a, T b, T& x, T& y) {
   }
   return a;
 }
-long long inv_mod(long long x, long long m) {
+constexpr long long inv_mod(long long x, long long m) {
   x %= m;
   if (x < 0) x += m;
   long long a = m, b = x;

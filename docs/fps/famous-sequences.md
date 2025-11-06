@@ -8,6 +8,22 @@
 $$\prod_{k=1}^{\infty}(1-x^k)=\sum_{k=-\infty}^{\infty}(-1)^kx^{k(3k-1)/2}$$
 であることを用いれば $O(N\log N)$ 時間で $p_0,p_1,\dots,p_N$ が列挙できる．
 
+## ベル数
+
+$n$ 元集合を空でない部分集合に分割する方法の数 $B_n$ をベル数という．
+指数型母関数が下のように計算できる．
+$$\sum_{n}\frac{B_n}{n!}x^n
+=\prod_{i=1}^{\infty}\sum_{j=0}^{\infty}\frac{1}{(i!)^jj!}x^{ij}
+=\prod_{i=1}^{\infty}\exp\left(\frac{x^i}{i!}\right)
+=\exp\left(\sum_{i=1}^{\infty}\frac{x^i}{i!}\right)
+=\exp(e^x-1)$$
+
+## モンモール数
+
+長さ $n$ の撹乱順列，すなわち $(1,2,\dots,n)$ の順列 $(p_1,p_2,\dots,p_n)$ で $p_i\neq i$ を満たすものの個数．
+
+$a_n$ とおくと $a_n=(n-1)(a_{n-1}+a_{n-2})$ であるから $O(n)$ 時間で列挙できる．
+
 ## 第一種スターリング数
 
 $s(n,k)$ を以下で定める．

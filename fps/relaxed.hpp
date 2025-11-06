@@ -5,7 +5,7 @@
 
 template <class mint>
 class RelaxedMultiply {
-  const int B = 6;
+  static constexpr int B = 6;
   using fps = FormalPowerSeries<mint>;
   int n;
   fps f, g, h;
@@ -61,7 +61,7 @@ class RelaxedMultiply {
 
 template <class mint>
 class SemiRelaxedMultiply {
-  const int B = 6;
+  static constexpr int B = 6;
   using fps = FormalPowerSeries<mint>;
   int n, m0;
   fps f, g, h;

@@ -94,8 +94,10 @@ struct FormalPowerSeries : vector<mint> {
   }
   FPS operator>>=(int sz) {
     assert(sz >= 0);
-    if ((int)this->size() <= sz) return {};
-    this->erase(this->begin(), this->begin() + sz);
+    if ((int)this->size() <= sz)
+      this->clear();
+    else
+      this->erase(this->begin(), this->begin() + sz);
     return *this;
   }
   FPS operator>>(int sz) const {

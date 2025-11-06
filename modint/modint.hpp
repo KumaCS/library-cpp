@@ -53,7 +53,7 @@ struct ModInt {
     _v = (unsigned int)(z % umod());
     return *this;
   }
-  mint& operator/=(const mint& rhs) { return *this = *this * rhs.inv(); }
+  mint& operator/=(const mint& rhs) { return *this *= rhs.inv(); }
   mint operator+() const { return *this; }
   mint operator-() const { return mint() - *this; }
   mint pow(long long n) const {
@@ -81,7 +81,12 @@ struct ModInt {
   friend mint operator/(const mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }
   friend bool operator==(const mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }
   friend bool operator!=(const mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }
-  friend istream& operator>>(istream& is, mint& x) { return is >> x._v; }
+  friend istream& operator>>(istream& is, mint& x) {
+    int64_t v;
+    is >> v;
+    x = mint(v);
+    return is;
+  }
   friend ostream& operator<<(ostream& os, const mint& x) { return os << x.val(); }
 
  private:
