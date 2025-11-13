@@ -25,6 +25,15 @@ data:
       path: automaton/nfa.hpp
       title: "\u975E\u6C7A\u5B9A\u6027\u6709\u9650\u30AA\u30FC\u30C8\u30DE\u30C8\u30F3\
         (NFA)"
+  - name: binary-search-tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: binary-search-tree/rbst-array.hpp
+      title: "\u633F\u5165/\u524A\u9664\u306E\u53EF\u80FD\u306A\u914D\u5217 (\u4E71\
+        \u629E\u4E8C\u5206\u63A2\u7D22\u6728)"
+    - icon: ':heavy_check_mark:'
+      path: binary-search-tree/rbst-base.hpp
+      title: "Randomized Binary Search Tree (\u57FA\u5E95\u30AF\u30E9\u30B9)"
   - name: convolution
     pages:
     - icon: ':heavy_check_mark:'
@@ -307,7 +316,15 @@ data:
     - icon: ':warning:'
       path: util/random.hpp
       title: Random
+    - icon: ':heavy_check_mark:'
+      path: util/xorshift.hpp
+      title: XOR shift
   verificationCategories:
+  - name: verify/binary-search-tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/binary-search-tree/UNIT_rbst_array.test.cpp
+      title: verify/binary-search-tree/UNIT_rbst_array.test.cpp
   - name: verify/convolution
     pages:
     - icon: ':heavy_check_mark:'

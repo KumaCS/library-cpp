@@ -7,6 +7,9 @@ data:
     title: template/template.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/binary-search-tree/UNIT_rbst_array.test.cpp
+    title: verify/binary-search-tree/UNIT_rbst_array.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/convolution/LC_convolution_mod.test.cpp
     title: verify/convolution/LC_convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -309,6 +312,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
+  - verify/binary-search-tree/UNIT_rbst_array.test.cpp
   - verify/modint/UNIT_modint.test.cpp
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_multi_inverse.test.cpp
