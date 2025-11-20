@@ -85,40 +85,41 @@ data:
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
     \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"segment-tree/segment-tree.hpp\"\n\
     \ntemplate <class T, T (*op)(T, T), T (*e)()>\nstruct SegmentTree {\n private:\n\
-    \  int n;\n  vector<T> d;\n  void update(int p) { d[p] = op(d[2 * p], d[2 * p\
-    \ + 1]); }\n\n public:\n  SegmentTree() : SegmentTree(0) {}\n  explicit SegmentTree(int\
-    \ sz) : SegmentTree(vector<T>(sz, e())) {}\n  explicit SegmentTree(const vector<T>&\
-    \ v) : n(v.size()) {\n    d.assign(2 * n, e());\n    for (int i = 0; i < v.size();\
-    \ i++) d[n + i] = v[i];\n    for (int i = n - 1; i > 0; i--) update(i);\n  }\n\
-    \  void clear() { fill(d.begin(), d.end(), e()); }\n\n  void set_without_update(int\
-    \ p, T v) { d[n + p] = v; }\n  void all_update() {\n    for (int i = n - 1; i\
-    \ > 0; i--) update(i);\n  }\n  T get(int p) {\n    assert(0 <= p && p <= n);\n\
-    \    return d[p + n];\n  }\n  void set(int p, T v) {\n    assert(0 <= p && p <=\
-    \ n);\n    d[p += n] = v;\n    for (p >>= 1; p > 0; p >>= 1) update(p);\n  }\n\
-    \  void apply(int p, T v) {\n    assert(0 <= p && p <= n);\n    p += n;\n    d[p]\
-    \ = op(d[p], v);\n    for (p >>= 1; p > 0; p >>= 1) update(p);\n  }\n  T prod(int\
+    \  int _n, size, log;\n  vector<T> d;\n  void update(int p) { d[p] = op(d[2 *\
+    \ p], d[2 * p + 1]); }\n\n public:\n  SegmentTree() : SegmentTree(0) {}\n  explicit\
+    \ SegmentTree(int sz) : SegmentTree(vector<T>(sz, e())) {}\n  explicit SegmentTree(const\
+    \ vector<T>& v) : _n(v.size()) {\n    size = 1, log = 0;\n    while (size < _n)\
+    \ size <<= 1, log++;\n    d.assign(2 * size, e());\n    for (int i = 0; i < v.size();\
+    \ i++) d[size + i] = v[i];\n    for (int i = size - 1; i > 0; i--) update(i);\n\
+    \  }\n  void clear() { fill(d.begin(), d.end(), e()); }\n\n  void set_without_update(int\
+    \ p, T v) { d[p + size] = v; }\n  void all_update() {\n    for (int i = size -\
+    \ 1; i > 0; i--) update(i);\n  }\n  T get(int p) {\n    assert(0 <= p && p <=\
+    \ _n);\n    return d[p + size];\n  }\n  void set(int p, T v) {\n    assert(0 <=\
+    \ p && p <= _n);\n    p += size;\n    d[p] = v;\n    for (int i = 1; i <= log;\
+    \ i++) update(p >> i);\n  }\n  void apply(int p, T v) {\n    assert(0 <= p &&\
+    \ p <= _n);\n    p += size;\n    d[p] = op(d[p], v);\n    for (int i = 1; i <=\
+    \ log; i++) update(p >> i);\n  }\n  T all_prod() { return d[1]; }\n  T prod(int\
     \ l, int r) {\n    if (l >= r) return e();\n    assert(0 <= l && l <= r && r <=\
-    \ n);\n    T sl = e(), sr = e();\n    l += n, r += n;\n    while (l < r) {\n \
-    \     if ((l & 1) != 0) sl = op(sl, d[l++]);\n      if ((r & 1) != 0) sr = op(d[--r],\
-    \ sr);\n      l >>= 1, r >>= 1;\n    }\n    return op(sl, sr);\n  }\n  T all_prod()\
-    \ { return prod(0, n); }\n\n  template <bool (*f)(T)>\n  int max_right(int l)\
-    \ const {\n    return max_right(l, [](T x) { return f(x); });\n  }\n  template\
-    \ <class F>\n  int max_right(int l, F f) const {\n    assert(0 <= l && l <= n);\n\
-    \    assert(f(e()));\n    if (l == n) return n;\n    int x = n + l, w = 1;\n \
-    \   T s = e();\n    for (; l + w <= n; x >>= 1, w <<= 1)\n      if (x & 1) {\n\
-    \        if (!f(op(s, d[x]))) break;\n        s = op(s, d[x++]);\n        l +=\
-    \ w;\n      }\n    while (x <<= 1, w >>= 1) {\n      if (l + w <= n && f(op(s,\
-    \ d[x]))) {\n        s = op(s, d[l++]);\n        l += w;\n      }\n    }\n   \
-    \ return l;\n  }\n\n  template <bool (*f)(T)>\n  int min_left(int r) const {\n\
-    \    return min_left(r, [](T x) { return f(x); });\n  }\n  template <class F>\n\
-    \  int min_left(int r, F f) const {\n    assert(0 <= r && r <= n);\n    assert(f(e()));\n\
-    \    if (r == 0) return 0;\n    int x = n + r, w = 1;\n    T s = e();\n    for\
-    \ (; r - w >= 0; x >>= 1, w <<= 1)\n      if (x & 1) {\n        if (!f(op(d[x\
-    \ - 1], s))) break;\n        s = op(d[--x], s);\n        r -= w;\n      }\n  \
-    \  while (x <<= 1, w >>= 1) {\n      if (r - w >= 0 && f(op(d[x - 1], s))) {\n\
-    \        s = op(d[--x], s);\n        r -= w;\n      }\n    }\n    return r;\n\
-    \  }\n};\n\n/**\n * @brief Segment Tree\n * @docs docs/segment-tree/segment-tree.md\n\
-    \ */\n#line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T\
+    \ _n);\n    T sl = e(), sr = e();\n    l += size, r += size;\n    while (l < r)\
+    \ {\n      if ((l & 1) != 0) sl = op(sl, d[l++]);\n      if ((r & 1) != 0) sr\
+    \ = op(d[--r], sr);\n      l >>= 1, r >>= 1;\n    }\n    return op(sl, sr);\n\
+    \  }\n\n  template <bool (*f)(T)>\n  int max_right(int l) const {\n    return\
+    \ max_right(l, [](T x) { return f(x); });\n  }\n  template <class F>\n  int max_right(int\
+    \ l, F f) const {\n    assert(0 <= l && l <= size);\n    assert(f(e()));\n   \
+    \ if (l == _n) return _n;\n    l += size;\n    T s = e();\n    do {\n      while\
+    \ (l % 2 == 0) l >>= 1;\n      if (!f(op(s, d[l]))) {\n        while (l < size)\
+    \ {\n          l <<= 1;\n          if (f(op(s, d[l]))) s = op(s, d[l++]);\n  \
+    \      }\n        return l - size;\n      }\n      s = op(s, d[l++]);\n    } while\
+    \ ((l & -l) != l);\n    return _n;\n  }\n\n  template <bool (*f)(T)>\n  int min_left(int\
+    \ r) const {\n    return min_left(r, [](T x) { return f(x); });\n  }\n  template\
+    \ <class F>\n  int min_left(int r, F f) const {\n    assert(0 <= r && r <= _n);\n\
+    \    assert(f(e()));\n    if (r == 0) return 0;\n    r += size;\n    T s = e();\n\
+    \    do {\n      r--;\n      while (r > 1 && (r % 2)) r >>= 1;\n      if (!f(op(d[r],\
+    \ s))) {\n        while (r < size) {\n          r <<= 1, r++;\n          if (f(op(d[r],\
+    \ s))) s = op(d[r--], s);\n        }\n        return r + 1 - size;\n      }\n\
+    \      s = op(d[r], s);\n    } while ((r & -r) != r);\n    return 0;\n  }\n};\n\
+    \n/**\n * @brief Segment Tree\n * @docs docs/segment-tree/segment-tree.md\n */\n\
+    #line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T\
     \ a, T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  a %= b;\n  return\
     \ a >= 0 ? a : a + b;\n}\ntemplate <class T>\nT floor(T a, T b) {\n  assert(b\
     \ != 0);\n  if (b < 0) a = -a, b = -b;\n  return a >= 0 ? a / b : (a + 1) / b\
@@ -219,7 +220,7 @@ data:
   isVerificationFile: true
   path: verify/segment-tree/LC_point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2025-11-20 21:02:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/segment-tree/LC_point_set_range_composite.test.cpp

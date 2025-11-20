@@ -240,6 +240,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: number-theory/enumerate-quotients.hpp
       title: "\u5546\u306E\u5217\u6319"
+    - icon: ':warning:'
+      path: number-theory/formal-dirichlet-series.hpp
+      title: "\u5F62\u5F0F\u7684 Dirichlet \u7D1A\u6570"
     - icon: ':heavy_check_mark:'
       path: number-theory/prime-count.hpp
       title: "\u7D20\u6570\u30AB\u30A6\u30F3\u30C8"
@@ -248,12 +251,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: segment-tree/dual-segment-tree.hpp
       title: Dual Segment Tree
+    - icon: ':warning:'
+      path: segment-tree/lazy-segment-tree-util.hpp
+      title: "\u3088\u304F\u4F7F\u3046 Lazy Segment Tree"
     - icon: ':heavy_check_mark:'
       path: segment-tree/lazy-segment-tree.hpp
       title: Lazy Segment Tree
-    - icon: ':heavy_check_mark:'
-      path: segment-tree/segment-tree-pow2.hpp
-      title: "Segment Tree (\u9577\u3055\u30922\u51AA\u306B\u3059\u308B)"
+    - icon: ':warning:'
+      path: segment-tree/segment-tree-util.hpp
+      title: "\u3088\u304F\u4F7F\u3046 Segment Tree"
     - icon: ':heavy_check_mark:'
       path: segment-tree/segment-tree.hpp
       title: Segment Tree
@@ -533,9 +539,6 @@ data:
       title: verify/number-theory/LC_enumerate_quotients.test.cpp
   - name: verify/segment-tree
     pages:
-    - icon: ':heavy_check_mark:'
-      path: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
-      title: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/segment-tree/LC_point_add_range_sum.test.cpp
       title: verify/segment-tree/LC_point_add_range_sum.test.cpp

@@ -1,0 +1,4 @@
+- `SegmentTreeSum` : 和
+- `SegmentTreeProd` : 積
+- `SegmentTreeMax` : max
+- `SegmentTreeMin` : min

@@ -1,7 +1,10 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: segment-tree/lazy-segment-tree-util.hpp
+    title: "\u3088\u304F\u4F7F\u3046 Lazy Segment Tree"
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_range_affine_range_sum.test.cpp
@@ -121,7 +124,8 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: segment-tree/lazy-segment-tree.hpp
-  requiredBy: []
+  requiredBy:
+  - segment-tree/lazy-segment-tree-util.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

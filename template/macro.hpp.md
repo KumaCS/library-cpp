@@ -202,9 +202,6 @@ data:
     path: verify/number-theory/LC_enumerate_quotients.test.cpp
     title: verify/number-theory/LC_enumerate_quotients.test.cpp
   - icon: ':heavy_check_mark:'
-    path: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
-    title: verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
-  - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_point_add_range_sum.test.cpp
     title: verify/segment-tree/LC_point_add_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -376,7 +373,6 @@ data:
   - verify/segment-tree/LC_point_add_range_sum.test.cpp
   - verify/segment-tree/LC_range_affine_range_sum.test.cpp
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
-  - verify/segment-tree/LC_point_add_range_sum.pow2.test.cpp
   - verify/segment-tree/LC_range_affine_point_get.test.cpp
   - verify/data-structure/LC_point_add_range_sum.test.cpp
   - verify/data-structure/LC_staticrmq.test.cpp
