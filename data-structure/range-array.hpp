@@ -2,7 +2,7 @@
 
 // 区間に値を対応づける
 // range set point get + enumerate
-template <class T>
+template <class T, bool merge = true>
 struct RangeArray {
  private:
   int n;
@@ -30,12 +30,23 @@ struct RangeArray {
       if (r <= l1) break;
       it++;
       int r1 = *it;
-      ret.push_back({l1, r1});
+      ret.push_back({max(l, l1), min(r, r1)});
     }
     return ret;
   }
-  void set(int l, int r, T v) {
-    for (auto it = s.lower_bound(l); it != s.end();) {
+  void update(int l, int r, T v) {
+    assert(0 <= l && l < r && r <= n);
+    auto it = s.lower_bound(l);
+    if (merge && it != s.begin()) {
+      it--;
+      int x = *it;
+      it++;
+      if (data[x] == v) {
+        l = x;
+        it--;
+      }
+    }
+    while (it != s.end()) {
       int l1 = *it;
       if (r <= l1) break;
       it++;
@@ -47,6 +58,11 @@ struct RangeArray {
         data[r] = data[l1];
         break;
       }
+    }
+    if (merge && it != s.end()) {
+      int x = *it;
+      if (x < n && data[x] == v)
+        it = s.erase(it);
     }
     s.insert(l);
     data[l] = v;
