@@ -6,6 +6,9 @@ struct FPSRational {
   using F = FormalPowerSeries<mint>;
   using R = FPSRational;
   F num, den;
+  FPSRational() : num(F{}), den(F{1}) {}
+  FPSRational(F f) : num(f), den(F{1}) {}
+  FPSRational(F f, F g) : num(f), den(g) {}
   R& operator+=(const R& r) {
     num *= r.den;
     num += den * r.num;

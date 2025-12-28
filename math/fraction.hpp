@@ -11,8 +11,8 @@ struct Fraction {
   template <class V>
   V get() const { return V(a) / b; }
   using frac = Fraction;
-  static frac raw(T _a, T _b) { a = _a, b = _b; }
-  frac &init(T _a, T _b) {
+  frac raw(T _a, T _b) { a = _a, b = _b; }
+  frac& init(T _a, T _b) {
     T g = gcd(_a, _b);
     a = _a / g, b = _b / g;
     if (b < 0) a = -a, b = -b;
@@ -20,22 +20,22 @@ struct Fraction {
   }
   frac inv() const { return a >= 0 ? raw(b, a) : raw(-b, -a); }
   frac operator-() const { return frac(-a, b); }
-  frac &operator+=(const frac &x) { return init(a * x.b + x.a * b, b * x.b); }
-  frac &operator-=(const frac &x) { return init(a * x.b - x.a * b, b * x.b); }
-  frac &operator*=(const frac &x) { return init(a * x.a, b * x.b); }
-  frac &operator/=(const frac &x) { return init(a * x.b, b * x.a); }
-  frac operator+(const frac &x) const { return frac(*this) += x; }
-  frac operator-(const frac &x) const { return frac(*this) -= x; }
-  frac operator*(const frac &x) const { return frac(*this) *= x; }
-  frac operator/(const frac &x) const { return frac(*this) /= x; }
-  bool operator<(const frac &x) const { return a * x.b < b * x.a; }
-  bool operator>(const frac &x) const { return a * x.b > b * x.a; }
-  bool operator<=(const frac &x) const { return a * x.b <= b * x.a; }
-  bool operator>=(const frac &x) const { return a * x.b >= b * x.a; }
-  bool operator==(const frac &x) const { return a * x.b == b * x.a; }
-  bool operator!=(const frac &x) const { return a * x.b != b * x.a; }
-  friend istream &operator>>(istream &is, frac &x) { return is >> x.a >> x.b; }
-  friend ostream &operator<<(ostream &os, const frac &x) { return os << x.a << '/' << x.b; }
+  frac& operator+=(const frac& x) { return init(a * x.b + x.a * b, b * x.b); }
+  frac& operator-=(const frac& x) { return init(a * x.b - x.a * b, b * x.b); }
+  frac& operator*=(const frac& x) { return init(a * x.a, b * x.b); }
+  frac& operator/=(const frac& x) { return init(a * x.b, b * x.a); }
+  frac operator+(const frac& x) const { return frac(*this) += x; }
+  frac operator-(const frac& x) const { return frac(*this) -= x; }
+  frac operator*(const frac& x) const { return frac(*this) *= x; }
+  frac operator/(const frac& x) const { return frac(*this) /= x; }
+  bool operator<(const frac& x) const { return a * x.b < b * x.a; }
+  bool operator>(const frac& x) const { return a * x.b > b * x.a; }
+  bool operator<=(const frac& x) const { return a * x.b <= b * x.a; }
+  bool operator>=(const frac& x) const { return a * x.b >= b * x.a; }
+  bool operator==(const frac& x) const { return a * x.b == b * x.a; }
+  bool operator!=(const frac& x) const { return a * x.b != b * x.a; }
+  friend istream& operator>>(istream& is, frac& x) { return is >> x.a >> x.b; }
+  friend ostream& operator<<(ostream& os, const frac& x) { return os << x.a << '/' << x.b; }
 };
 
 /**

@@ -36,7 +36,7 @@ FormalPowerSeries<mint> TransposedComposition(FormalPowerSeries<mint> f, FormalP
   vector<mint> pow(m, 1);
   for (int i = 1; i < m; i++) pow[rev[i]] = pow[rev[i - 1]] * wi;
   mint inv2 = mint(2).inv();
-  
+
   while (k > 1) {
     P.resize(2 * m), P.ntt();
     Q.resize(2 * m), Q.ntt();
@@ -67,7 +67,7 @@ vector<mint> PowerProjection(FormalPowerSeries<mint> f, FormalPowerSeries<mint> 
   assert(n >= 0 && k >= 0);
   if (n == 0) return {};
   f.resize(k + 1);
-  f = f.rev();
+  reverse(f.begin(), f.end());
   return TransposedComposition(f, g, n);
 }
 /**

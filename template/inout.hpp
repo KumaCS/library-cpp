@@ -48,6 +48,17 @@ ostream& operator<<(ostream& os, const map<T1, T2>& mp) {
   os << "}";
   return os;
 }
+ostream& operator<<(ostream& os, __uint128_t x) {
+  char buf[40];
+  size_t k = 0;
+  while (x > 0) buf[k++] = (char)(x % 10 + '0'), x /= 10;
+  if (k == 0) buf[k++] = '0';
+  while (k) os << buf[--k];
+  return os;
+}
+ostream& operator<<(ostream& os, __int128_t x) {
+  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);
+}
 
 void in() {}
 template <typename T, class... U>
