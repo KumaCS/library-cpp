@@ -10,7 +10,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: fps/fps-arbitrary.hpp
+    title: fps/fps-arbitrary.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/convolution/LC_convolution_mod_1000000007.test.cpp
@@ -263,7 +266,8 @@ data:
   - fft/ntt.hpp
   isVerificationFile: false
   path: convolution/intmod.hpp
-  requiredBy: []
+  requiredBy:
+  - fps/fps-arbitrary.hpp
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

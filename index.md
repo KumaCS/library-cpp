@@ -104,6 +104,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/formal-power-series.hpp
       title: fps/formal-power-series.hpp
+    - icon: ':warning:'
+      path: fps/fps-arbitrary.hpp
+      title: fps/fps-arbitrary.hpp
     - icon: ':heavy_check_mark:'
       path: fps/fps-ntt-friendly.hpp
       title: fps/fps-ntt-friendly.hpp
@@ -292,6 +295,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: set/zeta-mobius-transform.hpp
       title: set/zeta-mobius-transform.hpp
+  - name: string
+    pages:
+    - icon: ':warning:'
+      path: string/rolling-hash.hpp
+      title: string/rolling-hash.hpp
+    - icon: ':warning:'
+      path: string/z-algorithm.hpp
+      title: Z-algorithm
   - name: template
     pages:
     - icon: ':heavy_check_mark:'

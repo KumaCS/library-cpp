@@ -88,61 +88,70 @@ data:
     };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
     #line 3 \"fps/fps-rational.hpp\"\n\ntemplate <class mint>\nstruct FPSRational\
     \ {\n  using F = FormalPowerSeries<mint>;\n  using R = FPSRational;\n  F num,\
-    \ den;\n  R& operator+=(const R& r) {\n    num *= r.den;\n    num += den * r.num;\n\
-    \    den *= r.den;\n    return *this;\n  }\n  R& operator-=(const R& r) {\n  \
-    \  num *= r.den;\n    num -= den * r.num;\n    den *= r.den;\n    return *this;\n\
-    \  }\n  R& operator*=(const R& r) {\n    num *= r.num;\n    den *= r.den;\n  \
-    \  return *this;\n  }\n  R& operator/=(const R& r) {\n    num *= r.den;\n    den\
-    \ *= r.num;\n    return *this;\n  }\n  R operator+(const R& r) const { return\
-    \ R(*this) += r; }\n  R operator-(const R& r) const { return R(*this) -= r; }\n\
-    \  R operator*(const R& r) const { return R(*this) *= r; }\n  R operator/(const\
-    \ R& r) const { return R(*this) /= r; }\n  R inv() const { return {den, num};\
-    \ }\n  F approx(int deg) const { return (den * num.inv(deg)).pre(deg); }\n};\n\
-    #line 4 \"fps/sum-of-rationals.hpp\"\n\ntemplate <class mint>\nFPSRational<mint>\
-    \ SumOfRationals(vector<FPSRational<mint>> rs) {\n  if (rs.empty()) return {};\n\
-    \  for (auto& r : rs) {\n    r.num.shrink(), r.den.shrink();\n    if (r.den.size()\
-    \ < r.num.size()) r.num.resize(r.den.size());\n  }\n  static constexpr int B =\
-    \ 1 << 5;\n  for (int i = 0, j = -1; i < rs.size(); i++) {\n    if (rs[i].den.size()\
-    \ > B) continue;\n    if (j == -1 || rs[i].den.size() + rs[j].den.size() - 1 >\
-    \ B) {\n      j = i;\n      continue;\n    }\n    rs[j] += rs[i];\n    swap(rs[i--],\
-    \ rs.back());\n    rs.pop_back();\n  }\n  if (rs.size() == 1) return rs[0];\n\
-    \  for (auto& r : rs) {\n    int sz = B;\n    while (sz < r.num.size() || sz <\
-    \ r.den.size()) sz <<= 1;\n    r.num.resize(sz);\n    r.num.ntt();\n    r.den.resize(sz);\n\
-    \    r.den.ntt();\n  }\n  for (int sz = B * 2; rs.size() > 1; sz <<= 1) {\n  \
-    \  for (int i = 0, j = -1; i < rs.size(); i++) {\n      if (rs[i].den.size() >=\
-    \ sz) continue;\n      rs[i].num.ntt_doubling();\n      rs[i].den.ntt_doubling();\n\
-    \      if (j == -1) {\n        j = i;\n      } else {\n        for (int k = 0;\
-    \ k < sz; k++) rs[j].num[k] = rs[j].num[k] * rs[i].den[k] + rs[j].den[k] * rs[i].num[k];\n\
-    \        for (int k = 0; k < sz; k++) rs[j].den[k] *= rs[i].den[k];\n        swap(rs[i--],\
-    \ rs.back());\n        rs.pop_back();\n        j = -1;\n      }\n    }\n  }\n\
-    \  rs[0].num.intt();\n  rs[0].num.shrink();\n  rs[0].den.intt();\n  rs[0].den.shrink();\n\
-    \  return rs[0];\n}\n/**\n * @brief \u6709\u7406\u5F0F\u306E\u548C\n */\n"
+    \ den;\n  FPSRational() : num(F{}), den(F{1}) {}\n  FPSRational(F f) : num(f),\
+    \ den(F{1}) {}\n  FPSRational(F f, F g) : num(f), den(g) {}\n  R& operator+=(const\
+    \ R& r) {\n    num *= r.den;\n    num += den * r.num;\n    den *= r.den;\n   \
+    \ return *this;\n  }\n  R& operator-=(const R& r) {\n    num *= r.den;\n    num\
+    \ -= den * r.num;\n    den *= r.den;\n    return *this;\n  }\n  R& operator*=(const\
+    \ R& r) {\n    num *= r.num;\n    den *= r.den;\n    return *this;\n  }\n  R&\
+    \ operator/=(const R& r) {\n    num *= r.den;\n    den *= r.num;\n    return *this;\n\
+    \  }\n  R operator+(const R& r) const { return R(*this) += r; }\n  R operator-(const\
+    \ R& r) const { return R(*this) -= r; }\n  R operator*(const R& r) const { return\
+    \ R(*this) *= r; }\n  R operator/(const R& r) const { return R(*this) /= r; }\n\
+    \  R inv() const { return {den, num}; }\n  F approx(int deg) const { return (den\
+    \ * num.inv(deg)).pre(deg); }\n};\n#line 4 \"fps/sum-of-rationals.hpp\"\n\ntemplate\
+    \ <class mint>\nFPSRational<mint> SumOfRationals(vector<FPSRational<mint>> rs)\
+    \ {\n  if (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--) rs[i\
+    \ - (i & -i)] += rs[i];\n  return rs[0];\n  // for (auto& r : rs) {\n  //   r.num.shrink(),\
+    \ r.den.shrink();\n  //   if (r.den.size() < r.num.size()) r.num.resize(r.den.size());\n\
+    \  // }\n  // static constexpr int B = 1 << 5;\n  // for (int i = 0, j = -1; i\
+    \ < rs.size(); i++) {\n  //   if (rs[i].den.size() > B) continue;\n  //   if (j\
+    \ == -1 || rs[i].den.size() + rs[j].den.size() - 1 > B) {\n  //     j = i;\n \
+    \ //     continue;\n  //   }\n  //   rs[j] += rs[i];\n  //   swap(rs[i--], rs.back());\n\
+    \  //   rs.pop_back();\n  // }\n  // if (rs.size() == 1) return rs[0];\n  // for\
+    \ (auto& r : rs) {\n  //   int sz = B;\n  //   while (sz < r.num.size() || sz\
+    \ < r.den.size()) sz <<= 1;\n  //   r.num.resize(sz);\n  //   r.num.ntt();\n \
+    \ //   r.den.resize(sz);\n  //   r.den.ntt();\n  // }\n  // for (int sz = B *\
+    \ 2; rs.size() > 1; sz <<= 1) {\n  //   for (int i = 0, j = -1; i < rs.size();\
+    \ i++) {\n  //     if (rs[i].den.size() >= sz) continue;\n  //     rs[i].num.ntt_doubling();\n\
+    \  //     rs[i].den.ntt_doubling();\n  //     if (j == -1) {\n  //       j = i;\n\
+    \  //     } else {\n  //       for (int k = 0; k < sz; k++) rs[j].num[k] = rs[j].num[k]\
+    \ * rs[i].den[k] + rs[j].den[k] * rs[i].num[k];\n  //       for (int k = 0; k\
+    \ < sz; k++) rs[j].den[k] *= rs[i].den[k];\n  //       swap(rs[i--], rs.back());\n\
+    \  //       rs.pop_back();\n  //       j = -1;\n  //     }\n  //   }\n  // }\n\
+    \  // rs[0].num.intt();\n  // rs[0].num.shrink();\n  // rs[0].den.intt();\n  //\
+    \ rs[0].den.shrink();\n  // return rs[0];\n}\n/**\n * @brief \u6709\u7406\u5F0F\
+    \u306E\u548C\n */\n"
   code: "#pragma once\n#include \"fps/formal-power-series.hpp\"\n#include \"fps/fps-rational.hpp\"\
     \n\ntemplate <class mint>\nFPSRational<mint> SumOfRationals(vector<FPSRational<mint>>\
-    \ rs) {\n  if (rs.empty()) return {};\n  for (auto& r : rs) {\n    r.num.shrink(),\
-    \ r.den.shrink();\n    if (r.den.size() < r.num.size()) r.num.resize(r.den.size());\n\
-    \  }\n  static constexpr int B = 1 << 5;\n  for (int i = 0, j = -1; i < rs.size();\
-    \ i++) {\n    if (rs[i].den.size() > B) continue;\n    if (j == -1 || rs[i].den.size()\
-    \ + rs[j].den.size() - 1 > B) {\n      j = i;\n      continue;\n    }\n    rs[j]\
-    \ += rs[i];\n    swap(rs[i--], rs.back());\n    rs.pop_back();\n  }\n  if (rs.size()\
-    \ == 1) return rs[0];\n  for (auto& r : rs) {\n    int sz = B;\n    while (sz\
-    \ < r.num.size() || sz < r.den.size()) sz <<= 1;\n    r.num.resize(sz);\n    r.num.ntt();\n\
-    \    r.den.resize(sz);\n    r.den.ntt();\n  }\n  for (int sz = B * 2; rs.size()\
-    \ > 1; sz <<= 1) {\n    for (int i = 0, j = -1; i < rs.size(); i++) {\n      if\
-    \ (rs[i].den.size() >= sz) continue;\n      rs[i].num.ntt_doubling();\n      rs[i].den.ntt_doubling();\n\
-    \      if (j == -1) {\n        j = i;\n      } else {\n        for (int k = 0;\
-    \ k < sz; k++) rs[j].num[k] = rs[j].num[k] * rs[i].den[k] + rs[j].den[k] * rs[i].num[k];\n\
-    \        for (int k = 0; k < sz; k++) rs[j].den[k] *= rs[i].den[k];\n        swap(rs[i--],\
-    \ rs.back());\n        rs.pop_back();\n        j = -1;\n      }\n    }\n  }\n\
-    \  rs[0].num.intt();\n  rs[0].num.shrink();\n  rs[0].den.intt();\n  rs[0].den.shrink();\n\
-    \  return rs[0];\n}\n/**\n * @brief \u6709\u7406\u5F0F\u306E\u548C\n */"
+    \ rs) {\n  if (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--)\
+    \ rs[i - (i & -i)] += rs[i];\n  return rs[0];\n  // for (auto& r : rs) {\n  //\
+    \   r.num.shrink(), r.den.shrink();\n  //   if (r.den.size() < r.num.size()) r.num.resize(r.den.size());\n\
+    \  // }\n  // static constexpr int B = 1 << 5;\n  // for (int i = 0, j = -1; i\
+    \ < rs.size(); i++) {\n  //   if (rs[i].den.size() > B) continue;\n  //   if (j\
+    \ == -1 || rs[i].den.size() + rs[j].den.size() - 1 > B) {\n  //     j = i;\n \
+    \ //     continue;\n  //   }\n  //   rs[j] += rs[i];\n  //   swap(rs[i--], rs.back());\n\
+    \  //   rs.pop_back();\n  // }\n  // if (rs.size() == 1) return rs[0];\n  // for\
+    \ (auto& r : rs) {\n  //   int sz = B;\n  //   while (sz < r.num.size() || sz\
+    \ < r.den.size()) sz <<= 1;\n  //   r.num.resize(sz);\n  //   r.num.ntt();\n \
+    \ //   r.den.resize(sz);\n  //   r.den.ntt();\n  // }\n  // for (int sz = B *\
+    \ 2; rs.size() > 1; sz <<= 1) {\n  //   for (int i = 0, j = -1; i < rs.size();\
+    \ i++) {\n  //     if (rs[i].den.size() >= sz) continue;\n  //     rs[i].num.ntt_doubling();\n\
+    \  //     rs[i].den.ntt_doubling();\n  //     if (j == -1) {\n  //       j = i;\n\
+    \  //     } else {\n  //       for (int k = 0; k < sz; k++) rs[j].num[k] = rs[j].num[k]\
+    \ * rs[i].den[k] + rs[j].den[k] * rs[i].num[k];\n  //       for (int k = 0; k\
+    \ < sz; k++) rs[j].den[k] *= rs[i].den[k];\n  //       swap(rs[i--], rs.back());\n\
+    \  //       rs.pop_back();\n  //       j = -1;\n  //     }\n  //   }\n  // }\n\
+    \  // rs[0].num.intt();\n  // rs[0].num.shrink();\n  // rs[0].den.intt();\n  //\
+    \ rs[0].den.shrink();\n  // return rs[0];\n}\n/**\n * @brief \u6709\u7406\u5F0F\
+    \u306E\u548C\n */"
   dependsOn:
   - fps/formal-power-series.hpp
   - fps/fps-rational.hpp
   isVerificationFile: false
   path: fps/sum-of-rationals.hpp
   requiredBy: []
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps/sum-of-rationals.hpp

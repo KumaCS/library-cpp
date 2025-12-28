@@ -2,98 +2,29 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: convolution/intmod.hpp
+    title: "\u4EFB\u610F mod \u7573\u307F\u8FBC\u307F"
+  - icon: ':heavy_check_mark:'
     path: fft/ntt.hpp
     title: "NTT (\u6570\u8AD6\u5909\u63DB)"
   - icon: ':heavy_check_mark:'
     path: fps/formal-power-series.hpp
     title: fps/formal-power-series.hpp
   - icon: ':heavy_check_mark:'
-    path: fps/fps-ntt-friendly.hpp
-    title: fps/fps-ntt-friendly.hpp
-  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
   - icon: ':heavy_check_mark:'
     path: modint/modint.hpp
     title: modint/modint.hpp
-  - icon: ':heavy_check_mark:'
-    path: template/debug.hpp
-    title: template/debug.hpp
-  - icon: ':heavy_check_mark:'
-    path: template/inout.hpp
-    title: template/inout.hpp
-  - icon: ':heavy_check_mark:'
-    path: template/macro.hpp
-    title: template/macro.hpp
-  - icon: ':heavy_check_mark:'
-    path: template/template.hpp
-    title: template/template.hpp
-  - icon: ':heavy_check_mark:'
-    path: template/util.hpp
-    title: template/util.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
-  _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _pathExtension: hpp
+  _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/division_of_polynomials
-    links:
-    - https://judge.yosupo.jp/problem/division_of_polynomials
-  bundledCode: "#line 1 \"verify/fps/LC_division_of_polynomials.test.cpp\"\n#define\
-    \ PROBLEM \"https://judge.yosupo.jp/problem/division_of_polynomials\"\n\n#line\
-    \ 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace std;\n\
-    \n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a); i < (int)(b);\
-    \ i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define\
-    \ ALL(v) (v).begin(), (v).end()\n#define UNIQUE(v) sort(ALL(v)), (v).erase(unique(ALL(v)),\
-    \ (v).end())\n#define SZ(v) (int)v.size()\n#define MIN(v) *min_element(ALL(v))\n\
-    #define MAX(v) *max_element(ALL(v))\n#define LB(v, x) int(lower_bound(ALL(v),\
-    \ (x)) - (v).begin())\n#define UB(v, x) int(upper_bound(ALL(v), (x)) - (v).begin())\n\
-    #define YN(b) cout << ((b) ? \"YES\" : \"NO\") << \"\\n\";\n#define Yn(b) cout\
-    \ << ((b) ? \"Yes\" : \"No\") << \"\\n\";\n#define yn(b) cout << ((b) ? \"yes\"\
-    \ : \"no\") << \"\\n\";\n#line 6 \"template/template.hpp\"\n\n#line 2 \"template/util.hpp\"\
-    \nusing uint = unsigned int;\nusing ll = long long int;\nusing ull = unsigned\
-    \ long long;\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\ntemplate\
-    \ <class T, class S = T>\nS SUM(const vector<T>& a) {\n  return accumulate(ALL(a),\
-    \ S(0));\n}\ntemplate <class T>\ninline bool chmin(T& a, T b) {\n  if (a > b)\
-    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\ntemplate <class T>\n\
-    inline bool chmax(T& a, T b) {\n  if (a < b) {\n    a = b;\n    return true;\n\
-    \  }\n  return false;\n}\n\ntemplate <class T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n\
-    }\ntemplate <class T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n\
-    }\ntemplate <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
-    }\n#line 8 \"template/template.hpp\"\n\n#line 2 \"template/inout.hpp\"\nstruct\
-    \ Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
-    \    cout << fixed << setprecision(15);\n  }\n} fast;\n\ntemplate <class T1, class\
-    \ T2>\nistream& operator>>(istream& is, pair<T1, T2>& p) {\n  return is >> p.first\
-    \ >> p.second;\n}\ntemplate <class T1, class T2>\nostream& operator<<(ostream&\
-    \ os, const pair<T1, T2>& p) {\n  return os << p.first << \" \" << p.second;\n\
-    }\ntemplate <class T>\nistream& operator>>(istream& is, vector<T>& a) {\n  for\
-    \ (auto& v : a) is >> v;\n  return is;\n}\ntemplate <class T>\nostream& operator<<(ostream&\
-    \ os, const vector<T>& a) {\n  for (auto it = a.begin(); it != a.end();) {\n \
-    \   os << *it;\n    if (++it != a.end()) os << \" \";\n  }\n  return os;\n}\n\
-    template <class T>\nostream& operator<<(ostream& os, const set<T>& st) {\n  os\
-    \ << \"{\";\n  for (auto it = st.begin(); it != st.end();) {\n    os << *it;\n\
-    \    if (++it != st.end()) os << \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\
-    template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
-    \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
-    \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
-    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
-    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
-    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
-    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
-    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
-    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
-    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
-    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
-    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
-    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
-    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
-    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
-    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
-    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
-    #line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T\
+    links: []
+  bundledCode: "#line 2 \"fps/fps-arbitrary.hpp\"\n\n#line 2 \"convolution/intmod.hpp\"\
+    \n\n#line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T\
     \ a, T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  a %= b;\n  return\
     \ a >= 0 ? a : a + b;\n}\ntemplate <class T>\nT floor(T a, T b) {\n  assert(b\
     \ != 0);\n  if (b < 0) a = -a, b = -b;\n  return a >= 0 ? a / b : (a + 1) / b\
@@ -162,51 +93,50 @@ data:
     \    return is;\n  }\n  friend ostream& operator<<(ostream& os, const mint& x)\
     \ { return os << x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr\
     \ unsigned int umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };\n#line 5 \"verify/fps/LC_division_of_polynomials.test.cpp\"\nusing mint = ModInt<998244353>;\n\
-    #line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\ntemplate <class\
-    \ mint>\nstruct NTT {\n  static constexpr unsigned int mod = mint::get_mod();\n\
-    \  static constexpr unsigned long long pow_constexpr(unsigned long long x, unsigned\
-    \ long long n, unsigned long long m) {\n    unsigned long long y = 1;\n    while\
-    \ (n) {\n      if (n & 1) y = y * x % m;\n      x = x * x % m;\n      n >>= 1;\n\
-    \    }\n    return y;\n  }\n  static constexpr unsigned int get_g() {\n    unsigned\
-    \ long long x = 2;\n    while (pow_constexpr(x, (mod - 1) >> 1, mod) == 1) x +=\
-    \ 1;\n    return x;\n  }\n  static constexpr unsigned int g = get_g();\n  static\
-    \ constexpr int rank2 = __builtin_ctzll(mod - 1);\n  array<mint, rank2 + 1> root;\n\
-    \  array<mint, rank2 + 1> iroot;\n  array<mint, max(0, rank2 - 2 + 1)> rate2;\n\
-    \  array<mint, max(0, rank2 - 2 + 1)> irate2;\n  array<mint, max(0, rank2 - 3\
-    \ + 1)> rate3;\n  array<mint, max(0, rank2 - 3 + 1)> irate3;\n\n  NTT() {\n  \
-    \  root[rank2] = mint(g).pow((mod - 1) >> rank2);\n    iroot[rank2] = root[rank2].inv();\n\
-    \    for (int i = rank2 - 1; i >= 0; i--) {\n      root[i] = root[i + 1] * root[i\
-    \ + 1];\n      iroot[i] = iroot[i + 1] * iroot[i + 1];\n    }\n    {\n      mint\
-    \ prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 2; i++) {\n       \
-    \ rate2[i] = root[i + 2] * prod;\n        irate2[i] = iroot[i + 2] * iprod;\n\
-    \        prod *= iroot[i + 2];\n        iprod *= root[i + 2];\n      }\n    }\n\
-    \    {\n      mint prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 3;\
-    \ i++) {\n        rate3[i] = root[i + 3] * prod;\n        irate3[i] = iroot[i\
-    \ + 3] * iprod;\n        prod *= iroot[i + 3];\n        iprod *= root[i + 3];\n\
-    \      }\n    }\n  }\n  void ntt(vector<mint>& a) {\n    int n = int(a.size());\n\
-    \    int h = __builtin_ctzll((unsigned int)n);\n    a.resize(1 << h);\n    int\
-    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
-    \ < h) {\n      if (h - len == 1) {\n        int p = 1 << (h - len - 1);\n   \
-    \     mint rot = 1;\n        for (int s = 0; s < (1 << len); s++) {\n        \
-    \  int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n   \
-    \         auto l = a[i + offset];\n            auto r = a[i + offset + p] * rot;\n\
-    \            a[i + offset] = l + r;\n            a[i + offset + p] = l - r;\n\
-    \          }\n          if (s + 1 != (1 << len)) rot *= rate2[__builtin_ctzll(~(unsigned\
-    \ int)(s))];\n        }\n        len++;\n      } else {\n        // 4-base\n \
-    \       int p = 1 << (h - len - 2);\n        mint rot = 1, imag = root[2];\n \
-    \       for (int s = 0; s < (1 << len); s++) {\n          mint rot2 = rot * rot;\n\
-    \          mint rot3 = rot2 * rot;\n          int offset = s << (h - len);\n \
-    \         for (int i = 0; i < p; i++) {\n            auto mod2 = 1ULL * mint::get_mod()\
-    \ * mint::get_mod();\n            auto a0 = 1ULL * a[i + offset].val();\n    \
-    \        auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n            auto\
-    \ a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n            auto a3 =\
-    \ 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n            auto a1na3imag\
-    \ = 1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n            auto na2 = mod2\
-    \ - a2;\n            a[i + offset] = a0 + a2 + a1 + a3;\n            a[i + offset\
-    \ + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 *\
-    \ p] = a0 + na2 + a1na3imag;\n            a[i + offset + 3 * p] = a0 + na2 + (mod2\
-    \ - a1na3imag);\n          }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
+    };\n#line 2 \"fft/ntt.hpp\"\n\ntemplate <class mint>\nstruct NTT {\n  static constexpr\
+    \ unsigned int mod = mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
+    \ long long x, unsigned long long n, unsigned long long m) {\n    unsigned long\
+    \ long y = 1;\n    while (n) {\n      if (n & 1) y = y * x % m;\n      x = x *\
+    \ x % m;\n      n >>= 1;\n    }\n    return y;\n  }\n  static constexpr unsigned\
+    \ int get_g() {\n    unsigned long long x = 2;\n    while (pow_constexpr(x, (mod\
+    \ - 1) >> 1, mod) == 1) x += 1;\n    return x;\n  }\n  static constexpr unsigned\
+    \ int g = get_g();\n  static constexpr int rank2 = __builtin_ctzll(mod - 1);\n\
+    \  array<mint, rank2 + 1> root;\n  array<mint, rank2 + 1> iroot;\n  array<mint,\
+    \ max(0, rank2 - 2 + 1)> rate2;\n  array<mint, max(0, rank2 - 2 + 1)> irate2;\n\
+    \  array<mint, max(0, rank2 - 3 + 1)> rate3;\n  array<mint, max(0, rank2 - 3 +\
+    \ 1)> irate3;\n\n  NTT() {\n    root[rank2] = mint(g).pow((mod - 1) >> rank2);\n\
+    \    iroot[rank2] = root[rank2].inv();\n    for (int i = rank2 - 1; i >= 0; i--)\
+    \ {\n      root[i] = root[i + 1] * root[i + 1];\n      iroot[i] = iroot[i + 1]\
+    \ * iroot[i + 1];\n    }\n    {\n      mint prod = 1, iprod = 1;\n      for (int\
+    \ i = 0; i <= rank2 - 2; i++) {\n        rate2[i] = root[i + 2] * prod;\n    \
+    \    irate2[i] = iroot[i + 2] * iprod;\n        prod *= iroot[i + 2];\n      \
+    \  iprod *= root[i + 2];\n      }\n    }\n    {\n      mint prod = 1, iprod =\
+    \ 1;\n      for (int i = 0; i <= rank2 - 3; i++) {\n        rate3[i] = root[i\
+    \ + 3] * prod;\n        irate3[i] = iroot[i + 3] * iprod;\n        prod *= iroot[i\
+    \ + 3];\n        iprod *= root[i + 3];\n      }\n    }\n  }\n  void ntt(vector<mint>&\
+    \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
+    \    a.resize(1 << h);\n    int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..]\
+    \ is transformed\n    while (len < h) {\n      if (h - len == 1) {\n        int\
+    \ p = 1 << (h - len - 1);\n        mint rot = 1;\n        for (int s = 0; s <\
+    \ (1 << len); s++) {\n          int offset = s << (h - len);\n          for (int\
+    \ i = 0; i < p; i++) {\n            auto l = a[i + offset];\n            auto\
+    \ r = a[i + offset + p] * rot;\n            a[i + offset] = l + r;\n         \
+    \   a[i + offset + p] = l - r;\n          }\n          if (s + 1 != (1 << len))\
+    \ rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];\n        }\n        len++;\n\
+    \      } else {\n        // 4-base\n        int p = 1 << (h - len - 2);\n    \
+    \    mint rot = 1, imag = root[2];\n        for (int s = 0; s < (1 << len); s++)\
+    \ {\n          mint rot2 = rot * rot;\n          mint rot3 = rot2 * rot;\n   \
+    \       int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n\
+    \            auto mod2 = 1ULL * mint::get_mod() * mint::get_mod();\n         \
+    \   auto a0 = 1ULL * a[i + offset].val();\n            auto a1 = 1ULL * a[i +\
+    \ offset + p].val() * rot.val();\n            auto a2 = 1ULL * a[i + offset +\
+    \ 2 * p].val() * rot2.val();\n            auto a3 = 1ULL * a[i + offset + 3 *\
+    \ p].val() * rot3.val();\n            auto a1na3imag = 1ULL * mint(a1 + mod2 -\
+    \ a3).val() * imag.val();\n            auto na2 = mod2 - a2;\n            a[i\
+    \ + offset] = a0 + a2 + a1 + a3;\n            a[i + offset + 1 * p] = a0 + a2\
+    \ + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 * p] = a0 + na2 + a1na3imag;\n\
+    \            a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);\n        \
+    \  }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
     \ int)(s))];\n        }\n        len += 2;\n      }\n    }\n  }\n  void intt(vector<mint>&\
     \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
     \    a.resize(1 << h);\n\n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len),\
@@ -259,7 +189,41 @@ data:
     \ - 1) / (n << 1));\n    for (int i = 0; i < n; i++) b[i] *= r, r *= zeta;\n \
     \   ntt(b);\n    copy(b.begin(), b.end(), back_inserter(a));\n  }\n};\n/**\n *\
     \ @brief NTT (\u6570\u8AD6\u5909\u63DB)\n * @docs docs/fft/ntt.md\n */\n#line\
-    \ 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\nstruct FormalPowerSeries\
+    \ 5 \"convolution/intmod.hpp\"\n\nnamespace ConvolutionIntMod {\nusing ll = long\
+    \ long;\nstatic constexpr ll Mod1 = 754974721;\nstatic constexpr ll Mod2 = 167772161;\n\
+    static constexpr ll Mod3 = 469762049;\nstatic constexpr ll M1invM2 = 95869806;\n\
+    static constexpr ll M12invM3 = 187290749;\nusing M1 = ModInt<Mod1>;\nusing M2\
+    \ = ModInt<Mod2>;\nusing M3 = ModInt<Mod3>;\nNTT<M1> ntt1;\nNTT<M2> ntt2;\nNTT<M3>\
+    \ ntt3;\n\ntemplate <class mint>\nvector<mint> multiply(const vector<mint>& a,\
+    \ const vector<mint>& b) {\n  if (a.empty() || b.empty()) return {};\n  int mod\
+    \ = mint::get_mod();\n  ll M12mod = Mod1 * Mod2 % mod;\n  vector<unsigned int>\
+    \ a0(a.size()), b0(b.size());\n  for (int i = 0; i < a.size(); i++) a0[i] = a[i].val();\n\
+    \  for (int i = 0; i < b.size(); i++) b0[i] = b[i].val();\n\n  vector<M1> a1(a0.begin(),\
+    \ a0.end()), b1(b0.begin(), b0.end()), c1 = ntt1.multiply(a1, b1);\n  vector<M2>\
+    \ a2(a0.begin(), a0.end()), b2(b0.begin(), b0.end()), c2 = ntt2.multiply(a2, b2);\n\
+    \  vector<M3> a3(a0.begin(), a0.end()), b3(b0.begin(), b0.end()), c3 = ntt3.multiply(a3,\
+    \ b3);\n  vector<mint> c(a.size() + b.size() - 1, 0);\n  for (int i = 0; i < c.size();\
+    \ i++) {\n    ll v1 = ((ll)c2[i].val() - (ll)c1[i].val()) * M1invM2 % Mod2;\n\
+    \    if (v1 < 0) v1 += Mod2;\n    ll v2 = ((ll)c3[i].val() - ((ll)c1[i].val()\
+    \ + Mod1 * v1) % Mod3) * M12invM3 % Mod3;\n    if (v2 < 0) v2 += Mod3;\n    ll\
+    \ v3 = ((ll)c1[i].val() + Mod1 * v1 + M12mod * v2) % mod;\n    if (v3 < 0) v3\
+    \ += mod;\n    c[i] = v3;\n  }\n  return c;\n}\ntemplate <class mint>\nvector<mint>\
+    \ middle_product(const vector<mint>& a, const vector<mint>& b) {\n  if (b.empty()\
+    \ || a.size() > b.size()) return {};\n  int mod = mint::get_mod();\n  ll M12mod\
+    \ = Mod1 * Mod2 % mod;\n  vector<unsigned int> a0(a.size()), b0(b.size());\n \
+    \ for (int i = 0; i < a.size(); i++) a0[i] = a[i].val();\n  for (int i = 0; i\
+    \ < b.size(); i++) b0[i] = b[i].val();\n\n  vector<M1> a1(a0.begin(), a0.end()),\
+    \ b1(b0.begin(), b0.end()), c1 = ntt1.middle_product(a1, b1);\n  vector<M2> a2(a0.begin(),\
+    \ a0.end()), b2(b0.begin(), b0.end()), c2 = ntt2.middle_product(a2, b2);\n  vector<M3>\
+    \ a3(a0.begin(), a0.end()), b3(b0.begin(), b0.end()), c3 = ntt3.middle_product(a3,\
+    \ b3);\n  vector<mint> c(c1.size(), 0);\n  for (int i = 0; i < c.size(); i++)\
+    \ {\n    ll v1 = ((ll)c2[i].val() - (ll)c1[i].val()) * M1invM2 % Mod2;\n    if\
+    \ (v1 < 0) v1 += Mod2;\n    ll v2 = ((ll)c3[i].val() - ((ll)c1[i].val() + Mod1\
+    \ * v1) % Mod3) * M12invM3 % Mod3;\n    if (v2 < 0) v2 += Mod3;\n    ll v3 = ((ll)c1[i].val()\
+    \ + Mod1 * v1 + M12mod * v2) % mod;\n    if (v3 < 0) v3 += mod;\n    c[i] = v3;\n\
+    \  }\n  return c;\n}\n};  // namespace ConvolutionIntMod\n\n/**\n * @brief \u4EFB\
+    \u610F mod \u7573\u307F\u8FBC\u307F\n * @docs docs/convolution/intmod.md\n */\n\
+    #line 2 \"fps/formal-power-series.hpp\"\n\ntemplate <class mint>\nstruct FormalPowerSeries\
     \ : vector<mint> {\n  using vector<mint>::vector;\n  using FPS = FormalPowerSeries;\n\
     \  FormalPowerSeries(const vector<mint>& r) : vector<mint>(r) {}\n  FormalPowerSeries(vector<mint>&&\
     \ r) : vector<mint>(std::move(r)) {}\n  FPS& operator=(const vector<mint>& r)\
@@ -329,60 +293,63 @@ data:
     \ r) const;\n  void ntt();\n  void intt();\n  void ntt_doubling();\n  static int\
     \ ntt_root();\n  FPS inv(int deg = -1) const;\n  FPS exp(int deg = -1) const;\n\
     };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
-    #line 5 \"fps/fps-ntt-friendly.hpp\"\n\ntemplate <class mint>\nvoid FormalPowerSeries<mint>::set_ntt()\
-    \ {\n  if (!ntt_ptr) ntt_ptr = new NTT<mint>;\n}\ntemplate <class mint>\nFormalPowerSeries<mint>&\
-    \ FormalPowerSeries<mint>::operator*=(const FormalPowerSeries<mint>& r) {\n  if\
-    \ (this->empty() || r.empty()) {\n    this->clear();\n    return *this;\n  }\n\
-    \  set_ntt();\n  auto ret = static_cast<NTT<mint>*>(ntt_ptr)->multiply(*this,\
+    #line 5 \"fps/fps-arbitrary.hpp\"\n\ntemplate <class mint>\nvoid FormalPowerSeries<mint>::set_ntt()\
+    \ { ntt_ptr = nullptr; }\ntemplate <class mint>\nFormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(const\
+    \ FormalPowerSeries<mint>& r) {\n  if (this->empty() || r.empty()) {\n    this->clear();\n\
+    \    return *this;\n  }\n  auto ret = ConvolutionIntMod::multiply(*this, r);\n\
+    \  return *this = FormalPowerSeries<mint>(ret.begin(), ret.end());\n}\ntemplate\
+    \ <class mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::middle_product(const\
+    \ FormalPowerSeries<mint>& r) const {\n  auto ret = ConvolutionIntMod::middle_product(*this,\
     \ r);\n  return *this = FormalPowerSeries<mint>(ret.begin(), ret.end());\n}\n\
-    template <class mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::middle_product(const\
-    \ FormalPowerSeries<mint>& r) const {\n  set_ntt();\n  auto ret = static_cast<NTT<mint>*>(ntt_ptr)->middle_product(*this,\
-    \ r);\n  return FormalPowerSeries<mint>(ret.begin(), ret.end());\n}\ntemplate\
-    \ <class mint>\nvoid FormalPowerSeries<mint>::ntt() {\n  set_ntt();\n  static_cast<NTT<mint>*>(ntt_ptr)->ntt(*this);\n\
-    }\ntemplate <class mint>\nvoid FormalPowerSeries<mint>::intt() {\n  set_ntt();\n\
-    \  static_cast<NTT<mint>*>(ntt_ptr)->intt(*this);\n}\ntemplate <class mint>\n\
-    void FormalPowerSeries<mint>::ntt_doubling() {\n  set_ntt();\n  static_cast<NTT<mint>*>(ntt_ptr)->ntt_doubling(*this);\n\
-    }\ntemplate <typename mint>\nint FormalPowerSeries<mint>::ntt_root() {\n  set_ntt();\n\
-    \  return static_cast<NTT<mint>*>(ntt_ptr)->g;\n}\ntemplate <typename mint>\n\
-    FormalPowerSeries<mint> FormalPowerSeries<mint>::inv(int deg) const {\n  assert((*this)[0]\
-    \ != mint(0));\n  if (deg == -1) deg = (*this).size();\n  FPS ret{mint(1) / (*this)[0]};\n\
-    \  for (int i = 1; i < deg; i <<= 1)\n    ret = (ret + ret - ret * ret * (*this).pre(i\
-    \ << 1)).pre(i << 1);\n  return ret.pre(deg);\n}\ntemplate <typename mint>\nFormalPowerSeries<mint>\
-    \ FormalPowerSeries<mint>::exp(int deg) const {\n  assert((*this)[0] == mint(0));\n\
-    \  if (deg == -1) deg = (*this).size();\n  FPS ret{mint(1)};\n  for (int i = 1;\
-    \ i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i << 1) - ret.log(i << 1) +\
-    \ 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n#line 7 \"verify/fps/LC_division_of_polynomials.test.cpp\"\
-    \nusing fps = FormalPowerSeries<mint>;\n\nint main() {\n  int n, m;\n  in(n, m);\n\
-    \  fps f(n), g(m);\n  in(f, g);\n  fps q = f / g;\n  q.shrink();\n  fps r = f\
-    \ - g * q;\n  r.shrink();\n  out(q.size(), r.size());\n  out(q);\n  out(r);\n\
-    }\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/division_of_polynomials\"\
-    \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
-    \ mint = ModInt<998244353>;\n#include \"fps/fps-ntt-friendly.hpp\"\nusing fps\
-    \ = FormalPowerSeries<mint>;\n\nint main() {\n  int n, m;\n  in(n, m);\n  fps\
-    \ f(n), g(m);\n  in(f, g);\n  fps q = f / g;\n  q.shrink();\n  fps r = f - g *\
-    \ q;\n  r.shrink();\n  out(q.size(), r.size());\n  out(q);\n  out(r);\n}"
+    template <class mint>\nvoid FormalPowerSeries<mint>::ntt() { exit(1); }\ntemplate\
+    \ <class mint>\nvoid FormalPowerSeries<mint>::intt() { exit(1); }\ntemplate <class\
+    \ mint>\nvoid FormalPowerSeries<mint>::ntt_doubling() { exit(1); }\ntemplate <typename\
+    \ mint>\nint FormalPowerSeries<mint>::ntt_root() { exit(1); }\ntemplate <typename\
+    \ mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::inv(int deg) const {\n\
+    \  assert((*this)[0] != mint(0));\n  if (deg == -1) deg = (*this).size();\n  FPS\
+    \ ret{mint(1) / (*this)[0]};\n  for (int i = 1; i < deg; i <<= 1)\n    ret = (ret\
+    \ + ret - ret * ret * (*this).pre(i << 1)).pre(i << 1);\n  return ret.pre(deg);\n\
+    }\ntemplate <typename mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::exp(int\
+    \ deg) const {\n  assert((*this)[0] == mint(0));\n  if (deg == -1) deg = (*this).size();\n\
+    \  FPS ret{mint(1)};\n  for (int i = 1; i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i\
+    \ << 1) - ret.log(i << 1) + 1)).pre(i << 1);\n  return ret.pre(deg);\n}\n"
+  code: "#pragma once\n\n#include \"convolution/intmod.hpp\"\n#include \"fps/formal-power-series.hpp\"\
+    \n\ntemplate <class mint>\nvoid FormalPowerSeries<mint>::set_ntt() { ntt_ptr =\
+    \ nullptr; }\ntemplate <class mint>\nFormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(const\
+    \ FormalPowerSeries<mint>& r) {\n  if (this->empty() || r.empty()) {\n    this->clear();\n\
+    \    return *this;\n  }\n  auto ret = ConvolutionIntMod::multiply(*this, r);\n\
+    \  return *this = FormalPowerSeries<mint>(ret.begin(), ret.end());\n}\ntemplate\
+    \ <class mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::middle_product(const\
+    \ FormalPowerSeries<mint>& r) const {\n  auto ret = ConvolutionIntMod::middle_product(*this,\
+    \ r);\n  return *this = FormalPowerSeries<mint>(ret.begin(), ret.end());\n}\n\
+    template <class mint>\nvoid FormalPowerSeries<mint>::ntt() { exit(1); }\ntemplate\
+    \ <class mint>\nvoid FormalPowerSeries<mint>::intt() { exit(1); }\ntemplate <class\
+    \ mint>\nvoid FormalPowerSeries<mint>::ntt_doubling() { exit(1); }\ntemplate <typename\
+    \ mint>\nint FormalPowerSeries<mint>::ntt_root() { exit(1); }\ntemplate <typename\
+    \ mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::inv(int deg) const {\n\
+    \  assert((*this)[0] != mint(0));\n  if (deg == -1) deg = (*this).size();\n  FPS\
+    \ ret{mint(1) / (*this)[0]};\n  for (int i = 1; i < deg; i <<= 1)\n    ret = (ret\
+    \ + ret - ret * ret * (*this).pre(i << 1)).pre(i << 1);\n  return ret.pre(deg);\n\
+    }\ntemplate <typename mint>\nFormalPowerSeries<mint> FormalPowerSeries<mint>::exp(int\
+    \ deg) const {\n  assert((*this)[0] == mint(0));\n  if (deg == -1) deg = (*this).size();\n\
+    \  FPS ret{mint(1)};\n  for (int i = 1; i < deg; i <<= 1)\n    ret = (ret * ((*this).pre(i\
+    \ << 1) - ret.log(i << 1) + 1)).pre(i << 1);\n  return ret.pre(deg);\n}"
   dependsOn:
-  - template/template.hpp
-  - template/macro.hpp
-  - template/util.hpp
-  - template/inout.hpp
-  - template/debug.hpp
+  - convolution/intmod.hpp
   - modint/modint.hpp
   - math/util.hpp
-  - fps/fps-ntt-friendly.hpp
   - fft/ntt.hpp
   - fps/formal-power-series.hpp
-  isVerificationFile: true
-  path: verify/fps/LC_division_of_polynomials.test.cpp
+  isVerificationFile: false
+  path: fps/fps-arbitrary.hpp
   requiredBy: []
   timestamp: '2025-12-29 01:13:32+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: verify/fps/LC_division_of_polynomials.test.cpp
+documentation_of: fps/fps-arbitrary.hpp
 layout: document
 redirect_from:
-- /verify/verify/fps/LC_division_of_polynomials.test.cpp
-- /verify/verify/fps/LC_division_of_polynomials.test.cpp.html
-title: verify/fps/LC_division_of_polynomials.test.cpp
+- /library/fps/fps-arbitrary.hpp
+- /library/fps/fps-arbitrary.hpp.html
+title: fps/fps-arbitrary.hpp
 ---

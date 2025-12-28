@@ -87,35 +87,39 @@ data:
     };\ntemplate <typename mint>\nvoid* FormalPowerSeries<mint>::ntt_ptr = nullptr;\n\
     #line 3 \"fps/fps-rational.hpp\"\n\ntemplate <class mint>\nstruct FPSRational\
     \ {\n  using F = FormalPowerSeries<mint>;\n  using R = FPSRational;\n  F num,\
-    \ den;\n  R& operator+=(const R& r) {\n    num *= r.den;\n    num += den * r.num;\n\
-    \    den *= r.den;\n    return *this;\n  }\n  R& operator-=(const R& r) {\n  \
-    \  num *= r.den;\n    num -= den * r.num;\n    den *= r.den;\n    return *this;\n\
-    \  }\n  R& operator*=(const R& r) {\n    num *= r.num;\n    den *= r.den;\n  \
-    \  return *this;\n  }\n  R& operator/=(const R& r) {\n    num *= r.den;\n    den\
-    \ *= r.num;\n    return *this;\n  }\n  R operator+(const R& r) const { return\
-    \ R(*this) += r; }\n  R operator-(const R& r) const { return R(*this) -= r; }\n\
-    \  R operator*(const R& r) const { return R(*this) *= r; }\n  R operator/(const\
-    \ R& r) const { return R(*this) /= r; }\n  R inv() const { return {den, num};\
-    \ }\n  F approx(int deg) const { return (den * num.inv(deg)).pre(deg); }\n};\n"
+    \ den;\n  FPSRational() : num(F{}), den(F{1}) {}\n  FPSRational(F f) : num(f),\
+    \ den(F{1}) {}\n  FPSRational(F f, F g) : num(f), den(g) {}\n  R& operator+=(const\
+    \ R& r) {\n    num *= r.den;\n    num += den * r.num;\n    den *= r.den;\n   \
+    \ return *this;\n  }\n  R& operator-=(const R& r) {\n    num *= r.den;\n    num\
+    \ -= den * r.num;\n    den *= r.den;\n    return *this;\n  }\n  R& operator*=(const\
+    \ R& r) {\n    num *= r.num;\n    den *= r.den;\n    return *this;\n  }\n  R&\
+    \ operator/=(const R& r) {\n    num *= r.den;\n    den *= r.num;\n    return *this;\n\
+    \  }\n  R operator+(const R& r) const { return R(*this) += r; }\n  R operator-(const\
+    \ R& r) const { return R(*this) -= r; }\n  R operator*(const R& r) const { return\
+    \ R(*this) *= r; }\n  R operator/(const R& r) const { return R(*this) /= r; }\n\
+    \  R inv() const { return {den, num}; }\n  F approx(int deg) const { return (den\
+    \ * num.inv(deg)).pre(deg); }\n};\n"
   code: "#pragma once\n#include \"fps/formal-power-series.hpp\"\n\ntemplate <class\
     \ mint>\nstruct FPSRational {\n  using F = FormalPowerSeries<mint>;\n  using R\
-    \ = FPSRational;\n  F num, den;\n  R& operator+=(const R& r) {\n    num *= r.den;\n\
-    \    num += den * r.num;\n    den *= r.den;\n    return *this;\n  }\n  R& operator-=(const\
-    \ R& r) {\n    num *= r.den;\n    num -= den * r.num;\n    den *= r.den;\n   \
-    \ return *this;\n  }\n  R& operator*=(const R& r) {\n    num *= r.num;\n    den\
-    \ *= r.den;\n    return *this;\n  }\n  R& operator/=(const R& r) {\n    num *=\
-    \ r.den;\n    den *= r.num;\n    return *this;\n  }\n  R operator+(const R& r)\
-    \ const { return R(*this) += r; }\n  R operator-(const R& r) const { return R(*this)\
-    \ -= r; }\n  R operator*(const R& r) const { return R(*this) *= r; }\n  R operator/(const\
-    \ R& r) const { return R(*this) /= r; }\n  R inv() const { return {den, num};\
-    \ }\n  F approx(int deg) const { return (den * num.inv(deg)).pre(deg); }\n};"
+    \ = FPSRational;\n  F num, den;\n  FPSRational() : num(F{}), den(F{1}) {}\n  FPSRational(F\
+    \ f) : num(f), den(F{1}) {}\n  FPSRational(F f, F g) : num(f), den(g) {}\n  R&\
+    \ operator+=(const R& r) {\n    num *= r.den;\n    num += den * r.num;\n    den\
+    \ *= r.den;\n    return *this;\n  }\n  R& operator-=(const R& r) {\n    num *=\
+    \ r.den;\n    num -= den * r.num;\n    den *= r.den;\n    return *this;\n  }\n\
+    \  R& operator*=(const R& r) {\n    num *= r.num;\n    den *= r.den;\n    return\
+    \ *this;\n  }\n  R& operator/=(const R& r) {\n    num *= r.den;\n    den *= r.num;\n\
+    \    return *this;\n  }\n  R operator+(const R& r) const { return R(*this) +=\
+    \ r; }\n  R operator-(const R& r) const { return R(*this) -= r; }\n  R operator*(const\
+    \ R& r) const { return R(*this) *= r; }\n  R operator/(const R& r) const { return\
+    \ R(*this) /= r; }\n  R inv() const { return {den, num}; }\n  F approx(int deg)\
+    \ const { return (den * num.inv(deg)).pre(deg); }\n};"
   dependsOn:
   - fps/formal-power-series.hpp
   isVerificationFile: false
   path: fps/fps-rational.hpp
   requiredBy:
   - fps/sum-of-rationals.hpp
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps/fps-rational.hpp

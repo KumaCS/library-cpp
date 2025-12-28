@@ -66,28 +66,32 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
-    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
-    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
-    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
-    \ << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\n\n#line 2 \"template/debug.hpp\"\
-    \n#ifdef LOCAL\n#define debug 1\n#define show(...) _show(0, #__VA_ARGS__, __VA_ARGS__)\n\
-    #else\n#define debug 0\n#define show(...) true\n#endif\ntemplate <class T>\nvoid\
-    \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
-    \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
-    \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"data-structure/integer-set.hpp\"\
-    \n\ntemplate <class T = int, class U = unsigned long long>\nclass IntegerSet {\n\
-    \ private:\n  static constexpr T B = 6, W = 64, MASK = W - 1;\n  T size;\n  vector<T>\
-    \ start;\n  vector<U> data;\n  static T high_bit(U x) {\n    if (x == 0) return\
-    \ 0;\n    return W - 1 - countl_zero(x);\n  }\n  static T low_bit(U x) {\n   \
-    \ if (x == 0) return W;\n    return countr_zero(x);\n  }\n\n public:\n  IntegerSet(T\
-    \ n) {\n    size = n;\n    vector<T> len;\n    do len.push_back((n >>= B) + 1);\n\
-    \    while (n > 0);\n    start = vector<T>(1, 0);\n    start.reserve(len.size()\
-    \ + 1);\n    for (auto v : len) start.push_back(start.back() + v);\n    data =\
-    \ vector<U>(start.back());\n  }\n  IntegerSet(string s = \"\") {\n    size = s.size();\n\
-    \    T n = size;\n    vector<T> len;\n    do len.push_back((n >>= B) + 1);\n \
-    \   while (n > 0);\n    start = vector<T>(1, 0);\n    start.reserve(len.size()\
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
+    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
+    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
+    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
+    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
+    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
+    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
+    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
+    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
+    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
+    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
+    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
+    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
+    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
+    #line 2 \"data-structure/integer-set.hpp\"\n\ntemplate <class T = int, class U\
+    \ = unsigned long long>\nclass IntegerSet {\n private:\n  static constexpr T B\
+    \ = 6, W = 64, MASK = W - 1;\n  T size;\n  vector<T> start;\n  vector<U> data;\n\
+    \  static T high_bit(U x) {\n    if (x == 0) return 0;\n    return W - 1 - countl_zero(x);\n\
+    \  }\n  static T low_bit(U x) {\n    if (x == 0) return W;\n    return countr_zero(x);\n\
+    \  }\n\n public:\n  IntegerSet(T n) {\n    size = n;\n    vector<T> len;\n   \
+    \ do len.push_back((n >>= B) + 1);\n    while (n > 0);\n    start = vector<T>(1,\
+    \ 0);\n    start.reserve(len.size() + 1);\n    for (auto v : len) start.push_back(start.back()\
+    \ + v);\n    data = vector<U>(start.back());\n  }\n  IntegerSet(string s = \"\"\
+    ) {\n    size = s.size();\n    T n = size;\n    vector<T> len;\n    do len.push_back((n\
+    \ >>= B) + 1);\n    while (n > 0);\n    start = vector<T>(1, 0);\n    start.reserve(len.size()\
     \ + 1);\n    for (const auto v : len) start.push_back(start.back() + v);\n   \
     \ data = vector<U>(start.back());\n\n    for (T i = 0; i < s.size(); i++)\n  \
     \    if (s[i] == '1') data[i >> B] |= U(1) << (i & MASK);\n    for (T i = 0; i\
@@ -134,7 +138,7 @@ data:
   isVerificationFile: true
   path: verify/data-structure/LC_predecessor_problem.test.cpp
   requiredBy: []
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/data-structure/LC_predecessor_problem.test.cpp

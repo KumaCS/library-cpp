@@ -66,32 +66,36 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
-    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
-    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
-    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
-    \ << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\n\n#line 2 \"template/debug.hpp\"\
-    \n#ifdef LOCAL\n#define debug 1\n#define show(...) _show(0, #__VA_ARGS__, __VA_ARGS__)\n\
-    #else\n#define debug 0\n#define show(...) true\n#endif\ntemplate <class T>\nvoid\
-    \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
-    \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
-    \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"union-find/union-find.hpp\"\n\n\
-    struct UnionFind {\n private:\n  vector<int> a;\n\n public:\n  UnionFind(int n)\
-    \ : a(n, -1) {}\n  int find(int x) { return a[x] < 0 ? x : a[x] = find(a[x]);\
-    \ }\n  int size(int x) { return -a[find(x)]; }\n  bool same(int x, int y) { return\
-    \ find(x) == find(y); }\n  bool unite(int x, int y) {\n    x = find(x), y = find(y);\n\
-    \    if (x == y) return false;\n    if (a[x] > a[y]) swap(x, y);\n    a[x] +=\
-    \ a[y];\n    a[y] = x;\n    return true;\n  }\n  template <class F>\n  bool unite(int\
-    \ x, int y, F f) {\n    x = find(x), y = find(y);\n    if (x == y) return false;\n\
-    \    if (a[x] > a[y]) swap(x, y);\n    a[x] += a[y];\n    a[y] = x;\n    f(x,\
-    \ y);\n    return true;\n  }\n  vector<vector<int>> groups() {\n    vector<int>\
-    \ root(a.size()), gsize(a.size());\n    for (int i = 0; i < a.size(); i++) gsize[root[i]\
-    \ = find(i)]++;\n    vector<vector<int>> res(a.size());\n    for (int i = 0; i\
-    \ < res.size(); i++) res[i].reserve(gsize[i]);\n    for (int i = 0; i < root.size();\
-    \ i++) res[root[i]].push_back(i);\n    res.erase(remove_if(res.begin(), res.end(),\
-    \ [&](const vector<int>& v) { return v.empty(); }), res.end());\n    return res;\n\
-    \  }\n};\n/**\n * @brief Union Find\n * @docs docs/union-find/union-find.md\n\
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
+    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
+    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
+    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
+    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
+    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
+    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
+    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
+    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
+    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
+    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
+    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
+    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
+    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
+    #line 2 \"union-find/union-find.hpp\"\n\nstruct UnionFind {\n private:\n  vector<int>\
+    \ a;\n\n public:\n  UnionFind(int n) : a(n, -1) {}\n  int find(int x) { return\
+    \ a[x] < 0 ? x : a[x] = find(a[x]); }\n  int size(int x) { return -a[find(x)];\
+    \ }\n  bool same(int x, int y) { return find(x) == find(y); }\n  bool unite(int\
+    \ x, int y) {\n    x = find(x), y = find(y);\n    if (x == y) return false;\n\
+    \    if (a[x] > a[y]) swap(x, y);\n    a[x] += a[y];\n    a[y] = x;\n    return\
+    \ true;\n  }\n  template <class F>\n  bool unite(int x, int y, F f) {\n    x =\
+    \ find(x), y = find(y);\n    if (x == y) return false;\n    if (a[x] > a[y]) swap(x,\
+    \ y);\n    a[x] += a[y];\n    a[y] = x;\n    f(x, y);\n    return true;\n  }\n\
+    \  vector<vector<int>> groups() {\n    vector<int> root(a.size()), gsize(a.size());\n\
+    \    for (int i = 0; i < a.size(); i++) gsize[root[i] = find(i)]++;\n    vector<vector<int>>\
+    \ res(a.size());\n    for (int i = 0; i < res.size(); i++) res[i].reserve(gsize[i]);\n\
+    \    for (int i = 0; i < root.size(); i++) res[root[i]].push_back(i);\n    res.erase(remove_if(res.begin(),\
+    \ res.end(), [&](const vector<int>& v) { return v.empty(); }), res.end());\n \
+    \   return res;\n  }\n};\n/**\n * @brief Union Find\n * @docs docs/union-find/union-find.md\n\
     \ */\n#line 5 \"verify/union-find/LC_unionfind.test.cpp\"\n\nint main() {\n  int\
     \ n, q;\n  in(n, q);\n  UnionFind uf(n);\n  while (q--) {\n    int t, u, v;\n\
     \    in(t, u, v);\n    if (t == 0)\n      uf.unite(u, v);\n    else\n      out(uf.same(u,\
@@ -111,7 +115,7 @@ data:
   isVerificationFile: true
   path: verify/union-find/LC_unionfind.test.cpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/union-find/LC_unionfind.test.cpp

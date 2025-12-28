@@ -66,28 +66,33 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
-    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
-    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
-    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
-    \ << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\n\n#line 2 \"template/debug.hpp\"\
-    \n#ifdef LOCAL\n#define debug 1\n#define show(...) _show(0, #__VA_ARGS__, __VA_ARGS__)\n\
-    #else\n#define debug 0\n#define show(...) true\n#endif\ntemplate <class T>\nvoid\
-    \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
-    \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
-    \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"data-structure/binary-indexed-tree.hpp\"\
-    \n\ntemplate <class T>\nstruct BinaryIndexedTree {\n  int size;\n  vector<T> data;\n\
-    \  BinaryIndexedTree(int n) : size(n), data(n) {}\n  void add(int p, T x) {\n\
-    \    for (p++; p <= size; p += p & -p) data[p - 1] += x;\n  }\n  T sum(int p)\
-    \ {\n    T s = 0;\n    for (; p; p -= p & -p) s += data[p - 1];\n    return s;\n\
-    \  }\n  T sum(int l, int r) { return sum(r) - sum(l); }\n\n  template <bool (*f)(T)>\n\
-    \  int lower_bound() const {\n    return lower_bound([](T x) { return f(x); });\n\
-    \  }\n  template <class F>\n  int lower_bound(F f) const {\n    if (f(T(0))) return\
-    \ 0;\n    int x = 0, r = 1;\n    while (r < size) r = r << 1;\n    T s = 0;\n\
-    \    for (int len = r; len > 0; len >>= 1) {\n      if (x + len < size && !f(s\
-    \ + data[x + len]))\n        s += data[x += len];\n    }\n    return x + 1;\n\
-    \  }\n};\n\n/**\n * @brief Binary Indexed Tree\n * @docs docs/data-structure/binary-indexed-tree.md\n\
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
+    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
+    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
+    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
+    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
+    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
+    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
+    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
+    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
+    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
+    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
+    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
+    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
+    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
+    #line 2 \"data-structure/binary-indexed-tree.hpp\"\n\ntemplate <class T>\nstruct\
+    \ BinaryIndexedTree {\n  int size;\n  vector<T> data;\n  BinaryIndexedTree(int\
+    \ n) : size(n), data(n) {}\n  void add(int p, T x) {\n    for (p++; p <= size;\
+    \ p += p & -p) data[p - 1] += x;\n  }\n  T sum(int p) {\n    T s = 0;\n    for\
+    \ (; p; p -= p & -p) s += data[p - 1];\n    return s;\n  }\n  T sum(int l, int\
+    \ r) { return sum(r) - sum(l); }\n\n  template <bool (*f)(T)>\n  int lower_bound()\
+    \ const {\n    return lower_bound([](T x) { return f(x); });\n  }\n  template\
+    \ <class F>\n  int lower_bound(F f) const {\n    if (f(T(0))) return 0;\n    int\
+    \ x = 0, r = 1;\n    while (r < size) r = r << 1;\n    T s = 0;\n    for (int\
+    \ len = r; len > 0; len >>= 1) {\n      if (x + len < size && !f(s + data[x +\
+    \ len]))\n        s += data[x += len];\n    }\n    return x + 1;\n  }\n};\n\n\
+    /**\n * @brief Binary Indexed Tree\n * @docs docs/data-structure/binary-indexed-tree.md\n\
     \ */\n#line 5 \"verify/data-structure/LC_point_add_range_sum.test.cpp\"\n\nint\
     \ main() {\n  int n, q;\n  in(n, q);\n  vector<ll> a(n);\n  in(a);\n  BinaryIndexedTree<ll>\
     \ bit(n);\n  rep(i, 0, n) bit.add(i, a[i]);\n  while (q--) {\n    int type, x,\
@@ -109,7 +114,7 @@ data:
   isVerificationFile: true
   path: verify/data-structure/LC_point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/data-structure/LC_point_add_range_sum.test.cpp

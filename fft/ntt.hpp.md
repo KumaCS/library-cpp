@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: convolution/mod2_64.hpp
     title: "\u7573\u307F\u8FBC\u307F mod 2^64"
+  - icon: ':warning:'
+    path: fps/fps-arbitrary.hpp
+    title: fps/fps-arbitrary.hpp
   - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
@@ -345,6 +348,7 @@ data:
   path: fft/ntt.hpp
   requiredBy:
   - fps/fps-ntt-friendly.hpp
+  - fps/fps-arbitrary.hpp
   - convolution/mod2_64.hpp
   - convolution/intmod.hpp
   timestamp: '2025-10-21 21:13:36+09:00'

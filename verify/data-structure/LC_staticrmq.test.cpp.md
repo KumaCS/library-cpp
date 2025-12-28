@@ -66,27 +66,32 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
-    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
-    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
-    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
-    \ << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\n\n#line 2 \"template/debug.hpp\"\
-    \n#ifdef LOCAL\n#define debug 1\n#define show(...) _show(0, #__VA_ARGS__, __VA_ARGS__)\n\
-    #else\n#define debug 0\n#define show(...) true\n#endif\ntemplate <class T>\nvoid\
-    \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
-    \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
-    \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"data-structure/sparse-table.hpp\"\
-    \n\ntemplate <class T, T (*op)(T, T)>\nstruct SparseTable {\n private:\n  int\
-    \ n;\n  vector<vector<T>> st;\n\n public:\n  SparseTable() {}\n  SparseTable(const\
-    \ vector<T> &arr) {\n    n = arr.size();\n    int log = 1;\n    while (n >> log)\
-    \ log++;\n    st = vector<vector<T>>(log);\n    st[0] = vector<T>(arr.begin(),\
-    \ arr.end());\n    for (int k = 1; k < log; k++) {\n      auto stp = st[k - 1];\n\
-    \      auto sti = vector<T>(n - (1 << k) + 1);\n      for (int i = 0; i < sti.size();\
-    \ i++)\n        sti[i] = op(stp[i], stp[i + (1 << (k - 1))]);\n      st[k] = sti;\n\
-    \    }\n  }\n  T prod(int l, int r)  // [l,r)\n  {\n    assert(0 <= l && l < r\
-    \ && r <= n);\n    int j = 0;\n    while ((1 << j) <= r - l) j++;\n    j--;\n\
-    \    return op(st[j][l], st[j][r - (1 << j)]);\n  }\n};\n#line 5 \"verify/data-structure/LC_staticrmq.test.cpp\"\
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
+    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
+    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
+    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
+    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
+    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
+    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
+    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
+    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
+    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
+    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
+    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
+    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
+    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
+    #line 2 \"data-structure/sparse-table.hpp\"\n\ntemplate <class T, T (*op)(T, T)>\n\
+    struct SparseTable {\n private:\n  int n;\n  vector<vector<T>> st;\n\n public:\n\
+    \  SparseTable() {}\n  SparseTable(const vector<T> &arr) {\n    n = arr.size();\n\
+    \    int log = 1;\n    while (n >> log) log++;\n    st = vector<vector<T>>(log);\n\
+    \    st[0] = vector<T>(arr.begin(), arr.end());\n    for (int k = 1; k < log;\
+    \ k++) {\n      auto stp = st[k - 1];\n      auto sti = vector<T>(n - (1 << k)\
+    \ + 1);\n      for (int i = 0; i < sti.size(); i++)\n        sti[i] = op(stp[i],\
+    \ stp[i + (1 << (k - 1))]);\n      st[k] = sti;\n    }\n  }\n  T prod(int l, int\
+    \ r)  // [l,r)\n  {\n    assert(0 <= l && l < r && r <= n);\n    int j = 0;\n\
+    \    while ((1 << j) <= r - l) j++;\n    j--;\n    return op(st[j][l], st[j][r\
+    \ - (1 << j)]);\n  }\n};\n#line 5 \"verify/data-structure/LC_staticrmq.test.cpp\"\
     \n\nint op(int x, int y) { return min(x, y); }\n\nint main() {\n  int n, q;\n\
     \  in(n, q);\n  vector<int> a(n);\n  in(a);\n  SparseTable<int, op> st(a);\n \
     \ while (q--) {\n    int l, r;\n    in(l, r);\n    out(st.prod(l, r));\n  }\n\
@@ -106,7 +111,7 @@ data:
   isVerificationFile: true
   path: verify/data-structure/LC_staticrmq.test.cpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/data-structure/LC_staticrmq.test.cpp

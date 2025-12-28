@@ -264,10 +264,15 @@ data:
     \ T2>\nostream& operator<<(ostream& os, const map<T1, T2>& mp) {\n  os << \"{\"\
     ;\n  for (auto it = mp.begin(); it != mp.end();) {\n    os << it->first << \"\
     :\" << it->second;\n    if (++it != mp.end()) os << \",\";\n  }\n  os << \"}\"\
-    ;\n  return os;\n}\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T&\
-    \ t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\n\
-    template <typename T, class... U, char sep = ' '>\nvoid out(const T& t, const\
-    \ U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n"
+    ;\n  return os;\n}\nostream& operator<<(ostream& os, __uint128_t x) {\n  char\
+    \ buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++] = (char)(x % 10 + '0'),\
+    \ x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k) os << buf[--k];\n  return\
+    \ os;\n}\nostream& operator<<(ostream& os, __int128_t x) {\n  return x < 0 ? (os\
+    \ << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n}\n\nvoid in() {}\n\
+    template <typename T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n\
+    }\nvoid out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep\
+    \ = ' '>\nvoid out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u))\
+    \ cout << sep;\n  out(u...);\n}\n"
   code: "#pragma once\nstruct Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
     \    cout << fixed << setprecision(15);\n  }\n} fast;\n\ntemplate <class T1, class\
     \ T2>\nistream& operator>>(istream& is, pair<T1, T2>& p) {\n  return is >> p.first\
@@ -283,17 +288,21 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
-    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
-    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
-    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
-    \ << sep;\n  out(u...);\n}"
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
+    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
+    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
+    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
+    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
+    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
+    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
+    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}"
   dependsOn: []
   isVerificationFile: false
   path: template/inout.hpp
   requiredBy:
   - template/template.hpp
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp

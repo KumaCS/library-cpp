@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: convolution/mod2_64.hpp
     title: "\u7573\u307F\u8FBC\u307F mod 2^64"
+  - icon: ':warning:'
+    path: fps/fps-arbitrary.hpp
+    title: fps/fps-arbitrary.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/convolution/LC_convolution_mod.test.cpp
@@ -309,6 +312,7 @@ data:
   isVerificationFile: false
   path: modint/modint.hpp
   requiredBy:
+  - fps/fps-arbitrary.hpp
   - convolution/mod2_64.hpp
   - convolution/intmod.hpp
   timestamp: '2025-11-06 12:30:44+09:00'

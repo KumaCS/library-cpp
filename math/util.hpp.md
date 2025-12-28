@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: convolution/mod2_64.hpp
     title: "\u7573\u307F\u8FBC\u307F mod 2^64"
+  - icon: ':warning:'
+    path: fps/fps-arbitrary.hpp
+    title: fps/fps-arbitrary.hpp
   - icon: ':heavy_check_mark:'
     path: fps/fps-sqrt.hpp
     title: fps/fps-sqrt.hpp
@@ -329,6 +332,7 @@ data:
   - math/garner-online.hpp
   - fps/relaxed.hpp
   - fps/sparse.hpp
+  - fps/fps-arbitrary.hpp
   - fps/fps-sqrt.hpp
   - convolution/mod2_64.hpp
   - convolution/intmod.hpp

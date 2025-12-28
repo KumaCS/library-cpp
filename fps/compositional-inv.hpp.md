@@ -143,7 +143,7 @@ data:
     \ - 1) >> (log + 1));\n  vector<int> rev(m);\n  for (int i = 0; i < rev.size();\
     \ i++) rev[i] = (rev[i / 2] / 2) | ((i & 1) << (log - 1));\n  vector<mint> pow(m,\
     \ 1);\n  for (int i = 1; i < m; i++) pow[rev[i]] = pow[rev[i - 1]] * wi;\n  mint\
-    \ inv2 = mint(2).inv();\n  \n  while (k > 1) {\n    P.resize(2 * m), P.ntt();\n\
+    \ inv2 = mint(2).inv();\n\n  while (k > 1) {\n    P.resize(2 * m), P.ntt();\n\
     \    Q.resize(2 * m), Q.ntt();\n    for (int i = 0; i < m; i++) {\n      mint\
     \ b = (i >> (log - 1)) == 0 ? 1 : -1;\n      int j = i << 1;\n      P[i] = pow[i]\
     \ * (P[j] * (Q[j ^ 1] + b) - P[j ^ 1] * (Q[j] + b)) * inv2;\n      Q[i] = Q[j]\
@@ -155,19 +155,19 @@ data:
     // [x^k]f(x)g(x)^0,...,f(x)g(x)^(n-1)\n// O((n+k)log^2(n+k))\ntemplate <class\
     \ mint>\nvector<mint> PowerProjection(FormalPowerSeries<mint> f, FormalPowerSeries<mint>\
     \ g, int k, int n) {\n  assert(n >= 0 && k >= 0);\n  if (n == 0) return {};\n\
-    \  f.resize(k + 1);\n  f = f.rev();\n  return TransposedComposition(f, g, n);\n\
-    }\n/**\n * @brief Power Projection\n * @docs docs/fps/power-projection.md\n */\n\
-    #line 5 \"fps/compositional-inv.hpp\"\n\n// [x^0]f=0,[x^1]f!=0\n// find g s.t.\
-    \ f(g(x))=g(f(x))=x mod x^n\n// O(n(log n)^2)\ntemplate <class mint>\nFormalPowerSeries<mint>\
-    \ CompositionalInv(FormalPowerSeries<mint> f, int n = -1) {\n  if (n == -1) n\
-    \ = f.size();\n  assert(f[0] == 0 && f[1] != 0);\n  mint c = f[1], ci = c.inv();\n\
-    \  using fact = Factorial<mint>;\n  mint p = 1;\n  for (int i = 1; i < f.size();\
-    \ i++) f[i] *= (p *= ci);\n  auto g = PowerProjection(f, f, n, n);\n  f.resize(n);\n\
-    \  reverse_copy(g.begin(), g.end(), f.begin());\n  for (int i = 1; i < n; i++)\
-    \ f[i] *= n * fact::inv(n - i);\n  f = (f.log() * (-fact::inv(n))).exp();\n  for\
-    \ (int i = n - 1; i > 0; i--) f[i] = f[i - 1] * ci;\n  f[0] = 0;\n  return f;\n\
-    }\n/**\n * @brief \u9006\u95A2\u6570\n * @docs docs/fps/compositional-inv.md\n\
-    \ */\n"
+    \  f.resize(k + 1);\n  reverse(f.begin(), f.end());\n  return TransposedComposition(f,\
+    \ g, n);\n}\n/**\n * @brief Power Projection\n * @docs docs/fps/power-projection.md\n\
+    \ */\n#line 5 \"fps/compositional-inv.hpp\"\n\n// [x^0]f=0,[x^1]f!=0\n// find\
+    \ g s.t. f(g(x))=g(f(x))=x mod x^n\n// O(n(log n)^2)\ntemplate <class mint>\n\
+    FormalPowerSeries<mint> CompositionalInv(FormalPowerSeries<mint> f, int n = -1)\
+    \ {\n  if (n == -1) n = f.size();\n  assert(f[0] == 0 && f[1] != 0);\n  mint c\
+    \ = f[1], ci = c.inv();\n  using fact = Factorial<mint>;\n  mint p = 1;\n  for\
+    \ (int i = 1; i < f.size(); i++) f[i] *= (p *= ci);\n  auto g = PowerProjection(f,\
+    \ f, n, n);\n  f.resize(n);\n  reverse_copy(g.begin(), g.end(), f.begin());\n\
+    \  for (int i = 1; i < n; i++) f[i] *= n * fact::inv(n - i);\n  f = (f.log() *\
+    \ (-fact::inv(n))).exp();\n  for (int i = n - 1; i > 0; i--) f[i] = f[i - 1] *\
+    \ ci;\n  f[0] = 0;\n  return f;\n}\n/**\n * @brief \u9006\u95A2\u6570\n * @docs\
+    \ docs/fps/compositional-inv.md\n */\n"
   code: "#pragma once\n#include \"fps/formal-power-series.hpp\"\n#include \"fps/power-projection.hpp\"\
     \n#include \"modint/factorial.hpp\"\n\n// [x^0]f=0,[x^1]f!=0\n// find g s.t. f(g(x))=g(f(x))=x\
     \ mod x^n\n// O(n(log n)^2)\ntemplate <class mint>\nFormalPowerSeries<mint> CompositionalInv(FormalPowerSeries<mint>\
@@ -186,7 +186,7 @@ data:
   isVerificationFile: false
   path: fps/compositional-inv.hpp
   requiredBy: []
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp

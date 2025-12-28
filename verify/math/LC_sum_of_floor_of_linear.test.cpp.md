@@ -66,36 +66,41 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
-    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
-    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
-    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
-    \ << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\n\n#line 2 \"template/debug.hpp\"\
-    \n#ifdef LOCAL\n#define debug 1\n#define show(...) _show(0, #__VA_ARGS__, __VA_ARGS__)\n\
-    #else\n#define debug 0\n#define show(...) true\n#endif\ntemplate <class T>\nvoid\
-    \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
-    \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
-    \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"math/floor-sum.hpp\"\n\n// sum{i=0}^{n-1}floor((a*i+b)/m)\n\
-    template <class T>\nT FloorSumUnsigned(unsigned long long n, unsigned long long\
-    \ m, unsigned long long a, unsigned long long b) {\n  assert(m != 0);\n  if (n\
-    \ == 0) return 0;\n  T res = 0;\n  while (true) {\n    if (a >= m) {\n      unsigned\
-    \ long long q = a / m;\n      res += T(q) * (n / 2) * ((n - 1) | 1);\n      a\
-    \ -= m * q;\n    }\n    if (b >= m) {\n      unsigned long long q = b / m;\n \
-    \     res += T(q) * n;\n      b -= m * q;\n    }\n    unsigned long long y = a\
-    \ * n + b;\n    if (y < m) break;\n    n = y / m, b = y - m * n;\n    swap(a,\
-    \ m);\n  }\n  return res;\n}\n\n// sum{i=0}^{n-1}floor((a*i+b)/m)\ntemplate <class\
-    \ T>\nT FloorSum(long long n, long long m, long long a, long long b) {\n  assert(m\
-    \ != 0);\n  if (n <= 0) return 0;\n  if (m < 0) a = -a, b = -b, m = -m;\n  T res\
-    \ = 0;\n  if (a < 0) {\n    long long q = (a + 1) / m - 1;\n    res += T(q) *\
-    \ (n / 2) * ((n - 1) | 1);\n    a -= m * q;\n  }\n  if (b < 0) {\n    long long\
-    \ q = (b + 1) / m - 1;\n    res += T(q) * n;\n    b -= m * q;\n  }\n  return res\
-    \ + FloorSumUnsigned<T>(n, m, a, b);\n}\n\n/**\n * @brief Floor Sum\n * @docs\
-    \ docs/math/floor-sum.md\n */\n#line 5 \"verify/math/LC_sum_of_floor_of_linear.test.cpp\"\
-    \n\nint main() {\n  int t;\n  in(t);\n  while (t--) {\n    ull n, m, a, b;\n \
-    \   in(n, m, a, b);\n    ull us = FloorSumUnsigned<ull>(n, m, a, b);\n    ll s\
-    \ = FloorSum<ll>(ll(n), ll(m), ll(a), ll(b));\n    assert(us == ull(s));\n   \
-    \ cout << us << \"\\n\";\n  }\n}\n"
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
+    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
+    \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
+    \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
+    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
+    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
+    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
+    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
+    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
+    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
+    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
+    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
+    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
+    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
+    #line 2 \"math/floor-sum.hpp\"\n\n// sum{i=0}^{n-1}floor((a*i+b)/m)\ntemplate\
+    \ <class T>\nT FloorSumUnsigned(unsigned long long n, unsigned long long m, unsigned\
+    \ long long a, unsigned long long b) {\n  assert(m != 0);\n  if (n == 0) return\
+    \ 0;\n  T res = 0;\n  while (true) {\n    if (a >= m) {\n      unsigned long long\
+    \ q = a / m;\n      res += T(q) * (n / 2) * ((n - 1) | 1);\n      a -= m * q;\n\
+    \    }\n    if (b >= m) {\n      unsigned long long q = b / m;\n      res += T(q)\
+    \ * n;\n      b -= m * q;\n    }\n    unsigned long long y = a * n + b;\n    if\
+    \ (y < m) break;\n    n = y / m, b = y - m * n;\n    swap(a, m);\n  }\n  return\
+    \ res;\n}\n\n// sum{i=0}^{n-1}floor((a*i+b)/m)\ntemplate <class T>\nT FloorSum(long\
+    \ long n, long long m, long long a, long long b) {\n  assert(m != 0);\n  if (n\
+    \ <= 0) return 0;\n  if (m < 0) a = -a, b = -b, m = -m;\n  T res = 0;\n  if (a\
+    \ < 0) {\n    long long q = (a + 1) / m - 1;\n    res += T(q) * (n / 2) * ((n\
+    \ - 1) | 1);\n    a -= m * q;\n  }\n  if (b < 0) {\n    long long q = (b + 1)\
+    \ / m - 1;\n    res += T(q) * n;\n    b -= m * q;\n  }\n  return res + FloorSumUnsigned<T>(n,\
+    \ m, a, b);\n}\n\n/**\n * @brief Floor Sum\n * @docs docs/math/floor-sum.md\n\
+    \ */\n#line 5 \"verify/math/LC_sum_of_floor_of_linear.test.cpp\"\n\nint main()\
+    \ {\n  int t;\n  in(t);\n  while (t--) {\n    ull n, m, a, b;\n    in(n, m, a,\
+    \ b);\n    ull us = FloorSumUnsigned<ull>(n, m, a, b);\n    ll s = FloorSum<ll>(ll(n),\
+    \ ll(m), ll(a), ll(b));\n    assert(us == ull(s));\n    cout << us << \"\\n\"\
+    ;\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sum_of_floor_of_linear\"\
     \n\n#include \"template/template.hpp\"\n#include \"math/floor-sum.hpp\"\n\nint\
     \ main() {\n  int t;\n  in(t);\n  while (t--) {\n    ull n, m, a, b;\n    in(n,\
@@ -112,7 +117,7 @@ data:
   isVerificationFile: true
   path: verify/math/LC_sum_of_floor_of_linear.test.cpp
   requiredBy: []
-  timestamp: '2025-11-03 00:29:19+09:00'
+  timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/math/LC_sum_of_floor_of_linear.test.cpp

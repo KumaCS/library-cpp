@@ -20,6 +20,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: fps/famous-sequences.hpp
     title: "\u6709\u540D\u6570\u5217"
+  - icon: ':warning:'
+    path: fps/fps-arbitrary.hpp
+    title: fps/fps-arbitrary.hpp
   - icon: ':heavy_check_mark:'
     path: fps/fps-ntt-friendly.hpp
     title: fps/fps-ntt-friendly.hpp
@@ -354,6 +357,7 @@ data:
   - fps/taylor-shift.hpp
   - fps/fps-ntt-friendly.hpp
   - fps/inverse-shift.hpp
+  - fps/fps-arbitrary.hpp
   - fps/product-of-polynomials.hpp
   - fps/prefix-sum-of-polynomial.hpp
   - fps/famous-sequences.hpp
