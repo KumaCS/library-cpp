@@ -1,7 +1,7 @@
 #pragma once
 #include "math/util.hpp"
 
-template <class T>
+template <class T = __int128_t>
 struct GarnerOnline {
   vector<T> ms, y;
   GarnerOnline() { init(); }

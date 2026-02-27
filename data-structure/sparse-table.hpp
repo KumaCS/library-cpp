@@ -26,8 +26,7 @@ struct SparseTable {
   {
     assert(0 <= l && l < r && r <= n);
     int j = 0;
-    while ((1 << j) <= r - l) j++;
-    j--;
+    while ((2 << j) <= r - l) j++;
     return op(st[j][l], st[j][r - (1 << j)]);
   }
 };

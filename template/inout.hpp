@@ -7,6 +7,17 @@ struct Fast {
   }
 } fast;
 
+ostream& operator<<(ostream& os, __uint128_t x) {
+  char buf[40];
+  size_t k = 0;
+  while (x > 0) buf[k++] = (char)(x % 10 + '0'), x /= 10;
+  if (k == 0) buf[k++] = '0';
+  while (k) os << buf[--k];
+  return os;
+}
+ostream& operator<<(ostream& os, __int128_t x) {
+  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);
+}
 template <class T1, class T2>
 istream& operator>>(istream& is, pair<T1, T2>& p) {
   return is >> p.first >> p.second;
@@ -48,17 +59,6 @@ ostream& operator<<(ostream& os, const map<T1, T2>& mp) {
   os << "}";
   return os;
 }
-ostream& operator<<(ostream& os, __uint128_t x) {
-  char buf[40];
-  size_t k = 0;
-  while (x > 0) buf[k++] = (char)(x % 10 + '0'), x /= 10;
-  if (k == 0) buf[k++] = '0';
-  while (k) os << buf[--k];
-  return os;
-}
-ostream& operator<<(ostream& os, __int128_t x) {
-  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);
-}
 
 void in() {}
 template <typename T, class... U>
@@ -73,3 +73,52 @@ void out(const T& t, const U&... u) {
   if (sizeof...(u)) cout << sep;
   out(u...);
 }
+
+namespace IO {
+namespace Graph {
+vector<vector<int>> unweighted(int n, int m, bool directed = false, int offset = 1) {
+  vector<vector<int>> g(n);
+  for (int i = 0; i < m; i++) {
+    int u, v;
+    cin >> u >> v;
+    u -= offset, v -= offset;
+    g[u].push_back(v);
+    if (!directed) g[v].push_back(u);
+  }
+  return g;
+}
+template <class T>
+vector<vector<pair<int, T>>> weighted(int n, int m, bool directed = false, int offset = 1) {
+  vector<vector<pair<int, T>>> g(n);
+  for (int i = 0; i < m; i++) {
+    int u, v;
+    T w;
+    cin >> u >> v >> w;
+    u -= offset, v -= offset;
+    g[u].push_back({v, w});
+    if (!directed) g[v].push_back({u, w});
+  }
+  return g;
+}
+}  // namespace Graph
+namespace Tree {
+vector<vector<int>> unweighted(int n, bool directed = false, int offset = 1) {
+  return Graph::unweighted(n, n - 1, directed, offset);
+}
+template <class T>
+vector<vector<pair<int, T>>> weighted(int n, bool directed = false, int offset = 1) {
+  return Graph::weighted<T>(n, n - 1, directed, offset);
+}
+vector<vector<int>> rooted(int n, bool to_root = true, bool to_leaf = true, int offset = 1) {
+  vector<vector<int>> g(n);
+  for (int i = 1; i < n; i++) {
+    int p;
+    cin >> p;
+    p -= offset;
+    if (to_root) g[i].push_back(p);
+    if (to_leaf) g[p].push_back(i);
+  }
+  return g;
+}
+}  // namespace Tree
+}  // namespace IO

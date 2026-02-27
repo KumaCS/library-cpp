@@ -7,8 +7,14 @@ class TimeKeeper {
 
  public:
   TimeKeeper(int time_threshold) : start_time_(chrono::high_resolution_clock::now()), time_threshold_(time_threshold) {}
-  bool is_time_over() const {
+  long long elapsed_ms() const {
     auto diff = chrono::high_resolution_clock::now() - this->start_time_;
-    return chrono::duration_cast<chrono::milliseconds>(diff).count() >= time_threshold_;
+    return chrono::duration_cast<chrono::milliseconds>(diff).count();
+  }
+  double elapsed_ratio() const {
+    return (double)elapsed_ms() / time_threshold_;
+  }
+  bool is_time_over() const {
+    return elapsed_ms() >= time_threshold_;
   }
 };

@@ -2,6 +2,17 @@
 #include "fps/formal-power-series.hpp"
 #include "fps/fps-rational.hpp"
 
+template <class fps>
+pair<fps, fps> SumOfRationals(vector<pair<fps, fps>> rs) {
+  if (rs.empty()) return {};
+  for (int i = rs.size() - 1; i > 0; i--) {
+    int j = i - (i & -i);
+    rs[j] = {rs[j].first * rs[i].second + rs[i].first * rs[j].second, rs[i].second * rs[j].second};
+    rs[j].first.shrink();
+  }
+  return rs[0];
+}
+
 template <class mint>
 FPSRational<mint> SumOfRationals(vector<FPSRational<mint>> rs) {
   if (rs.empty()) return {};

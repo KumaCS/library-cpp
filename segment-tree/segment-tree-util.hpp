@@ -21,21 +21,25 @@ template <class T>
 struct SegmentTreeSum : SegmentTree<T, Add<T>, Zero<T>> {
   using base = SegmentTree<T, Add<T>, Zero<T>>;
   SegmentTreeSum(const vector<T>& a) : base(a) {}
+  SegmentTreeSum(int n) : base(vector<T>(n, Zero<T>())) {}
 };
 template <class T>
 struct SegmentTreeProd : SegmentTree<T, Mul<T>, One<T>> {
   using base = SegmentTree<T, Mul<T>, One<T>>;
   SegmentTreeProd(const vector<T>& a) : base(a) {}
+  SegmentTreeProd(int n) : base(vector<T>(n, One<T>())) {}
 };
 template <class T, T e>
 struct SegmentTreeMax : SegmentTree<T, Max<T>, Const<T, e>> {
   using base = SegmentTree<T, Max<T>, Const<T, e>>;
   SegmentTreeMax(const vector<T>& a) : base(a) {}
+  SegmentTreeMax(int n) : base(vector<T>(n, e)) {}
 };
 template <class T, T e>
 struct SegmentTreeMin : SegmentTree<T, Min<T>, Const<T, e>> {
   using base = SegmentTree<T, Min<T>, Const<T, e>>;
   SegmentTreeMin(const vector<T>& a) : base(a) {}
+  SegmentTreeMin(int n) : base(vector<T>(n, e)) {}
 };
 };  // namespace SegmentTreeUtil
 using SegmentTreeUtil::SegmentTreeMax;

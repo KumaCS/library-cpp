@@ -32,7 +32,7 @@ vector<P<T>> InitPair(const vector<T>& a) {
 }
 template <class T>
 struct LazySegmentTreeAddSum : LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>> {
-  using base = LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, PAdd<T>, Add<T>, Zero<T>>;
+  using base = LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>>;
   LazySegmentTreeAddSum(int n) : base(vector<P<T>>(n, PZero<T>())) {}
   LazySegmentTreeAddSum(const vector<T>& a) : base(InitPair(a)) {}
 };
