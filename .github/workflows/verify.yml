@@ -12,11 +12,11 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        python-version: '3.11'
+        python-version: '3.14'
 
     - name: Install dependencies
       run: |
-        pip3 install -U setuptools
+        pip3 install -U "setuptools<81"
         pip3 install -U online-judge-verify-helper
 
     - name: Run tests
