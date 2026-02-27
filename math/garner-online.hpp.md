@@ -50,7 +50,21 @@ data:
     \    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n    \
     \  t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
     \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 3 \"math/garner-online.hpp\"\n\ntemplate <class T>\n\
+    };  // namespace Math\n#line 3 \"math/garner-online.hpp\"\n\ntemplate <class T\
+    \ = __int128_t>\nstruct GarnerOnline {\n  vector<T> ms, y;\n  GarnerOnline() {\
+    \ init(); }\n  void init() { ms.clear(), y.clear(); }\n  void push(T r, T m) {\n\
+    \    T x = 0, p = 1;\n    for (int j = 0; j < ms.size(); j++) {\n      x = (x\
+    \ + y[j] * p) % m;\n      p = p * ms[j] % m;\n    }\n    ms.push_back(m);\n  \
+    \  y.push_back((r - x + m) * Math::inv_mod(p, m) % m);\n  }\n  template <class\
+    \ mint>\n  void push(mint x) { push(mint::get_mod(), x.val()); }\n  void pop()\
+    \ {\n    assert(!ms.empty());\n    ms.pop_back(), y.pop_back();\n  }\n  T get()\
+    \ {\n    T res = 0;\n    for (int i = (int)ms.size() - 1; i >= 0; i--) res = res\
+    \ * ms[i] + y[i];\n    return res;\n  }\n  T get(T mod) {\n    T res = 0;\n  \
+    \  for (int i = (int)ms.size() - 1; i >= 0; i--) res = (res * ms[i] + y[i]) %\
+    \ mod;\n    return res;\n  }\n};\n\n/**\n * @brief Garner \u306E\u30A2\u30EB\u30B4\
+    \u30EA\u30BA\u30E0 (\u30AA\u30F3\u30E9\u30A4\u30F3)\n * @docs docs/math/garner.md\n\
+    \ */\n"
+  code: "#pragma once\n#include \"math/util.hpp\"\n\ntemplate <class T = __int128_t>\n\
     struct GarnerOnline {\n  vector<T> ms, y;\n  GarnerOnline() { init(); }\n  void\
     \ init() { ms.clear(), y.clear(); }\n  void push(T r, T m) {\n    T x = 0, p =\
     \ 1;\n    for (int j = 0; j < ms.size(); j++) {\n      x = (x + y[j] * p) % m;\n\
@@ -62,26 +76,13 @@ data:
     \  }\n  T get(T mod) {\n    T res = 0;\n    for (int i = (int)ms.size() - 1; i\
     \ >= 0; i--) res = (res * ms[i] + y[i]) % mod;\n    return res;\n  }\n};\n\n/**\n\
     \ * @brief Garner \u306E\u30A2\u30EB\u30B4\u30EA\u30BA\u30E0 (\u30AA\u30F3\u30E9\
-    \u30A4\u30F3)\n * @docs docs/math/garner.md\n */\n"
-  code: "#pragma once\n#include \"math/util.hpp\"\n\ntemplate <class T>\nstruct GarnerOnline\
-    \ {\n  vector<T> ms, y;\n  GarnerOnline() { init(); }\n  void init() { ms.clear(),\
-    \ y.clear(); }\n  void push(T r, T m) {\n    T x = 0, p = 1;\n    for (int j =\
-    \ 0; j < ms.size(); j++) {\n      x = (x + y[j] * p) % m;\n      p = p * ms[j]\
-    \ % m;\n    }\n    ms.push_back(m);\n    y.push_back((r - x + m) * Math::inv_mod(p,\
-    \ m) % m);\n  }\n  template <class mint>\n  void push(mint x) { push(mint::get_mod(),\
-    \ x.val()); }\n  void pop() {\n    assert(!ms.empty());\n    ms.pop_back(), y.pop_back();\n\
-    \  }\n  T get() {\n    T res = 0;\n    for (int i = (int)ms.size() - 1; i >= 0;\
-    \ i--) res = res * ms[i] + y[i];\n    return res;\n  }\n  T get(T mod) {\n   \
-    \ T res = 0;\n    for (int i = (int)ms.size() - 1; i >= 0; i--) res = (res * ms[i]\
-    \ + y[i]) % mod;\n    return res;\n  }\n};\n\n/**\n * @brief Garner \u306E\u30A2\
-    \u30EB\u30B4\u30EA\u30BA\u30E0 (\u30AA\u30F3\u30E9\u30A4\u30F3)\n * @docs docs/math/garner.md\n\
-    \ */"
+    \u30A4\u30F3)\n * @docs docs/math/garner.md\n */"
   dependsOn:
   - math/util.hpp
   isVerificationFile: false
   path: math/garner-online.hpp
   requiredBy: []
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/garner-online.hpp

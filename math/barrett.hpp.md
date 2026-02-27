@@ -44,9 +44,9 @@ data:
   timestamp: '2025-11-01 00:19:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_dynamic_modint.test.cpp
-  - verify/fps/LC_montmort_number_mod.test.cpp
 documentation_of: math/barrett.hpp
 layout: document
 redirect_from:

@@ -79,7 +79,7 @@ data:
     \  for (int i = 0; i < (int)v.size(); i++) v[i] = P<T>{1, a[i]};\n  return v;\n\
     }\ntemplate <class T>\nstruct LazySegmentTreeAddSum : LazySegmentTree<P<T>, PAdd<T>,\
     \ PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>> {\n  using base = LazySegmentTree<P<T>,\
-    \ PAdd<T>, PZero<T>, T, PAdd<T>, Add<T>, Zero<T>>;\n  LazySegmentTreeAddSum(int\
+    \ PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>>;\n  LazySegmentTreeAddSum(int\
     \ n) : base(vector<P<T>>(n, PZero<T>())) {}\n  LazySegmentTreeAddSum(const vector<T>&\
     \ a) : base(InitPair(a)) {}\n};\ntemplate <class T>\nstruct LazySegmentTreeMulSum\
     \ : LazySegmentTree<T, Add<T>, Zero<T>, T, Mul<T>, Mul<T>, One<T>> {\n  using\
@@ -103,7 +103,7 @@ data:
     \ v(a.size());\n  for (int i = 0; i < (int)v.size(); i++) v[i] = P<T>{1, a[i]};\n\
     \  return v;\n}\ntemplate <class T>\nstruct LazySegmentTreeAddSum : LazySegmentTree<P<T>,\
     \ PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>> {\n  using base = LazySegmentTree<P<T>,\
-    \ PAdd<T>, PZero<T>, T, PAdd<T>, Add<T>, Zero<T>>;\n  LazySegmentTreeAddSum(int\
+    \ PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>>;\n  LazySegmentTreeAddSum(int\
     \ n) : base(vector<P<T>>(n, PZero<T>())) {}\n  LazySegmentTreeAddSum(const vector<T>&\
     \ a) : base(InitPair(a)) {}\n};\ntemplate <class T>\nstruct LazySegmentTreeMulSum\
     \ : LazySegmentTree<T, Add<T>, Zero<T>, T, Mul<T>, Mul<T>, One<T>> {\n  using\
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: segment-tree/lazy-segment-tree-util.hpp
   requiredBy: []
-  timestamp: '2025-11-20 21:02:27+09:00'
+  timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: segment-tree/lazy-segment-tree-util.hpp

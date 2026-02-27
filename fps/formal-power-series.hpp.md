@@ -345,73 +345,73 @@ data:
   isVerificationFile: false
   path: fps/formal-power-series.hpp
   requiredBy:
-  - fps/power-projection.hpp
-  - fps/count-subset-sum.hpp
-  - fps/sum-of-rationals.hpp
-  - fps/relaxed.hpp
-  - fps/composition.hpp
-  - fps/polynomial-interpolation.hpp
-  - fps/bostan-mori.hpp
-  - fps/multipoint-evaluation.hpp
-  - fps/sparse.hpp
-  - fps/taylor-shift.hpp
-  - fps/fps-ntt-friendly.hpp
-  - fps/inverse-shift.hpp
-  - fps/fps-arbitrary.hpp
-  - fps/product-of-polynomials.hpp
-  - fps/prefix-sum-of-polynomial.hpp
   - fps/famous-sequences.hpp
-  - fps/compositional-inv.hpp
-  - fps/linearly-recurrent-sequence.hpp
-  - fps/fps-sqrt.hpp
-  - fps/polynomial-gcd.hpp
+  - fps/count-subset-sum.hpp
+  - fps/composition.hpp
+  - fps/taylor-shift.hpp
+  - fps/product-of-polynomials.hpp
+  - fps/relaxed.hpp
   - fps/fps-rational.hpp
-  - fps/berlekamp-massey.hpp
+  - fps/power-projection.hpp
+  - fps/bostan-mori.hpp
   - fps/sampling-points-shift.hpp
+  - fps/inverse-shift.hpp
+  - fps/fps-sqrt.hpp
+  - fps/polynomial-interpolation.hpp
+  - fps/sparse.hpp
+  - fps/berlekamp-massey.hpp
+  - fps/linearly-recurrent-sequence.hpp
+  - fps/multipoint-evaluation.hpp
+  - fps/fps-ntt-friendly.hpp
+  - fps/sum-of-rationals.hpp
+  - fps/fps-arbitrary.hpp
+  - fps/prefix-sum-of-polynomial.hpp
+  - fps/compositional-inv.hpp
+  - fps/polynomial-gcd.hpp
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
-  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_bell_number.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_convolution_mod.relaxed.test.cpp
-  - verify/fps/LC_log_of_formal_power_series.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
-  - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_partition_function.test.cpp
-  - verify/fps/LC_inv_of_polynomials.test.cpp
-  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
-  - verify/fps/LC_polynomial_interpolation.test.cpp
-  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_exp_of_formal_power_series.test.cpp
-  - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_multipoint_evaluation.test.cpp
-  - verify/fps/LC_division_of_polynomials.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_inv_of_polynomials.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_find_linear_recurrence.test.cpp
+  - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
+  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_division_of_polynomials.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+  - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - verify/fps/LC_sharp_p_subset_sum.test.cpp
   - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_sharp_p_subset_sum.test.cpp
-  - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
-  - verify/fps/LC_pow_of_formal_power_series.test.cpp
-  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
-  - verify/fps/LC_montmort_number_mod.test.cpp
-  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_convolution_mod.relaxed.test.cpp
 documentation_of: fps/formal-power-series.hpp
 layout: document
 redirect_from:

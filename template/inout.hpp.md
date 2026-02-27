@@ -238,6 +238,15 @@ data:
     path: verify/set/UNIT_composite_set_power_series.test.cpp
     title: verify/set/UNIT_composite_set_power_series.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/string/LC_zalgorithm.test.cpp
+    title: verify/string/LC_zalgorithm.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/tree/LC_lowest_common_ancestor.test.cpp
+    title: verify/tree/LC_lowest_common_ancestor.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/tree/LC_tree_diameter.test.cpp
+    title: verify/tree/LC_tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind.test.cpp
     title: verify/union-find/LC_unionfind.test.cpp
   - icon: ':heavy_check_mark:'
@@ -250,31 +259,11 @@ data:
     links: []
   bundledCode: "#line 2 \"template/inout.hpp\"\nstruct Fast {\n  Fast() {\n    cin.tie(nullptr);\n\
     \    ios_base::sync_with_stdio(false);\n    cout << fixed << setprecision(15);\n\
-    \  }\n} fast;\n\ntemplate <class T1, class T2>\nistream& operator>>(istream& is,\
-    \ pair<T1, T2>& p) {\n  return is >> p.first >> p.second;\n}\ntemplate <class\
-    \ T1, class T2>\nostream& operator<<(ostream& os, const pair<T1, T2>& p) {\n \
-    \ return os << p.first << \" \" << p.second;\n}\ntemplate <class T>\nistream&\
-    \ operator>>(istream& is, vector<T>& a) {\n  for (auto& v : a) is >> v;\n  return\
-    \ is;\n}\ntemplate <class T>\nostream& operator<<(ostream& os, const vector<T>&\
-    \ a) {\n  for (auto it = a.begin(); it != a.end();) {\n    os << *it;\n    if\
-    \ (++it != a.end()) os << \" \";\n  }\n  return os;\n}\ntemplate <class T>\nostream&\
-    \ operator<<(ostream& os, const set<T>& st) {\n  os << \"{\";\n  for (auto it\
-    \ = st.begin(); it != st.end();) {\n    os << *it;\n    if (++it != st.end())\
-    \ os << \",\";\n  }\n  os << \"}\";\n  return os;\n}\ntemplate <class T1, class\
-    \ T2>\nostream& operator<<(ostream& os, const map<T1, T2>& mp) {\n  os << \"{\"\
-    ;\n  for (auto it = mp.begin(); it != mp.end();) {\n    os << it->first << \"\
-    :\" << it->second;\n    if (++it != mp.end()) os << \",\";\n  }\n  os << \"}\"\
-    ;\n  return os;\n}\nostream& operator<<(ostream& os, __uint128_t x) {\n  char\
-    \ buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++] = (char)(x % 10 + '0'),\
-    \ x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k) os << buf[--k];\n  return\
-    \ os;\n}\nostream& operator<<(ostream& os, __int128_t x) {\n  return x < 0 ? (os\
-    \ << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n}\n\nvoid in() {}\n\
-    template <typename T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n\
-    }\nvoid out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep\
-    \ = ' '>\nvoid out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u))\
-    \ cout << sep;\n  out(u...);\n}\n"
-  code: "#pragma once\nstruct Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
-    \    cout << fixed << setprecision(15);\n  }\n} fast;\n\ntemplate <class T1, class\
+    \  }\n} fast;\n\nostream& operator<<(ostream& os, __uint128_t x) {\n  char buf[40];\n\
+    \  size_t k = 0;\n  while (x > 0) buf[k++] = (char)(x % 10 + '0'), x /= 10;\n\
+    \  if (k == 0) buf[k++] = '0';\n  while (k) os << buf[--k];\n  return os;\n}\n\
+    ostream& operator<<(ostream& os, __int128_t x) {\n  return x < 0 ? (os << '-'\
+    \ << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n}\ntemplate <class T1, class\
     \ T2>\nistream& operator>>(istream& is, pair<T1, T2>& p) {\n  return is >> p.first\
     \ >> p.second;\n}\ntemplate <class T1, class T2>\nostream& operator<<(ostream&\
     \ os, const pair<T1, T2>& p) {\n  return os << p.first << \" \" << p.second;\n\
@@ -288,102 +277,159 @@ data:
     template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
     \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
     \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
-    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\ntemplate <typename\
+    \ T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n}\nvoid\
+    \ out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep = ' '>\n\
+    void out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u)) cout\
+    \ << sep;\n  out(u...);\n}\n\nnamespace IO {\nnamespace Graph {\nvector<vector<int>>\
+    \ unweighted(int n, int m, bool directed = false, int offset = 1) {\n  vector<vector<int>>\
+    \ g(n);\n  for (int i = 0; i < m; i++) {\n    int u, v;\n    cin >> u >> v;\n\
+    \    u -= offset, v -= offset;\n    g[u].push_back(v);\n    if (!directed) g[v].push_back(u);\n\
+    \  }\n  return g;\n}\ntemplate <class T>\nvector<vector<pair<int, T>>> weighted(int\
+    \ n, int m, bool directed = false, int offset = 1) {\n  vector<vector<pair<int,\
+    \ T>>> g(n);\n  for (int i = 0; i < m; i++) {\n    int u, v;\n    T w;\n    cin\
+    \ >> u >> v >> w;\n    u -= offset, v -= offset;\n    g[u].push_back({v, w});\n\
+    \    if (!directed) g[v].push_back({u, w});\n  }\n  return g;\n}\n}  // namespace\
+    \ Graph\nnamespace Tree {\nvector<vector<int>> unweighted(int n, bool directed\
+    \ = false, int offset = 1) {\n  return Graph::unweighted(n, n - 1, directed, offset);\n\
+    }\ntemplate <class T>\nvector<vector<pair<int, T>>> weighted(int n, bool directed\
+    \ = false, int offset = 1) {\n  return Graph::weighted<T>(n, n - 1, directed,\
+    \ offset);\n}\nvector<vector<int>> rooted(int n, bool to_root = true, bool to_leaf\
+    \ = true, int offset = 1) {\n  vector<vector<int>> g(n);\n  for (int i = 1; i\
+    \ < n; i++) {\n    int p;\n    cin >> p;\n    p -= offset;\n    if (to_root) g[i].push_back(p);\n\
+    \    if (to_leaf) g[p].push_back(i);\n  }\n  return g;\n}\n}  // namespace Tree\n\
+    }  // namespace IO\n"
+  code: "#pragma once\nstruct Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
+    \    cout << fixed << setprecision(15);\n  }\n} fast;\n\nostream& operator<<(ostream&\
+    \ os, __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
     \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
     \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
     \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
-    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
-    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
-    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
-    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}"
+    }\ntemplate <class T1, class T2>\nistream& operator>>(istream& is, pair<T1, T2>&\
+    \ p) {\n  return is >> p.first >> p.second;\n}\ntemplate <class T1, class T2>\n\
+    ostream& operator<<(ostream& os, const pair<T1, T2>& p) {\n  return os << p.first\
+    \ << \" \" << p.second;\n}\ntemplate <class T>\nistream& operator>>(istream& is,\
+    \ vector<T>& a) {\n  for (auto& v : a) is >> v;\n  return is;\n}\ntemplate <class\
+    \ T>\nostream& operator<<(ostream& os, const vector<T>& a) {\n  for (auto it =\
+    \ a.begin(); it != a.end();) {\n    os << *it;\n    if (++it != a.end()) os <<\
+    \ \" \";\n  }\n  return os;\n}\ntemplate <class T>\nostream& operator<<(ostream&\
+    \ os, const set<T>& st) {\n  os << \"{\";\n  for (auto it = st.begin(); it !=\
+    \ st.end();) {\n    os << *it;\n    if (++it != st.end()) os << \",\";\n  }\n\
+    \  os << \"}\";\n  return os;\n}\ntemplate <class T1, class T2>\nostream& operator<<(ostream&\
+    \ os, const map<T1, T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it\
+    \ != mp.end();) {\n    os << it->first << \":\" << it->second;\n    if (++it !=\
+    \ mp.end()) os << \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\n\
+    template <typename T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n\
+    }\nvoid out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep\
+    \ = ' '>\nvoid out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u))\
+    \ cout << sep;\n  out(u...);\n}\n\nnamespace IO {\nnamespace Graph {\nvector<vector<int>>\
+    \ unweighted(int n, int m, bool directed = false, int offset = 1) {\n  vector<vector<int>>\
+    \ g(n);\n  for (int i = 0; i < m; i++) {\n    int u, v;\n    cin >> u >> v;\n\
+    \    u -= offset, v -= offset;\n    g[u].push_back(v);\n    if (!directed) g[v].push_back(u);\n\
+    \  }\n  return g;\n}\ntemplate <class T>\nvector<vector<pair<int, T>>> weighted(int\
+    \ n, int m, bool directed = false, int offset = 1) {\n  vector<vector<pair<int,\
+    \ T>>> g(n);\n  for (int i = 0; i < m; i++) {\n    int u, v;\n    T w;\n    cin\
+    \ >> u >> v >> w;\n    u -= offset, v -= offset;\n    g[u].push_back({v, w});\n\
+    \    if (!directed) g[v].push_back({u, w});\n  }\n  return g;\n}\n}  // namespace\
+    \ Graph\nnamespace Tree {\nvector<vector<int>> unweighted(int n, bool directed\
+    \ = false, int offset = 1) {\n  return Graph::unweighted(n, n - 1, directed, offset);\n\
+    }\ntemplate <class T>\nvector<vector<pair<int, T>>> weighted(int n, bool directed\
+    \ = false, int offset = 1) {\n  return Graph::weighted<T>(n, n - 1, directed,\
+    \ offset);\n}\nvector<vector<int>> rooted(int n, bool to_root = true, bool to_leaf\
+    \ = true, int offset = 1) {\n  vector<vector<int>> g(n);\n  for (int i = 1; i\
+    \ < n; i++) {\n    int p;\n    cin >> p;\n    p -= offset;\n    if (to_root) g[i].push_back(p);\n\
+    \    if (to_leaf) g[p].push_back(i);\n  }\n  return g;\n}\n}  // namespace Tree\n\
+    }  // namespace IO"
   dependsOn: []
   isVerificationFile: false
   path: template/inout.hpp
   requiredBy:
   - template/template.hpp
-  timestamp: '2025-12-29 01:13:32+09:00'
+  timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/flow/AOJ_GRL_6_A.test.cpp
+  - verify/number-theory/LC_enumerate_quotients.test.cpp
+  - verify/number-theory/LC_counting_primes.test.cpp
   - verify/binary-search-tree/UNIT_rbst_array.test.cpp
+  - verify/string/LC_zalgorithm.test.cpp
+  - verify/flow/AOJ_GRL_6_A.test.cpp
+  - verify/data-structure/LC_point_add_range_sum.test.cpp
+  - verify/data-structure/LC_predecessor_problem.test.cpp
+  - verify/data-structure/LC_staticrmq.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_multipoint_evaluation.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series.test.cpp
+  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
+  - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_inv_of_polynomials.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_find_linear_recurrence.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_montmort_number_mod.test.cpp
+  - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
+  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_division_of_polynomials.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+  - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
+  - verify/fps/LC_sharp_p_subset_sum.test.cpp
+  - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
+  - verify/fps/LC_convolution_mod.relaxed.test.cpp
+  - verify/tree/LC_lowest_common_ancestor.test.cpp
+  - verify/tree/LC_tree_diameter.test.cpp
+  - verify/set/LC_power_projection_of_set_power_series.test.cpp
+  - verify/set/UNIT_composite_set_power_series.test.cpp
+  - verify/set/LC_polynomial_composite_set_power_series.test.cpp
+  - verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - verify/set/LC_subset_convolution.test.cpp
+  - verify/set/LC_bitwise_xor_convolution.test.cpp
+  - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_exp_of_set_power_series.test.cpp
   - verify/modint/UNIT_modint.test.cpp
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_multi_inverse.test.cpp
   - verify/modint/UNIT_dynamic_modint.test.cpp
   - verify/modint/UNIT_mod_sqrt.test.cpp
-  - verify/math/LC_stern_brocot_tree.test.cpp
-  - verify/math/LC_sum_of_floor_of_linear.test.cpp
-  - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
-  - verify/fps/LC_product_of_polynomial_sequence.test.cpp
-  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
-  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_bell_number.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_convolution_mod.relaxed.test.cpp
-  - verify/fps/LC_log_of_formal_power_series.test.cpp
-  - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
-  - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
-  - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_partition_function.test.cpp
-  - verify/fps/LC_inv_of_polynomials.test.cpp
-  - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
-  - verify/fps/LC_polynomial_interpolation.test.cpp
-  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_exp_of_formal_power_series.test.cpp
-  - verify/fps/LC_find_linear_recurrence.test.cpp
-  - verify/fps/LC_multipoint_evaluation.test.cpp
-  - verify/fps/LC_division_of_polynomials.test.cpp
-  - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
-  - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_sqrt_of_formal_power_series.test.cpp
-  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_sharp_p_subset_sum.test.cpp
-  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
-  - verify/fps/LC_pow_of_formal_power_series.test.cpp
-  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
-  - verify/fps/LC_montmort_number_mod.test.cpp
-  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series.test.cpp
   - verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
-  - verify/convolution/LC_convolution_mod_1000000007.test.cpp
-  - verify/convolution/LC_convolution_mod_2_64.test.cpp
   - verify/convolution/LC_lcm_convolution.test.cpp
-  - verify/convolution/LC_convolution_mod.test.cpp
+  - verify/convolution/LC_convolution_mod_1000000007.test.cpp
   - verify/convolution/LC_min_plus_convolution_convex_arbitrary.test.cpp
+  - verify/convolution/LC_convolution_mod_2_64.test.cpp
+  - verify/convolution/LC_convolution_mod.test.cpp
   - verify/convolution/LC_gcd_convolution.test.cpp
-  - verify/number-theory/LC_enumerate_quotients.test.cpp
-  - verify/number-theory/LC_counting_primes.test.cpp
   - verify/segment-tree/LC_point_add_range_sum.test.cpp
+  - verify/segment-tree/LC_range_affine_point_get.test.cpp
   - verify/segment-tree/LC_range_affine_range_sum.test.cpp
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
-  - verify/segment-tree/LC_range_affine_point_get.test.cpp
-  - verify/data-structure/LC_point_add_range_sum.test.cpp
-  - verify/data-structure/LC_staticrmq.test.cpp
-  - verify/data-structure/LC_predecessor_problem.test.cpp
-  - verify/set/UNIT_composite_set_power_series.test.cpp
-  - verify/set/LC_polynomial_composite_set_power_series.test.cpp
-  - verify/set/LC_bitwise_xor_convolution.test.cpp
-  - verify/set/LC_bitwise_and_convolution.test.cpp
-  - verify/set/LC_subset_convolution.test.cpp
-  - verify/set/LC_exp_of_set_power_series.test.cpp
-  - verify/set/LC_bitwise_and_convolution.or.test.cpp
-  - verify/set/LC_power_projection_of_set_power_series.test.cpp
-  - verify/union-find/LC_unionfind.test.cpp
   - verify/union-find/LC_unionfind_with_potential.test.cpp
+  - verify/union-find/LC_unionfind.test.cpp
+  - verify/math/LC_stern_brocot_tree.test.cpp
+  - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
+  - verify/math/LC_sum_of_floor_of_linear.test.cpp
 documentation_of: template/inout.hpp
 layout: document
 redirect_from:

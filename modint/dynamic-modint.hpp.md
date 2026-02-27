@@ -143,9 +143,9 @@ data:
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_dynamic_modint.test.cpp
-  - verify/fps/LC_montmort_number_mod.test.cpp
 documentation_of: modint/dynamic-modint.hpp
 layout: document
 redirect_from:

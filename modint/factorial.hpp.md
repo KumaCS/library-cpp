@@ -198,50 +198,50 @@ data:
   isVerificationFile: false
   path: modint/factorial.hpp
   requiredBy:
-  - fps/power-projection.hpp
-  - fps/count-subset-sum.hpp
-  - fps/relaxed.hpp
-  - fps/composition.hpp
-  - fps/sparse.hpp
-  - fps/taylor-shift.hpp
-  - fps/prefix-sum-of-polynomial.hpp
   - fps/famous-sequences.hpp
-  - fps/compositional-inv.hpp
+  - fps/count-subset-sum.hpp
+  - fps/composition.hpp
+  - fps/taylor-shift.hpp
   - fps/interpolate.hpp
-  - fps/sum-of-exp-poly.hpp
+  - fps/relaxed.hpp
+  - fps/power-projection.hpp
   - fps/sampling-points-shift.hpp
+  - fps/sparse.hpp
+  - fps/sum-of-exp-poly.hpp
+  - fps/prefix-sum-of-polynomial.hpp
+  - fps/compositional-inv.hpp
   timestamp: '2025-10-25 18:30:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
-  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_bell_number.test.cpp
-  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
   - verify/fps/LC_exp_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_partition_function.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
-  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
-  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
-  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
-  - verify/fps/LC_sharp_p_subset_sum.test.cpp
-  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
-  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
-  - verify/fps/LC_montmort_number_mod.test.cpp
-  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_convolution_mod.semirelaxed.test.cpp
+  - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_montmort_number_mod.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
+  - verify/fps/LC_log_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_shift_of_sampling_points_of_polynomial.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_sqrt_of_formal_power_series.relaxed.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_sharp_p_subset_sum.test.cpp
+  - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_convolution_mod.relaxed.test.cpp
+  - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
 documentation_of: modint/factorial.hpp
 layout: document
 redirect_from:

@@ -100,10 +100,14 @@ data:
     \ R(*this) *= r; }\n  R operator/(const R& r) const { return R(*this) /= r; }\n\
     \  R inv() const { return {den, num}; }\n  F approx(int deg) const { return (den\
     \ * num.inv(deg)).pre(deg); }\n};\n#line 4 \"fps/sum-of-rationals.hpp\"\n\ntemplate\
-    \ <class mint>\nFPSRational<mint> SumOfRationals(vector<FPSRational<mint>> rs)\
-    \ {\n  if (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--) rs[i\
-    \ - (i & -i)] += rs[i];\n  return rs[0];\n  // for (auto& r : rs) {\n  //   r.num.shrink(),\
-    \ r.den.shrink();\n  //   if (r.den.size() < r.num.size()) r.num.resize(r.den.size());\n\
+    \ <class fps>\npair<fps, fps> SumOfRationals(vector<pair<fps, fps>> rs) {\n  if\
+    \ (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--) {\n    int\
+    \ j = i - (i & -i);\n    rs[j] = {rs[j].first * rs[i].second + rs[i].first * rs[j].second,\
+    \ rs[i].second * rs[j].second};\n    rs[j].first.shrink();\n  }\n  return rs[0];\n\
+    }\n\ntemplate <class mint>\nFPSRational<mint> SumOfRationals(vector<FPSRational<mint>>\
+    \ rs) {\n  if (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--)\
+    \ rs[i - (i & -i)] += rs[i];\n  return rs[0];\n  // for (auto& r : rs) {\n  //\
+    \   r.num.shrink(), r.den.shrink();\n  //   if (r.den.size() < r.num.size()) r.num.resize(r.den.size());\n\
     \  // }\n  // static constexpr int B = 1 << 5;\n  // for (int i = 0, j = -1; i\
     \ < rs.size(); i++) {\n  //   if (rs[i].den.size() > B) continue;\n  //   if (j\
     \ == -1 || rs[i].den.size() + rs[j].den.size() - 1 > B) {\n  //     j = i;\n \
@@ -123,7 +127,11 @@ data:
     \ rs[0].den.shrink();\n  // return rs[0];\n}\n/**\n * @brief \u6709\u7406\u5F0F\
     \u306E\u548C\n */\n"
   code: "#pragma once\n#include \"fps/formal-power-series.hpp\"\n#include \"fps/fps-rational.hpp\"\
-    \n\ntemplate <class mint>\nFPSRational<mint> SumOfRationals(vector<FPSRational<mint>>\
+    \n\ntemplate <class fps>\npair<fps, fps> SumOfRationals(vector<pair<fps, fps>>\
+    \ rs) {\n  if (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--)\
+    \ {\n    int j = i - (i & -i);\n    rs[j] = {rs[j].first * rs[i].second + rs[i].first\
+    \ * rs[j].second, rs[i].second * rs[j].second};\n    rs[j].first.shrink();\n \
+    \ }\n  return rs[0];\n}\n\ntemplate <class mint>\nFPSRational<mint> SumOfRationals(vector<FPSRational<mint>>\
     \ rs) {\n  if (rs.empty()) return {};\n  for (int i = rs.size() - 1; i > 0; i--)\
     \ rs[i - (i & -i)] += rs[i];\n  return rs[0];\n  // for (auto& r : rs) {\n  //\
     \   r.num.shrink(), r.den.shrink();\n  //   if (r.den.size() < r.num.size()) r.num.resize(r.den.size());\n\
@@ -151,7 +159,7 @@ data:
   isVerificationFile: false
   path: fps/sum-of-rationals.hpp
   requiredBy: []
-  timestamp: '2025-12-29 01:13:32+09:00'
+  timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: fps/sum-of-rationals.hpp

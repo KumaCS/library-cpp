@@ -1,7 +1,16 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: math/range-sieve.hpp
+    title: "\u533A\u9593\u7BE9"
+  - icon: ':warning:'
+    path: number-theory/lucy-dp.hpp
+    title: Lucy DP
+  - icon: ':warning:'
+    path: number-theory/sum-of-multiplicative-function.hpp
+    title: number-theory/sum-of-multiplicative-function.hpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -23,7 +32,10 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: math/prime-sieve.hpp
-  requiredBy: []
+  requiredBy:
+  - number-theory/sum-of-multiplicative-function.hpp
+  - number-theory/lucy-dp.hpp
+  - math/range-sieve.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -46,10 +46,10 @@ data:
   timestamp: '2025-10-31 21:40:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/modint/UNIT_multi_inverse.test.cpp
-  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
+  - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/modint/UNIT_multi_inverse.test.cpp
 documentation_of: modint/multi-inverse.hpp
 layout: document
 redirect_from:

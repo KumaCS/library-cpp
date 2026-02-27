@@ -3,6 +3,9 @@ data:
   libraryCategories:
   - name: algorithm
     pages:
+    - icon: ':warning:'
+      path: algorithm/mo.hpp
+      title: algorithm/mo.hpp
     - icon: ':heavy_check_mark:'
       path: algorithm/monotone-minima.hpp
       title: monotone minima
@@ -194,11 +197,17 @@ data:
       path: math/lpf-table.hpp
       title: LPF Table
     - icon: ':warning:'
+      path: math/min-of-mod-of-linear.hpp
+      title: Min of Mod of Linear
+    - icon: ':warning:'
       path: math/polynomial-floor-sum.hpp
       title: "\u591A\u9805\u5F0F\u7248 floor sum"
     - icon: ':warning:'
       path: math/prime-sieve.hpp
       title: "\u7D20\u6570\u7BE9"
+    - icon: ':warning:'
+      path: math/range-sieve.hpp
+      title: "\u533A\u9593\u7BE9"
     - icon: ':warning:'
       path: math/simple-fraction.hpp
       title: "\u6709\u7406\u6570 (\u7D04\u5206\u306A\u3057)"
@@ -208,6 +217,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/util.hpp
       title: math/util.hpp
+  - name: matrix
+    pages:
+    - icon: ':warning:'
+      path: matrix/matrix.hpp
+      title: matrix/matrix.hpp
   - name: modint
     pages:
     - icon: ':heavy_check_mark:'
@@ -246,9 +260,15 @@ data:
     - icon: ':warning:'
       path: number-theory/formal-dirichlet-series.hpp
       title: "\u5F62\u5F0F\u7684 Dirichlet \u7D1A\u6570"
+    - icon: ':warning:'
+      path: number-theory/lucy-dp.hpp
+      title: Lucy DP
     - icon: ':heavy_check_mark:'
       path: number-theory/prime-count.hpp
       title: "\u7D20\u6570\u30AB\u30A6\u30F3\u30C8"
+    - icon: ':warning:'
+      path: number-theory/sum-of-multiplicative-function.hpp
+      title: number-theory/sum-of-multiplicative-function.hpp
   - name: segment-tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -300,7 +320,7 @@ data:
     - icon: ':warning:'
       path: string/rolling-hash.hpp
       title: string/rolling-hash.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: string/z-algorithm.hpp
       title: Z-algorithm
   - name: template
@@ -320,6 +340,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: template/util.hpp
       title: template/util.hpp
+  - name: tree
+    pages:
+    - icon: ':warning:'
+      path: tree/distance.hpp
+      title: "\u6728\u4E0A\u306E\u8DDD\u96E2"
+    - icon: ':warning:'
+      path: tree/lca-auxiliary-tree.hpp
+      title: "LCA \u30D9\u30FC\u30B9\u306E Auxiliary Tree"
+    - icon: ':heavy_check_mark:'
+      path: tree/lowest-common-ancestor.hpp
+      title: Lowest Common Ancestor
+    - icon: ':heavy_check_mark:'
+      path: tree/tree-diameter.hpp
+      title: "\u6728\u306E\u76F4\u5F84"
   - name: union-find
     pages:
     - icon: ':heavy_check_mark:'
@@ -588,6 +622,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/set/UNIT_composite_set_power_series.test.cpp
       title: verify/set/UNIT_composite_set_power_series.test.cpp
+  - name: verify/string
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/string/LC_zalgorithm.test.cpp
+      title: verify/string/LC_zalgorithm.test.cpp
+  - name: verify/tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/tree/LC_lowest_common_ancestor.test.cpp
+      title: verify/tree/LC_lowest_common_ancestor.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/tree/LC_tree_diameter.test.cpp
+      title: verify/tree/LC_tree_diameter.test.cpp
   - name: verify/union-find
     pages:
     - icon: ':heavy_check_mark:'

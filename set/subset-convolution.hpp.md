@@ -97,11 +97,11 @@ data:
   timestamp: '2025-10-29 02:30:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/set/LC_power_projection_of_set_power_series.test.cpp
   - verify/set/UNIT_composite_set_power_series.test.cpp
   - verify/set/LC_polynomial_composite_set_power_series.test.cpp
   - verify/set/LC_subset_convolution.test.cpp
   - verify/set/LC_exp_of_set_power_series.test.cpp
-  - verify/set/LC_power_projection_of_set_power_series.test.cpp
 documentation_of: set/subset-convolution.hpp
 layout: document
 redirect_from:

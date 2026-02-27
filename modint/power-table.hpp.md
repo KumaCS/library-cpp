@@ -68,15 +68,15 @@ data:
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_bell_number.test.cpp
-  - verify/fps/LC_partition_function.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
 documentation_of: modint/power-table.hpp
 layout: document
 redirect_from:

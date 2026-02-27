@@ -56,20 +56,20 @@ data:
   isVerificationFile: false
   path: math/lpf-table.hpp
   requiredBy:
-  - modint/power-table.hpp
   - fps/famous-sequences.hpp
+  - modint/power-table.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_bell_number.test.cpp
-  - verify/fps/LC_partition_function.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_sum_of_exponential_times_polynomial.test.cpp
-  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
+  - verify/fps/LC_sum_of_exponential_times_polynomial_limit.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
 documentation_of: math/lpf-table.hpp
 layout: document
 redirect_from:

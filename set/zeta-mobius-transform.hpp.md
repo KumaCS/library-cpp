@@ -58,8 +58,8 @@ data:
   timestamp: '2025-10-29 02:30:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/set/LC_bitwise_and_convolution.test.cpp
   - verify/set/LC_bitwise_and_convolution.or.test.cpp
+  - verify/set/LC_bitwise_and_convolution.test.cpp
 documentation_of: set/zeta-mobius-transform.hpp
 layout: document
 redirect_from:

@@ -56,54 +56,71 @@ data:
     template <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
     }\n#line 8 \"template/template.hpp\"\n\n#line 2 \"template/inout.hpp\"\nstruct\
     \ Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
-    \    cout << fixed << setprecision(15);\n  }\n} fast;\n\ntemplate <class T1, class\
-    \ T2>\nistream& operator>>(istream& is, pair<T1, T2>& p) {\n  return is >> p.first\
-    \ >> p.second;\n}\ntemplate <class T1, class T2>\nostream& operator<<(ostream&\
-    \ os, const pair<T1, T2>& p) {\n  return os << p.first << \" \" << p.second;\n\
-    }\ntemplate <class T>\nistream& operator>>(istream& is, vector<T>& a) {\n  for\
-    \ (auto& v : a) is >> v;\n  return is;\n}\ntemplate <class T>\nostream& operator<<(ostream&\
-    \ os, const vector<T>& a) {\n  for (auto it = a.begin(); it != a.end();) {\n \
-    \   os << *it;\n    if (++it != a.end()) os << \" \";\n  }\n  return os;\n}\n\
-    template <class T>\nostream& operator<<(ostream& os, const set<T>& st) {\n  os\
-    \ << \"{\";\n  for (auto it = st.begin(); it != st.end();) {\n    os << *it;\n\
-    \    if (++it != st.end()) os << \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\
-    template <class T1, class T2>\nostream& operator<<(ostream& os, const map<T1,\
-    \ T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it != mp.end();) {\n\
-    \    os << it->first << \":\" << it->second;\n    if (++it != mp.end()) os <<\
-    \ \",\";\n  }\n  os << \"}\";\n  return os;\n}\nostream& operator<<(ostream& os,\
-    \ __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
+    \    cout << fixed << setprecision(15);\n  }\n} fast;\n\nostream& operator<<(ostream&\
+    \ os, __uint128_t x) {\n  char buf[40];\n  size_t k = 0;\n  while (x > 0) buf[k++]\
     \ = (char)(x % 10 + '0'), x /= 10;\n  if (k == 0) buf[k++] = '0';\n  while (k)\
     \ os << buf[--k];\n  return os;\n}\nostream& operator<<(ostream& os, __int128_t\
     \ x) {\n  return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);\n\
-    }\n\nvoid in() {}\ntemplate <typename T, class... U>\nvoid in(T& t, U&... u) {\n\
-    \  cin >> t;\n  in(u...);\n}\nvoid out() { cout << \"\\n\"; }\ntemplate <typename\
-    \ T, class... U, char sep = ' '>\nvoid out(const T& t, const U&... u) {\n  cout\
-    \ << t;\n  if (sizeof...(u)) cout << sep;\n  out(u...);\n}\n#line 10 \"template/template.hpp\"\
-    \n\n#line 2 \"template/debug.hpp\"\n#ifdef LOCAL\n#define debug 1\n#define show(...)\
-    \ _show(0, #__VA_ARGS__, __VA_ARGS__)\n#else\n#define debug 0\n#define show(...)\
-    \ true\n#endif\ntemplate <class T>\nvoid _show(int i, T name) {\n  cerr << '\\\
-    n';\n}\ntemplate <class T1, class T2, class... T3>\nvoid _show(int i, const T1&\
-    \ a, const T2& b, const T3&... c) {\n  for (; a[i] != ',' && a[i] != '\\0'; i++)\
-    \ cerr << a[i];\n  cerr << \":\" << b << \" \";\n  _show(i + 1, a, c...);\n}\n\
-    #line 2 \"convolution/min-plus-convex.hpp\"\n\n#line 2 \"algorithm/monotone-minima.hpp\"\
-    \n\nvector<int> MonotoneMinima(int n, int m, const function<bool(int, int, int)>\
-    \ &f) {\n  vector<int> res(n);\n  auto dfs = [&](auto rc, int il, int ir, int\
-    \ l, int r) -> void {\n    if (il == ir) return;\n    int i = (il + ir) / 2;\n\
-    \    int m = l;\n    for (int k = l + 1; k < r; k++)\n      if (!f(i, m, k)) m\
-    \ = k;\n    res[i] = m;\n    rc(rc, il, i, l, m + 1);\n    rc(rc, i + 1, ir, m,\
-    \ r);\n  };\n  dfs(dfs, 0, n, 0, m);\n  return res;\n}\n\n// m_i := argmin_j (A_{i,j})\
-    \ \u304C\u5358\u8ABF\u5897\u52A0\u3067\u3042\u308B\u3068\u304D\u306B m_i \u3092\
-    \u5217\u6319\u3059\u308B\ntemplate <class T>\nvector<int> MonotoneMinima(int N,\
-    \ int M, const function<T(int, int)> &A) {\n  const auto f = [&](int i, int j,\
-    \ int k) -> bool {\n    return A(i, j) <= A(i, k);\n  };\n  return MonotoneMinima(N,\
-    \ M, f);\n}\n\n/**\n * @brief monotone minima\n * @docs docs/algorithm/monotone-minima.md\n\
-    \ */\n#line 4 \"convolution/min-plus-convex.hpp\"\n\n// a : \u4E0B\u306B\u51F8\
-    , b : \u81EA\u7531\ntemplate <class T>\nvector<T> MinPlusConvolutionConvexArbitrary(const\
-    \ vector<T> &a, const vector<T> &b) {\n  if (a.empty() || b.empty()) return {};\n\
-    \  int n = a.size(), m = b.size();\n  auto argmin = MonotoneMinima(n + m - 1,\
-    \ m, [&](int i, int j, int k) {\n    if (i < k) return true;\n    if (i - j >=\
-    \ n) return false;\n    return a[i - j] + b[j] <= a[i - k] + b[k];\n  });\n  vector<T>\
-    \ c(n + m - 1);\n  for (int i = 0; i < n + m - 1; i++) {\n    int j = argmin[i];\n\
+    }\ntemplate <class T1, class T2>\nistream& operator>>(istream& is, pair<T1, T2>&\
+    \ p) {\n  return is >> p.first >> p.second;\n}\ntemplate <class T1, class T2>\n\
+    ostream& operator<<(ostream& os, const pair<T1, T2>& p) {\n  return os << p.first\
+    \ << \" \" << p.second;\n}\ntemplate <class T>\nistream& operator>>(istream& is,\
+    \ vector<T>& a) {\n  for (auto& v : a) is >> v;\n  return is;\n}\ntemplate <class\
+    \ T>\nostream& operator<<(ostream& os, const vector<T>& a) {\n  for (auto it =\
+    \ a.begin(); it != a.end();) {\n    os << *it;\n    if (++it != a.end()) os <<\
+    \ \" \";\n  }\n  return os;\n}\ntemplate <class T>\nostream& operator<<(ostream&\
+    \ os, const set<T>& st) {\n  os << \"{\";\n  for (auto it = st.begin(); it !=\
+    \ st.end();) {\n    os << *it;\n    if (++it != st.end()) os << \",\";\n  }\n\
+    \  os << \"}\";\n  return os;\n}\ntemplate <class T1, class T2>\nostream& operator<<(ostream&\
+    \ os, const map<T1, T2>& mp) {\n  os << \"{\";\n  for (auto it = mp.begin(); it\
+    \ != mp.end();) {\n    os << it->first << \":\" << it->second;\n    if (++it !=\
+    \ mp.end()) os << \",\";\n  }\n  os << \"}\";\n  return os;\n}\n\nvoid in() {}\n\
+    template <typename T, class... U>\nvoid in(T& t, U&... u) {\n  cin >> t;\n  in(u...);\n\
+    }\nvoid out() { cout << \"\\n\"; }\ntemplate <typename T, class... U, char sep\
+    \ = ' '>\nvoid out(const T& t, const U&... u) {\n  cout << t;\n  if (sizeof...(u))\
+    \ cout << sep;\n  out(u...);\n}\n\nnamespace IO {\nnamespace Graph {\nvector<vector<int>>\
+    \ unweighted(int n, int m, bool directed = false, int offset = 1) {\n  vector<vector<int>>\
+    \ g(n);\n  for (int i = 0; i < m; i++) {\n    int u, v;\n    cin >> u >> v;\n\
+    \    u -= offset, v -= offset;\n    g[u].push_back(v);\n    if (!directed) g[v].push_back(u);\n\
+    \  }\n  return g;\n}\ntemplate <class T>\nvector<vector<pair<int, T>>> weighted(int\
+    \ n, int m, bool directed = false, int offset = 1) {\n  vector<vector<pair<int,\
+    \ T>>> g(n);\n  for (int i = 0; i < m; i++) {\n    int u, v;\n    T w;\n    cin\
+    \ >> u >> v >> w;\n    u -= offset, v -= offset;\n    g[u].push_back({v, w});\n\
+    \    if (!directed) g[v].push_back({u, w});\n  }\n  return g;\n}\n}  // namespace\
+    \ Graph\nnamespace Tree {\nvector<vector<int>> unweighted(int n, bool directed\
+    \ = false, int offset = 1) {\n  return Graph::unweighted(n, n - 1, directed, offset);\n\
+    }\ntemplate <class T>\nvector<vector<pair<int, T>>> weighted(int n, bool directed\
+    \ = false, int offset = 1) {\n  return Graph::weighted<T>(n, n - 1, directed,\
+    \ offset);\n}\nvector<vector<int>> rooted(int n, bool to_root = true, bool to_leaf\
+    \ = true, int offset = 1) {\n  vector<vector<int>> g(n);\n  for (int i = 1; i\
+    \ < n; i++) {\n    int p;\n    cin >> p;\n    p -= offset;\n    if (to_root) g[i].push_back(p);\n\
+    \    if (to_leaf) g[p].push_back(i);\n  }\n  return g;\n}\n}  // namespace Tree\n\
+    }  // namespace IO\n#line 10 \"template/template.hpp\"\n\n#line 2 \"template/debug.hpp\"\
+    \n#ifdef LOCAL\n#define debug 1\n#define show(...) _show(0, #__VA_ARGS__, __VA_ARGS__)\n\
+    #else\n#define debug 0\n#define show(...) true\n#endif\ntemplate <class T>\nvoid\
+    \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
+    \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
+    \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"convolution/min-plus-convex.hpp\"\
+    \n\n#line 2 \"algorithm/monotone-minima.hpp\"\n\nvector<int> MonotoneMinima(int\
+    \ n, int m, const function<bool(int, int, int)> &f) {\n  vector<int> res(n);\n\
+    \  auto dfs = [&](auto rc, int il, int ir, int l, int r) -> void {\n    if (il\
+    \ == ir) return;\n    int i = (il + ir) / 2;\n    int m = l;\n    for (int k =\
+    \ l + 1; k < r; k++)\n      if (!f(i, m, k)) m = k;\n    res[i] = m;\n    rc(rc,\
+    \ il, i, l, m + 1);\n    rc(rc, i + 1, ir, m, r);\n  };\n  dfs(dfs, 0, n, 0, m);\n\
+    \  return res;\n}\n\n// m_i := argmin_j (A_{i,j}) \u304C\u5358\u8ABF\u5897\u52A0\
+    \u3067\u3042\u308B\u3068\u304D\u306B m_i \u3092\u5217\u6319\u3059\u308B\ntemplate\
+    \ <class T>\nvector<int> MonotoneMinima(int N, int M, const function<T(int, int)>\
+    \ &A) {\n  const auto f = [&](int i, int j, int k) -> bool {\n    return A(i,\
+    \ j) <= A(i, k);\n  };\n  return MonotoneMinima(N, M, f);\n}\n\n/**\n * @brief\
+    \ monotone minima\n * @docs docs/algorithm/monotone-minima.md\n */\n#line 4 \"\
+    convolution/min-plus-convex.hpp\"\n\n// a : \u4E0B\u306B\u51F8, b : \u81EA\u7531\
+    \ntemplate <class T>\nvector<T> MinPlusConvolutionConvexArbitrary(const vector<T>\
+    \ &a, const vector<T> &b) {\n  if (a.empty() || b.empty()) return {};\n  int n\
+    \ = a.size(), m = b.size();\n  auto argmin = MonotoneMinima(n + m - 1, m, [&](int\
+    \ i, int j, int k) {\n    if (i < k) return true;\n    if (i - j >= n) return\
+    \ false;\n    return a[i - j] + b[j] <= a[i - k] + b[k];\n  });\n  vector<T> c(n\
+    \ + m - 1);\n  for (int i = 0; i < n + m - 1; i++) {\n    int j = argmin[i];\n\
     \    c[i] = a[i - j] + b[j];\n  }\n  return c;\n}\n\n// a,b : \u4E0B\u306B\u51F8\
     \ntemplate <class T>\nvector<T> MinPlusConvolutionConvexConvex(const vector<T>\
     \ &a, const vector<T> &b) {\n  if (a.empty() || b.empty()) return {};\n  int n\
@@ -130,7 +147,7 @@ data:
   isVerificationFile: true
   path: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
   requiredBy: []
-  timestamp: '2025-12-29 01:13:32+09:00'
+  timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp

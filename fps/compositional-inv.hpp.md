@@ -189,8 +189,8 @@ data:
   timestamp: '2025-12-29 01:13:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
   - verify/fps/LC_compositional_inverse_of_formal_power_series.test.cpp
+  - verify/fps/LC_compositional_inverse_of_formal_power_series_large.test.cpp
 documentation_of: fps/compositional-inv.hpp
 layout: document
 redirect_from:

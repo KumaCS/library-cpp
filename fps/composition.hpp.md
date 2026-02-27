@@ -197,8 +197,8 @@ data:
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
 documentation_of: fps/composition.hpp
 layout: document
 redirect_from:

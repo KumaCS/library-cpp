@@ -56,15 +56,17 @@ data:
     \ x * y; }\ntemplate <class T>\nT Max(T x, T y) { return x > y ? x : y; }\ntemplate\
     \ <class T>\nT Min(T x, T y) { return x < y ? x : y; }\n\ntemplate <class T>\n\
     struct SegmentTreeSum : SegmentTree<T, Add<T>, Zero<T>> {\n  using base = SegmentTree<T,\
-    \ Add<T>, Zero<T>>;\n  SegmentTreeSum(const vector<T>& a) : base(a) {}\n};\ntemplate\
-    \ <class T>\nstruct SegmentTreeProd : SegmentTree<T, Mul<T>, One<T>> {\n  using\
-    \ base = SegmentTree<T, Mul<T>, One<T>>;\n  SegmentTreeProd(const vector<T>& a)\
-    \ : base(a) {}\n};\ntemplate <class T, T e>\nstruct SegmentTreeMax : SegmentTree<T,\
-    \ Max<T>, Const<T, e>> {\n  using base = SegmentTree<T, Max<T>, Const<T, e>>;\n\
-    \  SegmentTreeMax(const vector<T>& a) : base(a) {}\n};\ntemplate <class T, T e>\n\
-    struct SegmentTreeMin : SegmentTree<T, Min<T>, Const<T, e>> {\n  using base =\
-    \ SegmentTree<T, Min<T>, Const<T, e>>;\n  SegmentTreeMin(const vector<T>& a) :\
-    \ base(a) {}\n};\n};  // namespace SegmentTreeUtil\nusing SegmentTreeUtil::SegmentTreeMax;\n\
+    \ Add<T>, Zero<T>>;\n  SegmentTreeSum(const vector<T>& a) : base(a) {}\n  SegmentTreeSum(int\
+    \ n) : base(vector<T>(n, Zero<T>())) {}\n};\ntemplate <class T>\nstruct SegmentTreeProd\
+    \ : SegmentTree<T, Mul<T>, One<T>> {\n  using base = SegmentTree<T, Mul<T>, One<T>>;\n\
+    \  SegmentTreeProd(const vector<T>& a) : base(a) {}\n  SegmentTreeProd(int n)\
+    \ : base(vector<T>(n, One<T>())) {}\n};\ntemplate <class T, T e>\nstruct SegmentTreeMax\
+    \ : SegmentTree<T, Max<T>, Const<T, e>> {\n  using base = SegmentTree<T, Max<T>,\
+    \ Const<T, e>>;\n  SegmentTreeMax(const vector<T>& a) : base(a) {}\n  SegmentTreeMax(int\
+    \ n) : base(vector<T>(n, e)) {}\n};\ntemplate <class T, T e>\nstruct SegmentTreeMin\
+    \ : SegmentTree<T, Min<T>, Const<T, e>> {\n  using base = SegmentTree<T, Min<T>,\
+    \ Const<T, e>>;\n  SegmentTreeMin(const vector<T>& a) : base(a) {}\n  SegmentTreeMin(int\
+    \ n) : base(vector<T>(n, e)) {}\n};\n};  // namespace SegmentTreeUtil\nusing SegmentTreeUtil::SegmentTreeMax;\n\
     using SegmentTreeUtil::SegmentTreeMin;\nusing SegmentTreeUtil::SegmentTreeProd;\n\
     using SegmentTreeUtil::SegmentTreeSum;\n/**\n * @brief \u3088\u304F\u4F7F\u3046\
     \ Segment Tree\n * @docs docs/segment-tree/segment-tree-util.md\n */\n"
@@ -76,14 +78,17 @@ data:
     \ x : y; }\ntemplate <class T>\nT Min(T x, T y) { return x < y ? x : y; }\n\n\
     template <class T>\nstruct SegmentTreeSum : SegmentTree<T, Add<T>, Zero<T>> {\n\
     \  using base = SegmentTree<T, Add<T>, Zero<T>>;\n  SegmentTreeSum(const vector<T>&\
-    \ a) : base(a) {}\n};\ntemplate <class T>\nstruct SegmentTreeProd : SegmentTree<T,\
-    \ Mul<T>, One<T>> {\n  using base = SegmentTree<T, Mul<T>, One<T>>;\n  SegmentTreeProd(const\
-    \ vector<T>& a) : base(a) {}\n};\ntemplate <class T, T e>\nstruct SegmentTreeMax\
-    \ : SegmentTree<T, Max<T>, Const<T, e>> {\n  using base = SegmentTree<T, Max<T>,\
-    \ Const<T, e>>;\n  SegmentTreeMax(const vector<T>& a) : base(a) {}\n};\ntemplate\
-    \ <class T, T e>\nstruct SegmentTreeMin : SegmentTree<T, Min<T>, Const<T, e>>\
-    \ {\n  using base = SegmentTree<T, Min<T>, Const<T, e>>;\n  SegmentTreeMin(const\
-    \ vector<T>& a) : base(a) {}\n};\n};  // namespace SegmentTreeUtil\nusing SegmentTreeUtil::SegmentTreeMax;\n\
+    \ a) : base(a) {}\n  SegmentTreeSum(int n) : base(vector<T>(n, Zero<T>())) {}\n\
+    };\ntemplate <class T>\nstruct SegmentTreeProd : SegmentTree<T, Mul<T>, One<T>>\
+    \ {\n  using base = SegmentTree<T, Mul<T>, One<T>>;\n  SegmentTreeProd(const vector<T>&\
+    \ a) : base(a) {}\n  SegmentTreeProd(int n) : base(vector<T>(n, One<T>())) {}\n\
+    };\ntemplate <class T, T e>\nstruct SegmentTreeMax : SegmentTree<T, Max<T>, Const<T,\
+    \ e>> {\n  using base = SegmentTree<T, Max<T>, Const<T, e>>;\n  SegmentTreeMax(const\
+    \ vector<T>& a) : base(a) {}\n  SegmentTreeMax(int n) : base(vector<T>(n, e))\
+    \ {}\n};\ntemplate <class T, T e>\nstruct SegmentTreeMin : SegmentTree<T, Min<T>,\
+    \ Const<T, e>> {\n  using base = SegmentTree<T, Min<T>, Const<T, e>>;\n  SegmentTreeMin(const\
+    \ vector<T>& a) : base(a) {}\n  SegmentTreeMin(int n) : base(vector<T>(n, e))\
+    \ {}\n};\n};  // namespace SegmentTreeUtil\nusing SegmentTreeUtil::SegmentTreeMax;\n\
     using SegmentTreeUtil::SegmentTreeMin;\nusing SegmentTreeUtil::SegmentTreeProd;\n\
     using SegmentTreeUtil::SegmentTreeSum;\n/**\n * @brief \u3088\u304F\u4F7F\u3046\
     \ Segment Tree\n * @docs docs/segment-tree/segment-tree-util.md\n */"
@@ -92,7 +97,7 @@ data:
   isVerificationFile: false
   path: segment-tree/segment-tree-util.hpp
   requiredBy: []
-  timestamp: '2025-11-20 21:02:27+09:00'
+  timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: segment-tree/segment-tree-util.hpp

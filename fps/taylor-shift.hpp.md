@@ -176,21 +176,21 @@ data:
   isVerificationFile: false
   path: fps/taylor-shift.hpp
   requiredBy:
-  - fps/composition.hpp
   - fps/famous-sequences.hpp
+  - fps/composition.hpp
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
-  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
-  - verify/fps/LC_bell_number.test.cpp
-  - verify/fps/LC_partition_function.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_stirling_number_of_the_first_kind_fixed_k.test.cpp
   - verify/fps/LC_stirling_number_of_the_first_kind.test.cpp
   - verify/fps/LC_stirling_number_of_the_second_kind.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
-  - verify/fps/LC_composition_of_formal_power_series.test.cpp
+  - verify/fps/LC_composition_of_formal_power_series_large.test.cpp
+  - verify/fps/LC_partition_function.test.cpp
+  - verify/fps/LC_bell_number.test.cpp
+  - verify/fps/LC_stirling_number_of_the_second_kind_fixed_k.test.cpp
 documentation_of: fps/taylor-shift.hpp
 layout: document
 redirect_from:

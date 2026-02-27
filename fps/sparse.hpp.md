@@ -278,8 +278,8 @@ data:
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
+  - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_exp_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_pow_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_log_of_formal_power_series_sparse.test.cpp
