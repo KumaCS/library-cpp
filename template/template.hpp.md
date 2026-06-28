@@ -259,11 +259,17 @@ data:
     path: verify/string/LC_zalgorithm.test.cpp
     title: verify/string/LC_zalgorithm.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/tree/LC_jump_on_tree.test.cpp
+    title: verify/tree/LC_jump_on_tree.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/tree/LC_lowest_common_ancestor.test.cpp
     title: verify/tree/LC_lowest_common_ancestor.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/tree/LC_tree_diameter.test.cpp
     title: verify/tree/LC_tree_diameter.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/union-find/LC_persistent_unionfind.test.cpp
+    title: verify/union-find/LC_persistent_unionfind.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/union-find/LC_unionfind.test.cpp
     title: verify/union-find/LC_unionfind.test.cpp
@@ -394,6 +400,7 @@ data:
   - verify/convolution/LC_convolution_mod_2_64.test.cpp
   - verify/tree/LC_lowest_common_ancestor.test.cpp
   - verify/tree/LC_tree_diameter.test.cpp
+  - verify/tree/LC_jump_on_tree.test.cpp
   - verify/modint/UNIT_multi_inverse.test.cpp
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_dynamic_modint.test.cpp
@@ -402,6 +409,7 @@ data:
   - verify/number-theory/LC_counting_primes.test.cpp
   - verify/number-theory/LC_enumerate_quotients.test.cpp
   - verify/union-find/LC_unionfind.test.cpp
+  - verify/union-find/LC_persistent_unionfind.test.cpp
   - verify/union-find/LC_unionfind_with_potential.test.cpp
   - verify/string/LC_zalgorithm.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp

@@ -133,7 +133,13 @@ data:
     \ T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  return a > 0 ? (a\
     \ - 1) / b + 1 : a / b;\n}\nlong long isqrt(long long n) {\n  if (n <= 0) return\
     \ 0;\n  long long x = sqrt(n);\n  while ((x + 1) * (x + 1) <= n) x++;\n  while\
-    \ (x * x > n) x--;\n  return x;\n}\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0\
+    \ (x * x > n) x--;\n  return x;\n}\nlong long floor_root(long long n, int k) {\n\
+    \  assert(n >= 0);\n  if (n == 0) return 0;\n  assert(k >= 1);\n  if (k == 1)\
+    \ return n;\n  if (k > 64) return 1;\n  long long x = round(pow((long double)n,\
+    \ 1.0L / k));\n  auto check = [&](long long a) {\n    if (a <= 0) return true;\n\
+    \    __int128_t p = 1;\n    for (int i = 0; i < k; ++i)\n      if ((p *= a) >\
+    \ n) return false;\n    return true;\n  };\n  while (check(x + 1)) x++;\n  while\
+    \ (!check(x)) x--;\n  return x;\n}\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0\
     \ -> 0<=x<|b|/g\n// - b=0  -> ax=g\ntemplate <class T>\nT ext_gcd(T a, T b, T&\
     \ x, T& y) {\n  T a0 = a, b0 = b;\n  bool sgn_a = a < 0, sgn_b = b < 0;\n  if\
     \ (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n  if (b == 0) {\n    x = sgn_a ? -1 :\
@@ -195,52 +201,52 @@ data:
     \  }\n  friend ostream& operator<<(ostream& os, const mint& x) { return os <<\
     \ x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr unsigned int\
     \ umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };\n#line 5 \"verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp\"\nusing mint\
-    \ = ModInt<998244353>;\n#line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\
-    \n\ntemplate <class mint>\nstruct NTT {\n  static constexpr unsigned int mod =\
-    \ mint::get_mod();\n  static constexpr unsigned long long pow_constexpr(unsigned\
-    \ long long x, unsigned long long n, unsigned long long m) {\n    unsigned long\
-    \ long y = 1;\n    while (n) {\n      if (n & 1) y = y * x % m;\n      x = x *\
-    \ x % m;\n      n >>= 1;\n    }\n    return y;\n  }\n  static constexpr unsigned\
-    \ int get_g() {\n    unsigned long long x = 2;\n    while (pow_constexpr(x, (mod\
-    \ - 1) >> 1, mod) == 1) x += 1;\n    return x;\n  }\n  static constexpr unsigned\
-    \ int g = get_g();\n  static constexpr int rank2 = __builtin_ctzll(mod - 1);\n\
-    \  array<mint, rank2 + 1> root;\n  array<mint, rank2 + 1> iroot;\n  array<mint,\
-    \ max(0, rank2 - 2 + 1)> rate2;\n  array<mint, max(0, rank2 - 2 + 1)> irate2;\n\
-    \  array<mint, max(0, rank2 - 3 + 1)> rate3;\n  array<mint, max(0, rank2 - 3 +\
-    \ 1)> irate3;\n\n  NTT() {\n    root[rank2] = mint(g).pow((mod - 1) >> rank2);\n\
-    \    iroot[rank2] = root[rank2].inv();\n    for (int i = rank2 - 1; i >= 0; i--)\
-    \ {\n      root[i] = root[i + 1] * root[i + 1];\n      iroot[i] = iroot[i + 1]\
-    \ * iroot[i + 1];\n    }\n    {\n      mint prod = 1, iprod = 1;\n      for (int\
-    \ i = 0; i <= rank2 - 2; i++) {\n        rate2[i] = root[i + 2] * prod;\n    \
-    \    irate2[i] = iroot[i + 2] * iprod;\n        prod *= iroot[i + 2];\n      \
-    \  iprod *= root[i + 2];\n      }\n    }\n    {\n      mint prod = 1, iprod =\
-    \ 1;\n      for (int i = 0; i <= rank2 - 3; i++) {\n        rate3[i] = root[i\
-    \ + 3] * prod;\n        irate3[i] = iroot[i + 3] * iprod;\n        prod *= iroot[i\
-    \ + 3];\n        iprod *= root[i + 3];\n      }\n    }\n  }\n  void ntt(vector<mint>&\
-    \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
-    \    a.resize(1 << h);\n    int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..]\
-    \ is transformed\n    while (len < h) {\n      if (h - len == 1) {\n        int\
-    \ p = 1 << (h - len - 1);\n        mint rot = 1;\n        for (int s = 0; s <\
-    \ (1 << len); s++) {\n          int offset = s << (h - len);\n          for (int\
-    \ i = 0; i < p; i++) {\n            auto l = a[i + offset];\n            auto\
-    \ r = a[i + offset + p] * rot;\n            a[i + offset] = l + r;\n         \
-    \   a[i + offset + p] = l - r;\n          }\n          if (s + 1 != (1 << len))\
-    \ rot *= rate2[__builtin_ctzll(~(unsigned int)(s))];\n        }\n        len++;\n\
-    \      } else {\n        // 4-base\n        int p = 1 << (h - len - 2);\n    \
-    \    mint rot = 1, imag = root[2];\n        for (int s = 0; s < (1 << len); s++)\
-    \ {\n          mint rot2 = rot * rot;\n          mint rot3 = rot2 * rot;\n   \
-    \       int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n\
-    \            auto mod2 = 1ULL * mint::get_mod() * mint::get_mod();\n         \
-    \   auto a0 = 1ULL * a[i + offset].val();\n            auto a1 = 1ULL * a[i +\
-    \ offset + p].val() * rot.val();\n            auto a2 = 1ULL * a[i + offset +\
-    \ 2 * p].val() * rot2.val();\n            auto a3 = 1ULL * a[i + offset + 3 *\
-    \ p].val() * rot3.val();\n            auto a1na3imag = 1ULL * mint(a1 + mod2 -\
-    \ a3).val() * imag.val();\n            auto na2 = mod2 - a2;\n            a[i\
-    \ + offset] = a0 + a2 + a1 + a3;\n            a[i + offset + 1 * p] = a0 + a2\
-    \ + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 * p] = a0 + na2 + a1na3imag;\n\
-    \            a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);\n        \
-    \  }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
+    };\nusing ModInt998244353 = ModInt<998244353>;\nusing ModInt1000000007 = ModInt<1000000007>;\n\
+    #line 5 \"verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp\"\nusing mint = ModInt<998244353>;\n\
+    #line 2 \"fps/fps-ntt-friendly.hpp\"\n\n#line 2 \"fft/ntt.hpp\"\n\ntemplate <class\
+    \ mint>\nstruct NTT {\n  static constexpr unsigned int mod = mint::get_mod();\n\
+    \  static constexpr unsigned long long pow_constexpr(unsigned long long x, unsigned\
+    \ long long n, unsigned long long m) {\n    unsigned long long y = 1;\n    while\
+    \ (n) {\n      if (n & 1) y = y * x % m;\n      x = x * x % m;\n      n >>= 1;\n\
+    \    }\n    return y;\n  }\n  static constexpr unsigned int get_g() {\n    unsigned\
+    \ long long x = 2;\n    while (pow_constexpr(x, (mod - 1) >> 1, mod) == 1) x +=\
+    \ 1;\n    return x;\n  }\n  static constexpr unsigned int g = get_g();\n  static\
+    \ constexpr int rank2 = __builtin_ctzll(mod - 1);\n  array<mint, rank2 + 1> root;\n\
+    \  array<mint, rank2 + 1> iroot;\n  array<mint, max(0, rank2 - 2 + 1)> rate2;\n\
+    \  array<mint, max(0, rank2 - 2 + 1)> irate2;\n  array<mint, max(0, rank2 - 3\
+    \ + 1)> rate3;\n  array<mint, max(0, rank2 - 3 + 1)> irate3;\n\n  NTT() {\n  \
+    \  root[rank2] = mint(g).pow((mod - 1) >> rank2);\n    iroot[rank2] = root[rank2].inv();\n\
+    \    for (int i = rank2 - 1; i >= 0; i--) {\n      root[i] = root[i + 1] * root[i\
+    \ + 1];\n      iroot[i] = iroot[i + 1] * iroot[i + 1];\n    }\n    {\n      mint\
+    \ prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 2; i++) {\n       \
+    \ rate2[i] = root[i + 2] * prod;\n        irate2[i] = iroot[i + 2] * iprod;\n\
+    \        prod *= iroot[i + 2];\n        iprod *= root[i + 2];\n      }\n    }\n\
+    \    {\n      mint prod = 1, iprod = 1;\n      for (int i = 0; i <= rank2 - 3;\
+    \ i++) {\n        rate3[i] = root[i + 3] * prod;\n        irate3[i] = iroot[i\
+    \ + 3] * iprod;\n        prod *= iroot[i + 3];\n        iprod *= root[i + 3];\n\
+    \      }\n    }\n  }\n  void ntt(vector<mint>& a) {\n    int n = int(a.size());\n\
+    \    int h = __builtin_ctzll((unsigned int)n);\n    a.resize(1 << h);\n    int\
+    \ len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed\n    while (len\
+    \ < h) {\n      if (h - len == 1) {\n        int p = 1 << (h - len - 1);\n   \
+    \     mint rot = 1;\n        for (int s = 0; s < (1 << len); s++) {\n        \
+    \  int offset = s << (h - len);\n          for (int i = 0; i < p; i++) {\n   \
+    \         auto l = a[i + offset];\n            auto r = a[i + offset + p] * rot;\n\
+    \            a[i + offset] = l + r;\n            a[i + offset + p] = l - r;\n\
+    \          }\n          if (s + 1 != (1 << len)) rot *= rate2[__builtin_ctzll(~(unsigned\
+    \ int)(s))];\n        }\n        len++;\n      } else {\n        // 4-base\n \
+    \       int p = 1 << (h - len - 2);\n        mint rot = 1, imag = root[2];\n \
+    \       for (int s = 0; s < (1 << len); s++) {\n          mint rot2 = rot * rot;\n\
+    \          mint rot3 = rot2 * rot;\n          int offset = s << (h - len);\n \
+    \         for (int i = 0; i < p; i++) {\n            auto mod2 = 1ULL * mint::get_mod()\
+    \ * mint::get_mod();\n            auto a0 = 1ULL * a[i + offset].val();\n    \
+    \        auto a1 = 1ULL * a[i + offset + p].val() * rot.val();\n            auto\
+    \ a2 = 1ULL * a[i + offset + 2 * p].val() * rot2.val();\n            auto a3 =\
+    \ 1ULL * a[i + offset + 3 * p].val() * rot3.val();\n            auto a1na3imag\
+    \ = 1ULL * mint(a1 + mod2 - a3).val() * imag.val();\n            auto na2 = mod2\
+    \ - a2;\n            a[i + offset] = a0 + a2 + a1 + a3;\n            a[i + offset\
+    \ + 1 * p] = a0 + a2 + (2 * mod2 - (a1 + a3));\n            a[i + offset + 2 *\
+    \ p] = a0 + na2 + a1na3imag;\n            a[i + offset + 3 * p] = a0 + na2 + (mod2\
+    \ - a1na3imag);\n          }\n          if (s + 1 != (1 << len)) rot *= rate3[__builtin_ctzll(~(unsigned\
     \ int)(s))];\n        }\n        len += 2;\n      }\n    }\n  }\n  void intt(vector<mint>&\
     \ a) {\n    int n = int(a.size());\n    int h = __builtin_ctzll((unsigned int)n);\n\
     \    a.resize(1 << h);\n\n    int len = h;  // a[i, i+(n>>len), i+2*(n>>len),\
@@ -519,7 +525,7 @@ data:
   isVerificationFile: true
   path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   requiredBy: []
-  timestamp: '2026-02-28 01:08:20+09:00'
+  timestamp: '2026-06-28 15:22:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp

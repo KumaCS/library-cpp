@@ -2,6 +2,18 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: algebraic-structure/group.hpp
+    title: algebraic-structure/group.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/magma.hpp
+    title: algebraic-structure/magma.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/monoid.hpp
+    title: algebraic-structure/monoid.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/util.hpp
+    title: algebraic-structure/util.hpp
+  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
   - icon: ':heavy_check_mark:'
@@ -112,7 +124,13 @@ data:
     \ T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  return a > 0 ? (a\
     \ - 1) / b + 1 : a / b;\n}\nlong long isqrt(long long n) {\n  if (n <= 0) return\
     \ 0;\n  long long x = sqrt(n);\n  while ((x + 1) * (x + 1) <= n) x++;\n  while\
-    \ (x * x > n) x--;\n  return x;\n}\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0\
+    \ (x * x > n) x--;\n  return x;\n}\nlong long floor_root(long long n, int k) {\n\
+    \  assert(n >= 0);\n  if (n == 0) return 0;\n  assert(k >= 1);\n  if (k == 1)\
+    \ return n;\n  if (k > 64) return 1;\n  long long x = round(pow((long double)n,\
+    \ 1.0L / k));\n  auto check = [&](long long a) {\n    if (a <= 0) return true;\n\
+    \    __int128_t p = 1;\n    for (int i = 0; i < k; ++i)\n      if ((p *= a) >\
+    \ n) return false;\n    return true;\n  };\n  while (check(x + 1)) x++;\n  while\
+    \ (!check(x)) x--;\n  return x;\n}\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0\
     \ -> 0<=x<|b|/g\n// - b=0  -> ax=g\ntemplate <class T>\nT ext_gcd(T a, T b, T&\
     \ x, T& y) {\n  T a0 = a, b0 = b;\n  bool sgn_a = a < 0, sgn_b = b < 0;\n  if\
     \ (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n  if (b == 0) {\n    x = sgn_a ? -1 :\
@@ -174,34 +192,65 @@ data:
     \  }\n  friend ostream& operator<<(ostream& os, const mint& x) { return os <<\
     \ x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr unsigned int\
     \ umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };\n#line 5 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\nusing\
-    \ mint = ModInt<998244353>;\n#line 2 \"union-find/potentialized-union-find.hpp\"\
-    \n\ntemplate <class T>\nstruct PotentializedUnionFind {\n private:\n  vector<int>\
-    \ a;\n  vector<T> p;\n\n public:\n  PotentializedUnionFind(int n) : a(n, -1),\
-    \ p(n, 0) {}\n  int find(int v) {\n    if (a[v] < 0) return v;\n    int r = find(a[v]);\n\
-    \    p[v] += p[a[v]];\n    return a[v] = r;\n  }\n  int size(int v) { return -a[find(v)];\
-    \ }\n  bool same(int u, int v) { return find(u) == find(v); }\n  // p[u]-p[v]=w\n\
-    \  bool unite(int u, int v, T w) {\n    int x = find(u), y = find(v);\n    if\
-    \ (x == y) return p[u] - p[v] == w;\n    w -= p[u], w += p[v];\n    if (a[x] <\
-    \ a[y]) {\n      p[y] = p[x] - w;\n      a[x] += a[y];\n      a[y] = x;\n    }\
-    \ else {\n      p[x] = p[y] + w;\n      a[y] += a[x];\n      a[x] = y;\n    }\n\
-    \    return true;\n  }\n  // p[u]-p[v]\n  T diff(int u, int v) { return p[u] -\
-    \ p[v]; }\n};\n/**\n * @brief \u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D\
-    \ Union Find\n * @docs docs/union-find/potentialized-union-find.md\n */\n#line\
-    \ 7 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\n\nint main() {\n\
-    \  int n, q;\n  in(n, q);\n  PotentializedUnionFind<mint> uf(n);\n  while (q--)\
-    \ {\n    int type, u, v;\n    in(type, u, v);\n    if (type == 0) {\n      mint\
-    \ w;\n      in(w);\n      out(uf.unite(u, v, w));\n    } else {\n      if (uf.same(u,\
-    \ v))\n        out(uf.diff(u, v));\n      else\n        out(-1);\n    }\n  }\n\
-    }\n"
+    };\nusing ModInt998244353 = ModInt<998244353>;\nusing ModInt1000000007 = ModInt<1000000007>;\n\
+    #line 5 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\nusing mint\
+    \ = ModInt<998244353>;\n#line 2 \"algebraic-structure/util.hpp\"\n#ifdef __cpp_concepts\n\
+    #define REQUIRES(...) requires __VA_ARGS__\n#else\n#define REQUIRES(...)\n#endif\n\
+    #line 3 \"algebraic-structure/magma.hpp\"\n\n#ifdef __cpp_concepts\ntemplate <class\
+    \ M>\nconcept Magma = requires(typename M::value_type x, typename M::value_type\
+    \ y) {\n  typename M::value_type;\n  { M::op(x, y) } -> same_as<typename M::value_type>;\n\
+    };\n#endif\n\ntemplate <class T>\nstruct AddMagma {\n  using value_type = T;\n\
+    \  static T op(T x, T y) { return x + y; }\n};\ntemplate <class T>\nstruct MulMagma\
+    \ {\n  using value_type = T;\n  static T op(T x, T y) { return x * y; }\n};\n\
+    template <class T, T id>\nstruct MaxMagma {\n  using value_type = T;\n  static\
+    \ T op(T x, T y) { return x > y ? x : y; }\n};\ntemplate <class T, T id>\nstruct\
+    \ MinMagma {\n  using value_type = T;\n  static T op(T x, T y) { return x < y\
+    \ ? x : y; }\n};\n#line 3 \"algebraic-structure/monoid.hpp\"\n\n#ifdef __cpp_concepts\n\
+    template <class M>\nconcept Monoid = Magma<M> && requires {\n  { M::e() } -> same_as<typename\
+    \ M::value_type>;\n};\n#endif\n\ntemplate <class T>\nstruct AddMonoid {\n  using\
+    \ value_type = T;\n  static T op(T x, T y) { return x + y; }\n  static T e() {\
+    \ return T(0); }\n};\ntemplate <class T>\nstruct MulMonoid {\n  using value_type\
+    \ = T;\n  static T op(T x, T y) { return x * y; }\n  static T e() { return T(1);\
+    \ }\n};\ntemplate <class T, T id>\nstruct MaxMonoid {\n  using value_type = T;\n\
+    \  static T op(T x, T y) { return x > y ? x : y; }\n  static T e() { return id;\
+    \ }\n};\ntemplate <class T, T id>\nstruct MinMonoid {\n  using value_type = T;\n\
+    \  static T op(T x, T y) { return x < y ? x : y; }\n  static T e() { return id;\
+    \ }\n};\n#line 3 \"algebraic-structure/group.hpp\"\n\n#ifdef __cpp_concepts\n\
+    template <class G>\nconcept Group = Monoid<G> && requires(typename G::value_type\
+    \ x) {\n  { G::inv(x) } -> same_as<typename G::value_type>;\n};\n#endif\n\ntemplate\
+    \ <class T>\nstruct AddGroup {\n  using value_type = T;\n  static T op(T x, T\
+    \ y) { return x + y; }\n  static T e() { return T(0); }\n  static T inv(T x) {\
+    \ return -x; }\n};\ntemplate <class T>\nstruct MulGroup {\n  using value_type\
+    \ = T;\n  static T op(T x, T y) { return x * y; }\n  static T e() { return T(1);\
+    \ }\n  static T inv(T x) { return T(1) / x; }\n};\n#line 3 \"union-find/potentialized-union-find.hpp\"\
+    \n\ntemplate <class G>\nREQUIRES(Group<G>)\nstruct PotentializedUnionFind {\n\
+    \  using T = typename G::value_type;\n\n private:\n  vector<int> a;\n  vector<T>\
+    \ p;\n\n public:\n  PotentializedUnionFind(int n) : a(n, -1), p(n, G::e()) {}\n\
+    \  int find(int v) {\n    if (a[v] < 0) return v;\n    int r = find(a[v]);\n \
+    \   p[v] = G::op(p[v], p[a[v]]);\n    return a[v] = r;\n  }\n  int size(int v)\
+    \ { return -a[find(v)]; }\n  bool same(int u, int v) { return find(u) == find(v);\
+    \ }\n  // p[u]-p[v]=w\n  bool unite(int u, int v, T w) {\n    int x = find(u),\
+    \ y = find(v);\n    if (x == y) return p[u] == G::op(p[v], w);\n    w = G::op(G::op(w,\
+    \ G::inv(p[u])), p[v]);\n    if (a[x] < a[y]) {\n      p[y] = G::op(p[x], G::inv(w));\n\
+    \      a[x] += a[y];\n      a[y] = x;\n    } else {\n      p[x] = G::op(p[y],\
+    \ w);\n      a[y] += a[x];\n      a[x] = y;\n    }\n    return true;\n  }\n  //\
+    \ p[u]-p[v]\n  T diff(int u, int v) {\n    find(u);\n    find(v);\n    return\
+    \ G::op(p[u], G::inv(p[v]));\n  }\n};\n/**\n * @brief \u30DD\u30C6\u30F3\u30B7\
+    \u30E3\u30EB\u4ED8\u304D Union Find\n * @docs docs/union-find/potentialized-union-find.md\n\
+    \ */\n#line 7 \"verify/union-find/LC_unionfind_with_potential.test.cpp\"\n\nint\
+    \ main() {\n  int n, q;\n  in(n, q);\n  PotentializedUnionFind<AddGroup<mint>>\
+    \ uf(n);\n  while (q--) {\n    int type, u, v;\n    in(type, u, v);\n    if (type\
+    \ == 0) {\n      mint w;\n      in(w);\n      out(uf.unite(u, v, w));\n    } else\
+    \ {\n      if (uf.same(u, v))\n        out(uf.diff(u, v));\n      else\n     \
+    \   out(-1);\n    }\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/unionfind_with_potential\"\
     \n\n#include \"template/template.hpp\"\n#include \"modint/modint.hpp\"\nusing\
     \ mint = ModInt<998244353>;\n#include \"union-find/potentialized-union-find.hpp\"\
-    \n\nint main() {\n  int n, q;\n  in(n, q);\n  PotentializedUnionFind<mint> uf(n);\n\
-    \  while (q--) {\n    int type, u, v;\n    in(type, u, v);\n    if (type == 0)\
-    \ {\n      mint w;\n      in(w);\n      out(uf.unite(u, v, w));\n    } else {\n\
-    \      if (uf.same(u, v))\n        out(uf.diff(u, v));\n      else\n        out(-1);\n\
-    \    }\n  }\n}"
+    \n\nint main() {\n  int n, q;\n  in(n, q);\n  PotentializedUnionFind<AddGroup<mint>>\
+    \ uf(n);\n  while (q--) {\n    int type, u, v;\n    in(type, u, v);\n    if (type\
+    \ == 0) {\n      mint w;\n      in(w);\n      out(uf.unite(u, v, w));\n    } else\
+    \ {\n      if (uf.same(u, v))\n        out(uf.diff(u, v));\n      else\n     \
+    \   out(-1);\n    }\n  }\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -211,10 +260,14 @@ data:
   - modint/modint.hpp
   - math/util.hpp
   - union-find/potentialized-union-find.hpp
+  - algebraic-structure/group.hpp
+  - algebraic-structure/monoid.hpp
+  - algebraic-structure/magma.hpp
+  - algebraic-structure/util.hpp
   isVerificationFile: true
   path: verify/union-find/LC_unionfind_with_potential.test.cpp
   requiredBy: []
-  timestamp: '2026-02-28 01:08:20+09:00'
+  timestamp: '2026-06-28 15:41:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/union-find/LC_unionfind_with_potential.test.cpp

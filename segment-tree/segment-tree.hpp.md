@@ -1,6 +1,15 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/magma.hpp
+    title: algebraic-structure/magma.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/monoid.hpp
+    title: algebraic-structure/monoid.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/util.hpp
+    title: algebraic-structure/util.hpp
   _extendedRequiredBy:
   - icon: ':warning:'
     path: data-structure/wavelet-matrix-with-segment-tree.hpp
@@ -25,86 +34,113 @@ data:
     _deprecated_at_docs: docs/segment-tree/segment-tree.md
     document_title: Segment Tree
     links: []
-  bundledCode: "#line 2 \"segment-tree/segment-tree.hpp\"\n\ntemplate <class T, T\
-    \ (*op)(T, T), T (*e)()>\nstruct SegmentTree {\n private:\n  int _n, size, log;\n\
-    \  vector<T> d;\n  void update(int p) { d[p] = op(d[2 * p], d[2 * p + 1]); }\n\
-    \n public:\n  SegmentTree() : SegmentTree(0) {}\n  explicit SegmentTree(int sz)\
-    \ : SegmentTree(vector<T>(sz, e())) {}\n  explicit SegmentTree(const vector<T>&\
-    \ v) : _n(v.size()) {\n    size = 1, log = 0;\n    while (size < _n) size <<=\
-    \ 1, log++;\n    d.assign(2 * size, e());\n    for (int i = 0; i < v.size(); i++)\
-    \ d[size + i] = v[i];\n    for (int i = size - 1; i > 0; i--) update(i);\n  }\n\
-    \  void clear() { fill(d.begin(), d.end(), e()); }\n\n  void set_without_update(int\
+  bundledCode: "#line 2 \"algebraic-structure/util.hpp\"\n#ifdef __cpp_concepts\n\
+    #define REQUIRES(...) requires __VA_ARGS__\n#else\n#define REQUIRES(...)\n#endif\n\
+    #line 3 \"algebraic-structure/magma.hpp\"\n\n#ifdef __cpp_concepts\ntemplate <class\
+    \ M>\nconcept Magma = requires(typename M::value_type x, typename M::value_type\
+    \ y) {\n  typename M::value_type;\n  { M::op(x, y) } -> same_as<typename M::value_type>;\n\
+    };\n#endif\n\ntemplate <class T>\nstruct AddMagma {\n  using value_type = T;\n\
+    \  static T op(T x, T y) { return x + y; }\n};\ntemplate <class T>\nstruct MulMagma\
+    \ {\n  using value_type = T;\n  static T op(T x, T y) { return x * y; }\n};\n\
+    template <class T, T id>\nstruct MaxMagma {\n  using value_type = T;\n  static\
+    \ T op(T x, T y) { return x > y ? x : y; }\n};\ntemplate <class T, T id>\nstruct\
+    \ MinMagma {\n  using value_type = T;\n  static T op(T x, T y) { return x < y\
+    \ ? x : y; }\n};\n#line 3 \"algebraic-structure/monoid.hpp\"\n\n#ifdef __cpp_concepts\n\
+    template <class M>\nconcept Monoid = Magma<M> && requires {\n  { M::e() } -> same_as<typename\
+    \ M::value_type>;\n};\n#endif\n\ntemplate <class T>\nstruct AddMonoid {\n  using\
+    \ value_type = T;\n  static T op(T x, T y) { return x + y; }\n  static T e() {\
+    \ return T(0); }\n};\ntemplate <class T>\nstruct MulMonoid {\n  using value_type\
+    \ = T;\n  static T op(T x, T y) { return x * y; }\n  static T e() { return T(1);\
+    \ }\n};\ntemplate <class T, T id>\nstruct MaxMonoid {\n  using value_type = T;\n\
+    \  static T op(T x, T y) { return x > y ? x : y; }\n  static T e() { return id;\
+    \ }\n};\ntemplate <class T, T id>\nstruct MinMonoid {\n  using value_type = T;\n\
+    \  static T op(T x, T y) { return x < y ? x : y; }\n  static T e() { return id;\
+    \ }\n};\n#line 3 \"segment-tree/segment-tree.hpp\"\n\ntemplate <class M>\nREQUIRES(Monoid<M>)\n\
+    struct SegmentTree {\n  using T = typename M::value_type;\n\n private:\n  int\
+    \ _n, size, log;\n  vector<T> d;\n  void update(int p) { d[p] = M::op(d[2 * p],\
+    \ d[2 * p + 1]); }\n\n public:\n  SegmentTree() : SegmentTree(0) {}\n  explicit\
+    \ SegmentTree(int sz) : SegmentTree(vector<T>(sz, M::e())) {}\n  explicit SegmentTree(const\
+    \ vector<T>& v) : _n(v.size()) {\n    size = 1, log = 0;\n    while (size < _n)\
+    \ size <<= 1, log++;\n    d.assign(2 * size, M::e());\n    for (int i = 0; i <\
+    \ _n; i++) d[size + i] = v[i];\n    for (int i = size - 1; i > 0; i--) update(i);\n\
+    \  }\n  void clear() { fill(d.begin(), d.end(), M::e()); }\n\n  void set_without_update(int\
     \ p, T v) { d[p + size] = v; }\n  void all_update() {\n    for (int i = size -\
     \ 1; i > 0; i--) update(i);\n  }\n  T get(int p) {\n    assert(0 <= p && p <=\
     \ _n);\n    return d[p + size];\n  }\n  void set(int p, T v) {\n    assert(0 <=\
     \ p && p <= _n);\n    p += size;\n    d[p] = v;\n    for (int i = 1; i <= log;\
     \ i++) update(p >> i);\n  }\n  void apply(int p, T v) {\n    assert(0 <= p &&\
-    \ p <= _n);\n    p += size;\n    d[p] = op(d[p], v);\n    for (int i = 1; i <=\
-    \ log; i++) update(p >> i);\n  }\n  T all_prod() { return d[1]; }\n  T prod(int\
-    \ l, int r) {\n    if (l >= r) return e();\n    assert(0 <= l && l <= r && r <=\
-    \ _n);\n    T sl = e(), sr = e();\n    l += size, r += size;\n    while (l < r)\
-    \ {\n      if ((l & 1) != 0) sl = op(sl, d[l++]);\n      if ((r & 1) != 0) sr\
-    \ = op(d[--r], sr);\n      l >>= 1, r >>= 1;\n    }\n    return op(sl, sr);\n\
-    \  }\n\n  template <bool (*f)(T)>\n  int max_right(int l) const {\n    return\
-    \ max_right(l, [](T x) { return f(x); });\n  }\n  template <class F>\n  int max_right(int\
-    \ l, F f) const {\n    assert(0 <= l && l <= size);\n    assert(f(e()));\n   \
-    \ if (l == _n) return _n;\n    l += size;\n    T s = e();\n    do {\n      while\
-    \ (l % 2 == 0) l >>= 1;\n      if (!f(op(s, d[l]))) {\n        while (l < size)\
-    \ {\n          l <<= 1;\n          if (f(op(s, d[l]))) s = op(s, d[l++]);\n  \
-    \      }\n        return l - size;\n      }\n      s = op(s, d[l++]);\n    } while\
-    \ ((l & -l) != l);\n    return _n;\n  }\n\n  template <bool (*f)(T)>\n  int min_left(int\
-    \ r) const {\n    return min_left(r, [](T x) { return f(x); });\n  }\n  template\
-    \ <class F>\n  int min_left(int r, F f) const {\n    assert(0 <= r && r <= _n);\n\
-    \    assert(f(e()));\n    if (r == 0) return 0;\n    r += size;\n    T s = e();\n\
-    \    do {\n      r--;\n      while (r > 1 && (r % 2)) r >>= 1;\n      if (!f(op(d[r],\
-    \ s))) {\n        while (r < size) {\n          r <<= 1, r++;\n          if (f(op(d[r],\
-    \ s))) s = op(d[r--], s);\n        }\n        return r + 1 - size;\n      }\n\
-    \      s = op(d[r], s);\n    } while ((r & -r) != r);\n    return 0;\n  }\n};\n\
-    \n/**\n * @brief Segment Tree\n * @docs docs/segment-tree/segment-tree.md\n */\n"
-  code: "#pragma once\n\ntemplate <class T, T (*op)(T, T), T (*e)()>\nstruct SegmentTree\
-    \ {\n private:\n  int _n, size, log;\n  vector<T> d;\n  void update(int p) { d[p]\
-    \ = op(d[2 * p], d[2 * p + 1]); }\n\n public:\n  SegmentTree() : SegmentTree(0)\
-    \ {}\n  explicit SegmentTree(int sz) : SegmentTree(vector<T>(sz, e())) {}\n  explicit\
-    \ SegmentTree(const vector<T>& v) : _n(v.size()) {\n    size = 1, log = 0;\n \
-    \   while (size < _n) size <<= 1, log++;\n    d.assign(2 * size, e());\n    for\
-    \ (int i = 0; i < v.size(); i++) d[size + i] = v[i];\n    for (int i = size -\
-    \ 1; i > 0; i--) update(i);\n  }\n  void clear() { fill(d.begin(), d.end(), e());\
+    \ p <= _n);\n    p += size;\n    d[p] = M::op(d[p], v);\n    for (int i = 1; i\
+    \ <= log; i++) update(p >> i);\n  }\n  T all_prod() { return d[1]; }\n  T prod(int\
+    \ l, int r) {\n    if (l >= r) return M::e();\n    assert(0 <= l && l <= r &&\
+    \ r <= _n);\n    T sl = M::e(), sr = M::e();\n    l += size, r += size;\n    while\
+    \ (l < r) {\n      if ((l & 1) != 0) sl = M::op(sl, d[l++]);\n      if ((r & 1)\
+    \ != 0) sr = M::op(d[--r], sr);\n      l >>= 1, r >>= 1;\n    }\n    return M::op(sl,\
+    \ sr);\n  }\n\n  template <bool (*f)(T)>\n  int max_right(int l) const {\n   \
+    \ return max_right(l, [](T x) { return f(x); });\n  }\n  template <class F>\n\
+    \  int max_right(int l, F f) const {\n    assert(0 <= l && l <= size);\n    assert(f(M::e()));\n\
+    \    if (l == _n) return _n;\n    l += size;\n    T s = M::e();\n    do {\n  \
+    \    while (l % 2 == 0) l >>= 1;\n      if (!f(M::op(s, d[l]))) {\n        while\
+    \ (l < size) {\n          l <<= 1;\n          if (f(M::op(s, d[l]))) s = M::op(s,\
+    \ d[l++]);\n        }\n        return l - size;\n      }\n      s = M::op(s, d[l++]);\n\
+    \    } while ((l & -l) != l);\n    return _n;\n  }\n\n  template <bool (*f)(T)>\n\
+    \  int min_left(int r) const {\n    return min_left(r, [](T x) { return f(x);\
+    \ });\n  }\n  template <class F>\n  int min_left(int r, F f) const {\n    assert(0\
+    \ <= r && r <= _n);\n    assert(f(M::e()));\n    if (r == 0) return 0;\n    r\
+    \ += size;\n    T s = M::e();\n    do {\n      r--;\n      while (r > 1 && (r\
+    \ % 2)) r >>= 1;\n      if (!f(M::op(d[r], s))) {\n        while (r < size) {\n\
+    \          r <<= 1, r++;\n          if (f(M::op(d[r], s))) s = M::op(d[r--], s);\n\
+    \        }\n        return r + 1 - size;\n      }\n      s = M::op(d[r], s);\n\
+    \    } while ((r & -r) != r);\n    return 0;\n  }\n};\n\n/**\n * @brief Segment\
+    \ Tree\n * @docs docs/segment-tree/segment-tree.md\n */\n"
+  code: "#pragma once\n#include \"algebraic-structure/monoid.hpp\"\n\ntemplate <class\
+    \ M>\nREQUIRES(Monoid<M>)\nstruct SegmentTree {\n  using T = typename M::value_type;\n\
+    \n private:\n  int _n, size, log;\n  vector<T> d;\n  void update(int p) { d[p]\
+    \ = M::op(d[2 * p], d[2 * p + 1]); }\n\n public:\n  SegmentTree() : SegmentTree(0)\
+    \ {}\n  explicit SegmentTree(int sz) : SegmentTree(vector<T>(sz, M::e())) {}\n\
+    \  explicit SegmentTree(const vector<T>& v) : _n(v.size()) {\n    size = 1, log\
+    \ = 0;\n    while (size < _n) size <<= 1, log++;\n    d.assign(2 * size, M::e());\n\
+    \    for (int i = 0; i < _n; i++) d[size + i] = v[i];\n    for (int i = size -\
+    \ 1; i > 0; i--) update(i);\n  }\n  void clear() { fill(d.begin(), d.end(), M::e());\
     \ }\n\n  void set_without_update(int p, T v) { d[p + size] = v; }\n  void all_update()\
     \ {\n    for (int i = size - 1; i > 0; i--) update(i);\n  }\n  T get(int p) {\n\
     \    assert(0 <= p && p <= _n);\n    return d[p + size];\n  }\n  void set(int\
     \ p, T v) {\n    assert(0 <= p && p <= _n);\n    p += size;\n    d[p] = v;\n \
     \   for (int i = 1; i <= log; i++) update(p >> i);\n  }\n  void apply(int p, T\
-    \ v) {\n    assert(0 <= p && p <= _n);\n    p += size;\n    d[p] = op(d[p], v);\n\
-    \    for (int i = 1; i <= log; i++) update(p >> i);\n  }\n  T all_prod() { return\
-    \ d[1]; }\n  T prod(int l, int r) {\n    if (l >= r) return e();\n    assert(0\
-    \ <= l && l <= r && r <= _n);\n    T sl = e(), sr = e();\n    l += size, r +=\
-    \ size;\n    while (l < r) {\n      if ((l & 1) != 0) sl = op(sl, d[l++]);\n \
-    \     if ((r & 1) != 0) sr = op(d[--r], sr);\n      l >>= 1, r >>= 1;\n    }\n\
-    \    return op(sl, sr);\n  }\n\n  template <bool (*f)(T)>\n  int max_right(int\
-    \ l) const {\n    return max_right(l, [](T x) { return f(x); });\n  }\n  template\
-    \ <class F>\n  int max_right(int l, F f) const {\n    assert(0 <= l && l <= size);\n\
-    \    assert(f(e()));\n    if (l == _n) return _n;\n    l += size;\n    T s = e();\n\
-    \    do {\n      while (l % 2 == 0) l >>= 1;\n      if (!f(op(s, d[l]))) {\n \
-    \       while (l < size) {\n          l <<= 1;\n          if (f(op(s, d[l])))\
-    \ s = op(s, d[l++]);\n        }\n        return l - size;\n      }\n      s =\
-    \ op(s, d[l++]);\n    } while ((l & -l) != l);\n    return _n;\n  }\n\n  template\
-    \ <bool (*f)(T)>\n  int min_left(int r) const {\n    return min_left(r, [](T x)\
-    \ { return f(x); });\n  }\n  template <class F>\n  int min_left(int r, F f) const\
-    \ {\n    assert(0 <= r && r <= _n);\n    assert(f(e()));\n    if (r == 0) return\
-    \ 0;\n    r += size;\n    T s = e();\n    do {\n      r--;\n      while (r > 1\
-    \ && (r % 2)) r >>= 1;\n      if (!f(op(d[r], s))) {\n        while (r < size)\
-    \ {\n          r <<= 1, r++;\n          if (f(op(d[r], s))) s = op(d[r--], s);\n\
-    \        }\n        return r + 1 - size;\n      }\n      s = op(d[r], s);\n  \
-    \  } while ((r & -r) != r);\n    return 0;\n  }\n};\n\n/**\n * @brief Segment\
-    \ Tree\n * @docs docs/segment-tree/segment-tree.md\n */"
-  dependsOn: []
+    \ v) {\n    assert(0 <= p && p <= _n);\n    p += size;\n    d[p] = M::op(d[p],\
+    \ v);\n    for (int i = 1; i <= log; i++) update(p >> i);\n  }\n  T all_prod()\
+    \ { return d[1]; }\n  T prod(int l, int r) {\n    if (l >= r) return M::e();\n\
+    \    assert(0 <= l && l <= r && r <= _n);\n    T sl = M::e(), sr = M::e();\n \
+    \   l += size, r += size;\n    while (l < r) {\n      if ((l & 1) != 0) sl = M::op(sl,\
+    \ d[l++]);\n      if ((r & 1) != 0) sr = M::op(d[--r], sr);\n      l >>= 1, r\
+    \ >>= 1;\n    }\n    return M::op(sl, sr);\n  }\n\n  template <bool (*f)(T)>\n\
+    \  int max_right(int l) const {\n    return max_right(l, [](T x) { return f(x);\
+    \ });\n  }\n  template <class F>\n  int max_right(int l, F f) const {\n    assert(0\
+    \ <= l && l <= size);\n    assert(f(M::e()));\n    if (l == _n) return _n;\n \
+    \   l += size;\n    T s = M::e();\n    do {\n      while (l % 2 == 0) l >>= 1;\n\
+    \      if (!f(M::op(s, d[l]))) {\n        while (l < size) {\n          l <<=\
+    \ 1;\n          if (f(M::op(s, d[l]))) s = M::op(s, d[l++]);\n        }\n    \
+    \    return l - size;\n      }\n      s = M::op(s, d[l++]);\n    } while ((l &\
+    \ -l) != l);\n    return _n;\n  }\n\n  template <bool (*f)(T)>\n  int min_left(int\
+    \ r) const {\n    return min_left(r, [](T x) { return f(x); });\n  }\n  template\
+    \ <class F>\n  int min_left(int r, F f) const {\n    assert(0 <= r && r <= _n);\n\
+    \    assert(f(M::e()));\n    if (r == 0) return 0;\n    r += size;\n    T s =\
+    \ M::e();\n    do {\n      r--;\n      while (r > 1 && (r % 2)) r >>= 1;\n   \
+    \   if (!f(M::op(d[r], s))) {\n        while (r < size) {\n          r <<= 1,\
+    \ r++;\n          if (f(M::op(d[r], s))) s = M::op(d[r--], s);\n        }\n  \
+    \      return r + 1 - size;\n      }\n      s = M::op(d[r], s);\n    } while ((r\
+    \ & -r) != r);\n    return 0;\n  }\n};\n\n/**\n * @brief Segment Tree\n * @docs\
+    \ docs/segment-tree/segment-tree.md\n */\n"
+  dependsOn:
+  - algebraic-structure/monoid.hpp
+  - algebraic-structure/magma.hpp
+  - algebraic-structure/util.hpp
   isVerificationFile: false
   path: segment-tree/segment-tree.hpp
   requiredBy:
   - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   - segment-tree/segment-tree-util.hpp
   - data-structure/wavelet-matrix-with-segment-tree.hpp
-  timestamp: '2025-11-20 21:02:27+09:00'
+  timestamp: '2026-06-28 15:32:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
@@ -119,6 +155,10 @@ title: Segment Tree
 モノイド $(T,\cdot,e)$ に対するデータ構造．
 
 - 実際は $\cdot$ が $T\times T$ 上全体で定義されていなくても，計算で出てくる範囲で定義されていれば構わない．
+
+`SegmentTree<M>` として使う．
+`M` は `value_type`, `op(x,y)`, `e()` を持つモノイドを表す型．
+よく使うものは `AddMonoid<T>`, `MulMonoid<T>`, `MaxMonoid<T,e>`, `MinMonoid<T,e>` を使える．
 
 長さ $N$ の $T$ の列 $A=(A_0,A_1,\dots,A_{N-1})$ に対し，空間計算量 $\Theta(N)$ のもとで以下の操作を行う．
 

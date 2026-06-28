@@ -2,6 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: algebraic-structure/magma.hpp
+    title: algebraic-structure/magma.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/monoid.hpp
+    title: algebraic-structure/monoid.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/util.hpp
+    title: algebraic-structure/util.hpp
+  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
   - icon: ':heavy_check_mark:'
@@ -104,29 +113,51 @@ data:
     \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
     \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"segment-tree/dual-segment-tree.hpp\"\
-    \n\ntemplate <class F, F (*op)(F, F), F (*e)()>\nstruct DualSegmentTree {\n private:\n\
-    \  int _n, size, log;\n  vector<F> lz;\n\n public:\n  DualSegmentTree() : DualSegmentTree(0)\
-    \ {}\n  explicit DualSegmentTree(int n) : DualSegmentTree(vector<F>(n, e())) {}\n\
-    \  explicit DualSegmentTree(const vector<F> &v) : _n(int(v.size())) {\n    size\
-    \ = 1, log = 0;\n    while (size < _n) size <<= 1, log++;\n    lz = vector<F>(2\
-    \ * size, e());\n    for (int i = 0; i < _n; i++) lz[size + i] = v[i];\n  }\n\
-    \  void set(int p, F f) {\n    assert(0 <= p && p < _n);\n    p += size;\n   \
-    \ for (int i = log; i > 0; i--) push(p >> i);\n    lz[p] = f;\n  }\n  F get(int\
-    \ p) {\n    assert(0 <= p && p < _n);\n    p += size;\n    for (int i = log; i\
-    \ > 0; i--) push(p >> i);\n    return lz[p];\n  }\n  vector<F> all_get() {\n \
-    \   for (int i = 1; i < size; i++) push(i);\n    return vector<F>(lz.begin() +\
-    \ size, lz.begin() + (size + _n));\n  }\n  void apply(int p, F f) {\n    assert(0\
-    \ <= p && p < _n);\n    p += size;\n    for (int i = log; i > 0; i--) push(p >>\
-    \ i);\n    inner_apply(p, f);\n  }\n  void apply(int l, int r, F f) {\n    if\
-    \ (l >= r) return;\n    assert(0 <= l && l <= r && r <= _n);\n    l += size, r\
-    \ += size;\n    for (int i = log; i > 0; i--) {\n      if (((l >> i) << i) !=\
-    \ l) push(l >> i);\n      if (((r >> i) << i) != r) push((r - 1) >> i);\n    }\n\
-    \    while (l < r) {\n      if ((l & 1) != 0) inner_apply(l++, f);\n      if ((r\
-    \ & 1) != 0) inner_apply(--r, f);\n      l >>= 1, r >>= 1;\n    }\n  }\n\n private:\n\
-    \  void push(int k) {\n    inner_apply(2 * k, lz[k]);\n    inner_apply(2 * k +\
-    \ 1, lz[k]);\n    lz[k] = e();\n  }\n  void inner_apply(int k, F f) { lz[k] =\
-    \ op(f, lz[k]); }\n};\n\n/**\n * @brief Dual Segment Tree\n * @docs docs/segment-tree/dual-segment-tree.md\n\
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"algebraic-structure/util.hpp\"\n\
+    #ifdef __cpp_concepts\n#define REQUIRES(...) requires __VA_ARGS__\n#else\n#define\
+    \ REQUIRES(...)\n#endif\n#line 3 \"algebraic-structure/magma.hpp\"\n\n#ifdef __cpp_concepts\n\
+    template <class M>\nconcept Magma = requires(typename M::value_type x, typename\
+    \ M::value_type y) {\n  typename M::value_type;\n  { M::op(x, y) } -> same_as<typename\
+    \ M::value_type>;\n};\n#endif\n\ntemplate <class T>\nstruct AddMagma {\n  using\
+    \ value_type = T;\n  static T op(T x, T y) { return x + y; }\n};\ntemplate <class\
+    \ T>\nstruct MulMagma {\n  using value_type = T;\n  static T op(T x, T y) { return\
+    \ x * y; }\n};\ntemplate <class T, T id>\nstruct MaxMagma {\n  using value_type\
+    \ = T;\n  static T op(T x, T y) { return x > y ? x : y; }\n};\ntemplate <class\
+    \ T, T id>\nstruct MinMagma {\n  using value_type = T;\n  static T op(T x, T y)\
+    \ { return x < y ? x : y; }\n};\n#line 3 \"algebraic-structure/monoid.hpp\"\n\n\
+    #ifdef __cpp_concepts\ntemplate <class M>\nconcept Monoid = Magma<M> && requires\
+    \ {\n  { M::e() } -> same_as<typename M::value_type>;\n};\n#endif\n\ntemplate\
+    \ <class T>\nstruct AddMonoid {\n  using value_type = T;\n  static T op(T x, T\
+    \ y) { return x + y; }\n  static T e() { return T(0); }\n};\ntemplate <class T>\n\
+    struct MulMonoid {\n  using value_type = T;\n  static T op(T x, T y) { return\
+    \ x * y; }\n  static T e() { return T(1); }\n};\ntemplate <class T, T id>\nstruct\
+    \ MaxMonoid {\n  using value_type = T;\n  static T op(T x, T y) { return x > y\
+    \ ? x : y; }\n  static T e() { return id; }\n};\ntemplate <class T, T id>\nstruct\
+    \ MinMonoid {\n  using value_type = T;\n  static T op(T x, T y) { return x < y\
+    \ ? x : y; }\n  static T e() { return id; }\n};\n#line 3 \"segment-tree/dual-segment-tree.hpp\"\
+    \n\ntemplate <class M>\nREQUIRES(Monoid<M>)\nstruct DualSegmentTree {\n  using\
+    \ F = typename M::value_type;\n\n private:\n  int _n, size, log;\n  vector<F>\
+    \ lz;\n\n public:\n  DualSegmentTree() : DualSegmentTree(0) {}\n  explicit DualSegmentTree(int\
+    \ n) : DualSegmentTree(vector<F>(n, M::e())) {}\n  explicit DualSegmentTree(const\
+    \ vector<F> &v) : _n(int(v.size())) {\n    size = 1, log = 0;\n    while (size\
+    \ < _n) size <<= 1, log++;\n    lz = vector<F>(2 * size, M::e());\n    for (int\
+    \ i = 0; i < _n; i++) lz[size + i] = v[i];\n  }\n  void set(int p, F f) {\n  \
+    \  assert(0 <= p && p < _n);\n    p += size;\n    for (int i = log; i > 0; i--)\
+    \ push(p >> i);\n    lz[p] = f;\n  }\n  F get(int p) {\n    assert(0 <= p && p\
+    \ < _n);\n    p += size;\n    for (int i = log; i > 0; i--) push(p >> i);\n  \
+    \  return lz[p];\n  }\n  vector<F> all_get() {\n    for (int i = 1; i < size;\
+    \ i++) push(i);\n    return vector<F>(lz.begin() + size, lz.begin() + (size +\
+    \ _n));\n  }\n  void apply(int p, F f) {\n    assert(0 <= p && p < _n);\n    p\
+    \ += size;\n    for (int i = log; i > 0; i--) push(p >> i);\n    inner_apply(p,\
+    \ f);\n  }\n  void apply(int l, int r, F f) {\n    if (l >= r) return;\n    assert(0\
+    \ <= l && l <= r && r <= _n);\n    l += size, r += size;\n    for (int i = log;\
+    \ i > 0; i--) {\n      if (((l >> i) << i) != l) push(l >> i);\n      if (((r\
+    \ >> i) << i) != r) push((r - 1) >> i);\n    }\n    while (l < r) {\n      if\
+    \ ((l & 1) != 0) inner_apply(l++, f);\n      if ((r & 1) != 0) inner_apply(--r,\
+    \ f);\n      l >>= 1, r >>= 1;\n    }\n  }\n\n private:\n  void push(int k) {\n\
+    \    inner_apply(2 * k, lz[k]);\n    inner_apply(2 * k + 1, lz[k]);\n    lz[k]\
+    \ = M::e();\n  }\n  void inner_apply(int k, F f) { lz[k] = M::op(f, lz[k]); }\n\
+    };\n\n/**\n * @brief Dual Segment Tree\n * @docs docs/segment-tree/dual-segment-tree.md\n\
     \ */\n#line 2 \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T\
     \ a, T b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  a %= b;\n  return\
     \ a >= 0 ? a : a + b;\n}\ntemplate <class T>\nT floor(T a, T b) {\n  assert(b\
@@ -134,35 +165,41 @@ data:
     \ - 1;\n}\ntemplate <class T>\nT ceil(T a, T b) {\n  assert(b != 0);\n  if (b\
     \ < 0) a = -a, b = -b;\n  return a > 0 ? (a - 1) / b + 1 : a / b;\n}\nlong long\
     \ isqrt(long long n) {\n  if (n <= 0) return 0;\n  long long x = sqrt(n);\n  while\
-    \ ((x + 1) * (x + 1) <= n) x++;\n  while (x * x > n) x--;\n  return x;\n}\n//\
-    \ return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0 -> 0<=x<|b|/g\n// - b=0  -> ax=g\n\
-    template <class T>\nT ext_gcd(T a, T b, T& x, T& y) {\n  T a0 = a, b0 = b;\n \
-    \ bool sgn_a = a < 0, sgn_b = b < 0;\n  if (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n\
-    \  if (b == 0) {\n    x = sgn_a ? -1 : 1;\n    y = 0;\n    return a;\n  }\n  T\
-    \ x00 = 1, x01 = 0, x10 = 0, x11 = 1;\n  while (b != 0) {\n    T q = a / b, r\
-    \ = a - b * q;\n    x00 -= q * x01;\n    x10 -= q * x11;\n    swap(x00, x01);\n\
-    \    swap(x10, x11);\n    a = b, b = r;\n  }\n  x = x00, y = x10;\n  if (sgn_a)\
-    \ x = -x;\n  if (sgn_b) y = -y;\n  if (b0 != 0) {\n    a0 /= a, b0 /= a;\n   \
-    \ if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q = x >= 0 ? x / b0 : (x + 1) / b0 -\
-    \ 1;\n    x -= b0 * q;\n    y += a0 * q;\n  }\n  return a;\n}\nconstexpr long\
-    \ long inv_mod(long long x, long long m) {\n  x %= m;\n  if (x < 0) x += m;\n\
-    \  long long a = m, b = x;\n  long long y0 = 0, y1 = 1;\n  while (b > 0) {\n \
-    \   long long q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
-    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\nlong long pow_mod(long long\
-    \ x, long long n, long long m) {\n  x = (x % m + m) % m;\n  long long y = 1;\n\
-    \  while (n) {\n    if (n & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n\
-    \  }\n  return y;\n}\nconstexpr long long pow_mod_constexpr(long long x, long\
-    \ long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n\
-    \  unsigned long long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y\
-    \ += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n\
-    \    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n\
-    \  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n\
-    \  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0)\
-    \ d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a :\
-    \ bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n\
-    \    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n    \
-    \  t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
-    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
+    \ ((x + 1) * (x + 1) <= n) x++;\n  while (x * x > n) x--;\n  return x;\n}\nlong\
+    \ long floor_root(long long n, int k) {\n  assert(n >= 0);\n  if (n == 0) return\
+    \ 0;\n  assert(k >= 1);\n  if (k == 1) return n;\n  if (k > 64) return 1;\n  long\
+    \ long x = round(pow((long double)n, 1.0L / k));\n  auto check = [&](long long\
+    \ a) {\n    if (a <= 0) return true;\n    __int128_t p = 1;\n    for (int i =\
+    \ 0; i < k; ++i)\n      if ((p *= a) > n) return false;\n    return true;\n  };\n\
+    \  while (check(x + 1)) x++;\n  while (!check(x)) x--;\n  return x;\n}\n// return\
+    \ g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0 -> 0<=x<|b|/g\n// - b=0  -> ax=g\ntemplate\
+    \ <class T>\nT ext_gcd(T a, T b, T& x, T& y) {\n  T a0 = a, b0 = b;\n  bool sgn_a\
+    \ = a < 0, sgn_b = b < 0;\n  if (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n  if (b\
+    \ == 0) {\n    x = sgn_a ? -1 : 1;\n    y = 0;\n    return a;\n  }\n  T x00 =\
+    \ 1, x01 = 0, x10 = 0, x11 = 1;\n  while (b != 0) {\n    T q = a / b, r = a -\
+    \ b * q;\n    x00 -= q * x01;\n    x10 -= q * x11;\n    swap(x00, x01);\n    swap(x10,\
+    \ x11);\n    a = b, b = r;\n  }\n  x = x00, y = x10;\n  if (sgn_a) x = -x;\n \
+    \ if (sgn_b) y = -y;\n  if (b0 != 0) {\n    a0 /= a, b0 /= a;\n    if (b0 < 0)\
+    \ a0 = -a0, b0 = -b0;\n    T q = x >= 0 ? x / b0 : (x + 1) / b0 - 1;\n    x -=\
+    \ b0 * q;\n    y += a0 * q;\n  }\n  return a;\n}\nconstexpr long long inv_mod(long\
+    \ long x, long long m) {\n  x %= m;\n  if (x < 0) x += m;\n  long long a = m,\
+    \ b = x;\n  long long y0 = 0, y1 = 1;\n  while (b > 0) {\n    long long q = a\
+    \ / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n  }\n  if (y0 <\
+    \ 0) y0 += m / a;\n  return y0;\n}\nlong long pow_mod(long long x, long long n,\
+    \ long long m) {\n  x = (x % m + m) % m;\n  long long y = 1;\n  while (n) {\n\
+    \    if (n & 1) y = y * x % m;\n    x = x * x % m;\n    n >>= 1;\n  }\n  return\
+    \ y;\n}\nconstexpr long long pow_mod_constexpr(long long x, long long n, int m)\
+    \ {\n  if (m == 1) return 0;\n  unsigned int _m = (unsigned int)(m);\n  unsigned\
+    \ long long r = 1;\n  unsigned long long y = x % m;\n  if (y >= m) y += m;\n \
+    \ while (n) {\n    if (n & 1) r = (r * y) % _m;\n    y = (y * y) % _m;\n    n\
+    \ >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int n) {\n  if\
+    \ (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return true;\n  if\
+    \ (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d % 2 == 0) d /=\
+    \ 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long a : bases)\
+    \ {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t, n);\n   \
+    \ while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n      t\
+    \ <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n  \
+    \  }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
     };  // namespace Math\n#line 3 \"modint/modint.hpp\"\n\ntemplate <unsigned int\
     \ m = 998244353>\nstruct ModInt {\n  using mint = ModInt;\n  static constexpr\
     \ unsigned int get_mod() { return m; }\n  static mint raw(int v) {\n    mint x;\n\
@@ -196,24 +233,27 @@ data:
     \    return is;\n  }\n  friend ostream& operator<<(ostream& os, const mint& x)\
     \ { return os << x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr\
     \ unsigned int umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };\n#line 6 \"verify/segment-tree/LC_range_affine_point_get.test.cpp\"\nusing\
-    \ mint = ModInt<998244353>;\nstruct F {\n  mint a, b;\n  mint eval(mint x) { return\
-    \ a * x + b; }\n};\nF op(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }\n\
-    F e() { return {1, 0}; }\n\nint main() {\n  int n, q;\n  in(n, q);\n  vector<mint>\
-    \ a(n);\n  in(a);\n  DualSegmentTree<F, op, e> seg(n);\n  while (q--) {\n    int\
-    \ t;\n    in(t);\n    if (t == 0) {\n      int l, r;\n      mint b, c;\n     \
-    \ in(l, r, b, c);\n      seg.apply(l, r, {b, c});\n    } else {\n      int i;\n\
-    \      in(i);\n      out(seg.get(i).eval(a[i]));\n    }\n  }\n}\n"
+    };\nusing ModInt998244353 = ModInt<998244353>;\nusing ModInt1000000007 = ModInt<1000000007>;\n\
+    #line 6 \"verify/segment-tree/LC_range_affine_point_get.test.cpp\"\nusing mint\
+    \ = ModInt<998244353>;\nstruct F {\n  mint a, b;\n  mint eval(mint x) { return\
+    \ a * x + b; }\n};\nstruct AffineMonoid {\n  using value_type = F;\n  static F\
+    \ op(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }\n  static F e() { return\
+    \ {1, 0}; }\n};\n\nint main() {\n  int n, q;\n  in(n, q);\n  vector<mint> a(n);\n\
+    \  in(a);\n  DualSegmentTree<AffineMonoid> seg(n);\n  while (q--) {\n    int t;\n\
+    \    in(t);\n    if (t == 0) {\n      int l, r;\n      mint b, c;\n      in(l,\
+    \ r, b, c);\n      seg.apply(l, r, {b, c});\n    } else {\n      int i;\n    \
+    \  in(i);\n      out(seg.get(i).eval(a[i]));\n    }\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_affine_point_get\"\
     \n\n#include \"template/template.hpp\"\n#include \"segment-tree/dual-segment-tree.hpp\"\
     \n#include \"modint/modint.hpp\"\nusing mint = ModInt<998244353>;\nstruct F {\n\
-    \  mint a, b;\n  mint eval(mint x) { return a * x + b; }\n};\nF op(F f, F g) {\
-    \ return {f.a * g.a, f.a * g.b + f.b}; }\nF e() { return {1, 0}; }\n\nint main()\
-    \ {\n  int n, q;\n  in(n, q);\n  vector<mint> a(n);\n  in(a);\n  DualSegmentTree<F,\
-    \ op, e> seg(n);\n  while (q--) {\n    int t;\n    in(t);\n    if (t == 0) {\n\
-    \      int l, r;\n      mint b, c;\n      in(l, r, b, c);\n      seg.apply(l,\
-    \ r, {b, c});\n    } else {\n      int i;\n      in(i);\n      out(seg.get(i).eval(a[i]));\n\
-    \    }\n  }\n}"
+    \  mint a, b;\n  mint eval(mint x) { return a * x + b; }\n};\nstruct AffineMonoid\
+    \ {\n  using value_type = F;\n  static F op(F f, F g) { return {f.a * g.a, f.a\
+    \ * g.b + f.b}; }\n  static F e() { return {1, 0}; }\n};\n\nint main() {\n  int\
+    \ n, q;\n  in(n, q);\n  vector<mint> a(n);\n  in(a);\n  DualSegmentTree<AffineMonoid>\
+    \ seg(n);\n  while (q--) {\n    int t;\n    in(t);\n    if (t == 0) {\n      int\
+    \ l, r;\n      mint b, c;\n      in(l, r, b, c);\n      seg.apply(l, r, {b, c});\n\
+    \    } else {\n      int i;\n      in(i);\n      out(seg.get(i).eval(a[i]));\n\
+    \    }\n  }\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -221,12 +261,15 @@ data:
   - template/inout.hpp
   - template/debug.hpp
   - segment-tree/dual-segment-tree.hpp
+  - algebraic-structure/monoid.hpp
+  - algebraic-structure/magma.hpp
+  - algebraic-structure/util.hpp
   - modint/modint.hpp
   - math/util.hpp
   isVerificationFile: true
   path: verify/segment-tree/LC_range_affine_point_get.test.cpp
   requiredBy: []
-  timestamp: '2026-02-28 01:08:20+09:00'
+  timestamp: '2026-06-28 15:41:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/segment-tree/LC_range_affine_point_get.test.cpp

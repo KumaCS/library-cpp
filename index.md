@@ -1,6 +1,23 @@
 ---
 data:
   libraryCategories:
+  - name: algebraic-structure
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: algebraic-structure/group.hpp
+      title: algebraic-structure/group.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic-structure/magma.hpp
+      title: algebraic-structure/magma.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic-structure/monoid-action.hpp
+      title: algebraic-structure/monoid-action.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic-structure/monoid.hpp
+      title: algebraic-structure/monoid.hpp
+    - icon: ':heavy_check_mark:'
+      path: algebraic-structure/util.hpp
+      title: algebraic-structure/util.hpp
   - name: algorithm
     pages:
     - icon: ':warning:'
@@ -74,12 +91,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/integer-set.hpp
       title: "\u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)"
+    - icon: ':heavy_check_mark:'
+      path: data-structure/persistent-array.hpp
+      title: Persistent Array
     - icon: ':warning:'
       path: data-structure/range-array.hpp
       title: data-structure/range-array.hpp
     - icon: ':heavy_check_mark:'
       path: data-structure/simple-queue.hpp
       title: data-structure/simple-queue.hpp
+    - icon: ':warning:'
+      path: data-structure/slope-trick.hpp
+      title: Slope Trick
     - icon: ':heavy_check_mark:'
       path: data-structure/sparse-table.hpp
       title: data-structure/sparse-table.hpp
@@ -182,6 +205,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: fps/taylor-shift.hpp
       title: Taylor Shift
+  - name: graph
+    pages:
+    - icon: ':warning:'
+      path: graph/graph.hpp
+      title: graph/graph.hpp
   - name: heuristic
     pages:
     - icon: ':warning:'
@@ -226,6 +254,9 @@ data:
     - icon: ':warning:'
       path: math/range-sieve.hpp
       title: "\u533A\u9593\u7BE9"
+    - icon: ':warning:'
+      path: math/root-extension.hpp
+      title: math/root-extension.hpp
     - icon: ':warning:'
       path: math/simple-fraction.hpp
       title: "\u6709\u7406\u6570 (\u7D04\u5206\u306A\u3057)"
@@ -281,12 +312,18 @@ data:
     - icon: ':warning:'
       path: number-theory/lucy-dp.hpp
       title: Lucy DP
+    - icon: ':warning:'
+      path: number-theory/mobius-function.hpp
+      title: number-theory/mobius-function.hpp
     - icon: ':heavy_check_mark:'
       path: number-theory/prime-count.hpp
       title: "\u7D20\u6570\u30AB\u30A6\u30F3\u30C8"
     - icon: ':warning:'
       path: number-theory/sum-of-multiplicative-function.hpp
       title: number-theory/sum-of-multiplicative-function.hpp
+    - icon: ':warning:'
+      path: number-theory/totient-function.hpp
+      title: number-theory/totient-function.hpp
   - name: segment-tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -298,6 +335,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: segment-tree/lazy-segment-tree.hpp
       title: Lazy Segment Tree
+    - icon: ':warning:'
+      path: segment-tree/persistent-segment-tree.hpp
+      title: Persistent Segment Tree
     - icon: ':warning:'
       path: segment-tree/segment-tree-util.hpp
       title: "\u3088\u304F\u4F7F\u3046 Segment Tree"
@@ -372,8 +412,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: tree/tree-diameter.hpp
       title: "\u6728\u306E\u76F4\u5F84"
+    - icon: ':heavy_check_mark:'
+      path: tree/tree-jump.hpp
+      title: Tree Jump
   - name: union-find
     pages:
+    - icon: ':warning:'
+      path: union-find/persistent-potentialized-union-find.hpp
+      title: Persistent Potentialized Union Find
+    - icon: ':heavy_check_mark:'
+      path: union-find/persistent-union-find.hpp
+      title: Persistent Union Find
     - icon: ':heavy_check_mark:'
       path: union-find/potentialized-union-find.hpp
       title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D Union Find"
@@ -659,6 +708,9 @@ data:
   - name: verify/tree
     pages:
     - icon: ':heavy_check_mark:'
+      path: verify/tree/LC_jump_on_tree.test.cpp
+      title: verify/tree/LC_jump_on_tree.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/tree/LC_lowest_common_ancestor.test.cpp
       title: verify/tree/LC_lowest_common_ancestor.test.cpp
     - icon: ':heavy_check_mark:'
@@ -666,6 +718,9 @@ data:
       title: verify/tree/LC_tree_diameter.test.cpp
   - name: verify/union-find
     pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/union-find/LC_persistent_unionfind.test.cpp
+      title: verify/union-find/LC_persistent_unionfind.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/union-find/LC_unionfind.test.cpp
       title: verify/union-find/LC_unionfind.test.cpp

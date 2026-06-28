@@ -8,6 +8,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: modint/power-table.hpp
     title: Power Table
+  - icon: ':warning:'
+    path: number-theory/mobius-function.hpp
+    title: number-theory/mobius-function.hpp
+  - icon: ':warning:'
+    path: number-theory/totient-function.hpp
+    title: number-theory/totient-function.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/fps/LC_bell_number.test.cpp
@@ -57,6 +63,8 @@ data:
   path: math/lpf-table.hpp
   requiredBy:
   - modint/power-table.hpp
+  - number-theory/totient-function.hpp
+  - number-theory/mobius-function.hpp
   - fps/famous-sequences.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_ALL_AC

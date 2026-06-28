@@ -211,7 +211,13 @@ data:
     \  if (b < 0) a = -a, b = -b;\n  return a > 0 ? (a - 1) / b + 1 : a / b;\n}\n\
     long long isqrt(long long n) {\n  if (n <= 0) return 0;\n  long long x = sqrt(n);\n\
     \  while ((x + 1) * (x + 1) <= n) x++;\n  while (x * x > n) x--;\n  return x;\n\
-    }\n// return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0 -> 0<=x<|b|/g\n// - b=0  -> ax=g\n\
+    }\nlong long floor_root(long long n, int k) {\n  assert(n >= 0);\n  if (n == 0)\
+    \ return 0;\n  assert(k >= 1);\n  if (k == 1) return n;\n  if (k > 64) return\
+    \ 1;\n  long long x = round(pow((long double)n, 1.0L / k));\n  auto check = [&](long\
+    \ long a) {\n    if (a <= 0) return true;\n    __int128_t p = 1;\n    for (int\
+    \ i = 0; i < k; ++i)\n      if ((p *= a) > n) return false;\n    return true;\n\
+    \  };\n  while (check(x + 1)) x++;\n  while (!check(x)) x--;\n  return x;\n}\n\
+    // return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0 -> 0<=x<|b|/g\n// - b=0  -> ax=g\n\
     template <class T>\nT ext_gcd(T a, T b, T& x, T& y) {\n  T a0 = a, b0 = b;\n \
     \ bool sgn_a = a < 0, sgn_b = b < 0;\n  if (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n\
     \  if (b == 0) {\n    x = sgn_a ? -1 : 1;\n    y = 0;\n    return a;\n  }\n  T\
@@ -272,7 +278,7 @@ data:
     \    return is;\n  }\n  friend ostream& operator<<(ostream& os, const mint& x)\
     \ { return os << x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr\
     \ unsigned int umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };\n"
+    };\nusing ModInt998244353 = ModInt<998244353>;\nusing ModInt1000000007 = ModInt<1000000007>;\n"
   code: "#pragma once\n#include \"math/util.hpp\"\n\ntemplate <unsigned int m = 998244353>\n\
     struct ModInt {\n  using mint = ModInt;\n  static constexpr unsigned int get_mod()\
     \ { return m; }\n  static mint raw(int v) {\n    mint x;\n    x._v = v;\n    return\
@@ -306,7 +312,7 @@ data:
     \  }\n  friend ostream& operator<<(ostream& os, const mint& x) { return os <<\
     \ x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr unsigned int\
     \ umod() { return m; }\n  static constexpr bool is_prime = Math::is_prime<m>;\n\
-    };"
+    };\nusing ModInt998244353 = ModInt<998244353>;\nusing ModInt1000000007 = ModInt<1000000007>;\n"
   dependsOn:
   - math/util.hpp
   isVerificationFile: false
@@ -315,7 +321,7 @@ data:
   - convolution/intmod.hpp
   - convolution/mod2_64.hpp
   - fps/fps-arbitrary.hpp
-  timestamp: '2025-11-06 12:30:44+09:00'
+  timestamp: '2026-06-28 15:22:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/set/LC_bitwise_and_convolution.test.cpp

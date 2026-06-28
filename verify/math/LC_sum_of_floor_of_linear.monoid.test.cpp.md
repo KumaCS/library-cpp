@@ -2,6 +2,15 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: algebraic-structure/magma.hpp
+    title: algebraic-structure/magma.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/monoid.hpp
+    title: algebraic-structure/monoid.hpp
+  - icon: ':heavy_check_mark:'
+    path: algebraic-structure/util.hpp
+    title: algebraic-structure/util.hpp
+  - icon: ':heavy_check_mark:'
     path: math/floor-monoid-product.hpp
     title: "\u30E2\u30CE\u30A4\u30C9\u7248 Floor Sum"
   - icon: ':heavy_check_mark:'
@@ -97,32 +106,58 @@ data:
     \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
     \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"math/floor-monoid-product.hpp\"\n\
-    \ntemplate <class T, T (*op)(T, T), T (*e)(), std::unsigned_integral U = uint64_t>\n\
-    T FloorMonoidProduct(U n, U m, U a, U b, T x, T y, function<T(T, U)> pow = nullptr)\
-    \ {\n  if (!pow) {\n    pow = [](T t, U n) {\n      T p = e();\n      while (n)\
-    \ {\n        if (n & 1) p = op(p, t);\n        t = op(t, t);\n        n >>= 1;\n\
-    \      }\n      return p;\n    };\n  }\n  assert(m != 0);\n  T pl = e(), pr =\
-    \ e();\n  while (true) {\n    if (a >= m) {\n      U q = a / m;\n      x = op(x,\
-    \ pow(y, q));\n      a -= m * q;\n    }\n    if (b >= m) {\n      U q = b / m;\n\
-    \      pl = op(pl, pow(y, q));\n      b -= m * q;\n    }\n    U c = a * n + b;\n\
-    \    if (c < m) {\n      pl = op(pl, pow(x, n));\n      break;\n    }\n    pr\
-    \ = op(op(y, pow(x, c % m / a)), pr);\n    n = c / m - 1;\n    b = m + a - b -\
-    \ 1;\n    swap(a, m);\n    swap(x, y);\n  }\n  return op(pl, pr);\n}\n\n/**\n\
-    \ * @brief \u30E2\u30CE\u30A4\u30C9\u7248 Floor Sum\n * @docs docs/math/floor-monoid-product.md\n\
-    \ */\n#line 5 \"verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp\"\n\nstruct\
-    \ T {\n  ull x, y, z;\n};\nT op(T a, T b) { return T{a.x + b.x, a.y + b.y, a.y\
-    \ * b.x + a.z + b.z}; }\nT e() { return T{0, 0, 0}; }\n\nint main() {\n  int t;\n\
-    \  in(t);\n  T x{1, 0, 0}, y{0, 1, 0};\n  while (t--) {\n    ull n, m, a, b;\n\
-    \    in(n, m, a, b);\n    ull sum = FloorMonoidProduct<T, op, e>(n, m, a, b, x,\
-    \ y).z;\n    cout << sum << \"\\n\";\n  }\n}\n"
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"algebraic-structure/util.hpp\"\n\
+    #ifdef __cpp_concepts\n#define REQUIRES(...) requires __VA_ARGS__\n#else\n#define\
+    \ REQUIRES(...)\n#endif\n#line 3 \"algebraic-structure/magma.hpp\"\n\n#ifdef __cpp_concepts\n\
+    template <class M>\nconcept Magma = requires(typename M::value_type x, typename\
+    \ M::value_type y) {\n  typename M::value_type;\n  { M::op(x, y) } -> same_as<typename\
+    \ M::value_type>;\n};\n#endif\n\ntemplate <class T>\nstruct AddMagma {\n  using\
+    \ value_type = T;\n  static T op(T x, T y) { return x + y; }\n};\ntemplate <class\
+    \ T>\nstruct MulMagma {\n  using value_type = T;\n  static T op(T x, T y) { return\
+    \ x * y; }\n};\ntemplate <class T, T id>\nstruct MaxMagma {\n  using value_type\
+    \ = T;\n  static T op(T x, T y) { return x > y ? x : y; }\n};\ntemplate <class\
+    \ T, T id>\nstruct MinMagma {\n  using value_type = T;\n  static T op(T x, T y)\
+    \ { return x < y ? x : y; }\n};\n#line 3 \"algebraic-structure/monoid.hpp\"\n\n\
+    #ifdef __cpp_concepts\ntemplate <class M>\nconcept Monoid = Magma<M> && requires\
+    \ {\n  { M::e() } -> same_as<typename M::value_type>;\n};\n#endif\n\ntemplate\
+    \ <class T>\nstruct AddMonoid {\n  using value_type = T;\n  static T op(T x, T\
+    \ y) { return x + y; }\n  static T e() { return T(0); }\n};\ntemplate <class T>\n\
+    struct MulMonoid {\n  using value_type = T;\n  static T op(T x, T y) { return\
+    \ x * y; }\n  static T e() { return T(1); }\n};\ntemplate <class T, T id>\nstruct\
+    \ MaxMonoid {\n  using value_type = T;\n  static T op(T x, T y) { return x > y\
+    \ ? x : y; }\n  static T e() { return id; }\n};\ntemplate <class T, T id>\nstruct\
+    \ MinMonoid {\n  using value_type = T;\n  static T op(T x, T y) { return x < y\
+    \ ? x : y; }\n  static T e() { return id; }\n};\n#line 3 \"math/floor-monoid-product.hpp\"\
+    \n\ntemplate <class M, std::unsigned_integral U = uint64_t>\nREQUIRES(Monoid<M>)\n\
+    typename M::value_type FloorMonoidProduct(U n, U m, U a, U b, typename M::value_type\
+    \ x, typename M::value_type y,\n                                          function<typename\
+    \ M::value_type(typename M::value_type, U)> pow = nullptr) {\n  using T = typename\
+    \ M::value_type;\n  if (!pow) {\n    pow = [](T t, U n) {\n      T p = M::e();\n\
+    \      while (n) {\n        if (n & 1) p = M::op(p, t);\n        t = M::op(t,\
+    \ t);\n        n >>= 1;\n      }\n      return p;\n    };\n  }\n  assert(m !=\
+    \ 0);\n  T pl = M::e(), pr = M::e();\n  while (true) {\n    if (a >= m) {\n  \
+    \    U q = a / m;\n      x = M::op(x, pow(y, q));\n      a -= m * q;\n    }\n\
+    \    if (b >= m) {\n      U q = b / m;\n      pl = M::op(pl, pow(y, q));\n   \
+    \   b -= m * q;\n    }\n    U c = a * n + b;\n    if (c < m) {\n      pl = M::op(pl,\
+    \ pow(x, n));\n      break;\n    }\n    pr = M::op(M::op(y, pow(x, c % m / a)),\
+    \ pr);\n    n = c / m - 1;\n    b = m + a - b - 1;\n    swap(a, m);\n    swap(x,\
+    \ y);\n  }\n  return M::op(pl, pr);\n}\n\n/**\n * @brief \u30E2\u30CE\u30A4\u30C9\
+    \u7248 Floor Sum\n * @docs docs/math/floor-monoid-product.md\n */\n#line 5 \"\
+    verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp\"\n\nstruct T {\n  ull x,\
+    \ y, z;\n};\nstruct FloorSumMonoid {\n  using value_type = T;\n  static T op(T\
+    \ a, T b) { return T{a.x + b.x, a.y + b.y, a.y * b.x + a.z + b.z}; }\n  static\
+    \ T e() { return T{0, 0, 0}; }\n};\n\nint main() {\n  int t;\n  in(t);\n  T x{1,\
+    \ 0, 0}, y{0, 1, 0};\n  while (t--) {\n    ull n, m, a, b;\n    in(n, m, a, b);\n\
+    \    ull sum = FloorMonoidProduct<FloorSumMonoid>(n, m, a, b, x, y).z;\n    cout\
+    \ << sum << \"\\n\";\n  }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sum_of_floor_of_linear\"\
     \n\n#include \"template/template.hpp\"\n#include \"math/floor-monoid-product.hpp\"\
-    \n\nstruct T {\n  ull x, y, z;\n};\nT op(T a, T b) { return T{a.x + b.x, a.y +\
-    \ b.y, a.y * b.x + a.z + b.z}; }\nT e() { return T{0, 0, 0}; }\n\nint main() {\n\
-    \  int t;\n  in(t);\n  T x{1, 0, 0}, y{0, 1, 0};\n  while (t--) {\n    ull n,\
-    \ m, a, b;\n    in(n, m, a, b);\n    ull sum = FloorMonoidProduct<T, op, e>(n,\
-    \ m, a, b, x, y).z;\n    cout << sum << \"\\n\";\n  }\n}"
+    \n\nstruct T {\n  ull x, y, z;\n};\nstruct FloorSumMonoid {\n  using value_type\
+    \ = T;\n  static T op(T a, T b) { return T{a.x + b.x, a.y + b.y, a.y * b.x + a.z\
+    \ + b.z}; }\n  static T e() { return T{0, 0, 0}; }\n};\n\nint main() {\n  int\
+    \ t;\n  in(t);\n  T x{1, 0, 0}, y{0, 1, 0};\n  while (t--) {\n    ull n, m, a,\
+    \ b;\n    in(n, m, a, b);\n    ull sum = FloorMonoidProduct<FloorSumMonoid>(n,\
+    \ m, a, b, x, y).z;\n    cout << sum << \"\\n\";\n  }\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -130,10 +165,13 @@ data:
   - template/inout.hpp
   - template/debug.hpp
   - math/floor-monoid-product.hpp
+  - algebraic-structure/monoid.hpp
+  - algebraic-structure/magma.hpp
+  - algebraic-structure/util.hpp
   isVerificationFile: true
   path: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
   requiredBy: []
-  timestamp: '2026-02-28 01:08:20+09:00'
+  timestamp: '2026-06-28 15:41:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
