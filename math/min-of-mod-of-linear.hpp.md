@@ -5,10 +5,13 @@ data:
     path: math/util.hpp
     title: math/util.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/math/LC_min_of_mod_of_linear.test.cpp
+    title: verify/math/LC_min_of_mod_of_linear.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/math/min-of-mod-of-linear.md
     document_title: Min of Mod of Linear
@@ -56,9 +59,29 @@ data:
     \  t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
     \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
     };  // namespace Math\n#line 3 \"math/min-of-mod-of-linear.hpp\"\n\ntemplate <class\
-    \ T>\nT MinOfModOfLinear(T n, T m, T a, T b) {\n  assert(n > 0 && m > 0);\n  auto\
-    \ [xs, dxs] = PrefixMinOfModOfLinear(a, b, m);\n  if (xs.back() < n) return (a\
-    \ * xs.back() + b) % m;\n  int i = 0;\n  while (xs[i + 1] < n) i++;\n  T t = Math::ceil(n\
+    \ T>\npair<vector<T>, vector<T>> PrefixMinOfModOfLinear(T a, T b, T mod);\n\n\
+    template <class T>\nT MinOfModOfLinear(T n, T m, T a, T b) {\n  assert(n > 0 &&\
+    \ m > 0);\n  auto [xs, dxs] = PrefixMinOfModOfLinear(a, b, m);\n  if (xs.back()\
+    \ < n) return (a * xs.back() + b) % m;\n  int i = 0;\n  while (xs[i + 1] < n)\
+    \ i++;\n  T t = Math::ceil(n - xs[i], dxs[i]) - 1;\n  return (a * (xs[i] + t *\
+    \ dxs[i]) + b) % m;\n}\n\ntemplate <class T>\npair<vector<T>, vector<T>> PrefixMinOfModOfLinear(T\
+    \ a, T b, T mod) {\n  assert(0 <= a && a < mod);\n  assert(0 <= b && b < mod);\n\
+    \  T g = gcd(a, mod);\n  a /= g, b /= g, mod /= g;\n\n  vector<T> xs{0}, dxs;\n\
+    \  T la = 0, lb = 1, ra = 1, rb = 1;\n  T l = mod - a, r = a;\n  T x = 0, y =\
+    \ b;\n  while (y != 0) {\n    T k = r / l;\n    r -= l * k;\n    if (r == 0) {\n\
+    \      --k;\n      r = l;\n    }\n    ra += k * la, rb += k * lb;\n    while (true)\
+    \ {\n      T k = max(T(0), Math::ceil(l - y, r));\n      if (l - k * r <= 0) break;\n\
+    \      l -= k * r;\n      la += k * ra, lb += k * rb;\n      k = y / l;\n    \
+    \  y -= k * l;\n      x += lb * k;\n      xs.push_back(x);\n      dxs.push_back(lb);\n\
+    \    }\n    k = l / r;\n    l -= k * r;\n    la += k * ra, lb += k * rb;\n   \
+    \ assert(la >= 0 && lb >= 0 && ra >= 0 && rb >= 0);\n  }\n  return {xs, dxs};\n\
+    }\n\n/**\n * @brief Min of Mod of Linear\n * @docs docs/math/min-of-mod-of-linear.md\n\
+    \ */\n"
+  code: "#pragma once\n#include \"math/util.hpp\"\n\ntemplate <class T>\npair<vector<T>,\
+    \ vector<T>> PrefixMinOfModOfLinear(T a, T b, T mod);\n\ntemplate <class T>\n\
+    T MinOfModOfLinear(T n, T m, T a, T b) {\n  assert(n > 0 && m > 0);\n  auto [xs,\
+    \ dxs] = PrefixMinOfModOfLinear(a, b, m);\n  if (xs.back() < n) return (a * xs.back()\
+    \ + b) % m;\n  int i = 0;\n  while (xs[i + 1] < n) i++;\n  T t = Math::ceil(n\
     \ - xs[i], dxs[i]) - 1;\n  return (a * (xs[i] + t * dxs[i]) + b) % m;\n}\n\ntemplate\
     \ <class T>\npair<vector<T>, vector<T>> PrefixMinOfModOfLinear(T a, T b, T mod)\
     \ {\n  assert(0 <= a && a < mod);\n  assert(0 <= b && b < mod);\n  T g = gcd(a,\
@@ -73,31 +96,15 @@ data:
     \ assert(la >= 0 && lb >= 0 && ra >= 0 && rb >= 0);\n  }\n  return {xs, dxs};\n\
     }\n\n/**\n * @brief Min of Mod of Linear\n * @docs docs/math/min-of-mod-of-linear.md\n\
     \ */\n"
-  code: "#pragma once\n#include \"math/util.hpp\"\n\ntemplate <class T>\nT MinOfModOfLinear(T\
-    \ n, T m, T a, T b) {\n  assert(n > 0 && m > 0);\n  auto [xs, dxs] = PrefixMinOfModOfLinear(a,\
-    \ b, m);\n  if (xs.back() < n) return (a * xs.back() + b) % m;\n  int i = 0;\n\
-    \  while (xs[i + 1] < n) i++;\n  T t = Math::ceil(n - xs[i], dxs[i]) - 1;\n  return\
-    \ (a * (xs[i] + t * dxs[i]) + b) % m;\n}\n\ntemplate <class T>\npair<vector<T>,\
-    \ vector<T>> PrefixMinOfModOfLinear(T a, T b, T mod) {\n  assert(0 <= a && a <\
-    \ mod);\n  assert(0 <= b && b < mod);\n  T g = gcd(a, mod);\n  a /= g, b /= g,\
-    \ mod /= g;\n\n  vector<T> xs{0}, dxs;\n  T la = 0, lb = 1, ra = 1, rb = 1;\n\
-    \  T l = mod - a, r = a;\n  T x = 0, y = b;\n  while (y != 0) {\n    T k = r /\
-    \ l;\n    r -= l * k;\n    if (r == 0) {\n      --k;\n      r = l;\n    }\n  \
-    \  ra += k * la, rb += k * lb;\n    while (true) {\n      T k = max(T(0), Math::ceil(l\
-    \ - y, r));\n      if (l - k * r <= 0) break;\n      l -= k * r;\n      la +=\
-    \ k * ra, lb += k * rb;\n      k = y / l;\n      y -= k * l;\n      x += lb *\
-    \ k;\n      xs.push_back(x);\n      dxs.push_back(lb);\n    }\n    k = l / r;\n\
-    \    l -= k * r;\n    la += k * ra, lb += k * rb;\n    assert(la >= 0 && lb >=\
-    \ 0 && ra >= 0 && rb >= 0);\n  }\n  return {xs, dxs};\n}\n\n/**\n * @brief Min\
-    \ of Mod of Linear\n * @docs docs/math/min-of-mod-of-linear.md\n */"
   dependsOn:
   - math/util.hpp
   isVerificationFile: false
   path: math/min-of-mod-of-linear.hpp
   requiredBy: []
-  timestamp: '2026-06-28 15:22:40+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2026-06-28 16:21:49+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/math/LC_min_of_mod_of_linear.test.cpp
 documentation_of: math/min-of-mod-of-linear.hpp
 layout: document
 redirect_from:

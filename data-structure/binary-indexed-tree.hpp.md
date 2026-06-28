@@ -6,6 +6,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/data-structure/LC_point_add_range_sum.test.cpp
     title: verify/data-structure/LC_point_add_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_static_range_sum.test.cpp
+    title: verify/data-structure/LC_static_range_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -45,6 +48,7 @@ data:
   timestamp: '2025-10-23 01:57:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/data-structure/LC_static_range_sum.test.cpp
   - verify/data-structure/LC_point_add_range_sum.test.cpp
 documentation_of: data-structure/binary-indexed-tree.hpp
 layout: document

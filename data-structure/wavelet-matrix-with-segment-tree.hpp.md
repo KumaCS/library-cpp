@@ -10,23 +10,23 @@ data:
   - icon: ':heavy_check_mark:'
     path: algebraic-structure/util.hpp
     title: algebraic-structure/util.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/bit-vector.hpp
     title: data-structure/bit-vector.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix.hpp
     title: Wavelet Matrix
   - icon: ':heavy_check_mark:'
     path: segment-tree/segment-tree.hpp
     title: Segment Tree
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-  _extendedVerifiedWith: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"data-structure/wavelet-matrix-with-segment-tree.hpp\"\n\n\
@@ -76,15 +76,15 @@ data:
     \ l1);\n        swap(r0, r1);\n      }\n      if (f) {\n        ret += r0 - l0;\n\
     \        l += zeros - l0;\n        r += zeros - r0;\n      } else {\n        l\
     \ = l0;\n        r = r0;\n      }\n    }\n    return ret;\n  }\n  int range_freq(int\
-    \ l, int r, T lower, T upper, T value_xor = 0) {\n    return range_freq(l, r,\
-    \ upper, value_xor) - range_freq(l, r, lower, value_xor);\n  }\n\n  // max v[i]\
-    \ s.t. (l <= i < r) && (v[i] ^ value_xor < upper)\n  T prev_value(int l, int r,\
-    \ T upper, T value_xor = 0) {\n    int cnt = range_freq(l, r, upper, value_xor);\n\
-    \    return cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1, value_xor);\n  }\n\n\
-    \  // min v[i] s.t. (l <= i < r) && (lower ^ value_xor <= v[i])\n  T next_value(int\
-    \ l, int r, T lower, T value_xor = 0) {\n    int cnt = range_freq(l, r, lower,\
-    \ value_xor);\n    return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt, value_xor);\n\
-    \  }\n};\n\n/**\n * @brief Wavelet Matrix\n * @docs docs/data-structure/wavelet-matrix.md\n\
+    \ l, int r, T lower, T upper, T value_xor) {\n    return range_freq(l, r, upper,\
+    \ value_xor) - range_freq(l, r, lower, value_xor);\n  }\n\n  // max v[i] s.t.\
+    \ (l <= i < r) && (v[i] ^ value_xor < upper)\n  T prev_value(int l, int r, T upper,\
+    \ T value_xor = 0) {\n    int cnt = range_freq(l, r, upper, value_xor);\n    return\
+    \ cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1, value_xor);\n  }\n\n  // min\
+    \ v[i] s.t. (l <= i < r) && (lower ^ value_xor <= v[i])\n  T next_value(int l,\
+    \ int r, T lower, T value_xor = 0) {\n    int cnt = range_freq(l, r, lower, value_xor);\n\
+    \    return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt, value_xor);\n  }\n\
+    };\n\n/**\n * @brief Wavelet Matrix\n * @docs docs/data-structure/wavelet-matrix.md\n\
     \ */\n#line 2 \"algebraic-structure/util.hpp\"\n#ifdef __cpp_concepts\n#define\
     \ REQUIRES(...) requires __VA_ARGS__\n#else\n#define REQUIRES(...)\n#endif\n#line\
     \ 3 \"algebraic-structure/magma.hpp\"\n\n#ifdef __cpp_concepts\ntemplate <class\
@@ -223,11 +223,11 @@ data:
   - algebraic-structure/util.hpp
   isVerificationFile: false
   path: data-structure/wavelet-matrix-with-segment-tree.hpp
-  requiredBy:
-  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-  timestamp: '2026-06-28 15:32:36+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy: []
+  timestamp: '2026-06-28 16:21:49+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
 documentation_of: data-structure/wavelet-matrix-with-segment-tree.hpp
 layout: document
 redirect_from:

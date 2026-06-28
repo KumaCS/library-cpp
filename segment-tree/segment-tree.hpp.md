@@ -11,16 +11,16 @@ data:
     path: algebraic-structure/util.hpp
     title: algebraic-structure/util.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix-with-segment-tree.hpp
     title: data-structure/wavelet-matrix-with-segment-tree.hpp
   - icon: ':warning:'
     path: segment-tree/segment-tree-util.hpp
     title: "\u3088\u304F\u4F7F\u3046 Segment Tree"
-  - icon: ':warning:'
-    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_point_add_range_sum.test.cpp
     title: verify/segment-tree/LC_point_add_range_sum.test.cpp
@@ -137,7 +137,6 @@ data:
   isVerificationFile: false
   path: segment-tree/segment-tree.hpp
   requiredBy:
-  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   - segment-tree/segment-tree-util.hpp
   - data-structure/wavelet-matrix-with-segment-tree.hpp
   timestamp: '2026-06-28 15:32:36+09:00'
@@ -145,6 +144,7 @@ data:
   verifiedWith:
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
   - verify/segment-tree/LC_point_add_range_sum.test.cpp
+  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
 documentation_of: segment-tree/segment-tree.hpp
 layout: document
 redirect_from:

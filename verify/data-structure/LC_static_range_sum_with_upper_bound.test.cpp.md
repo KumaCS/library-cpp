@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/bit-vector.hpp
     title: data-structure/bit-vector.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix-with-weight.hpp
     title: data-structure/wavelet-matrix-with-weight.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix.hpp
     title: Wavelet Matrix
   - icon: ':heavy_check_mark:'
@@ -29,31 +29,34 @@ data:
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/static_range_sum_with_upper_bound
     links:
-    - https://judge.yosupo.jp/problem/rectangle_sum
-  bundledCode: "#line 1 \"verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp\"\
-    \n#define PROBLEM \"https://judge.yosupo.jp/problem/rectangle_sum\"\n\n#line 2\
-    \ \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace std;\n\n\
-    #line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a); i < (int)(b);\
-    \ i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define\
-    \ ALL(v) (v).begin(), (v).end()\n#define UNIQUE(v) sort(ALL(v)), (v).erase(unique(ALL(v)),\
-    \ (v).end())\n#define SZ(v) (int)v.size()\n#define MIN(v) *min_element(ALL(v))\n\
-    #define MAX(v) *max_element(ALL(v))\n#define LB(v, x) int(lower_bound(ALL(v),\
-    \ (x)) - (v).begin())\n#define UB(v, x) int(upper_bound(ALL(v), (x)) - (v).begin())\n\
-    #define YN(b) cout << ((b) ? \"YES\" : \"NO\") << \"\\n\";\n#define Yn(b) cout\
-    \ << ((b) ? \"Yes\" : \"No\") << \"\\n\";\n#define yn(b) cout << ((b) ? \"yes\"\
-    \ : \"no\") << \"\\n\";\n#line 6 \"template/template.hpp\"\n\n#line 2 \"template/util.hpp\"\
-    \nusing uint = unsigned int;\nusing ll = long long int;\nusing ull = unsigned\
-    \ long long;\nusing i128 = __int128_t;\nusing u128 = __uint128_t;\n\ntemplate\
-    \ <class T, class S = T>\nS SUM(const vector<T>& a) {\n  return accumulate(ALL(a),\
-    \ S(0));\n}\ntemplate <class T>\ninline bool chmin(T& a, T b) {\n  if (a > b)\
-    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\ntemplate <class T>\n\
-    inline bool chmax(T& a, T b) {\n  if (a < b) {\n    a = b;\n    return true;\n\
-    \  }\n  return false;\n}\n\ntemplate <class T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n\
-    }\ntemplate <class T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n\
-    }\ntemplate <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
+    - https://judge.yosupo.jp/problem/static_range_sum_with_upper_bound
+  bundledCode: "#line 1 \"verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp\"\
+    \n#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_sum_with_upper_bound\"\
+    \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
+    \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
+    \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
+    \ i--)\n#define ALL(v) (v).begin(), (v).end()\n#define UNIQUE(v) sort(ALL(v)),\
+    \ (v).erase(unique(ALL(v)), (v).end())\n#define SZ(v) (int)v.size()\n#define MIN(v)\
+    \ *min_element(ALL(v))\n#define MAX(v) *max_element(ALL(v))\n#define LB(v, x)\
+    \ int(lower_bound(ALL(v), (x)) - (v).begin())\n#define UB(v, x) int(upper_bound(ALL(v),\
+    \ (x)) - (v).begin())\n#define YN(b) cout << ((b) ? \"YES\" : \"NO\") << \"\\\
+    n\";\n#define Yn(b) cout << ((b) ? \"Yes\" : \"No\") << \"\\n\";\n#define yn(b)\
+    \ cout << ((b) ? \"yes\" : \"no\") << \"\\n\";\n#line 6 \"template/template.hpp\"\
+    \n\n#line 2 \"template/util.hpp\"\nusing uint = unsigned int;\nusing ll = long\
+    \ long int;\nusing ull = unsigned long long;\nusing i128 = __int128_t;\nusing\
+    \ u128 = __uint128_t;\n\ntemplate <class T, class S = T>\nS SUM(const vector<T>&\
+    \ a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class T>\ninline bool\
+    \ chmin(T& a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n  }\n  return\
+    \ false;\n}\ntemplate <class T>\ninline bool chmax(T& a, T b) {\n  if (a < b)\
+    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate <class\
+    \ T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate <class\
+    \ T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n}\n\
+    template <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
     }\n#line 8 \"template/template.hpp\"\n\n#line 2 \"template/inout.hpp\"\nstruct\
     \ Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
     \    cout << fixed << setprecision(15);\n  }\n} fast;\n\nostream& operator<<(ostream&\
@@ -148,15 +151,15 @@ data:
     \ l1);\n        swap(r0, r1);\n      }\n      if (f) {\n        ret += r0 - l0;\n\
     \        l += zeros - l0;\n        r += zeros - r0;\n      } else {\n        l\
     \ = l0;\n        r = r0;\n      }\n    }\n    return ret;\n  }\n  int range_freq(int\
-    \ l, int r, T lower, T upper, T value_xor = 0) {\n    return range_freq(l, r,\
-    \ upper, value_xor) - range_freq(l, r, lower, value_xor);\n  }\n\n  // max v[i]\
-    \ s.t. (l <= i < r) && (v[i] ^ value_xor < upper)\n  T prev_value(int l, int r,\
-    \ T upper, T value_xor = 0) {\n    int cnt = range_freq(l, r, upper, value_xor);\n\
-    \    return cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1, value_xor);\n  }\n\n\
-    \  // min v[i] s.t. (l <= i < r) && (lower ^ value_xor <= v[i])\n  T next_value(int\
-    \ l, int r, T lower, T value_xor = 0) {\n    int cnt = range_freq(l, r, lower,\
-    \ value_xor);\n    return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt, value_xor);\n\
-    \  }\n};\n\n/**\n * @brief Wavelet Matrix\n * @docs docs/data-structure/wavelet-matrix.md\n\
+    \ l, int r, T lower, T upper, T value_xor) {\n    return range_freq(l, r, upper,\
+    \ value_xor) - range_freq(l, r, lower, value_xor);\n  }\n\n  // max v[i] s.t.\
+    \ (l <= i < r) && (v[i] ^ value_xor < upper)\n  T prev_value(int l, int r, T upper,\
+    \ T value_xor = 0) {\n    int cnt = range_freq(l, r, upper, value_xor);\n    return\
+    \ cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1, value_xor);\n  }\n\n  // min\
+    \ v[i] s.t. (l <= i < r) && (lower ^ value_xor <= v[i])\n  T next_value(int l,\
+    \ int r, T lower, T value_xor = 0) {\n    int cnt = range_freq(l, r, lower, value_xor);\n\
+    \    return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt, value_xor);\n  }\n\
+    };\n\n/**\n * @brief Wavelet Matrix\n * @docs docs/data-structure/wavelet-matrix.md\n\
     \ */\n#line 4 \"data-structure/wavelet-matrix-with-weight.hpp\"\n\n// W: commutative,\
     \ inverse\ntemplate <class T, class W, int B = 30>\nstruct WaveletMatrixWithWeight\
     \ : public WaveletMatrix<T, B> {\n  using Base = WaveletMatrix<T, B>;\n  using\
@@ -186,23 +189,19 @@ data:
     \ h) & 1) {\n        swap(l0, l1);\n        swap(r0, r1);\n      }\n      if ((upper\
     \ >> h) & 1) {\n        ret += sum[h][r0] - sum[h][l0];\n        l = l1, r = r1;\n\
     \      } else {\n        l = l0, r = r0;\n      }\n    }\n    return ret;\n  }\n\
-    };\n#line 5 \"verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp\"\n\n\
-    int main() {\n  int n, q;\n  in(n, q);\n  vector<array<int, 3>> xyws(n);\n  rep(i,\
-    \ 0, n) {\n    int x, y, w;\n    in(x, y, w);\n    xyws[i] = {x, y, w};\n  }\n\
-    \n  sort(ALL(xyws));\n  vector<int> xs(n);\n  WaveletMatrixWithWeight<int, ll>\
-    \ wm(n);\n  rep(i, 0, n) {\n    auto [x, y, w] = xyws[i];\n    xs[i] = x;\n  \
-    \  wm.set(i, y, w);\n  }\n  wm.build();\n\n  while (q--) {\n    int l, d, r, u;\n\
-    \    in(l, d, r, u);\n    ll ans = wm.range_sum(LB(xs, l), LB(xs, r), d, u);\n\
-    \    out(ans);\n  }\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/rectangle_sum\"\n\n#include\
-    \ \"template/template.hpp\"\n#include \"data-structure/wavelet-matrix-with-weight.hpp\"\
-    \n\nint main() {\n  int n, q;\n  in(n, q);\n  vector<array<int, 3>> xyws(n);\n\
-    \  rep(i, 0, n) {\n    int x, y, w;\n    in(x, y, w);\n    xyws[i] = {x, y, w};\n\
-    \  }\n\n  sort(ALL(xyws));\n  vector<int> xs(n);\n  WaveletMatrixWithWeight<int,\
-    \ ll> wm(n);\n  rep(i, 0, n) {\n    auto [x, y, w] = xyws[i];\n    xs[i] = x;\n\
-    \    wm.set(i, y, w);\n  }\n  wm.build();\n\n  while (q--) {\n    int l, d, r,\
-    \ u;\n    in(l, d, r, u);\n    ll ans = wm.range_sum(LB(xs, l), LB(xs, r), d,\
-    \ u);\n    out(ans);\n  }\n}"
+    };\n#line 5 \"verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp\"\
+    \n\nint main() {\n  int n, q;\n  in(n, q);\n  vector<int> a(n);\n  in(a);\n  vector<ll>\
+    \ w(n);\n  rep(i, 0, n) w[i] = a[i];\n  WaveletMatrixWithWeight<int, ll, 30> wm(a,\
+    \ w);\n  while (q--) {\n    int l, r, x;\n    in(l, r, x);\n    int upper = x\
+    \ + 1;\n    out(wm.range_freq(l, r, upper), wm.range_sum(l, r, 0, upper));\n \
+    \ }\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_sum_with_upper_bound\"\
+    \n\n#include \"template/template.hpp\"\n#include \"data-structure/wavelet-matrix-with-weight.hpp\"\
+    \n\nint main() {\n  int n, q;\n  in(n, q);\n  vector<int> a(n);\n  in(a);\n  vector<ll>\
+    \ w(n);\n  rep(i, 0, n) w[i] = a[i];\n  WaveletMatrixWithWeight<int, ll, 30> wm(a,\
+    \ w);\n  while (q--) {\n    int l, r, x;\n    in(l, r, x);\n    int upper = x\
+    \ + 1;\n    out(wm.range_freq(l, r, upper), wm.range_sum(l, r, 0, upper));\n \
+    \ }\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
@@ -212,16 +211,16 @@ data:
   - data-structure/wavelet-matrix-with-weight.hpp
   - data-structure/wavelet-matrix.hpp
   - data-structure/bit-vector.hpp
-  isVerificationFile: false
-  path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
+  isVerificationFile: true
+  path: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
   requiredBy: []
-  timestamp: '2026-06-28 14:52:51+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2026-06-28 16:21:49+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
+documentation_of: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
 layout: document
 redirect_from:
-- /library/verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-- /library/verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp.html
-title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
+- /verify/verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
+- /verify/verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp.html
+title: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
 ---

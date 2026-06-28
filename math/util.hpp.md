@@ -27,7 +27,7 @@ data:
   - icon: ':warning:'
     path: math/garner.hpp
     title: "Garner \u306E\u30A2\u30EB\u30B4\u30EA\u30BA\u30E0"
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/min-of-mod-of-linear.hpp
     title: Min of Mod of Linear
   - icon: ':warning:'
@@ -200,8 +200,20 @@ data:
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/math/LC_min_of_mod_of_linear.test.cpp
+    title: verify/math/LC_min_of_mod_of_linear.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_inverse_matrix.test.cpp
+    title: verify/matrix/LC_inverse_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_matrix_det.test.cpp
+    title: verify/matrix/LC_matrix_det.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
     title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/modint/LC_sqrt_mod.test.cpp
+    title: verify/modint/LC_sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_dynamic_modint.test.cpp
     title: verify/modint/UNIT_dynamic_modint.test.cpp
@@ -389,8 +401,10 @@ data:
   - verify/modint/UNIT_dynamic_modint.test.cpp
   - verify/modint/UNIT_mod_sqrt.test.cpp
   - verify/modint/UNIT_modint.test.cpp
+  - verify/modint/LC_sqrt_mod.test.cpp
   - verify/number-theory/LC_enumerate_quotients.test.cpp
   - verify/union-find/LC_unionfind_with_potential.test.cpp
+  - verify/math/LC_min_of_mod_of_linear.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
@@ -434,6 +448,8 @@ data:
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/matrix/LC_inverse_matrix.test.cpp
+  - verify/matrix/LC_matrix_det.test.cpp
 documentation_of: math/util.hpp
 layout: document
 redirect_from:

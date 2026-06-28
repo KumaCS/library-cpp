@@ -52,6 +52,9 @@ data:
     path: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
     title: verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/modint/LC_sqrt_mod.test.cpp
+    title: verify/modint/LC_sqrt_mod.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_mod_sqrt.test.cpp
     title: verify/modint/UNIT_mod_sqrt.test.cpp
   _isVerificationFailed: false
@@ -140,6 +143,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/modint/UNIT_mod_sqrt.test.cpp
+  - verify/modint/LC_sqrt_mod.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_inv_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_convolution_mod.semirelaxed.test.cpp

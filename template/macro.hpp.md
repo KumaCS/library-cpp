@@ -5,13 +5,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: template/template.hpp
     title: template/template.hpp
-  - icon: ':warning:'
-    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-  - icon: ':warning:'
-    path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/algorithm/LC_cartesian_tree.test.cpp
+    title: verify/algorithm/LC_cartesian_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/algorithm/LC_static_range_count_distinct.test.cpp
+    title: verify/algorithm/LC_static_range_count_distinct.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/binary-search-tree/UNIT_rbst_array.test.cpp
     title: verify/binary-search-tree/UNIT_rbst_array.test.cpp
@@ -43,8 +43,26 @@ data:
     path: verify/data-structure/LC_point_add_range_sum.test.cpp
     title: verify/data-structure/LC_point_add_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/data-structure/LC_predecessor_problem.test.cpp
     title: verify/data-structure/LC_predecessor_problem.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_range_kth_smallest.test.cpp
+    title: verify/data-structure/LC_range_kth_smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_static_range_frequency.test.cpp
+    title: verify/data-structure/LC_static_range_frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_static_range_sum.test.cpp
+    title: verify/data-structure/LC_static_range_sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
+    title: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/data-structure/LC_staticrmq.test.cpp
     title: verify/data-structure/LC_staticrmq.test.cpp
@@ -181,6 +199,9 @@ data:
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/math/LC_min_of_mod_of_linear.test.cpp
+    title: verify/math/LC_min_of_mod_of_linear.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/math/LC_stern_brocot_tree.test.cpp
     title: verify/math/LC_stern_brocot_tree.test.cpp
   - icon: ':heavy_check_mark:'
@@ -190,8 +211,17 @@ data:
     path: verify/math/LC_sum_of_floor_of_linear.test.cpp
     title: verify/math/LC_sum_of_floor_of_linear.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_inverse_matrix.test.cpp
+    title: verify/matrix/LC_inverse_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_matrix_det.test.cpp
+    title: verify/matrix/LC_matrix_det.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
     title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/modint/LC_sqrt_mod.test.cpp
+    title: verify/modint/LC_sqrt_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_dynamic_modint.test.cpp
     title: verify/modint/UNIT_dynamic_modint.test.cpp
@@ -328,8 +358,6 @@ data:
   isVerificationFile: false
   path: template/macro.hpp
   requiredBy:
-  - verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   - template/template.hpp
   timestamp: '2025-10-17 21:43:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
@@ -361,14 +389,18 @@ data:
   - verify/modint/UNIT_dynamic_modint.test.cpp
   - verify/modint/UNIT_mod_sqrt.test.cpp
   - verify/modint/UNIT_modint.test.cpp
+  - verify/modint/LC_sqrt_mod.test.cpp
   - verify/number-theory/LC_counting_primes.test.cpp
   - verify/number-theory/LC_enumerate_quotients.test.cpp
   - verify/union-find/LC_unionfind.test.cpp
   - verify/union-find/LC_persistent_unionfind.test.cpp
   - verify/union-find/LC_unionfind_with_potential.test.cpp
+  - verify/algorithm/LC_static_range_count_distinct.test.cpp
+  - verify/algorithm/LC_cartesian_tree.test.cpp
   - verify/string/LC_zalgorithm.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - verify/math/LC_min_of_mod_of_linear.test.cpp
   - verify/math/LC_stern_brocot_tree.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
@@ -413,10 +445,18 @@ data:
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/matrix/LC_inverse_matrix.test.cpp
+  - verify/matrix/LC_matrix_det.test.cpp
   - verify/data-structure/LC_staticrmq.test.cpp
   - verify/data-structure/LC_predecessor_problem.test.cpp
+  - verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
   - verify/data-structure/LC_double_ended_priority_queue.test.cpp
+  - verify/data-structure/LC_range_kth_smallest.test.cpp
+  - verify/data-structure/LC_static_range_sum.test.cpp
+  - verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
   - verify/data-structure/LC_point_add_range_sum.test.cpp
+  - verify/data-structure/LC_static_range_frequency.test.cpp
+  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   - verify/binary-search-tree/UNIT_rbst_array.test.cpp
   - verify/flow/AOJ_GRL_6_A.test.cpp
 documentation_of: template/macro.hpp

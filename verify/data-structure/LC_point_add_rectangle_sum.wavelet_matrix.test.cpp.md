@@ -10,13 +10,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: algebraic-structure/util.hpp
     title: algebraic-structure/util.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/bit-vector.hpp
     title: data-structure/bit-vector.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix-with-segment-tree.hpp
     title: data-structure/wavelet-matrix-with-segment-tree.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix.hpp
     title: Wavelet Matrix
   - icon: ':heavy_check_mark:'
@@ -41,11 +41,13 @@ data:
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.yosupo.jp/problem/point_add_rectangle_sum
     links:
     - https://judge.yosupo.jp/problem/point_add_rectangle_sum
-  bundledCode: "#line 1 \"verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp\"\
+  bundledCode: "#line 1 \"verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp\"\
     \n#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_rectangle_sum\"\n\
     \n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
@@ -161,15 +163,15 @@ data:
     \ l1);\n        swap(r0, r1);\n      }\n      if (f) {\n        ret += r0 - l0;\n\
     \        l += zeros - l0;\n        r += zeros - r0;\n      } else {\n        l\
     \ = l0;\n        r = r0;\n      }\n    }\n    return ret;\n  }\n  int range_freq(int\
-    \ l, int r, T lower, T upper, T value_xor = 0) {\n    return range_freq(l, r,\
-    \ upper, value_xor) - range_freq(l, r, lower, value_xor);\n  }\n\n  // max v[i]\
-    \ s.t. (l <= i < r) && (v[i] ^ value_xor < upper)\n  T prev_value(int l, int r,\
-    \ T upper, T value_xor = 0) {\n    int cnt = range_freq(l, r, upper, value_xor);\n\
-    \    return cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1, value_xor);\n  }\n\n\
-    \  // min v[i] s.t. (l <= i < r) && (lower ^ value_xor <= v[i])\n  T next_value(int\
-    \ l, int r, T lower, T value_xor = 0) {\n    int cnt = range_freq(l, r, lower,\
-    \ value_xor);\n    return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt, value_xor);\n\
-    \  }\n};\n\n/**\n * @brief Wavelet Matrix\n * @docs docs/data-structure/wavelet-matrix.md\n\
+    \ l, int r, T lower, T upper, T value_xor) {\n    return range_freq(l, r, upper,\
+    \ value_xor) - range_freq(l, r, lower, value_xor);\n  }\n\n  // max v[i] s.t.\
+    \ (l <= i < r) && (v[i] ^ value_xor < upper)\n  T prev_value(int l, int r, T upper,\
+    \ T value_xor = 0) {\n    int cnt = range_freq(l, r, upper, value_xor);\n    return\
+    \ cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1, value_xor);\n  }\n\n  // min\
+    \ v[i] s.t. (l <= i < r) && (lower ^ value_xor <= v[i])\n  T next_value(int l,\
+    \ int r, T lower, T value_xor = 0) {\n    int cnt = range_freq(l, r, lower, value_xor);\n\
+    \    return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt, value_xor);\n  }\n\
+    };\n\n/**\n * @brief Wavelet Matrix\n * @docs docs/data-structure/wavelet-matrix.md\n\
     \ */\n#line 2 \"algebraic-structure/util.hpp\"\n#ifdef __cpp_concepts\n#define\
     \ REQUIRES(...) requires __VA_ARGS__\n#else\n#define REQUIRES(...)\n#endif\n#line\
     \ 3 \"algebraic-structure/magma.hpp\"\n\n#ifdef __cpp_concepts\ntemplate <class\
@@ -262,7 +264,7 @@ data:
     \  if ((value_xor >> h) & 1) {\n      swap(l0, l1);\n      swap(r0, r1);\n   \
     \ }\n\n    T vm = (vl + vr) >> 1;\n    return M::op(range_sum_(h - 1, l0, r0,\
     \ vl, vm, lower, upper, value_xor),\n                 range_sum_(h - 1, l1, r1,\
-    \ vm, vr, lower, upper, value_xor));\n  }\n};\n#line 5 \"verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp\"\
+    \ vm, vr, lower, upper, value_xor));\n  }\n};\n#line 5 \"verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp\"\
     \n\nint main() {\n  int n, q;\n  in(n, q);\n  vector<pair<int, int>> ps;\n  vector<array<int,\
     \ 3>> xyws(n);\n  rep(i, 0, n) {\n    int x, y, w;\n    in(x, y, w);\n    xyws[i]\
     \ = {x, y, w};\n    ps.push_back({x, y});\n  }\n  vector<array<int, 5>> qs(q);\n\
@@ -306,16 +308,16 @@ data:
   - algebraic-structure/monoid.hpp
   - algebraic-structure/magma.hpp
   - algebraic-structure/util.hpp
-  isVerificationFile: false
-  path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
+  isVerificationFile: true
+  path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   requiredBy: []
-  timestamp: '2026-06-28 15:32:36+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2026-06-28 16:21:49+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
+documentation_of: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
 layout: document
 redirect_from:
-- /library/verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-- /library/verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp.html
-title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
+- /verify/verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+- /verify/verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp.html
+title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
 ---

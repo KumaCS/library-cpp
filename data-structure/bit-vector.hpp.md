@@ -2,25 +2,34 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix-with-segment-tree.hpp
     title: data-structure/wavelet-matrix-with-segment-tree.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix-with-weight.hpp
     title: data-structure/wavelet-matrix-with-weight.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix.hpp
     title: Wavelet Matrix
-  - icon: ':warning:'
-    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-  - icon: ':warning:'
-    path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_range_kth_smallest.test.cpp
+    title: verify/data-structure/LC_range_kth_smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_static_range_frequency.test.cpp
+    title: verify/data-structure/LC_static_range_frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
+    title: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"data-structure/bit-vector.hpp\"\n\nstruct BitVector {\n\
@@ -49,14 +58,17 @@ data:
   isVerificationFile: false
   path: data-structure/bit-vector.hpp
   requiredBy:
-  - verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   - data-structure/wavelet-matrix-with-weight.hpp
   - data-structure/wavelet-matrix.hpp
   - data-structure/wavelet-matrix-with-segment-tree.hpp
   timestamp: '2026-06-28 14:52:51+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+  - verify/data-structure/LC_range_kth_smallest.test.cpp
+  - verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
+  - verify/data-structure/LC_static_range_frequency.test.cpp
+  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
 documentation_of: data-structure/bit-vector.hpp
 layout: document
 redirect_from:

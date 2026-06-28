@@ -20,10 +20,10 @@ data:
       title: algebraic-structure/util.hpp
   - name: algorithm
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: algorithm/cartesian-tree.hpp
       title: algorithm/cartesian-tree.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: algorithm/mo.hpp
       title: algorithm/mo.hpp
     - icon: ':heavy_check_mark:'
@@ -79,10 +79,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/binary-indexed-tree.hpp
       title: Binary Indexed Tree
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/bit-vector.hpp
       title: data-structure/bit-vector.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
     - icon: ':heavy_check_mark:'
@@ -106,13 +106,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/sparse-table.hpp
       title: data-structure/sparse-table.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/wavelet-matrix-with-segment-tree.hpp
       title: data-structure/wavelet-matrix-with-segment-tree.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/wavelet-matrix-with-weight.hpp
       title: data-structure/wavelet-matrix-with-weight.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: data-structure/wavelet-matrix.hpp
       title: Wavelet Matrix
   - name: fft
@@ -242,7 +242,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/lpf-table.hpp
       title: LPF Table
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: math/min-of-mod-of-linear.hpp
       title: Min of Mod of Linear
     - icon: ':warning:'
@@ -268,7 +268,7 @@ data:
       title: math/util.hpp
   - name: matrix
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: matrix/matrix.hpp
       title: matrix/matrix.hpp
   - name: modint
@@ -437,15 +437,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: util/xorshift.hpp
       title: XOR shift
-  - name: verify/data-structure
-    pages:
-    - icon: ':warning:'
-      path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-      title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-    - icon: ':warning:'
-      path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
-      title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
   verificationCategories:
+  - name: verify/algorithm
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/algorithm/LC_cartesian_tree.test.cpp
+      title: verify/algorithm/LC_cartesian_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/algorithm/LC_static_range_count_distinct.test.cpp
+      title: verify/algorithm/LC_static_range_count_distinct.test.cpp
   - name: verify/binary-search-tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -483,8 +483,26 @@ data:
       path: verify/data-structure/LC_point_add_range_sum.test.cpp
       title: verify/data-structure/LC_point_add_range_sum.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+      title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/data-structure/LC_predecessor_problem.test.cpp
       title: verify/data-structure/LC_predecessor_problem.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_range_kth_smallest.test.cpp
+      title: verify/data-structure/LC_range_kth_smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+      title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_static_range_frequency.test.cpp
+      title: verify/data-structure/LC_static_range_frequency.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_static_range_sum.test.cpp
+      title: verify/data-structure/LC_static_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
+      title: verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/LC_staticrmq.test.cpp
       title: verify/data-structure/LC_staticrmq.test.cpp
@@ -627,6 +645,9 @@ data:
   - name: verify/math
     pages:
     - icon: ':heavy_check_mark:'
+      path: verify/math/LC_min_of_mod_of_linear.test.cpp
+      title: verify/math/LC_min_of_mod_of_linear.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/math/LC_stern_brocot_tree.test.cpp
       title: verify/math/LC_stern_brocot_tree.test.cpp
     - icon: ':heavy_check_mark:'
@@ -635,11 +656,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/math/LC_sum_of_floor_of_linear.test.cpp
       title: verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - name: verify/matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/matrix/LC_inverse_matrix.test.cpp
+      title: verify/matrix/LC_inverse_matrix.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/matrix/LC_matrix_det.test.cpp
+      title: verify/matrix/LC_matrix_det.test.cpp
   - name: verify/modint
     pages:
     - icon: ':heavy_check_mark:'
       path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
       title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/modint/LC_sqrt_mod.test.cpp
+      title: verify/modint/LC_sqrt_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/modint/UNIT_dynamic_modint.test.cpp
       title: verify/modint/UNIT_dynamic_modint.test.cpp

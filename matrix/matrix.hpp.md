@@ -2,10 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_inverse_matrix.test.cpp
+    title: verify/matrix/LC_inverse_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_matrix_det.test.cpp
+    title: verify/matrix/LC_matrix_det.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"matrix/matrix.hpp\"\n\ntemplate <class T>\nstruct Matrix\
@@ -100,8 +106,10 @@ data:
   path: matrix/matrix.hpp
   requiredBy: []
   timestamp: '2026-06-28 15:22:40+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/matrix/LC_inverse_matrix.test.cpp
+  - verify/matrix/LC_matrix_det.test.cpp
 documentation_of: matrix/matrix.hpp
 layout: document
 redirect_from:

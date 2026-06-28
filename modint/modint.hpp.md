@@ -157,6 +157,12 @@ data:
     path: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
     title: verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_inverse_matrix.test.cpp
+    title: verify/matrix/LC_inverse_matrix.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/matrix/LC_matrix_det.test.cpp
+    title: verify/matrix/LC_matrix_det.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/modint/UNIT_modint.test.cpp
     title: verify/modint/UNIT_modint.test.cpp
   - icon: ':heavy_check_mark:'
@@ -385,6 +391,8 @@ data:
   - verify/fps/LC_sqrt_of_formal_power_series_sparse.test.cpp
   - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_polynomial_taylor_shift.test.cpp
+  - verify/matrix/LC_inverse_matrix.test.cpp
+  - verify/matrix/LC_matrix_det.test.cpp
 documentation_of: modint/modint.hpp
 layout: document
 redirect_from:

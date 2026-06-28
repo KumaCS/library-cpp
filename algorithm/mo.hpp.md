@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/algorithm/LC_static_range_count_distinct.test.cpp
+    title: verify/algorithm/LC_static_range_count_distinct.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"algorithm/mo.hpp\"\n\nstruct Mo {\n  using F = function<void(int)>;\n\
@@ -41,8 +44,9 @@ data:
   path: algorithm/mo.hpp
   requiredBy: []
   timestamp: '2026-02-28 01:08:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/algorithm/LC_static_range_count_distinct.test.cpp
 documentation_of: algorithm/mo.hpp
 layout: document
 redirect_from:

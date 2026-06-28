@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/algorithm/LC_cartesian_tree.test.cpp
+    title: verify/algorithm/LC_cartesian_tree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"algorithm/cartesian-tree.hpp\"\n\n// min\n// (root, nodes)\n\
@@ -31,8 +34,9 @@ data:
   path: algorithm/cartesian-tree.hpp
   requiredBy: []
   timestamp: '2026-06-28 14:52:51+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/algorithm/LC_cartesian_tree.test.cpp
 documentation_of: algorithm/cartesian-tree.hpp
 layout: document
 redirect_from:

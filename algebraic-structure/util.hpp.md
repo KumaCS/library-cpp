@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/sparse-table.hpp
     title: data-structure/sparse-table.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: data-structure/wavelet-matrix-with-segment-tree.hpp
     title: data-structure/wavelet-matrix-with-segment-tree.hpp
   - icon: ':heavy_check_mark:'
@@ -59,10 +59,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: union-find/potentialized-union-find.hpp
     title: "\u30DD\u30C6\u30F3\u30B7\u30E3\u30EB\u4ED8\u304D Union Find"
-  - icon: ':warning:'
-    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
-    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
+    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/data-structure/LC_staticrmq.test.cpp
     title: verify/data-structure/LC_staticrmq.test.cpp
@@ -124,7 +124,6 @@ data:
   - algebraic-structure/monoid.hpp
   - algebraic-structure/magma.hpp
   - algebraic-structure/group.hpp
-  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   - segment-tree/lazy-segment-tree-util.hpp
   - segment-tree/segment-tree-util.hpp
   - segment-tree/lazy-segment-tree.hpp
@@ -151,6 +150,7 @@ data:
   - verify/union-find/LC_unionfind_with_potential.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
   - verify/data-structure/LC_staticrmq.test.cpp
+  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
 documentation_of: algebraic-structure/util.hpp
 layout: document
 redirect_from:
