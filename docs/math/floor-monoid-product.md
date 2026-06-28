@@ -5,11 +5,8 @@
 > 非負整数 $a,b$ および正整数 $m$ に対し $f(i)=\left\lfloor\frac{ai+b}{m}\right\rfloor$ とする．モノイドの元 $x,y$ に対し，以下の値を計算せよ．
 > $$y^{f(0)}xy^{f(1)-f(0)}x\cdots xy^{f(n)-f(n-1)}$$
 
-- 型 `T`
-- 二項演算 `T op(T, T)`
-- 単位元 `T e()`
-
-を定義する必要がある．
+`FloorMonoidProduct<M>` として使う．
+`M` は `value_type`, `op(x,y)`, `e()` を持つモノイドを表す型．
 
 また引数でべき乗 `pow` を渡すこともできる．渡さない場合には繰り返し二乗法を用いる．
 

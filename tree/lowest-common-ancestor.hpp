@@ -3,12 +3,15 @@
 
 struct LowestCommonAncestor {
   using P = pair<int, int>;
-  static P lca_st_op(P x, P y) { return x.second <= y.second ? x : y; }
+  struct LcaMagma {
+    using value_type = P;
+    static P op(P x, P y) { return x.second <= y.second ? x : y; }
+  };
 
  protected:
   int n, r;
   vector<vector<int>> g;
-  SparseTable<P, lca_st_op> st;
+  SparseTable<LcaMagma> st;
   vector<int> in_time, depth, parent, euler_tour;
 
  public:
@@ -52,7 +55,7 @@ struct LowestCommonAncestor {
     data.reserve(euler_tour.size());
     for (auto v : euler_tour)
       data.push_back({v, depth[v]});
-    st = SparseTable<P, lca_st_op>(data);
+    st = SparseTable<LcaMagma>(data);
   }
   int lca(int u, int v) {
     assert(0 <= u && u < n);

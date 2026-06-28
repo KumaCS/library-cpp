@@ -1,43 +1,47 @@
 #pragma once
+#include "algebraic-structure/monoid.hpp"
 
-template <class T, T (*op)(T, T), T (*e)(), std::unsigned_integral U = uint64_t>
-T FloorMonoidProduct(U n, U m, U a, U b, T x, T y, function<T(T, U)> pow = nullptr) {
+template <class M, std::unsigned_integral U = uint64_t>
+REQUIRES(Monoid<M>)
+typename M::value_type FloorMonoidProduct(U n, U m, U a, U b, typename M::value_type x, typename M::value_type y,
+                                          function<typename M::value_type(typename M::value_type, U)> pow = nullptr) {
+  using T = typename M::value_type;
   if (!pow) {
     pow = [](T t, U n) {
-      T p = e();
+      T p = M::e();
       while (n) {
-        if (n & 1) p = op(p, t);
-        t = op(t, t);
+        if (n & 1) p = M::op(p, t);
+        t = M::op(t, t);
         n >>= 1;
       }
       return p;
     };
   }
   assert(m != 0);
-  T pl = e(), pr = e();
+  T pl = M::e(), pr = M::e();
   while (true) {
     if (a >= m) {
       U q = a / m;
-      x = op(x, pow(y, q));
+      x = M::op(x, pow(y, q));
       a -= m * q;
     }
     if (b >= m) {
       U q = b / m;
-      pl = op(pl, pow(y, q));
+      pl = M::op(pl, pow(y, q));
       b -= m * q;
     }
     U c = a * n + b;
     if (c < m) {
-      pl = op(pl, pow(x, n));
+      pl = M::op(pl, pow(x, n));
       break;
     }
-    pr = op(op(y, pow(x, c % m / a)), pr);
+    pr = M::op(M::op(y, pow(x, c % m / a)), pr);
     n = c / m - 1;
     b = m + a - b - 1;
     swap(a, m);
     swap(x, y);
   }
-  return op(pl, pr);
+  return M::op(pl, pr);
 }
 
 /**

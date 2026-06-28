@@ -6,6 +6,7 @@ template <class T, int D1, int D2>
 struct PolynomialFloorSumMonoid {
   static constexpr int D = max(D1, D2);
   using M = PolynomialFloorSumMonoid;
+  using value_type = M;
   using P = array<array<T, D2 + 1>, D1 + 1>;
   T x, y;
   P f;
@@ -70,7 +71,7 @@ array<array<T, D2 + 1>, D1 + 1> PolynomialFloorSum(I l, I r, I m, I a, I b) {
   b -= q * m;
   M t = M::e();
   t.x = l, t.y = q;
-  M z = FloorMonoidProduct<M, M::op, M::e, U>(r - l, m, a, b, M::elm_x(), M::elm_y());
+  M z = FloorMonoidProduct<M, U>(r - l, m, a, b, M::elm_x(), M::elm_y());
   return M::op(t, z).f;
 }
 
@@ -78,7 +79,6 @@ array<array<T, D2 + 1>, D1 + 1> PolynomialFloorSum(I l, I r, I m, I a, I b) {
 // find sum{k=0}^{n-1}P(k,floor((a*k+b)/m))
 template <class T, int D1, int D2, std::signed_integral I = int64_t>
 T PolynomialFloorSum(array<array<T, D2 + 1>, D1 + 1> poly, I l, I r, I m, I a, I b) {
-  using M = PolynomialFloorSumMonoid<T, D1, D2>;
   auto c = PolynomialFloorSum<T, D1, D2, I>(l, r, m, a, b);
   T res = 0;
   for (int i = 0; i <= D1; i++)

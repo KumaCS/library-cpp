@@ -1,7 +1,11 @@
 #pragma once
+#include "algebraic-structure/magma.hpp"
 
-template <class T, T (*op)(T, T)>
+template <class M>
+REQUIRES(Magma<M>)
 struct SparseTable {
+  using T = typename M::value_type;
+
  private:
   int n;
   vector<vector<T>> st;
@@ -17,8 +21,8 @@ struct SparseTable {
     for (int k = 1; k < log; k++) {
       auto stp = st[k - 1];
       auto sti = vector<T>(n - (1 << k) + 1);
-      for (int i = 0; i < sti.size(); i++)
-        sti[i] = op(stp[i], stp[i + (1 << (k - 1))]);
+      for (int i = 0; i < (int)sti.size(); i++)
+        sti[i] = M::op(stp[i], stp[i + (1 << (k - 1))]);
       st[k] = sti;
     }
   }
@@ -27,6 +31,6 @@ struct SparseTable {
     assert(0 <= l && l < r && r <= n);
     int j = 0;
     while ((2 << j) <= r - l) j++;
-    return op(st[j][l], st[j][r - (1 << j)]);
+    return M::op(st[j][l], st[j][r - (1 << j)]);
   }
 };

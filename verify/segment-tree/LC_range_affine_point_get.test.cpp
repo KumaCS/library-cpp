@@ -8,15 +8,18 @@ struct F {
   mint a, b;
   mint eval(mint x) { return a * x + b; }
 };
-F op(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }
-F e() { return {1, 0}; }
+struct AffineMonoid {
+  using value_type = F;
+  static F op(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }
+  static F e() { return {1, 0}; }
+};
 
 int main() {
   int n, q;
   in(n, q);
   vector<mint> a(n);
   in(a);
-  DualSegmentTree<F, op, e> seg(n);
+  DualSegmentTree<AffineMonoid> seg(n);
   while (q--) {
     int t;
     in(t);

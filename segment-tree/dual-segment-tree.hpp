@@ -1,18 +1,22 @@
 #pragma once
+#include "algebraic-structure/monoid.hpp"
 
-template <class F, F (*op)(F, F), F (*e)()>
+template <class M>
+REQUIRES(Monoid<M>)
 struct DualSegmentTree {
+  using F = typename M::value_type;
+
  private:
   int _n, size, log;
   vector<F> lz;
 
  public:
   DualSegmentTree() : DualSegmentTree(0) {}
-  explicit DualSegmentTree(int n) : DualSegmentTree(vector<F>(n, e())) {}
+  explicit DualSegmentTree(int n) : DualSegmentTree(vector<F>(n, M::e())) {}
   explicit DualSegmentTree(const vector<F> &v) : _n(int(v.size())) {
     size = 1, log = 0;
     while (size < _n) size <<= 1, log++;
-    lz = vector<F>(2 * size, e());
+    lz = vector<F>(2 * size, M::e());
     for (int i = 0; i < _n; i++) lz[size + i] = v[i];
   }
   void set(int p, F f) {
@@ -56,9 +60,9 @@ struct DualSegmentTree {
   void push(int k) {
     inner_apply(2 * k, lz[k]);
     inner_apply(2 * k + 1, lz[k]);
-    lz[k] = e();
+    lz[k] = M::e();
   }
-  void inner_apply(int k, F f) { lz[k] = op(f, lz[k]); }
+  void inner_apply(int k, F f) { lz[k] = M::op(f, lz[k]); }
 };
 
 /**

@@ -1,7 +1,11 @@
 #pragma once
+#include "algebraic-structure/monoid.hpp"
 
-template <class T, T (*op)(T, T), T (*e)(), int MAX_NODES = 20000000>
+template <class M, int MAX_NODES = 20000000>
+REQUIRES(Monoid<M>)
 struct PersistentSegmentTree {
+  using T = typename M::value_type;
+
   struct Node {
     Node *l, *r;
     T v;
@@ -16,7 +20,7 @@ struct PersistentSegmentTree {
     return &nodes.back();
   }
   Node* merge(Node* l, Node* r) {
-    nodes.push_back(Node{l, r, op(l->v, r->v)});
+    nodes.push_back(Node{l, r, M::op(l->v, r->v)});
     return &nodes.back();
   }
   Node* build(int l, int r, const vector<T>& v) {
@@ -29,21 +33,21 @@ struct PersistentSegmentTree {
     return p < m ? merge(set(x->l, l, m, p, v), x->r) : merge(x->l, set(x->r, m, r, p, v));
   }
   Node* apply(Node* x, int l, int r, int p, const T& v) {
-    if (l + 1 == r) return make_node(op(x->v, v));
+    if (l + 1 == r) return make_node(M::op(x->v, v));
     int m = (l + r) / 2;
     return p < m ? merge(apply(x->l, l, m, p, v), x->r) : merge(x->l, apply(x->r, m, r, p, v));
   }
   T prod(Node* x, int xl, int xr, int l, int r) {
-    if (x == nullptr) return e();
-    if (r <= xl || xr <= l) return e();
+    if (x == nullptr) return M::e();
+    if (r <= xl || xr <= l) return M::e();
     if (l <= xl && xr <= r) return x->v;
     int xm = (xl + xr) / 2;
-    return op(prod(x->l, xl, xm, l, r), prod(x->r, xm, xr, l, r));
+    return M::op(prod(x->l, xl, xm, l, r), prod(x->r, xm, xr, l, r));
   }
 
  public:
   PersistentSegmentTree() : PersistentSegmentTree(1) {}
-  PersistentSegmentTree(int sz) : PersistentSegmentTree(vector<T>(sz, e())) {}
+  PersistentSegmentTree(int sz) : PersistentSegmentTree(vector<T>(sz, M::e())) {}
   PersistentSegmentTree(const vector<T>& v) : n(v.size()) {
     assert(n > 0);
     roots.reserve(300000);
@@ -96,7 +100,7 @@ struct PersistentSegmentTree {
   T all_prod() { return roots.back()->v; }
 
   T prod(Node* x, int l, int r) {
-    if (l >= r) return e();
+    if (l >= r) return M::e();
     assert(0 <= l && l <= r && r <= n);
     return prod(x, 0, n, l, r);
   }

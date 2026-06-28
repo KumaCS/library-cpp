@@ -8,7 +8,7 @@ using mint = ModInt<998244353>;
 int main() {
   int n, q;
   in(n, q);
-  PotentializedUnionFind<mint> uf(n);
+  PotentializedUnionFind<AddGroup<mint>> uf(n);
   while (q--) {
     int type, u, v;
     in(type, u, v);
