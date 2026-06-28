@@ -2,11 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: math/util.hpp
-    title: math/util.hpp
-  - icon: ':heavy_check_mark:'
-    path: modint/mod-sqrt.hpp
-    title: modint/mod-sqrt.hpp
+    path: math/barrett.hpp
+    title: math/barrett.hpp
   - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -29,12 +26,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.yosupo.jp/problem/sqrt_mod
+    PROBLEM: https://judge.yosupo.jp/problem/aplusb
     links:
-    - https://judge.yosupo.jp/problem/sqrt_mod
-  bundledCode: "#line 1 \"verify/modint/LC_sqrt_mod.test.cpp\"\n#define PROBLEM \"\
-    https://judge.yosupo.jp/problem/sqrt_mod\"\n\n#line 2 \"template/template.hpp\"\
-    \n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
+    - https://judge.yosupo.jp/problem/aplusb
+  bundledCode: "#line 1 \"verify/math/UNIT_barrett.test.cpp\"\n#define PROBLEM \"\
+    https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\n\
+    #include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
     \n#define rep(i, a, b) for (int i = (a); i < (int)(b); i++)\n#define rrep(i, a,\
     \ b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define ALL(v) (v).begin(), (v).end()\n\
     #define UNIQUE(v) sort(ALL(v)), (v).erase(unique(ALL(v)), (v).end())\n#define\
@@ -100,87 +97,47 @@ data:
     \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
     \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"modint/mod-sqrt.hpp\"\n\n#line 2\
-    \ \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T a, T\
-    \ b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  a %= b;\n  return a\
-    \ >= 0 ? a : a + b;\n}\ntemplate <class T>\nT floor(T a, T b) {\n  assert(b !=\
-    \ 0);\n  if (b < 0) a = -a, b = -b;\n  return a >= 0 ? a / b : (a + 1) / b - 1;\n\
-    }\ntemplate <class T>\nT ceil(T a, T b) {\n  assert(b != 0);\n  if (b < 0) a =\
-    \ -a, b = -b;\n  return a > 0 ? (a - 1) / b + 1 : a / b;\n}\nlong long isqrt(long\
-    \ long n) {\n  if (n <= 0) return 0;\n  long long x = sqrt(n);\n  while ((__int128)(x\
-    \ + 1) * (x + 1) <= n) x++;\n  while ((__int128)x * x > n) x--;\n  return x;\n\
-    }\nlong long floor_root(long long n, int k) {\n  assert(n >= 0);\n  if (n == 0)\
-    \ return 0;\n  assert(k >= 1);\n  if (k == 1) return n;\n  if (k > 64) return\
-    \ 1;\n  long long x = round(pow((long double)n, 1.0L / k));\n  auto check = [&](long\
-    \ long a) {\n    if (a <= 0) return true;\n    __int128_t p = 1;\n    for (int\
-    \ i = 0; i < k; ++i)\n      if ((p *= a) > n) return false;\n    return true;\n\
-    \  };\n  while (check(x + 1)) x++;\n  while (!check(x)) x--;\n  return x;\n}\n\
-    // return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0 -> 0<=x<|b|/g\n// - b=0  -> ax=g\n\
-    template <class T>\nT ext_gcd(T a, T b, T& x, T& y) {\n  T a0 = a, b0 = b;\n \
-    \ bool sgn_a = a < 0, sgn_b = b < 0;\n  if (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n\
-    \  if (b == 0) {\n    x = sgn_a ? -1 : 1;\n    y = 0;\n    return a;\n  }\n  T\
-    \ x00 = 1, x01 = 0, x10 = 0, x11 = 1;\n  while (b != 0) {\n    T q = a / b, r\
-    \ = a - b * q;\n    x00 -= q * x01;\n    x10 -= q * x11;\n    swap(x00, x01);\n\
-    \    swap(x10, x11);\n    a = b, b = r;\n  }\n  x = x00, y = x10;\n  if (sgn_a)\
-    \ x = -x;\n  if (sgn_b) y = -y;\n  if (b0 != 0) {\n    a0 /= a, b0 /= a;\n   \
-    \ if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q = x >= 0 ? x / b0 : (x + 1) / b0 -\
-    \ 1;\n    x -= b0 * q;\n    y += a0 * q;\n  }\n  return a;\n}\nconstexpr long\
-    \ long inv_mod(long long x, long long m) {\n  x %= m;\n  if (x < 0) x += m;\n\
-    \  long long a = m, b = x;\n  long long y0 = 0, y1 = 1;\n  while (b > 0) {\n \
-    \   long long q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
-    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\nlong long pow_mod(long long\
-    \ x, long long n, long long m) {\n  if (m == 1) return 0;\n  x = (x % m + m) %\
-    \ m;\n  long long y = 1;\n  while (n) {\n    if (n & 1) y = y * x % m;\n    x\
-    \ = x * x % m;\n    n >>= 1;\n  }\n  return y;\n}\nconstexpr long long pow_mod_constexpr(long\
-    \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
-    \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
-    \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
-    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
-    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
-    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
-    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
-    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
-    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
-    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
-    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long\
-    \ long a, long long p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n\
-    \  if (a == 0) return 0;\n  if (Math::pow_mod(a, (p - 1) / 2, p) != 1) return\
-    \ -1;\n  if (p % 4 == 3) return Math::pow_mod(a, (3 * p - 1) / 4, p);\n  unsigned\
-    \ int z = 2, q = p - 1;\n  while (Math::pow_mod(z, (p - 1) / 2, p) == 1) z++;\n\
-    \  int s = 0;\n  while (!(q & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n\
-    \  unsigned int c = Math::pow_mod(z, q, p);\n  unsigned int t = Math::pow_mod(a,\
-    \ q, p);\n  unsigned int r = Math::pow_mod(a, (q + 1) / 2, p);\n  while (true)\
-    \ {\n    if (t == 1) return r;\n    unsigned int pow = t;\n    int j = 1;\n  \
-    \  for (; j < m; j++) {\n      pow = 1ll * pow * pow % p;\n      if (pow == 1)\
-    \ break;\n    }\n    unsigned int b = c;\n    for (int i = 0; i < m - j - 1; i++)\
-    \ b = 1ll * b * b % p;\n    m = j;\n    c = 1ll * b * b % p;\n    t = 1ll * t\
-    \ * c % p;\n    r = 1ll * r * b % p;\n  }\n}\n#line 5 \"verify/modint/LC_sqrt_mod.test.cpp\"\
-    \n\nint main() {\n  int t;\n  in(t);\n  while (t--) {\n    ll y, p;\n    in(y,\
-    \ p);\n    ll x = ModSqrt(y, p);\n    if (x != -1) x = min(x, p - x);\n    out(x);\n\
-    \  }\n}\n"
-  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/sqrt_mod\"\n\n#include\
-    \ \"template/template.hpp\"\n#include \"modint/mod-sqrt.hpp\"\n\nint main() {\n\
-    \  int t;\n  in(t);\n  while (t--) {\n    ll y, p;\n    in(y, p);\n    ll x =\
-    \ ModSqrt(y, p);\n    if (x != -1) x = min(x, p - x);\n    out(x);\n  }\n}\n"
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"math/barrett.hpp\"\n\nstruct barrett\
+    \ {\n  unsigned int _m;\n  unsigned long long im;\n  explicit barrett(unsigned\
+    \ int m) : _m(m), im((unsigned long long)(-1) / m + 1) {}\n  unsigned int umod()\
+    \ const { return _m; }\n  unsigned int mul(unsigned int a, unsigned int b) const\
+    \ {\n    unsigned long long z = a;\n    z *= b;\n#ifdef _MSC_VER\n    unsigned\
+    \ long long x;\n    _umul128(z, im, &x);\n#else\n    unsigned long long x = (unsigned\
+    \ long long)(((unsigned __int128)(z)*im) >> 64);\n#endif\n    unsigned long long\
+    \ y = x * _m;\n    return (unsigned int)(z - y + (z < y ? _m : 0));\n  }\n};\n\
+    #line 5 \"verify/math/UNIT_barrett.test.cpp\"\n\nvoid test_mod(unsigned int mod)\
+    \ {\n  barrett bt(mod);\n  assert(bt.umod() == mod);\n  vector<unsigned int> xs{0,\
+    \ 1, 2, mod - 1, mod / 2, 123456789u, 4000000000u};\n  for (unsigned int a : xs)\
+    \ {\n    a %= mod;\n    for (unsigned int b : xs) {\n      b %= mod;\n      assert(bt.mul(a,\
+    \ b) == (unsigned long long)a * b % mod);\n    }\n  }\n}\n\nint main() {\n  for\
+    \ (unsigned int mod : {1u, 2u, 3u, 998244353u, 1000000007u, 2147483647u, 4000000007u})\
+    \ {\n    test_mod(mod);\n  }\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
+    template/template.hpp\"\n#include \"math/barrett.hpp\"\n\nvoid test_mod(unsigned\
+    \ int mod) {\n  barrett bt(mod);\n  assert(bt.umod() == mod);\n  vector<unsigned\
+    \ int> xs{0, 1, 2, mod - 1, mod / 2, 123456789u, 4000000000u};\n  for (unsigned\
+    \ int a : xs) {\n    a %= mod;\n    for (unsigned int b : xs) {\n      b %= mod;\n\
+    \      assert(bt.mul(a, b) == (unsigned long long)a * b % mod);\n    }\n  }\n\
+    }\n\nint main() {\n  for (unsigned int mod : {1u, 2u, 3u, 998244353u, 1000000007u,\
+    \ 2147483647u, 4000000007u}) {\n    test_mod(mod);\n  }\n\n  int a, b;\n  in(a,\
+    \ b);\n  out(a + b);\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
   - template/util.hpp
   - template/inout.hpp
   - template/debug.hpp
-  - modint/mod-sqrt.hpp
-  - math/util.hpp
+  - math/barrett.hpp
   isVerificationFile: true
-  path: verify/modint/LC_sqrt_mod.test.cpp
+  path: verify/math/UNIT_barrett.test.cpp
   requiredBy: []
   timestamp: '2026-06-28 19:44:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/modint/LC_sqrt_mod.test.cpp
+documentation_of: verify/math/UNIT_barrett.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/modint/LC_sqrt_mod.test.cpp
-- /verify/verify/modint/LC_sqrt_mod.test.cpp.html
-title: verify/modint/LC_sqrt_mod.test.cpp
+- /verify/verify/math/UNIT_barrett.test.cpp
+- /verify/verify/math/UNIT_barrett.test.cpp.html
+title: verify/math/UNIT_barrett.test.cpp
 ---

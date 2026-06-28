@@ -10,6 +10,9 @@ data:
     path: verify/fps/LC_montmort_number_mod.test.cpp
     title: verify/fps/LC_montmort_number_mod.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/math/UNIT_barrett.test.cpp
+    title: verify/math/UNIT_barrett.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
     title: verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -46,6 +49,7 @@ data:
   verifiedWith:
   - verify/modint/LC_binomial_coefficient_prime_mod.test.cpp
   - verify/modint/UNIT_dynamic_modint.test.cpp
+  - verify/math/UNIT_barrett.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
 documentation_of: math/barrett.hpp
 layout: document

@@ -2,11 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: math/util.hpp
-    title: math/util.hpp
-  - icon: ':heavy_check_mark:'
-    path: modint/mod-sqrt.hpp
-    title: modint/mod-sqrt.hpp
+    path: data-structure/simple-queue.hpp
+    title: data-structure/simple-queue.hpp
   - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -32,8 +29,8 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
     links:
     - https://judge.yosupo.jp/problem/aplusb
-  bundledCode: "#line 1 \"verify/modint/UNIT_mod_sqrt.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\
+  bundledCode: "#line 1 \"verify/data-structure/UNIT_simple_queue.test.cpp\"\n#define\
+    \ PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\
     \n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
     \n#define rep(i, a, b) for (int i = (a); i < (int)(b); i++)\n#define rrep(i, a,\
     \ b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define ALL(v) (v).begin(), (v).end()\n\
@@ -100,100 +97,47 @@ data:
     \ _show(int i, T name) {\n  cerr << '\\n';\n}\ntemplate <class T1, class T2, class...\
     \ T3>\nvoid _show(int i, const T1& a, const T2& b, const T3&... c) {\n  for (;\
     \ a[i] != ',' && a[i] != '\\0'; i++) cerr << a[i];\n  cerr << \":\" << b << \"\
-    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"modint/mod-sqrt.hpp\"\n\n#line 2\
-    \ \"math/util.hpp\"\n\nnamespace Math {\ntemplate <class T>\nT safe_mod(T a, T\
-    \ b) {\n  assert(b != 0);\n  if (b < 0) a = -a, b = -b;\n  a %= b;\n  return a\
-    \ >= 0 ? a : a + b;\n}\ntemplate <class T>\nT floor(T a, T b) {\n  assert(b !=\
-    \ 0);\n  if (b < 0) a = -a, b = -b;\n  return a >= 0 ? a / b : (a + 1) / b - 1;\n\
-    }\ntemplate <class T>\nT ceil(T a, T b) {\n  assert(b != 0);\n  if (b < 0) a =\
-    \ -a, b = -b;\n  return a > 0 ? (a - 1) / b + 1 : a / b;\n}\nlong long isqrt(long\
-    \ long n) {\n  if (n <= 0) return 0;\n  long long x = sqrt(n);\n  while ((__int128)(x\
-    \ + 1) * (x + 1) <= n) x++;\n  while ((__int128)x * x > n) x--;\n  return x;\n\
-    }\nlong long floor_root(long long n, int k) {\n  assert(n >= 0);\n  if (n == 0)\
-    \ return 0;\n  assert(k >= 1);\n  if (k == 1) return n;\n  if (k > 64) return\
-    \ 1;\n  long long x = round(pow((long double)n, 1.0L / k));\n  auto check = [&](long\
-    \ long a) {\n    if (a <= 0) return true;\n    __int128_t p = 1;\n    for (int\
-    \ i = 0; i < k; ++i)\n      if ((p *= a) > n) return false;\n    return true;\n\
-    \  };\n  while (check(x + 1)) x++;\n  while (!check(x)) x--;\n  return x;\n}\n\
-    // return g=gcd(a,b)\n// a*x+b*y=g\n// - b!=0 -> 0<=x<|b|/g\n// - b=0  -> ax=g\n\
-    template <class T>\nT ext_gcd(T a, T b, T& x, T& y) {\n  T a0 = a, b0 = b;\n \
-    \ bool sgn_a = a < 0, sgn_b = b < 0;\n  if (sgn_a) a = -a;\n  if (sgn_b) b = -b;\n\
-    \  if (b == 0) {\n    x = sgn_a ? -1 : 1;\n    y = 0;\n    return a;\n  }\n  T\
-    \ x00 = 1, x01 = 0, x10 = 0, x11 = 1;\n  while (b != 0) {\n    T q = a / b, r\
-    \ = a - b * q;\n    x00 -= q * x01;\n    x10 -= q * x11;\n    swap(x00, x01);\n\
-    \    swap(x10, x11);\n    a = b, b = r;\n  }\n  x = x00, y = x10;\n  if (sgn_a)\
-    \ x = -x;\n  if (sgn_b) y = -y;\n  if (b0 != 0) {\n    a0 /= a, b0 /= a;\n   \
-    \ if (b0 < 0) a0 = -a0, b0 = -b0;\n    T q = x >= 0 ? x / b0 : (x + 1) / b0 -\
-    \ 1;\n    x -= b0 * q;\n    y += a0 * q;\n  }\n  return a;\n}\nconstexpr long\
-    \ long inv_mod(long long x, long long m) {\n  x %= m;\n  if (x < 0) x += m;\n\
-    \  long long a = m, b = x;\n  long long y0 = 0, y1 = 1;\n  while (b > 0) {\n \
-    \   long long q = a / b;\n    swap(a -= q * b, b);\n    swap(y0 -= q * y1, y1);\n\
-    \  }\n  if (y0 < 0) y0 += m / a;\n  return y0;\n}\nlong long pow_mod(long long\
-    \ x, long long n, long long m) {\n  if (m == 1) return 0;\n  x = (x % m + m) %\
-    \ m;\n  long long y = 1;\n  while (n) {\n    if (n & 1) y = y * x % m;\n    x\
-    \ = x * x % m;\n    n >>= 1;\n  }\n  return y;\n}\nconstexpr long long pow_mod_constexpr(long\
-    \ long x, long long n, int m) {\n  if (m == 1) return 0;\n  unsigned int _m =\
-    \ (unsigned int)(m);\n  unsigned long long r = 1;\n  unsigned long long y = x\
-    \ % m;\n  if (y >= m) y += m;\n  while (n) {\n    if (n & 1) r = (r * y) % _m;\n\
-    \    y = (y * y) % _m;\n    n >>= 1;\n  }\n  return r;\n}\nconstexpr bool is_prime_constexpr(int\
-    \ n) {\n  if (n <= 1) return false;\n  if (n == 2 || n == 7 || n == 61) return\
-    \ true;\n  if (n % 2 == 0) return false;\n  long long d = n - 1;\n  while (d %\
-    \ 2 == 0) d /= 2;\n  constexpr long long bases[3] = {2, 7, 61};\n  for (long long\
-    \ a : bases) {\n    long long t = d;\n    long long y = pow_mod_constexpr(a, t,\
-    \ n);\n    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n\
-    \      t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
-    \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 4 \"modint/mod-sqrt.hpp\"\n\nlong long ModSqrt(long\
-    \ long a, long long p) {\n  if (a >= p) a %= p;\n  if (p == 2) return a & 1;\n\
-    \  if (a == 0) return 0;\n  if (Math::pow_mod(a, (p - 1) / 2, p) != 1) return\
-    \ -1;\n  if (p % 4 == 3) return Math::pow_mod(a, (3 * p - 1) / 4, p);\n  unsigned\
-    \ int z = 2, q = p - 1;\n  while (Math::pow_mod(z, (p - 1) / 2, p) == 1) z++;\n\
-    \  int s = 0;\n  while (!(q & 1)) {\n    s++;\n    q >>= 1;\n  }\n  int m = s;\n\
-    \  unsigned int c = Math::pow_mod(z, q, p);\n  unsigned int t = Math::pow_mod(a,\
-    \ q, p);\n  unsigned int r = Math::pow_mod(a, (q + 1) / 2, p);\n  while (true)\
-    \ {\n    if (t == 1) return r;\n    unsigned int pow = t;\n    int j = 1;\n  \
-    \  for (; j < m; j++) {\n      pow = 1ll * pow * pow % p;\n      if (pow == 1)\
-    \ break;\n    }\n    unsigned int b = c;\n    for (int i = 0; i < m - j - 1; i++)\
-    \ b = 1ll * b * b % p;\n    m = j;\n    c = 1ll * b * b % p;\n    t = 1ll * t\
-    \ * c % p;\n    r = 1ll * r * b % p;\n  }\n}\n#line 5 \"verify/modint/UNIT_mod_sqrt.test.cpp\"\
-    \n\nvoid test(int mod) {\n  rep(i, 0, 10000) {\n    ll sq = ModSqrt(i, mod);\n\
-    \    if (sq != -1) assert(sq * sq % mod == i % mod);\n  }\n  {\n    ll a = 998;\n\
-    \    rep(i, 0, 10000) {\n      a = (a * 244 + 353) % mod;\n      {\n        ll\
-    \ sq = ModSqrt(a, mod);\n        if (sq != -1) assert(sq * sq % mod == a);\n \
-    \     }\n      {\n        ll sq = ModSqrt(a * a, mod);\n        assert(sq == a\
-    \ || sq == mod - a);\n      }\n    }\n  }\n}\n\nint main() {\n  vector<int> psmall{2,\
-    \ 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};\n  for (auto p : psmall)\
-    \ test(p);\n  vector<int> plarge{998244353, 1000000007};\n  for (auto p : plarge)\
-    \ test(p);\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
+    \ \";\n  _show(i + 1, a, c...);\n}\n#line 2 \"data-structure/simple-queue.hpp\"\
+    \n\ntemplate <class T>\nstruct SimpleQueue {\n private:\n  vector<T> a;\n  int\
+    \ p;\n\n public:\n  SimpleQueue() : p(0) {}\n  SimpleQueue(int n) : p(0) { a.reserve(n);\
+    \ }\n  void reserve(int n) { a.reserve(n); }\n  int size() { return a.size() -\
+    \ p; }\n  bool empty() { return a.size() == p; }\n  void push(const T& v) { a.push_back(v);\
+    \ }\n  T& front() { return a[p]; }\n  void pop() { p++; }\n  void clear() {\n\
+    \    a.clear();\n    p = 0;\n  }\n};\n#line 5 \"verify/data-structure/UNIT_simple_queue.test.cpp\"\
+    \n\nvoid test() {\n  SimpleQueue<int> q;\n  queue<int> expected;\n  rep(i, 0,\
+    \ 10000) {\n    if (expected.empty() || i % 3 != 0) {\n      q.push(i * 17);\n\
+    \      expected.push(i * 17);\n    } else {\n      assert(!q.empty());\n     \
+    \ assert(q.front() == expected.front());\n      q.pop();\n      expected.pop();\n\
+    \    }\n    assert(q.size() == (int)expected.size());\n    assert(q.empty() ==\
+    \ expected.empty());\n  }\n  q.clear();\n  assert(q.empty());\n  q.reserve(100);\n\
+    \  q.push(42);\n  assert(q.front() == 42);\n}\n\nint main() {\n  test();\n\n \
+    \ int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
-    template/template.hpp\"\n#include \"modint/mod-sqrt.hpp\"\n\nvoid test(int mod)\
-    \ {\n  rep(i, 0, 10000) {\n    ll sq = ModSqrt(i, mod);\n    if (sq != -1) assert(sq\
-    \ * sq % mod == i % mod);\n  }\n  {\n    ll a = 998;\n    rep(i, 0, 10000) {\n\
-    \      a = (a * 244 + 353) % mod;\n      {\n        ll sq = ModSqrt(a, mod);\n\
-    \        if (sq != -1) assert(sq * sq % mod == a);\n      }\n      {\n       \
-    \ ll sq = ModSqrt(a * a, mod);\n        assert(sq == a || sq == mod - a);\n  \
-    \    }\n    }\n  }\n}\n\nint main() {\n  vector<int> psmall{2, 3, 5, 7, 11, 13,\
-    \ 17, 19, 23, 29, 31, 37, 41, 43, 47};\n  for (auto p : psmall) test(p);\n  vector<int>\
-    \ plarge{998244353, 1000000007};\n  for (auto p : plarge) test(p);\n\n  int a,\
-    \ b;\n  in(a, b);\n  out(a + b);\n}"
+    template/template.hpp\"\n#include \"data-structure/simple-queue.hpp\"\n\nvoid\
+    \ test() {\n  SimpleQueue<int> q;\n  queue<int> expected;\n  rep(i, 0, 10000)\
+    \ {\n    if (expected.empty() || i % 3 != 0) {\n      q.push(i * 17);\n      expected.push(i\
+    \ * 17);\n    } else {\n      assert(!q.empty());\n      assert(q.front() == expected.front());\n\
+    \      q.pop();\n      expected.pop();\n    }\n    assert(q.size() == (int)expected.size());\n\
+    \    assert(q.empty() == expected.empty());\n  }\n  q.clear();\n  assert(q.empty());\n\
+    \  q.reserve(100);\n  q.push(42);\n  assert(q.front() == 42);\n}\n\nint main()\
+    \ {\n  test();\n\n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
   - template/util.hpp
   - template/inout.hpp
   - template/debug.hpp
-  - modint/mod-sqrt.hpp
-  - math/util.hpp
+  - data-structure/simple-queue.hpp
   isVerificationFile: true
-  path: verify/modint/UNIT_mod_sqrt.test.cpp
+  path: verify/data-structure/UNIT_simple_queue.test.cpp
   requiredBy: []
   timestamp: '2026-06-28 19:44:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/modint/UNIT_mod_sqrt.test.cpp
+documentation_of: verify/data-structure/UNIT_simple_queue.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/modint/UNIT_mod_sqrt.test.cpp
-- /verify/verify/modint/UNIT_mod_sqrt.test.cpp.html
-title: verify/modint/UNIT_mod_sqrt.test.cpp
+- /verify/verify/data-structure/UNIT_simple_queue.test.cpp
+- /verify/verify/data-structure/UNIT_simple_queue.test.cpp.html
+title: verify/data-structure/UNIT_simple_queue.test.cpp
 ---

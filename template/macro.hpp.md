@@ -67,6 +67,9 @@ data:
     path: verify/data-structure/LC_staticrmq.test.cpp
     title: verify/data-structure/LC_staticrmq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/data-structure/UNIT_simple_queue.test.cpp
+    title: verify/data-structure/UNIT_simple_queue.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/flow/AOJ_GRL_6_A.test.cpp
     title: verify/flow/AOJ_GRL_6_A.test.cpp
   - icon: ':heavy_check_mark:'
@@ -210,6 +213,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/math/LC_sum_of_floor_of_linear.test.cpp
     title: verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/math/UNIT_barrett.test.cpp
+    title: verify/math/UNIT_barrett.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/math/UNIT_fraction.test.cpp
+    title: verify/math/UNIT_fraction.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/math/UNIT_util.test.cpp
+    title: verify/math/UNIT_util.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/matrix/LC_inverse_matrix.test.cpp
     title: verify/matrix/LC_inverse_matrix.test.cpp
@@ -400,8 +412,11 @@ data:
   - verify/string/LC_zalgorithm.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.monoid.test.cpp
   - verify/math/LC_sum_of_floor_of_linear.test.cpp
+  - verify/math/UNIT_fraction.test.cpp
   - verify/math/LC_min_of_mod_of_linear.test.cpp
+  - verify/math/UNIT_barrett.test.cpp
   - verify/math/LC_stern_brocot_tree.test.cpp
+  - verify/math/UNIT_util.test.cpp
   - verify/fps/LC_montmort_number_mod.test.cpp
   - verify/fps/LC_convolution_mod.relaxed.test.cpp
   - verify/fps/LC_composition_of_formal_power_series.test.cpp
@@ -455,6 +470,7 @@ data:
   - verify/data-structure/LC_static_range_sum.test.cpp
   - verify/data-structure/LC_static_range_sum_with_upper_bound.test.cpp
   - verify/data-structure/LC_point_add_range_sum.test.cpp
+  - verify/data-structure/UNIT_simple_queue.test.cpp
   - verify/data-structure/LC_static_range_frequency.test.cpp
   - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   - verify/binary-search-tree/UNIT_rbst_array.test.cpp

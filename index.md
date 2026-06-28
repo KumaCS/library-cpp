@@ -229,7 +229,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/floor-sum.hpp
       title: Floor Sum
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: math/fraction.hpp
       title: "\u6709\u7406\u6570"
     - icon: ':warning:'
@@ -257,7 +257,7 @@ data:
     - icon: ':warning:'
       path: math/root-extension.hpp
       title: math/root-extension.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: math/simple-fraction.hpp
       title: "\u6709\u7406\u6570 (\u7D04\u5206\u306A\u3057)"
     - icon: ':heavy_check_mark:'
@@ -506,6 +506,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/LC_staticrmq.test.cpp
       title: verify/data-structure/LC_staticrmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/UNIT_simple_queue.test.cpp
+      title: verify/data-structure/UNIT_simple_queue.test.cpp
   - name: verify/flow
     pages:
     - icon: ':heavy_check_mark:'
@@ -656,6 +659,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/math/LC_sum_of_floor_of_linear.test.cpp
       title: verify/math/LC_sum_of_floor_of_linear.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/math/UNIT_barrett.test.cpp
+      title: verify/math/UNIT_barrett.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/math/UNIT_fraction.test.cpp
+      title: verify/math/UNIT_fraction.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/math/UNIT_util.test.cpp
+      title: verify/math/UNIT_util.test.cpp
   - name: verify/matrix
     pages:
     - icon: ':heavy_check_mark:'

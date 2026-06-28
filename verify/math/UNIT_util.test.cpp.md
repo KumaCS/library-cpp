@@ -2,14 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: math/barrett.hpp
-    title: math/barrett.hpp
-  - icon: ':heavy_check_mark:'
     path: math/util.hpp
     title: math/util.hpp
-  - icon: ':heavy_check_mark:'
-    path: modint/dynamic-modint.hpp
-    title: modint/dynamic-modint.hpp
   - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -35,27 +29,27 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
     links:
     - https://judge.yosupo.jp/problem/aplusb
-  bundledCode: "#line 1 \"verify/modint/UNIT_dynamic_modint.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.yosupo.jp/problem/aplusb\"\n\n#line 2 \"template/template.hpp\"\
-    \n#include <bits/stdc++.h>\nusing namespace std;\n\n#line 2 \"template/macro.hpp\"\
-    \n#define rep(i, a, b) for (int i = (a); i < (int)(b); i++)\n#define rrep(i, a,\
-    \ b) for (int i = (int)(b) - 1; i >= (a); i--)\n#define ALL(v) (v).begin(), (v).end()\n\
-    #define UNIQUE(v) sort(ALL(v)), (v).erase(unique(ALL(v)), (v).end())\n#define\
-    \ SZ(v) (int)v.size()\n#define MIN(v) *min_element(ALL(v))\n#define MAX(v) *max_element(ALL(v))\n\
-    #define LB(v, x) int(lower_bound(ALL(v), (x)) - (v).begin())\n#define UB(v, x)\
-    \ int(upper_bound(ALL(v), (x)) - (v).begin())\n#define YN(b) cout << ((b) ? \"\
-    YES\" : \"NO\") << \"\\n\";\n#define Yn(b) cout << ((b) ? \"Yes\" : \"No\") <<\
-    \ \"\\n\";\n#define yn(b) cout << ((b) ? \"yes\" : \"no\") << \"\\n\";\n#line\
-    \ 6 \"template/template.hpp\"\n\n#line 2 \"template/util.hpp\"\nusing uint = unsigned\
-    \ int;\nusing ll = long long int;\nusing ull = unsigned long long;\nusing i128\
-    \ = __int128_t;\nusing u128 = __uint128_t;\n\ntemplate <class T, class S = T>\n\
-    S SUM(const vector<T>& a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class\
-    \ T>\ninline bool chmin(T& a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n\
-    \  }\n  return false;\n}\ntemplate <class T>\ninline bool chmax(T& a, T b) {\n\
-    \  if (a < b) {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate\
-    \ <class T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate\
-    \ <class T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n\
-    }\ntemplate <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
+  bundledCode: "#line 1 \"verify/math/UNIT_util.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\
+    \n\n#line 2 \"template/template.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
+    \ std;\n\n#line 2 \"template/macro.hpp\"\n#define rep(i, a, b) for (int i = (a);\
+    \ i < (int)(b); i++)\n#define rrep(i, a, b) for (int i = (int)(b) - 1; i >= (a);\
+    \ i--)\n#define ALL(v) (v).begin(), (v).end()\n#define UNIQUE(v) sort(ALL(v)),\
+    \ (v).erase(unique(ALL(v)), (v).end())\n#define SZ(v) (int)v.size()\n#define MIN(v)\
+    \ *min_element(ALL(v))\n#define MAX(v) *max_element(ALL(v))\n#define LB(v, x)\
+    \ int(lower_bound(ALL(v), (x)) - (v).begin())\n#define UB(v, x) int(upper_bound(ALL(v),\
+    \ (x)) - (v).begin())\n#define YN(b) cout << ((b) ? \"YES\" : \"NO\") << \"\\\
+    n\";\n#define Yn(b) cout << ((b) ? \"Yes\" : \"No\") << \"\\n\";\n#define yn(b)\
+    \ cout << ((b) ? \"yes\" : \"no\") << \"\\n\";\n#line 6 \"template/template.hpp\"\
+    \n\n#line 2 \"template/util.hpp\"\nusing uint = unsigned int;\nusing ll = long\
+    \ long int;\nusing ull = unsigned long long;\nusing i128 = __int128_t;\nusing\
+    \ u128 = __uint128_t;\n\ntemplate <class T, class S = T>\nS SUM(const vector<T>&\
+    \ a) {\n  return accumulate(ALL(a), S(0));\n}\ntemplate <class T>\ninline bool\
+    \ chmin(T& a, T b) {\n  if (a > b) {\n    a = b;\n    return true;\n  }\n  return\
+    \ false;\n}\ntemplate <class T>\ninline bool chmax(T& a, T b) {\n  if (a < b)\
+    \ {\n    a = b;\n    return true;\n  }\n  return false;\n}\n\ntemplate <class\
+    \ T>\nint popcnt(T x) {\n  return __builtin_popcountll(x);\n}\ntemplate <class\
+    \ T>\nint topbit(T x) {\n  return (x == 0 ? -1 : 63 - __builtin_clzll(x));\n}\n\
+    template <class T>\nint lowbit(T x) {\n  return (x == 0 ? -1 : __builtin_ctzll(x));\n\
     }\n#line 8 \"template/template.hpp\"\n\n#line 2 \"template/inout.hpp\"\nstruct\
     \ Fast {\n  Fast() {\n    cin.tie(nullptr);\n    ios_base::sync_with_stdio(false);\n\
     \    cout << fixed << setprecision(15);\n  }\n} fast;\n\nostream& operator<<(ostream&\
@@ -146,95 +140,74 @@ data:
     \    while (t != n - 1 && y != 1 && y != n - 1) {\n      y = y * y % n;\n    \
     \  t <<= 1;\n    }\n    if (y != n - 1 && t % 2 == 0) {\n      return false;\n\
     \    }\n  }\n  return true;\n}\ntemplate <int n>\nconstexpr bool is_prime = is_prime_constexpr(n);\n\
-    };  // namespace Math\n#line 2 \"math/barrett.hpp\"\n\nstruct barrett {\n  unsigned\
-    \ int _m;\n  unsigned long long im;\n  explicit barrett(unsigned int m) : _m(m),\
-    \ im((unsigned long long)(-1) / m + 1) {}\n  unsigned int umod() const { return\
-    \ _m; }\n  unsigned int mul(unsigned int a, unsigned int b) const {\n    unsigned\
-    \ long long z = a;\n    z *= b;\n#ifdef _MSC_VER\n    unsigned long long x;\n\
-    \    _umul128(z, im, &x);\n#else\n    unsigned long long x = (unsigned long long)(((unsigned\
-    \ __int128)(z)*im) >> 64);\n#endif\n    unsigned long long y = x * _m;\n    return\
-    \ (unsigned int)(z - y + (z < y ? _m : 0));\n  }\n};\n#line 4 \"modint/dynamic-modint.hpp\"\
-    \n\ntemplate <int id>\nstruct DynamicModInt {\n  using mint = DynamicModInt;\n\
-    \  static void set_mod(int m) {\n    assert(1 <= m);\n    bar = barrett(m);\n\
-    \  }\n  static constexpr unsigned int get_mod() { return (int)bar.umod(); }\n\
-    \  static mint raw(int v) {\n    mint x;\n    x._v = v;\n    return x;\n  }\n\
-    \  DynamicModInt() : _v(0) {}\n  DynamicModInt(int64_t v) {\n    long long x =\
-    \ (long long)(v % (long long)(bar.umod()));\n    if (x < 0) x += umod();\n   \
-    \ _v = (unsigned int)(x);\n  }\n  unsigned int val() const { return _v; }\n  mint&\
-    \ operator++() {\n    _v++;\n    if (_v == umod()) _v = 0;\n    return *this;\n\
-    \  }\n  mint& operator--() {\n    if (_v == 0) _v = umod();\n    _v--;\n    return\
-    \ *this;\n  }\n  mint operator++(int) {\n    mint result = *this;\n    ++*this;\n\
-    \    return result;\n  }\n  mint operator--(int) {\n    mint result = *this;\n\
-    \    --*this;\n    return result;\n  }\n  mint& operator+=(const mint& rhs) {\n\
-    \    _v += rhs._v;\n    if (_v >= umod()) _v -= umod();\n    return *this;\n \
-    \ }\n  mint& operator-=(const mint& rhs) {\n    _v -= rhs._v;\n    if (_v >= umod())\
-    \ _v += umod();\n    return *this;\n  }\n  mint& operator*=(const mint& rhs) {\n\
-    \    _v = bar.mul(_v, rhs._v);\n    return *this;\n  }\n  mint& operator/=(const\
-    \ mint& rhs) { return *this = *this * rhs.inv(); }\n  mint operator+() const {\
-    \ return *this; }\n  mint operator-() const { return mint() - *this; }\n  mint\
-    \ pow(long long n) const {\n    assert(0 <= n);\n    mint x = *this, r = 1;\n\
-    \    while (n) {\n      if (n & 1) r *= x;\n      x *= x;\n      n >>= 1;\n  \
-    \  }\n    return r;\n  }\n  mint inv() const {\n    auto inv = Math::inv_mod(_v,\
-    \ umod());\n    return raw(inv);\n  }\n  friend mint operator+(const mint& lhs,\
-    \ const mint& rhs) { return mint(lhs) += rhs; }\n  friend mint operator-(const\
-    \ mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }\n  friend mint operator*(const\
-    \ mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }\n  friend mint operator/(const\
-    \ mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }\n  friend bool operator==(const\
-    \ mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }\n  friend bool operator!=(const\
-    \ mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }\n  friend istream&\
-    \ operator>>(istream& is, mint& x) {\n    int64_t v;\n    is >> v;\n    x = mint(v);\n\
-    \    return is;\n  }\n  friend ostream& operator<<(ostream& os, const mint& x)\
-    \ { return os << x.val(); }\n\n private:\n  unsigned int _v;\n  static constexpr\
-    \ unsigned int umod() { return bar.umod(); }\n  static barrett bar;\n};\ntemplate\
-    \ <int id>\nbarrett DynamicModInt<id>::bar(998244353);\n#line 5 \"verify/modint/UNIT_dynamic_modint.test.cpp\"\
-    \n\ntemplate <int id>\nvoid test(int mod) {\n  using mint = DynamicModInt<id>;\n\
-    \  mint::set_mod(mod);\n  unsigned int m = mint::get_mod();\n  rep(i, -100, 100)\
-    \ {\n    ll n = i * 100000000ll;\n    assert(mint(n).val() == ((n % m) + m) %\
-    \ m);\n  }\n  {\n    ll a = 314, b = 271;\n    rep(i, 0, 100) {\n      mint x(a),\
-    \ y(b);\n      assert((x + y).val() == (a + b) % m);\n      assert((x - y).val()\
-    \ == (a - b + m) % m);\n      assert((x * y).val() == (a * b) % m);\n      if\
-    \ (gcd(m, b) == 1) {\n        if ((x / y) * y != x) show(m, x, y, x / y, x / y\
-    \ * y);\n        assert((x / y) * y == x);\n      }\n      mint z = 1;\n     \
-    \ rep(j, 0, 100) {\n        assert(z == x.pow(j));\n        z *= x;\n      }\n\
-    \      a = (a * 159 + 265) % m;\n      b = (b * 828 + 182) % m;\n    }\n  }\n\
-    }\n\nint main() {\n  test<0>(998244353);\n  test<1>(1000000007);\n  rep(m, 1,\
-    \ 5) test<2>(m);\n  {\n    ll m = 998;\n    rep(i, 0, 10) {\n      test<3>(m);\n\
-    \      m = (m * 244 + 353) % 1000000007;\n    }\n  }\n\n  int a, b;\n  in(a, b);\n\
-    \  out(a + b);\n}\n"
+    };  // namespace Math\n#line 5 \"verify/math/UNIT_util.test.cpp\"\n\nvoid test_division()\
+    \ {\n  rep(a, -100, 101) rep(b, -100, 101) {\n    if (b == 0) continue;\n    int\
+    \ m = abs(b);\n    int r = Math::safe_mod(a, b);\n    assert(0 <= r && r < m);\n\
+    \    assert(((b < 0 ? -a : a) - r) % m == 0);\n\n    int f = Math::floor(a, b);\n\
+    \    int c = Math::ceil(a, b);\n    long double v = (long double)a / b;\n    assert(f\
+    \ <= v && v < f + 1);\n    assert(c - 1 < v && v <= c);\n  }\n}\n\nvoid test_roots()\
+    \ {\n  auto check_sqrt = [](long long n) {\n    long long x = Math::isqrt(n);\n\
+    \    assert((__int128)x * x <= n);\n    assert((__int128)(x + 1) * (x + 1) > n);\n\
+    \  };\n  rep(n, 0, 100000) check_sqrt(n);\n  for (long long n : {1000000000000LL,\
+    \ 9223372036854775807LL}) check_sqrt(n);\n\n  rep(n, 0, 10000) rep(k, 1, 11) {\n\
+    \    long long x = Math::floor_root(n, k);\n    auto leq = [&](long long a) {\n\
+    \      __int128 p = 1;\n      rep(i, 0, k) p *= a;\n      return p <= n;\n   \
+    \ };\n    assert(leq(x));\n    assert(!leq(x + 1));\n  }\n  assert(Math::floor_root(9223372036854775807LL,\
+    \ 2) == 3037000499LL);\n}\n\nvoid test_number_theory() {\n  rep(a, -100, 101)\
+    \ rep(b, -100, 101) {\n    if (a == 0 && b == 0) continue;\n    long long x, y;\n\
+    \    long long g = Math::ext_gcd((long long)a, (long long)b, x, y);\n    assert(g\
+    \ == gcd(abs(a), abs(b)));\n    assert((long long)a * x + (long long)b * y ==\
+    \ g);\n  }\n\n  rep(m, 2, 200) rep(a, 1, m) {\n    if (gcd(a, m) == 1) assert(a\
+    \ * Math::inv_mod(a, m) % m == 1);\n  }\n  rep(x, -20, 21) rep(n, 0, 20) rep(m,\
+    \ 1, 50) {\n    long long expected = 1 % m;\n    rep(i, 0, n) expected = expected\
+    \ * Math::safe_mod(x, m) % m;\n    assert(Math::pow_mod(x, n, m) == expected);\n\
+    \  }\n  rep(n, 0, 1000) {\n    bool prime = n >= 2;\n    for (int d = 2; d * d\
+    \ <= n; d++) prime &= n % d != 0;\n    assert(Math::is_prime_constexpr(n) == prime);\n\
+    \  }\n}\n\nint main() {\n  test_division();\n  test_roots();\n  test_number_theory();\n\
+    \n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/aplusb\"\n\n#include \"\
-    template/template.hpp\"\n#include \"modint/dynamic-modint.hpp\"\n\ntemplate <int\
-    \ id>\nvoid test(int mod) {\n  using mint = DynamicModInt<id>;\n  mint::set_mod(mod);\n\
-    \  unsigned int m = mint::get_mod();\n  rep(i, -100, 100) {\n    ll n = i * 100000000ll;\n\
-    \    assert(mint(n).val() == ((n % m) + m) % m);\n  }\n  {\n    ll a = 314, b\
-    \ = 271;\n    rep(i, 0, 100) {\n      mint x(a), y(b);\n      assert((x + y).val()\
-    \ == (a + b) % m);\n      assert((x - y).val() == (a - b + m) % m);\n      assert((x\
-    \ * y).val() == (a * b) % m);\n      if (gcd(m, b) == 1) {\n        if ((x / y)\
-    \ * y != x) show(m, x, y, x / y, x / y * y);\n        assert((x / y) * y == x);\n\
-    \      }\n      mint z = 1;\n      rep(j, 0, 100) {\n        assert(z == x.pow(j));\n\
-    \        z *= x;\n      }\n      a = (a * 159 + 265) % m;\n      b = (b * 828\
-    \ + 182) % m;\n    }\n  }\n}\n\nint main() {\n  test<0>(998244353);\n  test<1>(1000000007);\n\
-    \  rep(m, 1, 5) test<2>(m);\n  {\n    ll m = 998;\n    rep(i, 0, 10) {\n     \
-    \ test<3>(m);\n      m = (m * 244 + 353) % 1000000007;\n    }\n  }\n\n  int a,\
-    \ b;\n  in(a, b);\n  out(a + b);\n}"
+    template/template.hpp\"\n#include \"math/util.hpp\"\n\nvoid test_division() {\n\
+    \  rep(a, -100, 101) rep(b, -100, 101) {\n    if (b == 0) continue;\n    int m\
+    \ = abs(b);\n    int r = Math::safe_mod(a, b);\n    assert(0 <= r && r < m);\n\
+    \    assert(((b < 0 ? -a : a) - r) % m == 0);\n\n    int f = Math::floor(a, b);\n\
+    \    int c = Math::ceil(a, b);\n    long double v = (long double)a / b;\n    assert(f\
+    \ <= v && v < f + 1);\n    assert(c - 1 < v && v <= c);\n  }\n}\n\nvoid test_roots()\
+    \ {\n  auto check_sqrt = [](long long n) {\n    long long x = Math::isqrt(n);\n\
+    \    assert((__int128)x * x <= n);\n    assert((__int128)(x + 1) * (x + 1) > n);\n\
+    \  };\n  rep(n, 0, 100000) check_sqrt(n);\n  for (long long n : {1000000000000LL,\
+    \ 9223372036854775807LL}) check_sqrt(n);\n\n  rep(n, 0, 10000) rep(k, 1, 11) {\n\
+    \    long long x = Math::floor_root(n, k);\n    auto leq = [&](long long a) {\n\
+    \      __int128 p = 1;\n      rep(i, 0, k) p *= a;\n      return p <= n;\n   \
+    \ };\n    assert(leq(x));\n    assert(!leq(x + 1));\n  }\n  assert(Math::floor_root(9223372036854775807LL,\
+    \ 2) == 3037000499LL);\n}\n\nvoid test_number_theory() {\n  rep(a, -100, 101)\
+    \ rep(b, -100, 101) {\n    if (a == 0 && b == 0) continue;\n    long long x, y;\n\
+    \    long long g = Math::ext_gcd((long long)a, (long long)b, x, y);\n    assert(g\
+    \ == gcd(abs(a), abs(b)));\n    assert((long long)a * x + (long long)b * y ==\
+    \ g);\n  }\n\n  rep(m, 2, 200) rep(a, 1, m) {\n    if (gcd(a, m) == 1) assert(a\
+    \ * Math::inv_mod(a, m) % m == 1);\n  }\n  rep(x, -20, 21) rep(n, 0, 20) rep(m,\
+    \ 1, 50) {\n    long long expected = 1 % m;\n    rep(i, 0, n) expected = expected\
+    \ * Math::safe_mod(x, m) % m;\n    assert(Math::pow_mod(x, n, m) == expected);\n\
+    \  }\n  rep(n, 0, 1000) {\n    bool prime = n >= 2;\n    for (int d = 2; d * d\
+    \ <= n; d++) prime &= n % d != 0;\n    assert(Math::is_prime_constexpr(n) == prime);\n\
+    \  }\n}\n\nint main() {\n  test_division();\n  test_roots();\n  test_number_theory();\n\
+    \n  int a, b;\n  in(a, b);\n  out(a + b);\n}\n"
   dependsOn:
   - template/template.hpp
   - template/macro.hpp
   - template/util.hpp
   - template/inout.hpp
   - template/debug.hpp
-  - modint/dynamic-modint.hpp
   - math/util.hpp
-  - math/barrett.hpp
   isVerificationFile: true
-  path: verify/modint/UNIT_dynamic_modint.test.cpp
+  path: verify/math/UNIT_util.test.cpp
   requiredBy: []
   timestamp: '2026-06-28 19:44:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/modint/UNIT_dynamic_modint.test.cpp
+documentation_of: verify/math/UNIT_util.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/modint/UNIT_dynamic_modint.test.cpp
-- /verify/verify/modint/UNIT_dynamic_modint.test.cpp.html
-title: verify/modint/UNIT_dynamic_modint.test.cpp
+- /verify/verify/math/UNIT_util.test.cpp
+- /verify/verify/math/UNIT_util.test.cpp.html
+title: verify/math/UNIT_util.test.cpp
 ---

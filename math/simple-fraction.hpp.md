@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/math/UNIT_fraction.test.cpp
+    title: verify/math/UNIT_fraction.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: "\u6709\u7406\u6570 (\u7D04\u5206\u306A\u3057)"
     links: []
@@ -59,8 +62,9 @@ data:
   path: math/simple-fraction.hpp
   requiredBy: []
   timestamp: '2025-10-17 21:43:09+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/math/UNIT_fraction.test.cpp
 documentation_of: math/simple-fraction.hpp
 layout: document
 redirect_from:

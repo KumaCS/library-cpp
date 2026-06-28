@@ -18,9 +18,9 @@ data:
     links: []
   bundledCode: "#line 2 \"flow/max-flow.hpp\"\n\n#line 2 \"data-structure/simple-queue.hpp\"\
     \n\ntemplate <class T>\nstruct SimpleQueue {\n private:\n  vector<T> a;\n  int\
-    \ p;\n\n public:\n  SimpleQueue() {}\n  SimpleQueue(int n) { a.reserve(n); }\n\
-    \  void reserve(int n) { a.reserve(n); }\n  int size() { return a.size() - p;\
-    \ }\n  bool empty() { return a.size() == p; }\n  void push(const T& v) { a.push_back(v);\
+    \ p;\n\n public:\n  SimpleQueue() : p(0) {}\n  SimpleQueue(int n) : p(0) { a.reserve(n);\
+    \ }\n  void reserve(int n) { a.reserve(n); }\n  int size() { return a.size() -\
+    \ p; }\n  bool empty() { return a.size() == p; }\n  void push(const T& v) { a.push_back(v);\
     \ }\n  T& front() { return a[p]; }\n  void pop() { p++; }\n  void clear() {\n\
     \    a.clear();\n    p = 0;\n  }\n};\n#line 4 \"flow/max-flow.hpp\"\n\ntemplate\
     \ <class Cap = long long>\nstruct MaxFlow {\n public:\n  MaxFlow() : _n(0) {}\n\
@@ -115,7 +115,7 @@ data:
   isVerificationFile: false
   path: flow/max-flow.hpp
   requiredBy: []
-  timestamp: '2025-10-17 21:43:09+09:00'
+  timestamp: '2026-06-28 19:44:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/flow/AOJ_GRL_6_A.test.cpp
