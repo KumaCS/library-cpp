@@ -7,8 +7,8 @@ struct SimpleQueue {
   int p;
 
  public:
-  SimpleQueue() {}
-  SimpleQueue(int n) { a.reserve(n); }
+  SimpleQueue() : p(0) {}
+  SimpleQueue(int n) : p(0) { a.reserve(n); }
   void reserve(int n) { a.reserve(n); }
   int size() { return a.size() - p; }
   bool empty() { return a.size() == p; }

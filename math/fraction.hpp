@@ -11,7 +11,11 @@ struct Fraction {
   template <class V>
   V get() const { return V(a) / b; }
   using frac = Fraction;
-  frac raw(T _a, T _b) { a = _a, b = _b; }
+  static frac raw(T _a, T _b) {
+    frac x;
+    x.a = _a, x.b = _b;
+    return x;
+  }
   frac& init(T _a, T _b) {
     T g = gcd(_a, _b);
     a = _a / g, b = _b / g;

@@ -23,8 +23,8 @@ T ceil(T a, T b) {
 long long isqrt(long long n) {
   if (n <= 0) return 0;
   long long x = sqrt(n);
-  while ((x + 1) * (x + 1) <= n) x++;
-  while (x * x > n) x--;
+  while ((__int128)(x + 1) * (x + 1) <= n) x++;
+  while ((__int128)x * x > n) x--;
   return x;
 }
 long long floor_root(long long n, int k) {
@@ -95,6 +95,7 @@ constexpr long long inv_mod(long long x, long long m) {
   return y0;
 }
 long long pow_mod(long long x, long long n, long long m) {
+  if (m == 1) return 0;
   x = (x % m + m) % m;
   long long y = 1;
   while (n) {
