@@ -2,6 +2,10 @@
 
 - 実際には各種演算は計算で出てくる範囲で定義されていれば構わない．
 
+`LazySegmentTree<A>` として使う．
+`A` は `value_monoid`, `operator_monoid`, `mapping(f,x)` を持つ作用を表す型．
+`value_monoid` は列の値のモノイド，`operator_monoid` は作用素の合成モノイドを表す．
+
 長さ $N$ の $T$ の列 $A=(A_0,A_1,\dots,A_{N-1})$ に対し，空間計算量 $\Theta(N)$ のもとで以下の操作を行える．
 
 - `set(p, x)`：$A_p \gets x$ とする．$O(\log N)$ 時間．

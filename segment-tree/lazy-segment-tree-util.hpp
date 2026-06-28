@@ -3,27 +3,29 @@
 
 namespace LazySegmentTreeUtil {
 template <class T>
-T Zero() { return T{}; }
-template <class T>
-T One() { return T{1}; }
-template <class T, T e>
-T Const() { return e; }
-template <class T>
-T Add(T x, T y) { return x + y; }
-template <class T>
-T Mul(T x, T y) { return x * y; }
-template <class T>
-T Max(T x, T y) { return x > y ? x : y; }
-template <class T>
-T Min(T x, T y) { return x < y ? x : y; }
-template <class T>
 using P = pair<T, T>;
+
 template <class T>
-P<T> PAdd(P<T> x, P<T> y) { return P<T>{x.first + y.first, x.second + y.second}; }
+struct PairAddMonoid {
+  using value_type = P<T>;
+  static value_type op(value_type x, value_type y) { return {x.first + y.first, x.second + y.second}; }
+  static value_type e() { return {T{}, T{}}; }
+};
+
 template <class T>
-P<T> FPAdd(T f, P<T> x) { return P<T>{x.first, x.second + x.first * f}; }
+struct AddSumAction {
+  using value_monoid = PairAddMonoid<T>;
+  using operator_monoid = AddMonoid<T>;
+  static P<T> mapping(T f, P<T> x) { return {x.first, x.second + x.first * f}; }
+};
+
 template <class T>
-P<T> PZero() { return P<T>{T{}, T{}}; }
+struct MulSumAction {
+  using value_monoid = AddMonoid<T>;
+  using operator_monoid = MulMonoid<T>;
+  static T mapping(T f, T x) { return f * x; }
+};
+
 template <class T>
 vector<P<T>> InitPair(const vector<T>& a) {
   vector<P<T>> v(a.size());
@@ -31,9 +33,9 @@ vector<P<T>> InitPair(const vector<T>& a) {
   return v;
 }
 template <class T>
-struct LazySegmentTreeAddSum : LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>> {
-  using base = LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>>;
-  LazySegmentTreeAddSum(int n) : base(vector<P<T>>(n, PZero<T>())) {}
+struct LazySegmentTreeAddSum : LazySegmentTree<AddSumAction<T>> {
+  using base = LazySegmentTree<AddSumAction<T>>;
+  LazySegmentTreeAddSum(int n) : base(vector<P<T>>(n, PairAddMonoid<T>::e())) {}
   LazySegmentTreeAddSum(const vector<T>& a) : base(InitPair(a)) {}
   void set(int p, T v) { base::set(p, P<T>{1, v}); }
   T get(int p) { return base::get(p).second; }
@@ -41,9 +43,9 @@ struct LazySegmentTreeAddSum : LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd
   void apply(int l, int r, T v) { base::apply(l, r, v); }
 };
 template <class T>
-struct LazySegmentTreeMulSum : LazySegmentTree<T, Add<T>, Zero<T>, T, Mul<T>, Mul<T>, One<T>> {
-  using base = LazySegmentTree<T, Add<T>, Zero<T>, T, Mul<T>, Mul<T>, One<T>>;
-  LazySegmentTreeMulSum(int n) : base(vector<T>(n, Zero<T>())) {}
+struct LazySegmentTreeMulSum : LazySegmentTree<MulSumAction<T>> {
+  using base = LazySegmentTree<MulSumAction<T>>;
+  LazySegmentTreeMulSum(int n) : base(n) {}
   LazySegmentTreeMulSum(const vector<T>& a) : base(a) {}
 };
 };  // namespace LazySegmentTreeUtil

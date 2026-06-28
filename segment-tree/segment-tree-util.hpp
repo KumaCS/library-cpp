@@ -3,43 +3,28 @@
 
 namespace SegmentTreeUtil {
 template <class T>
-T Zero() { return T{}; }
-template <class T>
-T One() { return T{1}; }
-template <class T, T e>
-T Const() { return e; }
-template <class T>
-T Add(T x, T y) { return x + y; }
-template <class T>
-T Mul(T x, T y) { return x * y; }
-template <class T>
-T Max(T x, T y) { return x > y ? x : y; }
-template <class T>
-T Min(T x, T y) { return x < y ? x : y; }
-
-template <class T>
-struct SegmentTreeSum : SegmentTree<T, Add<T>, Zero<T>> {
-  using base = SegmentTree<T, Add<T>, Zero<T>>;
+struct SegmentTreeSum : SegmentTree<AddMonoid<T>> {
+  using base = SegmentTree<AddMonoid<T>>;
   SegmentTreeSum(const vector<T>& a) : base(a) {}
-  SegmentTreeSum(int n) : base(vector<T>(n, Zero<T>())) {}
+  SegmentTreeSum(int n) : base(n) {}
 };
 template <class T>
-struct SegmentTreeProd : SegmentTree<T, Mul<T>, One<T>> {
-  using base = SegmentTree<T, Mul<T>, One<T>>;
+struct SegmentTreeProd : SegmentTree<MulMonoid<T>> {
+  using base = SegmentTree<MulMonoid<T>>;
   SegmentTreeProd(const vector<T>& a) : base(a) {}
-  SegmentTreeProd(int n) : base(vector<T>(n, One<T>())) {}
+  SegmentTreeProd(int n) : base(n) {}
 };
 template <class T, T e>
-struct SegmentTreeMax : SegmentTree<T, Max<T>, Const<T, e>> {
-  using base = SegmentTree<T, Max<T>, Const<T, e>>;
+struct SegmentTreeMax : SegmentTree<MaxMonoid<T, e>> {
+  using base = SegmentTree<MaxMonoid<T, e>>;
   SegmentTreeMax(const vector<T>& a) : base(a) {}
-  SegmentTreeMax(int n) : base(vector<T>(n, e)) {}
+  SegmentTreeMax(int n) : base(n) {}
 };
 template <class T, T e>
-struct SegmentTreeMin : SegmentTree<T, Min<T>, Const<T, e>> {
-  using base = SegmentTree<T, Min<T>, Const<T, e>>;
+struct SegmentTreeMin : SegmentTree<MinMonoid<T, e>> {
+  using base = SegmentTree<MinMonoid<T, e>>;
   SegmentTreeMin(const vector<T>& a) : base(a) {}
-  SegmentTreeMin(int n) : base(vector<T>(n, e)) {}
+  SegmentTreeMin(int n) : base(n) {}
 };
 };  // namespace SegmentTreeUtil
 using SegmentTreeUtil::SegmentTreeMax;

@@ -2,6 +2,10 @@
 
 - 実際は $\cdot$ が $T\times T$ 上全体で定義されていなくても，計算で出てくる範囲で定義されていれば構わない．
 
+`SegmentTree<M>` として使う．
+`M` は `value_type`, `op(x,y)`, `e()` を持つモノイドを表す型．
+よく使うものは `AddMonoid<T>`, `MulMonoid<T>`, `MaxMonoid<T,e>`, `MinMonoid<T,e>` を使える．
+
 長さ $N$ の $T$ の列 $A=(A_0,A_1,\dots,A_{N-1})$ に対し，空間計算量 $\Theta(N)$ のもとで以下の操作を行う．
 
 - 一点更新：$O(\log N)$ 時間

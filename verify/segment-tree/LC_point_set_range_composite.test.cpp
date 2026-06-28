@@ -8,8 +8,11 @@ struct F {
   mint a, b;
   mint eval(mint x) { return a * x + b; }
 };
-F op(F f, F g) { return {f.a * g.a, f.b * g.a + g.b}; }
-F e() { return {1, 0}; }
+struct CompositeMonoid {
+  using value_type = F;
+  static F op(F f, F g) { return {f.a * g.a, f.b * g.a + g.b}; }
+  static F e() { return {1, 0}; }
+};
 
 int main() {
   int n, q;
@@ -20,7 +23,7 @@ int main() {
     in(a, b);
     f[i] = {a, b};
   }
-  SegmentTree<F, op, e> seg(f);
+  SegmentTree<CompositeMonoid> seg(f);
   while (q--) {
     int t;
     in(t);

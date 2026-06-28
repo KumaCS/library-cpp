@@ -3,10 +3,11 @@
 #include "data-structure/wavelet-matrix.hpp"
 #include "segment-tree/segment-tree.hpp"
 
-// S: commutative
-template <class T, class S, S (*op)(S, S), S (*e)(), int B = 30>
+// M: commutative monoid
+template <class T, class M, int B = 30>
 struct WaveletMatrixWithSegmentTree : public WaveletMatrix<T, B> {
   using Base = WaveletMatrix<T, B>;
+  using S = typename M::value_type;
   using u32 = uint32_t;
   using i64 = int64_t;
   using u64 = uint64_t;
@@ -15,7 +16,7 @@ struct WaveletMatrixWithSegmentTree : public WaveletMatrix<T, B> {
   using Base::bv;
   using Base::n;
   vector<S> w;
-  vector<SegmentTree<S, op, e>> seg;
+  vector<SegmentTree<M>> seg;
 
   WaveletMatrixWithSegmentTree(u32 _n) : Base(_n), w(_n) {}
   WaveletMatrixWithSegmentTree(const vector<T>& _a, const vector<S>& _w) : Base(_a), w(_w) { build(); }
@@ -29,7 +30,7 @@ struct WaveletMatrixWithSegmentTree : public WaveletMatrix<T, B> {
   void build() {
     bv.assign(B, n);
     seg.resize(B + 1);
-    seg[B] = SegmentTree<S, op, e>(w);
+    seg[B] = SegmentTree<M>(w);
     vector<T> cur = a, nxt(n);
     vector<S> wcur = w, wnxt(n);
     for (int h = B - 1; h >= 0; --h) {
@@ -43,7 +44,7 @@ struct WaveletMatrixWithSegmentTree : public WaveletMatrix<T, B> {
         *it[x]++ = cur[i];
         *wit[x]++ = wcur[i];
       }
-      seg[h] = SegmentTree<S, op, e>(wnxt);
+      seg[h] = SegmentTree<M>(wnxt);
       swap(cur, nxt);
       swap(wcur, wnxt);
     }
@@ -68,14 +69,14 @@ struct WaveletMatrixWithSegmentTree : public WaveletMatrix<T, B> {
 
   // count i s.t. (l <= i < r) && (lower <= v[i] ^ value_xor < upper)
   S range_sum(int l, int r, T lower, T upper, T value_xor = 0) {
-    if (lower >= upper) return e();
+    if (lower >= upper) return M::e();
     return range_sum_(B - 1, l, r, T(0), T(1) << B, lower, upper, value_xor);
   }
 
  private:
   S range_sum_(int h, int l, int r, T vl, T vr, T lower, T upper, T value_xor) {
-    if (r <= l) return e();
-    if (vr <= lower || upper <= vl) return e();
+    if (r <= l) return M::e();
+    if (vr <= lower || upper <= vl) return M::e();
     if (lower <= vl && vr <= upper) return seg[h + 1].prod(l, r);
 
     u32 l0 = bv[h].rank0(l), r0 = bv[h].rank0(r);
@@ -87,7 +88,7 @@ struct WaveletMatrixWithSegmentTree : public WaveletMatrix<T, B> {
     }
 
     T vm = (vl + vr) >> 1;
-    return op(range_sum_(h - 1, l0, r0, vl, vm, lower, upper, value_xor),
-              range_sum_(h - 1, l1, r1, vm, vr, lower, upper, value_xor));
+    return M::op(range_sum_(h - 1, l0, r0, vl, vm, lower, upper, value_xor),
+                 range_sum_(h - 1, l1, r1, vm, vr, lower, upper, value_xor));
   }
 };

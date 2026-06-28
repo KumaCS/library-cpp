@@ -3,9 +3,6 @@
 #include "template/template.hpp"
 #include "data-structure/wavelet-matrix-with-segment-tree.hpp"
 
-ll op(ll x, ll y) { return x + y; }
-ll e() { return 0; }
-
 int main() {
   int n, q;
   in(n, q);
@@ -36,7 +33,7 @@ int main() {
   int m = ps.size();
 
   vector<int> xs(m);
-  WaveletMatrixWithSegmentTree<int, ll, op, e> wm(m);
+  WaveletMatrixWithSegmentTree<int, AddMonoid<ll>> wm(m);
   rep(i, 0, m) {
     auto [x, y] = ps[i];
     xs[i] = x;

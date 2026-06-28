@@ -3,15 +3,12 @@
 #include "template/template.hpp"
 #include "segment-tree/segment-tree.hpp"
 
-ll op(ll x, ll y) { return x + y; }
-ll e() { return 0; }
-
 int main() {
   int n, q;
   in(n, q);
   vector<ll> a(n);
   in(a);
-  SegmentTree<ll, op, e> seg(a);
+  SegmentTree<AddMonoid<ll>> seg(a);
   while (q--) {
     int t;
     in(t);
