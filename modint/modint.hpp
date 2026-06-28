@@ -94,3 +94,5 @@ struct ModInt {
   static constexpr unsigned int umod() { return m; }
   static constexpr bool is_prime = Math::is_prime<m>;
 };
+using ModInt998244353 = ModInt<998244353>;
+using ModInt1000000007 = ModInt<1000000007>;

@@ -35,6 +35,10 @@ struct LazySegmentTreeAddSum : LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd
   using base = LazySegmentTree<P<T>, PAdd<T>, PZero<T>, T, FPAdd<T>, Add<T>, Zero<T>>;
   LazySegmentTreeAddSum(int n) : base(vector<P<T>>(n, PZero<T>())) {}
   LazySegmentTreeAddSum(const vector<T>& a) : base(InitPair(a)) {}
+  void set(int p, T v) { base::set(p, P<T>{1, v}); }
+  T get(int p) { return base::get(p).second; }
+  T prod(int l, int r) { return base::prod(l, r).second; }
+  void apply(int l, int r, T v) { base::apply(l, r, v); }
 };
 template <class T>
 struct LazySegmentTreeMulSum : LazySegmentTree<T, Add<T>, Zero<T>, T, Mul<T>, Mul<T>, One<T>> {

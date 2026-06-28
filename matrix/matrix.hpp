@@ -30,7 +30,6 @@ struct Matrix {
   Matrix operator-(const Matrix& r) { return Matrix(*this) -= r; }
   Matrix operator*(const Matrix& r) {
     assert(w == r.h);
-    cerr.flush();
     Matrix ret(h, r.w);
     for (int i = 0; i < h; i++)
       for (int j = 0; j < r.w; j++)
@@ -38,6 +37,7 @@ struct Matrix {
           ret.add(i, j, get(i, k) * r.get(k, j));
     return ret;
   }
+  Matrix& operator*=(const Matrix& r) { return *this = *this * r; }
   Matrix pow(long long n) const {
     Matrix ret = id(h);
     Matrix mat(*this);

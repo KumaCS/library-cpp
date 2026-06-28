@@ -27,6 +27,24 @@ long long isqrt(long long n) {
   while (x * x > n) x--;
   return x;
 }
+long long floor_root(long long n, int k) {
+  assert(n >= 0);
+  if (n == 0) return 0;
+  assert(k >= 1);
+  if (k == 1) return n;
+  if (k > 64) return 1;
+  long long x = round(pow((long double)n, 1.0L / k));
+  auto check = [&](long long a) {
+    if (a <= 0) return true;
+    __int128_t p = 1;
+    for (int i = 0; i < k; ++i)
+      if ((p *= a) > n) return false;
+    return true;
+  };
+  while (check(x + 1)) x++;
+  while (!check(x)) x--;
+  return x;
+}
 // return g=gcd(a,b)
 // a*x+b*y=g
 // - b!=0 -> 0<=x<|b|/g

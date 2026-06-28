@@ -17,7 +17,7 @@ struct DirichletSeriesPrefixSum {
 
   DirichletSeriesPrefixSum(u64 n)
       : N(n),
-        K(max(sqrt(N), pow(max(1.0, N / log(N)), 2.0 / 3))),
+        K(max(sqrt(N), pow(max(1.0, N / log(max<u64>(2, N))), 2.0 / 3))),
         L((N - 1) / K + 1) {
     a.assign(K + 1, 0);
     s.assign(K + 1, 0);
@@ -32,7 +32,7 @@ struct DirichletSeriesPrefixSum {
 
   // zeta(s-k)
   static DP zeta(u64 n, size_t k = 0) {
-    assert(k <= 2);
+    assert(k <= 3);
     DP z(n);
     for (size_t i = 1; i <= z.K; i++) z.a[i] = mint((int)i).pow(k);
     for (size_t i = 1; i <= z.K; i++) z.s[i] = z.s[i - 1] + z.a[i];
@@ -47,6 +47,9 @@ struct DirichletSeriesPrefixSum {
         xs[x & 1] /= 2;
         xs[(3 - (x % 3)) % 3] /= 3;
         z.S[i] = mint(xs[0]) * mint(xs[1]) * mint(xs[2]);
+      } else if (k == 3) {
+        z.S[i] = mint(x | 1) * mint((x + 1) / 2);
+        z.S[i] *= z.S[i];
       }
     }
     return z;
@@ -156,7 +159,7 @@ struct DirichletSeriesPrefixSum {
   }
   friend DP operator/(const DP& l, const DP& r) {
     DP z(l);
-    const int N = z.N;
+    const u64 N = z.N;
     const int K = z.K;
     const int L = z.L;
     mint inv = r.a[1].inv();
