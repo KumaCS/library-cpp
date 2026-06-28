@@ -2,6 +2,9 @@
 #include "math/util.hpp"
 
 template <class T>
+pair<vector<T>, vector<T>> PrefixMinOfModOfLinear(T a, T b, T mod);
+
+template <class T>
 T MinOfModOfLinear(T n, T m, T a, T b) {
   assert(n > 0 && m > 0);
   auto [xs, dxs] = PrefixMinOfModOfLinear(a, b, m);

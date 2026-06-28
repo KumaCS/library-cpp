@@ -100,7 +100,7 @@ struct WaveletMatrix {
     }
     return ret;
   }
-  int range_freq(int l, int r, T lower, T upper, T value_xor = 0) {
+  int range_freq(int l, int r, T lower, T upper, T value_xor) {
     return range_freq(l, r, upper, value_xor) - range_freq(l, r, lower, value_xor);
   }
 

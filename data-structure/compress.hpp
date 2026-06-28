@@ -3,10 +3,10 @@
 template <class T>
 struct Compress : vector<T> {
   void build() {
-    sort(begin(), end());
-    erase(unique(begin(), end()), end());
+    sort(this->begin(), this->end());
+    this->erase(unique(this->begin(), this->end()), this->end());
   }
-  int find(T v) const { return int(lower_bound(begin(), end(), v) - begin()); }
+  int find(T v) const { return int(lower_bound(this->begin(), this->end(), v) - this->begin()); }
 };
 
 /**
