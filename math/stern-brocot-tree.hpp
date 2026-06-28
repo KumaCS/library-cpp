@@ -89,24 +89,47 @@ struct SternBrocotTreeNode {
   }
   template <class F>
   static Node binary_search(T n, F f) {
-    Node res;
-    while (true) {
-      if (!f(res.a, res.b)) {
-        T ok = 0, ng = min(res.la > 0 ? (n - res.ra) / res.la : n, res.lb > 0 ? (n - res.rb) / res.lb : n) + 1;
-        while (ng - ok > 1) {
-          T mid = (ok + ng) / 2;
-          (!f(mid * res.la + res.ra, mid * res.lb + res.rb) ? ok : ng) = mid;
+    assert(0 <= n);
+    Node m;
+    if (n == 0) return {m.lower_bound(), m.upper_bound()};
+    auto over = [&](bool return_value) {
+      auto [p, q] = m.get();
+      return max(m.a, m.b) > n || f(p, q) == return_value;
+    };
+    if (f(0, 1)) return {m.lower_bound(), m.lower_bound()};
+    for (int go_left = over(true); true; go_left ^= 1) {
+      if (go_left) {
+        T a = 1;
+        for (; true; a *= 2) {
+          m.go_left(a);
+          if (over(false)) {
+            m.go_parent(a);
+            break;
+          }
         }
-        if (ok == 0) return res;
-        res.go_left(ok);
+        for (a /= 2; a != 0; a /= 2) {
+          m.go_left(a);
+          if (over(false)) m.go_parent(a);
+        }
+        m.go_left(1);
+        if (max(m.get().first, m.get().second) > n)
+          return {m.lower_bound(), m.upper_bound()};
       } else {
-        T ok = 0, ng = min(res.ra > 0 ? (n - res.la) / res.ra : n, res.rb > 0 ? (n - res.lb) / res.rb : n) + 1;
-        while (ng - ok > 1) {
-          T mid = (ok + ng) / 2;
-          (f(res.la + mid * res.ra, res.lb + mid * res.rb) ? ok : ng) = mid;
+        T a = 1;
+        for (; true; a *= 2) {
+          m.go_right(a);
+          if (over(true)) {
+            m.go_parent(a);
+            break;
+          }
         }
-        if (ok == 0) return res;
-        res.go_left(ok);
+        for (a /= 2; a != 0; a /= 2) {
+          m.go_right(a);
+          if (over(true)) m.go_parent(a);
+        }
+        m.go_right(1);
+        if (max(m.get().first, m.get().second) > n)
+          return {m.lower_bound(), m.upper_bound()};
       }
     }
   }
