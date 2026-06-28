@@ -63,8 +63,8 @@ data:
   isVerificationFile: false
   path: number-theory/divisor-multiple-transform.hpp
   requiredBy:
-  - convolution/gcd.hpp
   - convolution/lcm.hpp
+  - convolution/gcd.hpp
   timestamp: '2025-10-10 17:35:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

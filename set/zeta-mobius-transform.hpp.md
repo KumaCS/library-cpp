@@ -53,13 +53,13 @@ data:
   isVerificationFile: false
   path: set/zeta-mobius-transform.hpp
   requiredBy:
-  - set/and-convolution.hpp
   - set/or-convolution.hpp
+  - set/and-convolution.hpp
   timestamp: '2025-10-29 02:30:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/set/LC_bitwise_and_convolution.or.test.cpp
   - verify/set/LC_bitwise_and_convolution.test.cpp
+  - verify/set/LC_bitwise_and_convolution.or.test.cpp
 documentation_of: set/zeta-mobius-transform.hpp
 layout: document
 redirect_from:

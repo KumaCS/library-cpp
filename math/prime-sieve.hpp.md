@@ -33,8 +33,8 @@ data:
   isVerificationFile: false
   path: math/prime-sieve.hpp
   requiredBy:
-  - number-theory/sum-of-multiplicative-function.hpp
   - number-theory/lucy-dp.hpp
+  - number-theory/sum-of-multiplicative-function.hpp
   - math/range-sieve.hpp
   timestamp: '2025-10-21 21:13:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS

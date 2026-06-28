@@ -3,8 +3,14 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
+    path: data-structure/wavelet-matrix-with-segment-tree.hpp
+    title: data-structure/wavelet-matrix-with-segment-tree.hpp
+  - icon: ':warning:'
     path: segment-tree/segment-tree-util.hpp
     title: "\u3088\u304F\u4F7F\u3046 Segment Tree"
+  - icon: ':warning:'
+    path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
+    title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/segment-tree/LC_point_add_range_sum.test.cpp
@@ -95,12 +101,14 @@ data:
   isVerificationFile: false
   path: segment-tree/segment-tree.hpp
   requiredBy:
+  - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
   - segment-tree/segment-tree-util.hpp
+  - data-structure/wavelet-matrix-with-segment-tree.hpp
   timestamp: '2025-11-20 21:02:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/segment-tree/LC_point_add_range_sum.test.cpp
   - verify/segment-tree/LC_point_set_range_composite.test.cpp
+  - verify/segment-tree/LC_point_add_range_sum.test.cpp
 documentation_of: segment-tree/segment-tree.hpp
 layout: document
 redirect_from:

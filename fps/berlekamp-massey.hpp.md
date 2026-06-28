@@ -127,8 +127,8 @@ data:
   timestamp: '2025-11-06 12:30:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_consecutive_terms_of_linear_recurrent_sequence.test.cpp
+  - verify/fps/LC_find_linear_recurrence.test.cpp
   - verify/fps/LC_kth_term_of_linearly_recurrent_sequence.test.cpp
 documentation_of: fps/berlekamp-massey.hpp
 layout: document

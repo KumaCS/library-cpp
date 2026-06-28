@@ -36,6 +36,9 @@ title: "\u5EA7\u6A19\u5727\u7E2E"
 ---
 座標圧縮をする．
 
-- `build` で構築
-- `[]` で座標圧縮後の要素にアクセス
-- `find` で座標圧縮後の index を検索, lower bound を返す
+- 圧縮したい値を `push_back` などで追加する．
+- `build()`：追加した値を sort し，重複を除く．
+- `operator[]`：圧縮後の番号から元の値を取得する．
+- `find(v)`：値 `v` の圧縮後の index を返す．存在しない場合も lower bound の位置を返す．
+
+`Compress<T>` は `vector<T>` を継承しているため，圧縮後の値集合そのものとして扱える．

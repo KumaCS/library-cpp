@@ -190,8 +190,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
 documentation_of: fps/polynomial-interpolation.hpp
 layout: document
 redirect_from:

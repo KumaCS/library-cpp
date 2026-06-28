@@ -54,8 +54,8 @@ data:
   timestamp: '2026-02-28 01:08:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/data-structure/LC_staticrmq.test.cpp
   - verify/tree/LC_lowest_common_ancestor.test.cpp
+  - verify/data-structure/LC_staticrmq.test.cpp
 documentation_of: data-structure/sparse-table.hpp
 layout: document
 redirect_from:

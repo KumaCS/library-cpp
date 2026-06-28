@@ -44,16 +44,22 @@ data:
     \   } else {\n        ra -= la * d1, rb -= lb * d1;\n        seq.back() += d1;\n\
     \      }\n      a = la + ra, b = lb + rb;\n      if (seq.back() <= 0) seq.pop_back();\n\
     \      d -= d1;\n    }\n    return true;\n  }\n  template <class F>\n  static\
-    \ Node binary_search(T n, F f) {\n    Node res;\n    while (true) {\n      if\
-    \ (!f(res.a, res.b)) {\n        T ok = 0, ng = min(res.la > 0 ? (n - res.ra) /\
-    \ res.la : n, res.lb > 0 ? (n - res.rb) / res.lb : n) + 1;\n        while (ng\
-    \ - ok > 1) {\n          T mid = (ok + ng) / 2;\n          (!f(mid * res.la +\
-    \ res.ra, mid * res.lb + res.rb) ? ok : ng) = mid;\n        }\n        if (ok\
-    \ == 0) return res;\n        res.go_left(ok);\n      } else {\n        T ok =\
-    \ 0, ng = min(res.ra > 0 ? (n - res.la) / res.ra : n, res.rb > 0 ? (n - res.lb)\
-    \ / res.rb : n) + 1;\n        while (ng - ok > 1) {\n          T mid = (ok + ng)\
-    \ / 2;\n          (f(res.la + mid * res.ra, res.lb + mid * res.rb) ? ok : ng)\
-    \ = mid;\n        }\n        if (ok == 0) return res;\n        res.go_left(ok);\n\
+    \ Node binary_search(T n, F f) {\n    assert(0 <= n);\n    Node m;\n    if (n\
+    \ == 0) return {m.lower_bound(), m.upper_bound()};\n    auto over = [&](bool return_value)\
+    \ {\n      auto [p, q] = m.get();\n      return max(m.a, m.b) > n || f(p, q) ==\
+    \ return_value;\n    };\n    if (f(0, 1)) return {m.lower_bound(), m.lower_bound()};\n\
+    \    for (int go_left = over(true); true; go_left ^= 1) {\n      if (go_left)\
+    \ {\n        T a = 1;\n        for (; true; a *= 2) {\n          m.go_left(a);\n\
+    \          if (over(false)) {\n            m.go_parent(a);\n            break;\n\
+    \          }\n        }\n        for (a /= 2; a != 0; a /= 2) {\n          m.go_left(a);\n\
+    \          if (over(false)) m.go_parent(a);\n        }\n        m.go_left(1);\n\
+    \        if (max(m.get().first, m.get().second) > n)\n          return {m.lower_bound(),\
+    \ m.upper_bound()};\n      } else {\n        T a = 1;\n        for (; true; a\
+    \ *= 2) {\n          m.go_right(a);\n          if (over(true)) {\n           \
+    \ m.go_parent(a);\n            break;\n          }\n        }\n        for (a\
+    \ /= 2; a != 0; a /= 2) {\n          m.go_right(a);\n          if (over(true))\
+    \ m.go_parent(a);\n        }\n        m.go_right(1);\n        if (max(m.get().first,\
+    \ m.get().second) > n)\n          return {m.lower_bound(), m.upper_bound()};\n\
     \      }\n    }\n  }\n};\n\n/**\n * @brief Stern-Brocot Tree\n * @docs docs/math/stern-brocot-tree.md\n\
     \ */\n"
   code: "#pragma once\n\ntemplate <class T>\nstruct SternBrocotTreeNode {\n  using\
@@ -87,23 +93,29 @@ data:
     \    ra -= la * d1, rb -= lb * d1;\n        seq.back() += d1;\n      }\n     \
     \ a = la + ra, b = lb + rb;\n      if (seq.back() <= 0) seq.pop_back();\n    \
     \  d -= d1;\n    }\n    return true;\n  }\n  template <class F>\n  static Node\
-    \ binary_search(T n, F f) {\n    Node res;\n    while (true) {\n      if (!f(res.a,\
-    \ res.b)) {\n        T ok = 0, ng = min(res.la > 0 ? (n - res.ra) / res.la : n,\
-    \ res.lb > 0 ? (n - res.rb) / res.lb : n) + 1;\n        while (ng - ok > 1) {\n\
-    \          T mid = (ok + ng) / 2;\n          (!f(mid * res.la + res.ra, mid *\
-    \ res.lb + res.rb) ? ok : ng) = mid;\n        }\n        if (ok == 0) return res;\n\
-    \        res.go_left(ok);\n      } else {\n        T ok = 0, ng = min(res.ra >\
-    \ 0 ? (n - res.la) / res.ra : n, res.rb > 0 ? (n - res.lb) / res.rb : n) + 1;\n\
-    \        while (ng - ok > 1) {\n          T mid = (ok + ng) / 2;\n          (f(res.la\
-    \ + mid * res.ra, res.lb + mid * res.rb) ? ok : ng) = mid;\n        }\n      \
-    \  if (ok == 0) return res;\n        res.go_left(ok);\n      }\n    }\n  }\n};\n\
-    \n/**\n * @brief Stern-Brocot Tree\n * @docs docs/math/stern-brocot-tree.md\n\
+    \ binary_search(T n, F f) {\n    assert(0 <= n);\n    Node m;\n    if (n == 0)\
+    \ return {m.lower_bound(), m.upper_bound()};\n    auto over = [&](bool return_value)\
+    \ {\n      auto [p, q] = m.get();\n      return max(m.a, m.b) > n || f(p, q) ==\
+    \ return_value;\n    };\n    if (f(0, 1)) return {m.lower_bound(), m.lower_bound()};\n\
+    \    for (int go_left = over(true); true; go_left ^= 1) {\n      if (go_left)\
+    \ {\n        T a = 1;\n        for (; true; a *= 2) {\n          m.go_left(a);\n\
+    \          if (over(false)) {\n            m.go_parent(a);\n            break;\n\
+    \          }\n        }\n        for (a /= 2; a != 0; a /= 2) {\n          m.go_left(a);\n\
+    \          if (over(false)) m.go_parent(a);\n        }\n        m.go_left(1);\n\
+    \        if (max(m.get().first, m.get().second) > n)\n          return {m.lower_bound(),\
+    \ m.upper_bound()};\n      } else {\n        T a = 1;\n        for (; true; a\
+    \ *= 2) {\n          m.go_right(a);\n          if (over(true)) {\n           \
+    \ m.go_parent(a);\n            break;\n          }\n        }\n        for (a\
+    \ /= 2; a != 0; a /= 2) {\n          m.go_right(a);\n          if (over(true))\
+    \ m.go_parent(a);\n        }\n        m.go_right(1);\n        if (max(m.get().first,\
+    \ m.get().second) > n)\n          return {m.lower_bound(), m.upper_bound()};\n\
+    \      }\n    }\n  }\n};\n\n/**\n * @brief Stern-Brocot Tree\n * @docs docs/math/stern-brocot-tree.md\n\
     \ */"
   dependsOn: []
   isVerificationFile: false
   path: math/stern-brocot-tree.hpp
   requiredBy: []
-  timestamp: '2025-10-26 03:52:03+09:00'
+  timestamp: '2026-06-28 14:52:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/math/LC_stern_brocot_tree.test.cpp
@@ -129,5 +141,5 @@ Stern-Brocot Tree 上のノードに対応する構造体．
 - `depth()` : SBT 上での深さを計算．
 - `go_parent(T d = 1)` : 親へ $d$ 回上がる．深さが $d$ 未満なら $1/1$ で停止して `false` を返す．
 - `SternBrocotTreeNode::lca(x, y)` : `x`, `y` の LCA を計算．
-- `SternBrocotTreeNode::binary_search<F>(T n, F f)` : `f(a,b)` が `true` かつ分母が $n$ 以下の最小のノードを返す．
+- `SternBrocotTreeNode::binary_search<F>(T n, F f)` : 分母が $n$ 以下の既約分数で，`f(a,b)` が `false` のうち最大，`f(a,b)` が `true` のうち最小のものをそれぞれ求める．
   - $f(a,b)$ は $a/b$ について単調であることが必要．

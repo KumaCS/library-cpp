@@ -155,9 +155,9 @@ data:
   verifiedWith:
   - verify/fps/LC_multipoint_evaluation.test.cpp
   - verify/fps/UNIT_prefix_sum_of_polynomial.test.cpp
-  - verify/fps/LC_polynomial_interpolation.test.cpp
   - verify/fps/LC_polynomial_interpolation_on_geometric_sequence.test.cpp
   - verify/fps/LC_multipoint_evaluation_on_geometric_sequence.test.cpp
+  - verify/fps/LC_polynomial_interpolation.test.cpp
 documentation_of: fps/multipoint-evaluation.hpp
 layout: document
 redirect_from:

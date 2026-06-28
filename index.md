@@ -4,6 +4,9 @@ data:
   - name: algorithm
     pages:
     - icon: ':warning:'
+      path: algorithm/cartesian-tree.hpp
+      title: algorithm/cartesian-tree.hpp
+    - icon: ':warning:'
       path: algorithm/mo.hpp
       title: algorithm/mo.hpp
     - icon: ':heavy_check_mark:'
@@ -60,8 +63,14 @@ data:
       path: data-structure/binary-indexed-tree.hpp
       title: Binary Indexed Tree
     - icon: ':warning:'
+      path: data-structure/bit-vector.hpp
+      title: data-structure/bit-vector.hpp
+    - icon: ':warning:'
       path: data-structure/compress.hpp
       title: "\u5EA7\u6A19\u5727\u7E2E"
+    - icon: ':heavy_check_mark:'
+      path: data-structure/double-ended-priority-queue.hpp
+      title: Double Ended Priority Queue
     - icon: ':heavy_check_mark:'
       path: data-structure/integer-set.hpp
       title: "\u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)"
@@ -74,6 +83,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/sparse-table.hpp
       title: data-structure/sparse-table.hpp
+    - icon: ':warning:'
+      path: data-structure/wavelet-matrix-with-segment-tree.hpp
+      title: data-structure/wavelet-matrix-with-segment-tree.hpp
+    - icon: ':warning:'
+      path: data-structure/wavelet-matrix-with-weight.hpp
+      title: data-structure/wavelet-matrix-with-weight.hpp
+    - icon: ':warning:'
+      path: data-structure/wavelet-matrix.hpp
+      title: Wavelet Matrix
   - name: fft
     pages:
     - icon: ':heavy_check_mark:'
@@ -370,6 +388,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: util/xorshift.hpp
       title: XOR shift
+  - name: verify/data-structure
+    pages:
+    - icon: ':warning:'
+      path: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
+      title: verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.cpp
+    - icon: ':warning:'
+      path: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
+      title: verify/data-structure/LC_rectangle_sum.wavelet_matrix.cpp
   verificationCategories:
   - name: verify/binary-search-tree
     pages:
@@ -401,6 +427,9 @@ data:
       title: verify/convolution/LC_min_plus_convolution_convex_convex.test.cpp
   - name: verify/data-structure
     pages:
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/LC_double_ended_priority_queue.test.cpp
+      title: verify/data-structure/LC_double_ended_priority_queue.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/LC_point_add_range_sum.test.cpp
       title: verify/data-structure/LC_point_add_range_sum.test.cpp
