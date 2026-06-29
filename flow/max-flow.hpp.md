@@ -4,7 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: data-structure/simple-queue.hpp
     title: data-structure/simple-queue.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: flow/project-selection-problem.hpp
+    title: Project Selection Problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/flow/AOJ_GRL_6_A.test.cpp
@@ -114,7 +117,8 @@ data:
   - data-structure/simple-queue.hpp
   isVerificationFile: false
   path: flow/max-flow.hpp
-  requiredBy: []
+  requiredBy:
+  - flow/project-selection-problem.hpp
   timestamp: '2026-06-28 19:44:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

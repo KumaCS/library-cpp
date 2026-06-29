@@ -92,6 +92,9 @@ data:
       path: data-structure/integer-set.hpp
       title: "\u6574\u6570\u306E\u96C6\u5408(64\u5206\u6728)"
     - icon: ':heavy_check_mark:'
+      path: data-structure/interval-set.hpp
+      title: "\u533A\u9593\u96C6\u5408"
+    - icon: ':heavy_check_mark:'
       path: data-structure/persistent-array.hpp
       title: Persistent Array
     - icon: ':warning:'
@@ -125,6 +128,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: flow/max-flow.hpp
       title: Max Flow
+    - icon: ':warning:'
+      path: flow/project-selection-problem.hpp
+      title: Project Selection Problem
   - name: fps
     pages:
     - icon: ':heavy_check_mark:'
@@ -506,6 +512,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/LC_staticrmq.test.cpp
       title: verify/data-structure/LC_staticrmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/UNIT_interval_set.test.cpp
+      title: verify/data-structure/UNIT_interval_set.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/UNIT_simple_queue.test.cpp
       title: verify/data-structure/UNIT_simple_queue.test.cpp

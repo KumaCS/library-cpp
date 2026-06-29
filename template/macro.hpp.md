@@ -67,6 +67,9 @@ data:
     path: verify/data-structure/LC_staticrmq.test.cpp
     title: verify/data-structure/LC_staticrmq.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/data-structure/UNIT_interval_set.test.cpp
+    title: verify/data-structure/UNIT_interval_set.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/data-structure/UNIT_simple_queue.test.cpp
     title: verify/data-structure/UNIT_simple_queue.test.cpp
   - icon: ':heavy_check_mark:'
@@ -472,6 +475,7 @@ data:
   - verify/data-structure/LC_point_add_range_sum.test.cpp
   - verify/data-structure/UNIT_simple_queue.test.cpp
   - verify/data-structure/LC_static_range_frequency.test.cpp
+  - verify/data-structure/UNIT_interval_set.test.cpp
   - verify/data-structure/LC_point_add_rectangle_sum.wavelet_matrix.test.cpp
   - verify/binary-search-tree/UNIT_rbst_array.test.cpp
   - verify/flow/AOJ_GRL_6_A.test.cpp

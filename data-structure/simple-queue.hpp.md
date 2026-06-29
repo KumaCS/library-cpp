@@ -5,6 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: flow/max-flow.hpp
     title: Max Flow
+  - icon: ':warning:'
+    path: flow/project-selection-problem.hpp
+    title: Project Selection Problem
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/data-structure/UNIT_simple_queue.test.cpp
@@ -35,6 +38,7 @@ data:
   path: data-structure/simple-queue.hpp
   requiredBy:
   - flow/max-flow.hpp
+  - flow/project-selection-problem.hpp
   timestamp: '2026-06-28 19:44:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
