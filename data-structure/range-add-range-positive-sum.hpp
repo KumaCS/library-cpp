@@ -73,3 +73,8 @@ struct RangeAddRangePositiveSum {
     return sorted_sum[r1] - sorted_sum[l1 + i] + lazy[k] * (sz - i);
   }
 };
+
+/**
+ * @brief Range Add Range Positive Sum
+ * @docs docs/data-structure/range-add-range-positive-sum.md
+ */
