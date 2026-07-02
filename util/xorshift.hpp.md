@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/data-structure/UNIT_interval_set.test.cpp
     title: verify/data-structure/UNIT_interval_set.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
+    title: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -32,6 +35,7 @@ data:
   timestamp: '2025-11-13 15:25:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
   - verify/data-structure/UNIT_interval_set.test.cpp
   - verify/binary-search-tree/UNIT_rbst_array.test.cpp
 documentation_of: util/xorshift.hpp

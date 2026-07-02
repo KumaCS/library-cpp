@@ -97,6 +97,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: data-structure/persistent-array.hpp
       title: Persistent Array
+    - icon: ':heavy_check_mark:'
+      path: data-structure/range-add-range-positive-sum.hpp
+      title: data-structure/range-add-range-positive-sum.hpp
     - icon: ':warning:'
       path: data-structure/range-array.hpp
       title: data-structure/range-array.hpp
@@ -515,6 +518,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/UNIT_interval_set.test.cpp
       title: verify/data-structure/UNIT_interval_set.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
+      title: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/data-structure/UNIT_simple_queue.test.cpp
       title: verify/data-structure/UNIT_simple_queue.test.cpp

@@ -70,6 +70,9 @@ data:
     path: verify/data-structure/UNIT_interval_set.test.cpp
     title: verify/data-structure/UNIT_interval_set.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
+    title: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/data-structure/UNIT_simple_queue.test.cpp
     title: verify/data-structure/UNIT_simple_queue.test.cpp
   - icon: ':heavy_check_mark:'
@@ -468,6 +471,7 @@ data:
   - verify/data-structure/LC_staticrmq.test.cpp
   - verify/data-structure/LC_predecessor_problem.test.cpp
   - verify/data-structure/LC_rectangle_sum.wavelet_matrix.test.cpp
+  - verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
   - verify/data-structure/LC_double_ended_priority_queue.test.cpp
   - verify/data-structure/LC_range_kth_smallest.test.cpp
   - verify/data-structure/LC_static_range_sum.test.cpp
