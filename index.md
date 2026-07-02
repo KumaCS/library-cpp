@@ -99,7 +99,7 @@ data:
       title: Persistent Array
     - icon: ':heavy_check_mark:'
       path: data-structure/range-add-range-positive-sum.hpp
-      title: data-structure/range-add-range-positive-sum.hpp
+      title: Range Add Range Positive Sum
     - icon: ':warning:'
       path: data-structure/range-array.hpp
       title: data-structure/range-array.hpp

@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: data-structure/range-add-range-positive-sum.hpp
-    title: data-structure/range-add-range-positive-sum.hpp
+    title: Range Add Range Positive Sum
   - icon: ':heavy_check_mark:'
     path: template/debug.hpp
     title: template/debug.hpp
@@ -130,14 +130,15 @@ data:
     \ r = min(N, l + B);\n    int sz = r - l;\n    auto itl = sorted.begin() + l;\n\
     \    int i = lower_bound(itl, itl + sz, -lazy[k]) - itl;\n    int l1 = l + k,\
     \ r1 = l1 + sz;\n    return sorted_sum[r1] - sorted_sum[l1 + i] + lazy[k] * (sz\
-    \ - i);\n  }\n};\n#line 2 \"util/xorshift.hpp\"\n\nnamespace XORShift {\nunsigned\
-    \ int xor32() {\n  static unsigned int x = 123456789u;\n  x ^= x << 13, x ^= x\
-    \ >> 17, x ^= x << 5;\n  return x;\n}\nunsigned long long xor64() {\n  static\
-    \ unsigned long long x = 123456789ull;\n  x ^= x << 13, x ^= x >> 7, x ^= x <<\
-    \ 17;\n  return x;\n}\n};  // namespace XORShift\n\n/**\n * @brief XOR shift\n\
-    \ */\n#line 6 \"verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp\"\
-    \n\nlong long naive_sum(const vector<long long>& a, int l, int r) {\n  long long\
-    \ ret = 0;\n  rep(i, l, r) ret += max(0LL, a[i]);\n  return ret;\n}\n\nvoid check_all(const\
+    \ - i);\n  }\n};\n\n/**\n * @brief Range Add Range Positive Sum\n * @docs docs/data-structure/range-add-range-positive-sum.md\n\
+    \ */\n#line 2 \"util/xorshift.hpp\"\n\nnamespace XORShift {\nunsigned int xor32()\
+    \ {\n  static unsigned int x = 123456789u;\n  x ^= x << 13, x ^= x >> 17, x ^=\
+    \ x << 5;\n  return x;\n}\nunsigned long long xor64() {\n  static unsigned long\
+    \ long x = 123456789ull;\n  x ^= x << 13, x ^= x >> 7, x ^= x << 17;\n  return\
+    \ x;\n}\n};  // namespace XORShift\n\n/**\n * @brief XOR shift\n */\n#line 6 \"\
+    verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp\"\n\nlong long\
+    \ naive_sum(const vector<long long>& a, int l, int r) {\n  long long ret = 0;\n\
+    \  rep(i, l, r) ret += max(0LL, a[i]);\n  return ret;\n}\n\nvoid check_all(const\
     \ RangeAddRangePositiveSum<long long>& ds, const vector<long long>& a) {\n  int\
     \ n = a.size();\n  rep(l, 0, n + 1) rep(r, l, n + 1) {\n    assert(ds.sum(l, r)\
     \ == naive_sum(a, l, r));\n  }\n}\n\nvoid add_naive(vector<long long>& a, int\
@@ -214,7 +215,7 @@ data:
   isVerificationFile: true
   path: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
   requiredBy: []
-  timestamp: '2026-07-02 22:08:34+09:00'
+  timestamp: '2026-07-02 22:11:12+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/data-structure/UNIT_range_add_range_positive_sum.test.cpp
