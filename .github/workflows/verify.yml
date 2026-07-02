@@ -2,15 +2,18 @@ name: verify
 
 on: push
 
+permissions:
+  contents: write
+
 jobs:
   verify:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v5
       with:
         python-version: '3.14'
 
@@ -25,3 +28,66 @@ jobs:
         YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify all --timeout=3600
+
+    - name: Generate docs with Library Checker coverage
+      env:
+        REPO_LINK_PREFIX: https://github.com/${{ github.repository }}/blob/${{ github.sha }}/
+      run: |
+        oj-verify docs
+        python3 tools/library_checker_coverage.py --refresh --mode all --format page --link-prefix "$REPO_LINK_PREFIX" --update-pages-index .verify-helper/markdown/index.md > .verify-helper/markdown/library-checker-coverage.md
+
+    - name: Publish docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./.verify-helper/markdown
+
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.14'
+
+    - name: Generate Library Checker coverage
+      env:
+        REPO_LINK_PREFIX: https://github.com/${{ github.repository }}/blob/${{ github.sha }}/
+      run: |
+        python3 tools/library_checker_coverage.py --refresh --mode all --format json > library-checker-coverage.json
+        python3 tools/library_checker_coverage.py --mode all --format csv > library-checker-coverage.csv
+        python3 tools/library_checker_coverage.py --mode all --format markdown --link-prefix "$REPO_LINK_PREFIX" > library-checker-coverage.md
+
+        BEFORE="${{ github.event.before }}"
+        if [ "$BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$BEFORE^{commit}"; then
+          git worktree add /tmp/library-checker-coverage-base "$BEFORE"
+          python3 tools/library_checker_coverage.py --root /tmp/library-checker-coverage-base --mode all --format json > library-checker-coverage.previous.json
+          set +e
+          python3 tools/library_checker_coverage.py --mode all --format summary --compare-json library-checker-coverage.previous.json --fail-on-decrease --link-prefix "$REPO_LINK_PREFIX" > library-checker-coverage-summary.md
+          COVERAGE_STATUS=$?
+          set -e
+        else
+          echo "[]" > library-checker-coverage.previous.json
+          python3 tools/library_checker_coverage.py --mode all --format summary --link-prefix "$REPO_LINK_PREFIX" > library-checker-coverage-summary.md
+          COVERAGE_STATUS=0
+        fi
+
+        cat library-checker-coverage-summary.md >> "$GITHUB_STEP_SUMMARY"
+        exit "$COVERAGE_STATUS"
+
+    - name: Upload Library Checker coverage
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: library-checker-coverage
+        path: |
+          library-checker-coverage.md
+          library-checker-coverage-summary.md
+          library-checker-coverage.json
+          library-checker-coverage.previous.json
+          library-checker-coverage.csv
