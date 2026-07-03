@@ -83,7 +83,7 @@ jobs:
       if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        personal_token: ${{ secrets.GH_PAT }}
         publish_dir: ./.verify-helper/markdown
         force_orphan: true
 
