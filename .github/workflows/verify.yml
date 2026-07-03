@@ -79,12 +79,26 @@ jobs:
         oj-verify docs
         python3 tools/library_checker_coverage.py --refresh --mode all --format page --link-prefix "$REPO_LINK_PREFIX" --update-pages-index .verify-helper/markdown/index.md > .verify-helper/markdown/library-checker-coverage.md
 
+    - name: Set up Ruby for docs
+      if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+        working-directory: .verify-helper/markdown
+
+    - name: Build docs site
+      if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+      run: |
+        cd .verify-helper/markdown
+        bundle exec jekyll build
+
     - name: Publish docs
       if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
       uses: peaceiris/actions-gh-pages@v3
       with:
         personal_token: ${{ secrets.GH_PAT }}
-        publish_dir: ./.verify-helper/markdown
+        publish_dir: ./.verify-helper/markdown/_site
         force_orphan: true
 
   coverage:

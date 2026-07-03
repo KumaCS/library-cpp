@@ -2,6 +2,7 @@
 import argparse
 import csv
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -12,10 +13,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCAN_ROOT = ROOT
 CACHE_PATH = ROOT / "cache" / "library_checker_problems.json"
-TREE_URL = "https://api.github.com/repos/yosupo06/library-checker-problems/git/trees/master?recursive=1"
-PROBLEMS_URL = "https://v3.api.judge.yosupo.jp/problems"
-CATEGORIES_URL = "https://v3.api.judge.yosupo.jp/categories"
+PROBLEMS_URL = os.environ.get("LIBRARY_CHECKER_PROBLEMS_URL", "https://v3.api.judge.yosupo.jp/problems")
+CATEGORIES_URL = os.environ.get("LIBRARY_CHECKER_CATEGORIES_URL", "https://v3.api.judge.yosupo.jp/categories")
 PROBLEM_URL = "https://judge.yosupo.jp/problem/"
+UNCATEGORIZED = "Uncategorized"
 
 PROBLEM_RE = re.compile(r'#\s*define\s+PROBLEM\s+"([^"]+)"')
 INCLUDE_RE = re.compile(r'#\s*include\s+"([^"]+\.hpp)"')
@@ -25,6 +26,10 @@ def fetch_bytes(url: str) -> bytes:
     request = urllib.request.Request(url, headers={"User-Agent": "library-checker-coverage"})
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read()
+
+
+def fetch_json(url: str) -> object:
+    return json.loads(fetch_bytes(url))
 
 
 def problem_id_from_url(url: str) -> str | None:
@@ -59,22 +64,8 @@ def load_remote_problems(refresh: bool) -> list[dict[str, str]]:
     if CACHE_PATH.exists() and not refresh:
         return [problem for problem in json.loads(CACHE_PATH.read_text()) if problem.get("category") != "Test"]
 
-    api_problems = json.loads(fetch_bytes(PROBLEMS_URL))["problems"]
-    tree_data = json.loads(fetch_bytes(TREE_URL))
+    api_problems = fetch_json(PROBLEMS_URL)["problems"]
     category_names = parse_categories(fetch_bytes(CATEGORIES_URL))
-
-    paths = {}
-    fallback_categories = {}
-    for entry in tree_data.get("tree", []):
-        path = entry.get("path", "")
-        if not path.endswith("/info.toml"):
-            continue
-        directory, _, _ = path.rpartition("/")
-        category_dir, _, problem_id = directory.partition("/")
-        if not problem_id:
-            continue
-        paths[problem_id] = directory
-        fallback_categories[problem_id] = category_dir.replace("_", " ").title()
 
     problems = {}
     for problem in api_problems:
@@ -82,8 +73,8 @@ def load_remote_problems(refresh: bool) -> list[dict[str, str]]:
         problems[problem_id] = {
             "id": problem_id,
             "title": problem.get("title") or title_from_id(problem_id),
-            "category": category_names.get(problem_id, fallback_categories.get(problem_id, "Other")),
-            "path": paths.get(problem_id, ""),
+            "category": category_names.get(problem_id, UNCATEGORIZED),
+            "path": "",
             "url": f"{PROBLEM_URL}{problem_id}",
         }
 
