@@ -6,6 +6,7 @@
 ## 自動 verify
 
 GitHub へ push すると [online-judge-tools/verification-helper](https://github.com/online-judge-tools/verification-helper/tree/master) を利用して自動で verify を実行します．
+verify の timestamp は `verify-cache` ブランチに保存し，main ブランチには自動 commit を追加しません．
 
 また verification-helper により生成されたドキュメントは Pages で確認できます．
 Library Checker coverage も Pages に出力されます．

@@ -5,12 +5,18 @@ on: push
 permissions:
   contents: write
 
+concurrency:
+  group: verify-cache-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   verify:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -22,12 +28,48 @@ jobs:
         pip3 install -U "setuptools<81"
         pip3 install -U online-judge-verify-helper
 
+    - name: Restore verify cache
+      run: |
+        git fetch origin verify-cache || true
+        if git show-ref --verify --quiet refs/remotes/origin/verify-cache; then
+          git checkout origin/verify-cache -- .verify-helper/timestamps.local.json || true
+          git checkout origin/verify-cache -- .verify-helper/timestamps.remote.json || true
+        fi
+
     - name: Run tests
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
-        GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify run --timeout=3600
+
+    - name: Save verify cache
+      if: always()
+      run: |
+        mkdir -p /tmp/verify-cache-files/.verify-helper
+        found=0
+        for file in .verify-helper/timestamps.local.json .verify-helper/timestamps.remote.json; do
+          if [ -f "$file" ]; then
+            cp "$file" /tmp/verify-cache-files/.verify-helper/
+            found=1
+          fi
+        done
+
+        if [ "$found" -eq 0 ]; then
+          echo "No verify timestamp files found."
+          exit 0
+        fi
+
+        git worktree add /tmp/verify-cache-worktree HEAD
+        cd /tmp/verify-cache-worktree
+        git switch --orphan verify-cache
+        git rm -rf . || true
+        mkdir -p .verify-helper
+        cp /tmp/verify-cache-files/.verify-helper/*.json .verify-helper/
+
+        git config user.name "GitHub"
+        git config user.email "noreply@github.com"
+        git add .verify-helper
+        git commit -m "Update verify cache" || exit 0
+        git push --force origin HEAD:verify-cache
 
     - name: Generate docs with Library Checker coverage
       if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
@@ -43,6 +85,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./.verify-helper/markdown
+        force_orphan: true
 
   coverage:
     runs-on: ubuntu-latest
