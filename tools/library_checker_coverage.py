@@ -4,7 +4,6 @@ import csv
 import json
 import re
 import sys
-import tomllib
 import urllib.request
 from collections import defaultdict
 from pathlib import Path
@@ -14,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SCAN_ROOT = ROOT
 CACHE_PATH = ROOT / "cache" / "library_checker_problems.json"
 TREE_URL = "https://api.github.com/repos/yosupo06/library-checker-problems/git/trees/master?recursive=1"
-CATEGORIES_URL = "https://raw.githubusercontent.com/yosupo06/library-checker-problems/master/categories.toml"
+PROBLEMS_URL = "https://v3.api.judge.yosupo.jp/problems"
+CATEGORIES_URL = "https://v3.api.judge.yosupo.jp/categories"
 PROBLEM_URL = "https://judge.yosupo.jp/problem/"
 
 PROBLEM_RE = re.compile(r'#\s*define\s+PROBLEM\s+"([^"]+)"')
@@ -45,24 +45,26 @@ def title_from_id(problem_id: str) -> str:
     return " ".join(words)
 
 
-def parse_categories(categories_toml: bytes) -> dict[str, str]:
-    data = tomllib.loads(categories_toml.decode())
+def parse_categories(categories_json: bytes) -> dict[str, str]:
+    data = json.loads(categories_json)
     result = {}
-    for category in data.get("categories", []):
-        name = category.get("name", "")
+    for category in data["categories"]:
+        title = category["title"]
         for problem_id in category.get("problems", []):
-            result[problem_id] = name
+            result[problem_id] = title
     return result
 
 
 def load_remote_problems(refresh: bool) -> list[dict[str, str]]:
     if CACHE_PATH.exists() and not refresh:
-        return json.loads(CACHE_PATH.read_text())
+        return [problem for problem in json.loads(CACHE_PATH.read_text()) if problem.get("category") != "Test"]
 
+    api_problems = json.loads(fetch_bytes(PROBLEMS_URL))["problems"]
     tree_data = json.loads(fetch_bytes(TREE_URL))
     category_names = parse_categories(fetch_bytes(CATEGORIES_URL))
 
-    problems = {}
+    paths = {}
+    fallback_categories = {}
     for entry in tree_data.get("tree", []):
         path = entry.get("path", "")
         if not path.endswith("/info.toml"):
@@ -71,11 +73,17 @@ def load_remote_problems(refresh: bool) -> list[dict[str, str]]:
         category_dir, _, problem_id = directory.partition("/")
         if not problem_id:
             continue
+        paths[problem_id] = directory
+        fallback_categories[problem_id] = category_dir.replace("_", " ").title()
+
+    problems = {}
+    for problem in api_problems:
+        problem_id = problem["name"]
         problems[problem_id] = {
             "id": problem_id,
-            "title": title_from_id(problem_id),
-            "category": category_names.get(problem_id, category_dir.replace("_", " ").title()),
-            "path": directory,
+            "title": problem.get("title") or title_from_id(problem_id),
+            "category": category_names.get(problem_id, fallback_categories.get(problem_id, "Other")),
+            "path": paths.get(problem_id, ""),
             "url": f"{PROBLEM_URL}{problem_id}",
         }
 
