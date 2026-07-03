@@ -96,9 +96,12 @@ jobs:
       if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
       env:
         PAGES_REPO_NWO: ${{ github.repository }}
+        PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+        PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
       run: |
         cd .verify-helper/markdown
-        bundle exec jekyll build --url "${{ steps.pages.outputs.origin }}" --baseurl "${{ steps.pages.outputs.base_path }}"
+        printf 'url: "%s"\nbaseurl: "%s"\n' "$PAGES_ORIGIN" "$PAGES_BASE_PATH" > _config_pages.yml
+        bundle exec jekyll build --config _config.yml,_config_pages.yml
 
     - name: Publish docs
       if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
