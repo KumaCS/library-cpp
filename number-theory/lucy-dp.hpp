@@ -1,7 +1,7 @@
 #pragma once
 
 #include "math/util.hpp"
-#include "math/prime-sieve.hpp"
+#include "number-theory/prime-sieve.hpp"
 
 template <class T>
 pair<vector<long long>, vector<T>> LucyDP(long long n, function<T(ll)> point_value, function<T(ll)> prefix_sum) {

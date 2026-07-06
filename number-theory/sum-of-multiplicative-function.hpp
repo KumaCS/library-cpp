@@ -1,7 +1,7 @@
 #pragma once
 
 #include "math/util.hpp"
-#include "math/prime-sieve.hpp"
+#include "number-theory/prime-sieve.hpp"
 
 template <class T>
 T SumOfMultiplicativeFunction(long long n, T e, vector<T> prime_sum, function<T(ll, int, ll)> prime_power_value) {

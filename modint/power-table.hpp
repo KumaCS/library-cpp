@@ -1,5 +1,5 @@
 #pragma once
-#include "math/lpf-table.hpp"
+#include "number-theory/lpf-table.hpp"
 
 // 0^k,1^k,2^k,...,n^k
 template <class T>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/lpf-table.hpp"
+#include "number-theory/lpf-table.hpp"
 
 namespace TotientFunction {
 vector<int> table(int n) {

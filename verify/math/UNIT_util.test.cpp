@@ -39,6 +39,27 @@ void test_roots() {
     assert(!leq(x + 1));
   }
   assert(Math::floor_root(9223372036854775807LL, 2) == 3037000499LL);
+
+  auto check_unsigned_root = [](unsigned long long n, int k) {
+    unsigned long long x = Math::floor_root_unsigned(n, k);
+    auto leq = [&](unsigned long long a) {
+      __uint128_t p = 1;
+      rep(i, 0, k) {
+        p *= a;
+        if (p > n) return false;
+      }
+      return true;
+    };
+    assert(leq(x));
+    assert(x == numeric_limits<unsigned long long>::max() || !leq(x + 1));
+  };
+  rep(n, 0, 10000) rep(k, 1, 65) check_unsigned_root(n, k);
+  check_unsigned_root(numeric_limits<unsigned long long>::max(), 2);
+  check_unsigned_root(numeric_limits<unsigned long long>::max(), 63);
+  check_unsigned_root(numeric_limits<unsigned long long>::max(), 64);
+  assert(Math::floor_root_unsigned(numeric_limits<unsigned long long>::max(), 2) == 4294967295ULL);
+  assert(Math::floor_root_unsigned(numeric_limits<unsigned long long>::max(), 63) == 2);
+  assert(Math::floor_root_unsigned(numeric_limits<unsigned long long>::max(), 64) == 1);
 }
 
 void test_number_theory() {

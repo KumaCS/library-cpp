@@ -45,6 +45,26 @@ long long floor_root(long long n, int k) {
   while (!check(x)) x--;
   return x;
 }
+unsigned long long floor_root_unsigned(unsigned long long n, int k) {
+  assert(k >= 1);
+  if (n <= 1 || k == 1) return n;
+  if (k >= 64) return 1;
+  int bits = (64 + k - 1) / k;
+  unsigned long long ok = 1, ng = min(n, 1ULL << bits);
+  auto check = [&](unsigned long long a) {
+    __uint128_t p = 1;
+    for (int i = 0; i < k; i++) {
+      p *= a;
+      if (p > n) return false;
+    }
+    return true;
+  };
+  while (ok + 1 < ng) {
+    unsigned long long mid = ok + (ng - ok) / 2;
+    (check(mid) ? ok : ng) = mid;
+  }
+  return ok;
+}
 // return g=gcd(a,b)
 // a*x+b*y=g
 // - b!=0 -> 0<=x<|b|/g

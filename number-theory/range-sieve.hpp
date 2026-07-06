@@ -1,6 +1,6 @@
 #pragma once
 #include "math/util.hpp"
-#include "math/prime-sieve.hpp"
+#include "number-theory/prime-sieve.hpp"
 
 // lpf of [l,r]
 vector<long long> RangeSieve(long long l, long long r) {

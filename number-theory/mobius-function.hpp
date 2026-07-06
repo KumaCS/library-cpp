@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/lpf-table.hpp"
+#include "number-theory/lpf-table.hpp"
 
 namespace MobiusFunction {
 vector<int> table(int n) {
