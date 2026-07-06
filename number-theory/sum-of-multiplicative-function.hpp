@@ -4,7 +4,7 @@
 #include "number-theory/prime-sieve.hpp"
 
 template <class T>
-T SumOfMultiplicativeFunction(long long n, T e, vector<T> prime_sum, function<T(ll, int, ll)> prime_power_value) {
+T SumOfMultiplicativeFunction(long long n, T e, vector<T> prime_sum, function<T(long long, int, long long)> prime_power_value) {
   using ll = long long;
   ll sq = Math::isqrt(n);
   auto ps = PrimeSieve(sq);

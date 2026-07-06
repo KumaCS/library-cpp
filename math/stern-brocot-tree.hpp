@@ -58,7 +58,8 @@ struct SternBrocotTreeNode {
   }
   static Node lca(const Node& x, const Node& y) {
     Node res;
-    for (int i = 0; i < min(x.seq.size(), y.seq.size()); i++) {
+    int sz = min(x.seq.size(), y.seq.size());
+    for (int i = 0; i < sz; i++) {
       T d1 = x.seq[i], d2 = y.seq[i];
       if ((d1 > 0) != (d2 > 0)) break;
       if (d1 > 0)
@@ -88,7 +89,7 @@ struct SternBrocotTreeNode {
     return true;
   }
   template <class F>
-  static Node binary_search(T n, F f) {
+  static pair<pair<T, T>, pair<T, T>> binary_search(T n, F f) {
     assert(0 <= n);
     Node m;
     if (n == 0) return {m.lower_bound(), m.upper_bound()};
