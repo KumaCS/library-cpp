@@ -49,5 +49,5 @@ struct PersistentArray {
 
 /**
  * @brief Persistent Array
- * @docs docs/val-structure/persistent-array.md
+ * @docs docs/data-structure/persistent-array.md
  */

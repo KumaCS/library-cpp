@@ -11,8 +11,9 @@ int main() {
     ll n, x, y;
     in(n, x, y);
     auto [lower, upper] = sbt::binary_search(n, [&](ll p, ll q) {
-      return q == 0 || (__int128)x * q < (__int128)y * p;
+      return q == 0 || x * q < y * p;
     });
+    if (lower.first * y == lower.second * x) upper = lower;
     out(lower, upper);
   }
 }
