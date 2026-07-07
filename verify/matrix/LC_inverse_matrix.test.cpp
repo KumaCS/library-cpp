@@ -14,9 +14,10 @@ int main() {
     in(x);
     a.set(i, j, x);
   }
-  if (a.det() == mint(0)) {
+  auto inv = a.inv();
+  if (!inv) {
     out(-1);
   } else {
-    out(a.inv());
+    out(*inv);
   }
 }

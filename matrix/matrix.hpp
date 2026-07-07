@@ -69,7 +69,7 @@ struct Matrix {
     }
     return det;
   }
-  Matrix inv() const {
+  optional<Matrix> inv() const {
     assert(h == w);
     Matrix mat(*this);
     Matrix imat = id(h);
@@ -78,7 +78,7 @@ struct Matrix {
       {
         int i = k;
         while (i < h && mat.get(i, k) == zero) i++;
-        assert(i < h);
+        if (i == h) return nullopt;
         if (i != k) {
           mat.swap_row(i, k);
           imat.swap_row(i, k);
