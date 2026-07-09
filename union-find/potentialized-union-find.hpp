@@ -20,23 +20,23 @@ struct PotentializedUnionFind {
   }
   int size(int v) { return -a[find(v)]; }
   bool same(int u, int v) { return find(u) == find(v); }
-  // p[u]-p[v]=w
+  // diff(u, v) = w
   bool unite(int u, int v, T w) {
     int x = find(u), y = find(v);
-    if (x == y) return p[u] == G::op(p[v], w);
-    w = G::op(G::op(w, G::inv(p[u])), p[v]);
+    if (x == y) return G::op(p[u], G::inv(p[v])) == w;
+    w = G::op(G::op(G::inv(p[u]), w), p[v]);
     if (a[x] < a[y]) {
-      p[y] = G::op(p[x], G::inv(w));
+      p[y] = G::inv(w);
       a[x] += a[y];
       a[y] = x;
     } else {
-      p[x] = G::op(p[y], w);
+      p[x] = w;
       a[y] += a[x];
       a[x] = y;
     }
     return true;
   }
-  // p[u]-p[v]
+  // diff(u, v)
   T diff(int u, int v) {
     find(u);
     find(v);
