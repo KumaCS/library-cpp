@@ -3,6 +3,7 @@
 `DynamicSegmentTree2D<M, I>` として使う．`M` は可換モノイド，`I` は座標の型で，既定は `long long`．
 
 - `DynamicSegmentTree2D<M, I>(xl, xr, yl, yr)`：座標範囲 $[xl,xr)\times[yl,yr)$ で初期化する．
+- `set(x, y, v)`：点 $(x,y)$ の値を `v` にする．
 - `apply(x, y, v)`：点 $(x,y)$ にある値を `M::op(current, v)` で更新する．
 - `get(x, y)`：点 $(x,y)$ の値を返す．
 - `prod(xl, xr, yl, yr)`：$xl\leq x<xr,\ yl\leq y<yr$ の値を集約する．
@@ -15,7 +16,7 @@
 
 座標範囲の幅を $X,Y$ とする．
 
-- `apply`：$O(\log X\log Y)$
+- `set`, `apply`：$O(\log X\log Y)$
 - `get`：$O(\log X\log Y)$
 - `prod`：$O(\log X\log Y)$
 

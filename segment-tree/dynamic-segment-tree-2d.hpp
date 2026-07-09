@@ -15,6 +15,11 @@ struct DynamicSegmentTree2D {
     xs.push_back({});
     ys.emplace_back(y_low, y_high);
   }
+  void set(I x, I y, T v) {
+    assert(x_low <= x && x < x_high);
+    assert(y_low <= y && y < y_high);
+    root = set_x(root, x_low, x_high, x, y, v);
+  }
   void apply(I x, I y, T v) {
     assert(x_low <= x && x < x_high);
     assert(y_low <= y && y < y_high);
@@ -52,6 +57,23 @@ struct DynamicSegmentTree2D {
     return (int)xs.size() - 1;
   }
   static I mid(I l, I r) { return l + (r - l) / 2; }
+  T get_y(int t, I y) const {
+    return t == 0 ? M::e() : ys[t].get(y);
+  }
+  int set_x(int t, I l, I r, I x, I y, T v) {
+    if (t == 0) t = new_x_node();
+    if (r - l == 1) {
+      ys[t].set(y, v);
+      return t;
+    }
+    I m = mid(l, r);
+    if (x < m)
+      xs[t].l = set_x(xs[t].l, l, m, x, y, v);
+    else
+      xs[t].r = set_x(xs[t].r, m, r, x, y, v);
+    ys[t].set(y, M::op(get_y(xs[t].l, y), get_y(xs[t].r, y)));
+    return t;
+  }
   int apply_x(int t, I l, I r, I x, I y, T v) {
     if (t == 0) t = new_x_node();
     ys[t].apply(y, v);
