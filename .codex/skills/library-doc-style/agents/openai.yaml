@@ -1,0 +1,4 @@
+interface:
+  display_name: "Library Doc Style"
+  short_description: "Write docs in this library's established style"
+  default_prompt: "Use $library-doc-style to draft or revise a library doc page in the local style."
