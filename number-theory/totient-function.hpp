@@ -1,12 +1,12 @@
 #pragma once
 
-#include "number-theory/lpf-table.hpp"
+#include "number-theory/prime-sieve.hpp"
 
 namespace TotientFunction {
 vector<int> table(int n) {
   vector<int> tot(n + 1, 1);
   tot[0] = 0;
-  auto lpf = LPFTable(n);
+  auto lpf = PrimeSieve::lpf(n);
   for (int x = 2; x <= n; x++) {
     int p = lpf[x];
     if (x / p % p == 0)

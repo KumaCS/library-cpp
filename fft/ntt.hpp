@@ -55,6 +55,7 @@ struct NTT {
   void ntt(vector<mint>& a) {
     int n = int(a.size());
     int h = __builtin_ctzll((unsigned int)n);
+    assert(h <= rank2);
     a.resize(1 << h);
     int len = 0;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed
     while (len < h) {
@@ -102,6 +103,7 @@ struct NTT {
   void intt(vector<mint>& a) {
     int n = int(a.size());
     int h = __builtin_ctzll((unsigned int)n);
+    assert(h <= rank2);
     a.resize(1 << h);
 
     int len = h;  // a[i, i+(n>>len), i+2*(n>>len), ..] is transformed

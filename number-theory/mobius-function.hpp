@@ -1,12 +1,12 @@
 #pragma once
 
-#include "number-theory/lpf-table.hpp"
+#include "number-theory/prime-sieve.hpp"
 
 namespace MobiusFunction {
 vector<int> table(int n) {
   vector<int> mu(n + 1, 1);
   mu[0] = 0;
-  auto lpf = LPFTable(n);
+  auto lpf = PrimeSieve::lpf(n);
   for (int x = 2; x <= n; x++) {
     int p = lpf[x];
     if (x / p % p == 0)

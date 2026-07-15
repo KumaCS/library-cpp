@@ -19,8 +19,11 @@ struct RollingHash {
   vector<u64> hash, pw;
   RollingHash() : hash({0}), pw({1}) {}
   template <class T>
-  RollingHash(vector<T>& a) : hash({0}), pw({1}) {
+  RollingHash(const vector<T>& a) : hash({0}), pw({1}) {
     for (auto v : a) push(v);
+  }
+  RollingHash(const string& s) : hash({0}), pw({1}) {
+    for (auto c : s) push(c);
   }
   template <class T>
   void push(T v) {

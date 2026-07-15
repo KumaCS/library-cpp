@@ -1,5 +1,5 @@
 #pragma once
-#include "number-theory/lpf-table.hpp"
+#include "number-theory/prime-sieve.hpp"
 
 // 0^k,1^k,2^k,...,n^k
 template <class T>
@@ -12,7 +12,7 @@ vector<T> PowerTable(int n, int k) {
   } else {
     f = vector<T>(n + 1, 1);
     f[0] = 0;
-    auto lpf = LPFTable(n);
+    auto lpf = PrimeSieve::lpf(n);
     for (int i = 2; i <= n; i++)
       f[i] = lpf[i] == i ? T(i).pow(k) : f[i / lpf[i]] * f[lpf[i]];
   }

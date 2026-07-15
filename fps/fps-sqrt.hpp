@@ -27,7 +27,7 @@ FormalPowerSeries<mint> FpsSqrt(const FormalPowerSeries<mint> &f, int deg = -1) 
   FormalPowerSeries<mint> ret = {mint(sqr)};
   mint inv2 = mint(2).inv();
   for (int i = 1; i < deg; i <<= 1) {
-    ret = (ret + f.pre(i << 1) * ret.inv(i << 1)) * inv2;
+    ret = ((ret + f.pre(i << 1) * ret.inv(i << 1)) * inv2).pre(i << 1);
   }
   return ret.pre(deg);
 }

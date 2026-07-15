@@ -17,7 +17,7 @@ FormalPowerSeries<mint>& FormalPowerSeries<mint>::operator*=(const FormalPowerSe
 template <class mint>
 FormalPowerSeries<mint> FormalPowerSeries<mint>::middle_product(const FormalPowerSeries<mint>& r) const {
   auto ret = ConvolutionIntMod::middle_product(*this, r);
-  return *this = FormalPowerSeries<mint>(ret.begin(), ret.end());
+  return FormalPowerSeries<mint>(ret.begin(), ret.end());
 }
 template <class mint>
 void FormalPowerSeries<mint>::ntt() { exit(1); }

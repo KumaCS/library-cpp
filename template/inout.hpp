@@ -18,6 +18,8 @@ ostream& operator<<(ostream& os, __uint128_t x) {
 ostream& operator<<(ostream& os, __int128_t x) {
   return x < 0 ? (os << '-' << (__uint128_t)(-x)) : (os << (__uint128_t)x);
 }
+template <class T, size_t N>
+ostream& operator<<(ostream& os, const array<T, N>& a);
 template <class T1, class T2>
 istream& operator>>(istream& is, pair<T1, T2>& p) {
   return is >> p.first >> p.second;
@@ -33,6 +35,14 @@ istream& operator>>(istream& is, vector<T>& a) {
 }
 template <class T>
 ostream& operator<<(ostream& os, const vector<T>& a) {
+  for (auto it = a.begin(); it != a.end();) {
+    os << *it;
+    if (++it != a.end()) os << " ";
+  }
+  return os;
+}
+template <class T, size_t N>
+ostream& operator<<(ostream& os, const array<T, N>& a) {
   for (auto it = a.begin(); it != a.end();) {
     os << *it;
     if (++it != a.end()) os << " ";

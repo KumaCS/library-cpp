@@ -15,7 +15,7 @@ pair<vector<long long>, vector<T>> LucyDP(long long n, function<T(ll)> point_val
   auto v1 = point_value(1);
   for (int i = 0; i < qs.size(); i++) s[i] = prefix_sum(qs[i]) - v1;
 
-  auto ps = PrimeSieve(sq);
+  auto ps = PrimeSieve::table(sq);
   for (ll p : ps) {
     auto v = point_value(p);
     for (int i = (int)qs.size() - 1; i >= 0; i--) {

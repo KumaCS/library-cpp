@@ -9,16 +9,16 @@ template <class T, class S = T>
 S SUM(const vector<T>& a) {
   return accumulate(ALL(a), S(0));
 }
-template <class T>
-inline bool chmin(T& a, T b) {
+template <class T1, class T2>
+inline bool chmin(T1& a, T2 b) {
   if (a > b) {
     a = b;
     return true;
   }
   return false;
 }
-template <class T>
-inline bool chmax(T& a, T b) {
+template <class T1, class T2>
+inline bool chmax(T1& a, T2 b) {
   if (a < b) {
     a = b;
     return true;

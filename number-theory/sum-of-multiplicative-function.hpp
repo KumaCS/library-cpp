@@ -7,7 +7,7 @@ template <class T>
 T SumOfMultiplicativeFunction(long long n, T e, vector<T> prime_sum, function<T(long long, int, long long)> prime_power_value) {
   using ll = long long;
   ll sq = Math::isqrt(n);
-  auto ps = PrimeSieve(sq);
+  auto ps = PrimeSieve::table(sq);
   auto dfs = [&](auto dfs, ll x, T f, int p_idx, int r, ll q) -> T {
     ll m = n / x;
     T ret{};

@@ -6,7 +6,7 @@
 int main() {
   int N, A, B;
   in(N, A, B);
-  auto ps = PrimeSieve(N);
+  auto ps = PrimeSieve::table(N);
   vector<int> xs;
   for (int k = B; k < ps.size(); k += A) xs.push_back(ps[k]);
   out(ps.size(), xs.size());

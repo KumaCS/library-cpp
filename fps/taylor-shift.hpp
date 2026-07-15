@@ -6,6 +6,7 @@
 template <class mint>
 FormalPowerSeries<mint> TaylorShift(FormalPowerSeries<mint> f, mint a) {
   using fps = FormalPowerSeries<mint>;
+  if (f.size() <= 1) return f;
   int n = f.size();
   using fact = Factorial<mint>;
   fact::reserve(n);
