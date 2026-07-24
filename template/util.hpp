@@ -4,6 +4,8 @@ using ll = long long int;
 using ull = unsigned long long;
 using i128 = __int128_t;
 using u128 = __uint128_t;
+template <class T>
+using priority_queue_asc = priority_queue<T, vector<T>, greater<T>>;
 
 template <class T, class S = T>
 S SUM(const vector<T>& a) {

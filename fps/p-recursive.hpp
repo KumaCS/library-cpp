@@ -24,7 +24,7 @@ vector<T> NullVector(vector<vector<T>> a) {
     rank++;
   }
   if (rank == w) return {};
-  vector<bool> is_pivot(w);
+  vector<bool> is_pivot(w, false);
   for (int j : pivot) is_pivot[j] = true;
   int free = 0;
   while (is_pivot[free]) free++;

@@ -5,7 +5,7 @@ using ll = long long;
 
 vector<int> lpf(int n) {
   assert(n >= 0);
-  vector<int> ret((size_t)n + 1);
+  vector<int> ret(n + 1);
   for (size_t i = 0; i < ret.size(); i++) ret[i] = (int)i;
   for (int p = 2; (ll)p * p <= n; p++) {
     if (ret[p] != p) continue;
@@ -19,7 +19,7 @@ vector<int> lpf(int n) {
 
 vector<int> table(int n) {
   assert(n >= 0);
-  vector<bool> composite((size_t)n + 1);
+  vector<bool> composite(n + 1, false);
   for (int p = 2; (ll)p * p <= n; p += (p & 1) + 1) {
     if (composite[p]) continue;
     for (ll x = (ll)p * p;; x += p) {
@@ -39,7 +39,7 @@ vector<int> table(int n) {
 
 vector<vector<pair<ll, int>>> factorize(int n) {
   assert(n >= 0);
-  vector<vector<pair<ll, int>>> factors((size_t)n + 1);
+  vector<vector<pair<ll, int>>> factors(n + 1);
   auto lp = lpf(n);
   for (int x = 2; x <= n;) {
     int y = x;

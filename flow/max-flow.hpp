@@ -110,7 +110,7 @@ struct MaxFlow {
   }
 
   vector<bool> min_cut(int s) {
-    vector<bool> visited(_n);
+    vector<bool> visited(_n, false);
     SimpleQueue<int> que;
     que.push(s);
     while (!que.empty()) {

@@ -35,11 +35,12 @@ vector<P<T>> InitPair(const vector<T>& a) {
 template <class T>
 struct LazySegmentTreeAddSum : LazySegmentTree<AddSumAction<T>> {
   using base = LazySegmentTree<AddSumAction<T>>;
-  LazySegmentTreeAddSum(int n) : base(vector<P<T>>(n, PairAddMonoid<T>::e())) {}
+  LazySegmentTreeAddSum(int n) : base(vector<P<T>>(n, P<T>{1, T{}})) {}
   LazySegmentTreeAddSum(const vector<T>& a) : base(InitPair(a)) {}
   void set(int p, T v) { base::set(p, P<T>{1, v}); }
   T get(int p) { return base::get(p).second; }
   T prod(int l, int r) { return base::prod(l, r).second; }
+  void apply(int p, T v) { base::apply(p, v); }
   void apply(int l, int r, T v) { base::apply(l, r, v); }
 };
 template <class T>

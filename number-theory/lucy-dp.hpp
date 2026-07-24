@@ -6,14 +6,15 @@
 template <class T>
 pair<vector<long long>, vector<T>> LucyDP(long long n, function<T(ll)> point_value, function<T(ll)> prefix_sum) {
   using ll = long long;
+  assert(n >= 1);
   const ll sq = Math::isqrt(n);
 
-  vector<ll> qs(sq * 2 - (sq * sq == n));
+  vector<ll> qs(sq * 2 - (n / sq == sq));
   for (int i = 0; i < sq; i++) qs[i] = i + 1;
   for (int i = 0; i < sq; i++) qs[qs.size() - 1 - i] = n / (i + 1);
   vector<T> s(qs.size());
   auto v1 = point_value(1);
-  for (int i = 0; i < qs.size(); i++) s[i] = prefix_sum(qs[i]) - v1;
+  for (int i = 0; i < (int)qs.size(); i++) s[i] = prefix_sum(qs[i]) - v1;
 
   auto ps = PrimeSieve::table(sq);
   for (ll p : ps) {

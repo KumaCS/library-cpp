@@ -38,6 +38,11 @@ struct Matrix {
     return ret;
   }
   Matrix& operator*=(const Matrix& r) { return *this = *this * r; }
+  Matrix& operator*=(T r) {
+    for (auto& v : a) v *= r;
+    return *this;
+  }
+  Matrix operator*(T r) { return Matrix(*this) *= r; }
   Matrix pow(long long n) const {
     Matrix ret = id(h);
     Matrix mat(*this);

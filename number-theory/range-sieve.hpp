@@ -34,7 +34,7 @@ void for_multiples(ll l, ll r, ll p, F f) {
 vector<ll> lpf(ll l, ll r) {
   assert(1 <= l && l <= r);
   auto ps = PrimeSieve::table(internal::prime_limit(r));
-  vector<ll> ret((size_t)(r - l) + 1);
+  vector<ll> ret(r - l + 1);
   for (size_t i = 0; i < ret.size(); i++) ret[i] = l + (ll)i;
   for (ll p : ps) {
     internal::for_multiples(l, r, p, [&](ll k) {
@@ -46,7 +46,7 @@ vector<ll> lpf(ll l, ll r) {
 
 vector<ll> table(ll l, ll r) {
   assert(1 <= l && l <= r);
-  vector<bool> composite((size_t)(r - l) + 1);
+  vector<bool> composite(r - l + 1, false);
   for (ll p : PrimeSieve::table(internal::prime_limit(r))) {
     internal::for_multiples(max(l, p * p), r, p, [&](ll x) {
       composite[x - l] = true;
@@ -62,8 +62,8 @@ vector<ll> table(ll l, ll r) {
 
 vector<vector<pair<ll, int>>> factorize(ll l, ll r) {
   assert(1 <= l && l <= r);
-  vector<vector<pair<ll, int>>> factors((size_t)(r - l) + 1);
-  vector<ll> rem((size_t)(r - l) + 1);
+  vector<vector<pair<ll, int>>> factors(r - l + 1);
+  vector<ll> rem(r - l + 1);
   for (size_t i = 0; i < rem.size(); i++) rem[i] = l + (ll)i;
   for (ll p : PrimeSieve::table(internal::prime_limit(r))) {
     internal::for_multiples(l, r, p, [&](ll x) {

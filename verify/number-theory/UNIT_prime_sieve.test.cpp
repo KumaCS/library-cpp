@@ -10,7 +10,7 @@ int main() {
   const int N = 1000;
   auto factors = PrimeSieve::factorize(N);
   auto ps = PrimeSieve::table(N);
-  vector<bool> is_prime(N + 1);
+  vector<bool> is_prime(N + 1, false);
   for (int p : ps) is_prime[p] = true;
   for (int x = 1; x <= N; x++) {
     long long y = 1;

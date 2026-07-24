@@ -40,14 +40,14 @@ void check(const DynamicBitset& b, const vector<bool>& a) {
 }
 
 vector<bool> shifted_left(vector<bool> a, int k) {
-  vector<bool> ret(a.size());
+  vector<bool> ret(a.size(), false);
   rep(i, 0, a.size())
     if (a[i] && i + k < (int)a.size()) ret[i + k] = true;
   return ret;
 }
 
 vector<bool> shifted_right(vector<bool> a, int k) {
-  vector<bool> ret(a.size());
+  vector<bool> ret(a.size(), false);
   rep(i, 0, a.size())
     if (a[i] && i - k >= 0) ret[i - k] = true;
   return ret;
@@ -55,7 +55,7 @@ vector<bool> shifted_right(vector<bool> a, int k) {
 
 void test_size(int n) {
   DynamicBitset b(n);
-  vector<bool> a(n);
+  vector<bool> a(n, false);
   check(b, a);
 
   rep(t, 0, 5000) {
@@ -93,7 +93,7 @@ void test_size(int n) {
       a = shifted_right(a, k);
     } else {
       DynamicBitset c(n);
-      vector<bool> d(n);
+      vector<bool> d(n, false);
       rep(j, 0, n) {
         d[j] = XORShift::xor32() & 1;
         c.set(j, d[j]);
@@ -112,7 +112,7 @@ void test_size(int n) {
     check(b, a);
 
     DynamicBitset c(n);
-    vector<bool> d(n);
+    vector<bool> d(n, false);
     rep(j, 0, n) {
       d[j] = XORShift::xor32() & 1;
       c.set(j, d[j]);
