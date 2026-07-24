@@ -1,0 +1,4 @@
+interface:
+  display_name: "Library Code Style"
+  short_description: "Implement C++ headers in the established local style"
+  default_prompt: "Use $library-code-style to implement or revise a library header in the local style."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Library Verify Style"
+  short_description: "Add focused verification for library features"
+  default_prompt: "Use $library-verify-style to choose and add appropriate verification for a library feature."

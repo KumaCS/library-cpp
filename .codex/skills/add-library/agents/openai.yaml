@@ -1,0 +1,4 @@
+interface:
+  display_name: "Add Library"
+  short_description: "Add code, verification, and docs as one library change"
+  default_prompt: "Use $add-library to add a complete library feature with code, verification, and documentation."
