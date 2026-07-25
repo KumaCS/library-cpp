@@ -3,7 +3,7 @@
 #include "template/template.hpp"
 #include "number-theory/prime-residue.hpp"
 
-using i64 = int64_t;
+using i64 = long long;
 using i128 = __int128_t;
 
 void check(i64 n, int m) {
