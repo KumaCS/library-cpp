@@ -78,7 +78,7 @@ struct Matrix {
     assert(h == w);
     Matrix mat(*this);
     Matrix imat = id(h);
-    T zero{}, det(1);
+    T zero{};
     for (int k = 0; k < h; k++) {
       {
         int i = k;

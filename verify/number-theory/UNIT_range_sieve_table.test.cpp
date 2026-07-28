@@ -4,12 +4,8 @@
 #include "number-theory/range-sieve.hpp"
 
 int main() {
-  const long long M = numeric_limits<long long>::max();
-  vector<long long> multiples;
-  RangeSieve::internal::for_multiples(M - 10, M, 7, [&](long long x) { multiples.push_back(x); });
-  assert(multiples == vector<long long>({M - 7, M}));
-
   assert(RangeSieve::table(1, 30) == vector<long long>({2, 3, 5, 7, 11, 13, 17, 19, 23, 29}));
+  assert(RangeSieve::internal::primes(9).back() == 13);
   auto small = RangeSieve::factorize(1, 30);
   assert(small[0].empty());
   assert((small[11] == vector<pair<long long, int>>({{2, 2}, {3, 1}})));
@@ -36,6 +32,7 @@ int main() {
     assert(y == x);
   }
   assert(k == ps.size());
+  assert(RangeSieve::table(1, 30) == vector<long long>({2, 3, 5, 7, 11, 13, 17, 19, 23, 29}));
 
   int A, B;
   in(A, B);

@@ -77,6 +77,20 @@ vector<pair<ll, int>> factorize(ll n) {
   }
   return ret;
 }
+
+vector<ll> divisors(ll n) {
+  vector<ll> ret{1};
+  for (auto [p, e] : factorize(n)) {
+    size_t size = ret.size();
+    ll q = 1;
+    while (e--) {
+      q *= p;
+      for (size_t i = 0; i < size; i++) ret.push_back(ret[i] * q);
+    }
+  }
+  sort(ret.begin(), ret.end());
+  return ret;
+}
 };  // namespace PollardRho
 
 /**

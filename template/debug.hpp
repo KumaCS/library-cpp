@@ -7,7 +7,7 @@
 #define show(...) true
 #endif
 template <class T>
-void _show(int i, T name) {
+void _show(int, T) {
   cerr << '\n';
 }
 template <class T1, class T2, class... T3>
