@@ -68,16 +68,12 @@ Real distance_lp(const Line& l, const Point& p) {
 
 // Returns the left side of the directed line l.a -> l.b.
 Polygon convex_polygon_cut(const Polygon& P, const Line& l) {
-  Polygon ret;
-  for (int i = 0; i < (int)P.size(); ++i) {
-    const Point& a = P[i];
-    const Point& b = P[(i + 1) % P.size()];
-    int sa = sign(cross(l.b - l.a, a - l.a));
-    int sb = sign(cross(l.b - l.a, b - l.a));
-    if (sa >= 0) ret.push_back(a);
-    if (sa * sb < 0) ret.push_back(cross_point_ll(Line{a, b}, l));
-  }
-  return ret;
+  return convex_polygon_cut(P, l.a, l.b);
+}
+
+ConvexPolygonCutResult convex_polygon_cut_info(const Polygon& P,
+                                               const Line& l) {
+  return convex_polygon_cut_info(P, l.a, l.b);
 }
 
 /**

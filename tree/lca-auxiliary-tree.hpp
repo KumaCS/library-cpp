@@ -3,42 +3,47 @@
 
 struct LCAAuxiliaryTree : LowestCommonAncestor {
   using base = LowestCommonAncestor;
-  LCAAuxiliaryTree(int size, int root = 0) : base(size, root) {}
-  LCAAuxiliaryTree(vector<vector<int>>& graph, int root = 0) : base(graph, root) {}
-  pair<int, vector<int>> calc(vector<int> vs, vector<vector<int>>& g) {
+  LCAAuxiliaryTree() = default;
+  template <class G>
+  LCAAuxiliaryTree(const G& g, int root = 0) : base(g, root) {}
+  template <class G>
+  pair<int, vector<int>> calc(vector<int> vs, G& g) const {
     if (vs.empty()) return {-1, vector<int>{}};
-    int n = vs.size();
+    assert(static_cast<int>(g.size()) == n);
+    for (int x : vs) assert(0 <= x && x < n);
     sort(vs.begin(), vs.end(), [&](int x, int y) { return in_time[x] < in_time[y]; });
-    stack<int> st;
-    st.push(vs[0]);
+    vs.erase(unique(vs.begin(), vs.end()), vs.end());
+    int m = vs.size();
+    stack<int> path;
+    path.push(vs[0]);
     g[vs[0]] = {};
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < m - 1; i++) {
       int x = vs[i], y = vs[i + 1];
       int w = lca(x, y);
       if (w != x) {
-        int last = st.top();
-        st.pop();
-        while (!st.empty() && depth[w] < depth[st.top()]) {
-          g[st.top()].push_back(last);
-          last = st.top();
-          st.pop();
+        int last = path.top();
+        path.pop();
+        while (!path.empty() && depth[w] < depth[path.top()]) {
+          g[path.top()].push_back({last});
+          last = path.top();
+          path.pop();
         }
-        if (st.empty() || st.top() != w) {
-          st.push(w);
+        if (path.empty() || path.top() != w) {
+          path.push(w);
           vs.push_back(w);
-          g[w] = {last};
+          g[w] = {{last}};
         } else
-          g[w].push_back(last);
+          g[w].push_back({last});
       }
-      st.push(y);
+      path.push(y);
       g[y] = {};
     }
-    int prv = st.top();
-    st.pop();
-    while (!st.empty()) {
-      g[st.top()].push_back(prv);
-      prv = st.top();
-      st.pop();
+    int prv = path.top();
+    path.pop();
+    while (!path.empty()) {
+      g[path.top()].push_back({prv});
+      prv = path.top();
+      path.pop();
     }
     sort(vs.begin(), vs.end(), [&](int x, int y) { return in_time[x] < in_time[y]; });
     return {prv, vs};

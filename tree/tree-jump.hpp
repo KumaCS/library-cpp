@@ -5,30 +5,33 @@ struct TreeJump {
     return (x == 0 ? -1 : 31 - __builtin_clz((unsigned int)x));
   }
   int n;
-  vector<vector<int>> g;
   vector<vector<int>> p;
   vector<int> depth;
-  TreeJump(int size) : n(size), g(size), p(size), depth(size) {}
-  TreeJump(const vector<vector<int>>& graph) : n(graph.size()), g(graph), p(graph.size()), depth(graph.size()) {
-    build();
+  TreeJump() : n(0) {}
+  template <class G>
+  TreeJump(const G& g, int root = 0) {
+    build(g, root);
   }
-  void add_edge(int u, int v) {
-    g[u].push_back(v);
-    g[v].push_back(u);
-  }
-  void build() {
+  template <class G>
+  void build(const G& g, int root = 0) {
+    n = g.size();
+    assert(n > 0);
+    assert(0 <= root && root < n);
+    p.assign(n, {});
+    depth.assign(n, 0);
     stack<int> st;
-    st.push(0);
+    st.push(root);
     while (!st.empty()) {
       int x = st.top();
       st.pop();
-      for (int k = 0; k < p[x].size(); k++) {
+      for (int k = 0; k < static_cast<int>(p[x].size()); k++) {
         int y = p[x][k];
-        if (k >= p[y].size()) break;
+        if (k >= static_cast<int>(p[y].size())) break;
         p[x].push_back(p[y][k]);
       }
       int par = p[x].empty() ? -1 : p[x][0];
-      for (auto y : g[x]) {
+      for (const auto& e : g[x]) {
+        int y = e.to;
         if (y == par) continue;
         p[y].push_back(x);
         depth[y] = depth[x] + 1;
@@ -36,7 +39,8 @@ struct TreeJump {
       }
     }
   }
-  int ancestor(int x, int k = 1) {
+  int ancestor(int x, int k = 1) const {
+    assert(0 <= x && x < n);
     assert(k >= 0);
     if (depth[x] < k) return -1;
     while (k > 0) {
@@ -46,7 +50,9 @@ struct TreeJump {
     }
     return x;
   }
-  int lca(int x, int y) {
+  int lca(int x, int y) const {
+    assert(0 <= x && x < n);
+    assert(0 <= y && y < n);
     if (depth[x] < depth[y]) y = ancestor(y, depth[y] - depth[x]);
     if (depth[x] > depth[y]) x = ancestor(x, depth[x] - depth[y]);
     if (x == y) return x;
@@ -59,10 +65,10 @@ struct TreeJump {
     }
     return p[x][0];
   }
-  int dist(int x, int y) {
+  int dist(int x, int y) const {
     return depth[x] + depth[y] - depth[lca(x, y)] * 2;
   }
-  int jump(int x, int y, int k = 1) {
+  int jump(int x, int y, int k = 1) const {
     assert(0 <= k);
     int z = lca(x, y);
     int dx = depth[x] - depth[z];

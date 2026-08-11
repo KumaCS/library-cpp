@@ -11,7 +11,8 @@
 - `projection(l, p)`：点 `p` の直線 `l` への射影を返す．
 - `reflection(l, p)`：直線 `l` に関して点 `p` と対称な点を返す．
 - `distance_lp(l, p)`：直線 `l` と点 `p` の距離を返す．
-- `convex_polygon_cut(P, l)`：反時計回りの凸多角形 `P` を有向直線 `l.a` $\to$ `l.b` で切り，左側を返す．$O(|P|)$ 時間．
+- `convex_polygon_cut_info(P, l)`：反時計回りの狭義凸多角形 `P` と有向直線 `l.a` $\to$ `l.b` の左閉半平面との共通部分を `ConvexPolygonCutResult` で返す．$O(\log |P|)$ 時間．
+- `convex_polygon_cut(P, l)`：同じ共通部分を反時計回りの `Polygon` として返す．出力頂点数を $K$ として $O(\log |P|+K)$ 時間．
 
 ## 資料
 

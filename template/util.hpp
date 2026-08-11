@@ -27,6 +27,22 @@ inline bool chmax(T1& a, T2 b) {
   }
   return false;
 }
+template <class T1, class T2>
+inline bool chmin_opt(optional<T1>& a, T2 b) {
+  if (!a || a > b) {
+    a = b;
+    return true;
+  }
+  return false;
+}
+template <class T1, class T2>
+inline bool chmax_opt(optional<T1>& a, T2 b) {
+  if (!a || a < b) {
+    a = b;
+    return true;
+  }
+  return false;
+}
 
 template <class T>
 int popcnt(T x) {

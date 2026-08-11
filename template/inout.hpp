@@ -76,6 +76,11 @@ void in(T& t, U&... u) {
   cin >> t;
   in(u...);
 }
+template <class... T>
+void in_zip(int n, T&... t) {
+  assert(n >= 0 && ((size(t) >= static_cast<size_t>(n)) && ...));
+  for (int i = 0; i < n; i++) in(t[i]...);
+}
 void out() { cout << "\n"; }
 template <typename T, class... U, char sep = ' '>
 void out(const T& t, const U&... u) {
@@ -83,8 +88,33 @@ void out(const T& t, const U&... u) {
   if (sizeof...(u)) cout << sep;
   out(u...);
 }
+template <class T, class U>
+void out_opt(const optional<T>& opt, const U& fallback, ostream& os = cout) {
+  if (opt.has_value())
+    os << opt.value();
+  else
+    os << fallback;
+  os << "\n";
+}
+template <class T, class U>
+void out_opt(const vector<optional<T>>& vec, const U& fallback, ostream& os = cout) {
+  for (auto it = vec.begin(); it != vec.end();) {
+    if ((*it).has_value())
+      os << (*it).value();
+    else
+      os << fallback;
+    if (++it != vec.end()) os << " ";
+  }
+  os << "\n";
+}
 
 namespace IO {
+template <class T, class... U>
+T read(U&&... u) {
+  T t = T(forward<U>(u)...);
+  in(t);
+  return t;
+}
 namespace Graph {
 vector<vector<int>> unweighted(int n, int m, bool directed = false, int offset = 1) {
   vector<vector<int>> g(n);

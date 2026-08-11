@@ -10,43 +10,43 @@ struct LowestCommonAncestor {
 
  protected:
   int n, r;
-  vector<vector<int>> g;
   SparseTable<LcaMagma> st;
   vector<int> in_time, depth, parent, euler_tour;
 
  public:
-  const int size() { return n; }
-  const int root() { return r; }
-  LowestCommonAncestor() {}
-  LowestCommonAncestor(int size, int root = 0) : n(size), r(root), g(n) {}
-  LowestCommonAncestor(const vector<vector<int>>& graph, int root = 0) : n(graph.size()), r(root), g(graph) {
-    build();
+  size_t size() const { return n; }
+  int root() const { return r; }
+  LowestCommonAncestor() : n(0), r(0) {}
+  template <class G>
+  LowestCommonAncestor(const G& g, int root = 0) {
+    build(g, root);
   }
-  void add_edge(int u, int v) {
-    g[u].push_back(v);
-    g[v].push_back(u);
-  }
-  void build() {
-    parent.resize(n, -1);
-    depth.resize(n, 0);
-    in_time.resize(n, 0);
+  template <class G>
+  void build(const G& g, int root = 0) {
+    n = g.size(), r = root;
+    assert(n > 0);
+    assert(0 <= r && r < n);
+    parent.assign(n, -1);
+    depth.assign(n, 0);
+    in_time.assign(n, 0);
+    euler_tour.clear();
     euler_tour.reserve(2 * n - 1);
     {
-      stack<int> st;
-      st.push(r);
+      stack<int> dfs;
+      dfs.push(r);
       vector<int> idx(n);
-      while (!st.empty()) {
-        int x = st.top();
-        st.pop();
+      while (!dfs.empty()) {
+        int x = dfs.top();
+        dfs.pop();
         if (idx[x] == 0) in_time[x] = euler_tour.size();
         euler_tour.push_back(x);
-        if (idx[x] < g[x].size()) {
-          st.push(x);
-          int y = g[x][idx[x]++];
+        if (idx[x] < static_cast<int>(g[x].size())) {
+          dfs.push(x);
+          int y = g[x][idx[x]++].to;
           if (y != parent[x]) {
             parent[y] = x;
             depth[y] = depth[x] + 1;
-            st.push(y);
+            dfs.push(y);
           }
         }
       }
@@ -57,7 +57,7 @@ struct LowestCommonAncestor {
       data.push_back({v, depth[v]});
     st = SparseTable<LcaMagma>(data);
   }
-  int lca(int u, int v) {
+  int lca(int u, int v) const {
     assert(0 <= u && u < n);
     assert(0 <= v && v < n);
     int x = in_time[u], y = in_time[v];
