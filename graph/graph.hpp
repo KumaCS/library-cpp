@@ -47,6 +47,32 @@ struct GraphUnweighted : GraphBase<EdgeUnweighted> {
   void add_edge_directed(int from, int to) { (*this)[from].push_back({to}); }
 };
 
+struct EdgeUnweightedIndexed {
+  int to, id;
+};
+struct GraphUnweightedIndexed : GraphBase<EdgeUnweightedIndexed> {
+  using base = GraphBase<EdgeUnweightedIndexed>;
+
+ public:
+  GraphUnweightedIndexed() : GraphUnweightedIndexed(0) {}
+  GraphUnweightedIndexed(int size) : base(size), m(0) {}
+  int edge_count() const { return m; }
+  int add_edge(int x, int y) {
+    int id = m++;
+    (*this)[x].push_back({y, id});
+    (*this)[y].push_back({x, id});
+    return id;
+  }
+  int add_edge_directed(int from, int to) {
+    int id = m++;
+    (*this)[from].push_back({to, id});
+    return id;
+  }
+
+ private:
+  int m;
+};
+
 template <class T>
 struct EdgeWeighted {
   int to;

@@ -9,13 +9,13 @@ struct LazySegmentTree {
   using T = typename VM::value_type;
   using F = typename OM::value_type;
 
- private:
+ protected:
   int _n, size, log;
   vector<T> d;
   vector<F> lz;
 
   void update(int k) { d[k] = VM::op(d[2 * k], d[2 * k + 1]); }
-  void all_apply(int k, F f) {
+  virtual void all_apply(int k, F f) {
     d[k] = A::mapping(f, d[k]);
     if (k < size) lz[k] = OM::op(f, lz[k]);
   }
@@ -36,6 +36,7 @@ struct LazySegmentTree {
     for (int i = 0; i < _n; i++) d[size + i] = v[i];
     for (int i = size - 1; i > 0; i--) update(i);
   }
+  virtual ~LazySegmentTree() = default;
 
   void set(int p, T x) {
     assert(0 <= p && p < _n);

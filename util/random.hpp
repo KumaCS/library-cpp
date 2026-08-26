@@ -3,10 +3,18 @@
 namespace Random {
 mt19937_64 gen(chrono::steady_clock::now().time_since_epoch().count());
 uint64_t get() { return gen(); }
+// [0,n)
 template <class T>
-T get(T n) { return get() % n; }
+T get(T n) {
+  assert(n > 0);
+  return get() % n;
+}
+// [l,r)
 template <class T>
-T get(T l, T r) { return get(r - l) % (r - l + 1) + l; }
+T get(T l, T r) {
+  assert(l < r);
+  return get() % (r - l) + l;
+}
 double uniform() { return double(get(1 << 30)) / (1 << 30); }
 
 template <class T>
@@ -29,4 +37,5 @@ void shuffle(Iter begin, Iter end) {
 
 /**
  * @brief Random
+ * @docs docs/util/random.md
  */
