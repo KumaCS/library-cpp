@@ -1,7 +1,5 @@
 #pragma once
 
-#include "template/template.hpp"
-
 template <class E>
 struct GraphBase {
  public:
