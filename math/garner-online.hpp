@@ -16,7 +16,7 @@ struct GarnerOnline {
     y.push_back((r - x + m) * Math::inv_mod(p, m) % m);
   }
   template <class mint>
-  void push(mint x) { push(mint::get_mod(), x.val()); }
+  void push(mint x) { push(x.val(), mint::get_mod()); }
   void pop() {
     assert(!ms.empty());
     ms.pop_back(), y.pop_back();

@@ -20,6 +20,15 @@ T ceil(T a, T b) {
   if (b < 0) a = -a, b = -b;
   return a > 0 ? (a - 1) / b + 1 : a / b;
 }
+long long ipow(long long x, long long n) {
+  assert(n >= 0);
+  long long y = 1;
+  for (; n; n /= 2) {
+    if (n & 1) y *= x;
+    x *= x;
+  }
+  return y;
+}
 long long isqrt(long long n) {
   if (n <= 0) return 0;
   long long x = sqrt(n);
@@ -161,3 +170,8 @@ constexpr bool is_prime_constexpr(int n) {
 template <int n>
 constexpr bool is_prime = is_prime_constexpr(n);
 };  // namespace Math
+
+/**
+ * @brief 整数演算の補助関数
+ * @docs docs/math/util.md
+ */

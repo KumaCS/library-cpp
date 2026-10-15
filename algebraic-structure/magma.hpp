@@ -19,12 +19,12 @@ struct MulMagma {
   using value_type = T;
   static T op(T x, T y) { return x * y; }
 };
-template <class T, T id>
+template <class T>
 struct MaxMagma {
   using value_type = T;
   static T op(T x, T y) { return x > y ? x : y; }
 };
-template <class T, T id>
+template <class T>
 struct MinMagma {
   using value_type = T;
   static T op(T x, T y) { return x < y ? x : y; }

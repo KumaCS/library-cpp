@@ -86,10 +86,26 @@ void test_number_theory() {
   }
 }
 
+void test_ipow() {
+  for (long long x = -8; x <= 8; x++) {
+    long long y = 1;
+    for (int n = 0; n <= 10; n++) {
+      assert(Math::ipow(x, n) == y);
+      y *= x;
+    }
+  }
+  assert(Math::ipow(0, 0) == 1);
+  assert(Math::ipow(numeric_limits<long long>::max(), 0) == 1);
+  assert(Math::ipow(3037000499LL, 1) == 3037000499LL);
+  assert(Math::ipow(2, 30) == (1LL << 30));
+  assert(Math::ipow(-1, numeric_limits<long long>::max()) == -1);
+}
+
 int main() {
   test_division();
   test_roots();
   test_number_theory();
+  test_ipow();
 
   int a, b;
   in(a, b);

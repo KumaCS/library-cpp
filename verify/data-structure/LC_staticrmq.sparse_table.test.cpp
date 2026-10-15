@@ -8,7 +8,7 @@ int main() {
   in(n, q);
   vector<int> a(n);
   in(a);
-  SparseTable<MinMagma<int, 0>> st(a);
+  SparseTable<MinMagma<int>> st(a);
   while (q--) {
     int l, r;
     in(l, r);

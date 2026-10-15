@@ -36,7 +36,9 @@ struct RBSTBase {
       return {update(t), s.second};
     }
   }
-  Ptr build(int l, int r, const vector<decltype(Node::key)>& v) {
+
+  template <class T>
+  Ptr build(int l, int r, const vector<T>& v) {
     if (l + 1 == r) return my_new(v[l]);
     int m = (l + r) >> 1;
     Ptr pm = my_new(v[m]);
@@ -44,9 +46,11 @@ struct RBSTBase {
     if (m + 1 < r) pm->r = build(m + 1, r, v);
     return update(pm);
   }
-  Ptr build(const vector<decltype(Node::key)>& v) {
+  template <class T>
+  Ptr build(const vector<T>& v) {
     return build(0, (int)v.size(), v);
   }
+
   template <typename... Args>
   void insert(Ptr& t, int k, const Args&... args) {
     auto x = split(t, k);

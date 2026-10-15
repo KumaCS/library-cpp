@@ -13,12 +13,8 @@ vector<int> ZAlgorithm(const T& a) {
       continue;
     }
     int k = 1;
-    while (i + k < n && k + p[k] < j) {
-      p[i + k] = p[k];
-      k++;
-    }
-    i += k;
-    j -= k;
+    while (i + k < n && k + p[k] < j) p[i + k] = p[k], k++;
+    i += k, j -= k;
   }
   return p;
 }

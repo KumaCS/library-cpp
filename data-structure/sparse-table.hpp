@@ -1,4 +1,5 @@
 #pragma once
+
 #include "algebraic-structure/magma.hpp"
 
 template <class M>
@@ -33,3 +34,8 @@ struct SparseTable {
     return M::op(st[j][l], st[j][r - (1 << j)]);
   }
 };
+
+/**
+ * @brief Sparse Table
+ * @docs docs/data-structure/sparse-table.md
+ */

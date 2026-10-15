@@ -1,9 +1,7 @@
 #pragma once
 
-// https://maspypy.com/dirichlet-%E7%A9%8D%E3%81%A8%E3%80%81%E6%95%B0%E8%AB%96%E9%96%A2%E6%95%B0%E3%81%AE%E7%B4%AF%E7%A9%8D%E5%92%8C
-/**
- * @brief Dirichlet 積の prefix sum
- */
+#include "math/util.hpp"
+
 template <class mint>
 struct DirichletSeriesPrefixSum {
   using DP = DirichletSeriesPrefixSum<mint>;
@@ -54,6 +52,23 @@ struct DirichletSeriesPrefixSum {
     }
     return z;
   }
+  // zeta(k*s)
+  static DP zeta_mul(u64 n, size_t k) {
+    assert(k >= 1);
+    if (k == 1) return zeta(n);
+    if (k >= 64) return id(n);
+    int e = k;
+    DP z(n);
+    u64 r = Math::floor_root_unsigned(z.K, e);
+    for (u64 i = 1; i <= r; i++) {
+      u64 x = 1;
+      for (size_t j = 0; j < k; j++) x *= i;
+      z.a[x] = 1;
+    }
+    z.calc_small_sum();
+    for (size_t i = 1; i <= z.L; i++) z.S[i] = Math::floor_root_unsigned(n / i, e);
+    return z;
+  }
 
   // n(n+1)...(n+k-1)/k!
   static DP rising(u64 n, size_t k) {
@@ -85,26 +100,27 @@ struct DirichletSeriesPrefixSum {
   }
 
   // += v*x^(-s)
-  DP add(u64 x, mint v) {
-    DP f(*this);
+  DP& add(u64 x, mint v) {
+    assert(x >= 1);
     if (1 <= x && x <= K) {
-      f.a[x] += v;
-      for (size_t i = x; i <= K; i++) f.s[i] += v;
+      a[x] += v;
+      for (size_t i = x; i <= K; i++) s[i] += v;
     }
     for (size_t i = 1; i <= L; i++)
-      if (x <= N / i) f.S[i] += v;
-    return f;
+      if (x <= N / i) S[i] += v;
+    return *this;
   }
   // *= x^(-s)
-  DP shift(u64 x) {
-    DP f(N);
-    for (size_t i = 1; i <= K / x; i++) f.a[i * x] = a[i];
-    f.calc_small_sum();
+  DP& shift(u64 x) {
+    assert(x >= 1);
+    if (x == 1) return *this;
     for (size_t i = 1; i <= L; i++) {
       u64 y = N / i / x;
-      f.S[i] = y <= K ? s[y] : S[i * x];
+      S[i] = y <= K ? s[y] : S[i * x];
     }
-    return f;
+    for (size_t i = K; i >= 1; i--) a[i] = i % x == 0 ? a[i / x] : 0;
+    calc_small_sum();
+    return *this;
   }
   DP inv() { return id(N) / DP(*this); }
 
@@ -134,9 +150,9 @@ struct DirichletSeriesPrefixSum {
 
   friend DP operator*(const DP& l, const DP& r) {
     DP z(l);
-    const int N = z.N;
-    const int K = z.K;
-    const int L = z.L;
+    const u64 N = z.N;
+    const size_t K = z.K;
+    const size_t L = z.L;
     for (size_t i = 1; i <= L; i++) {
       mint v = 0;
       size_t m = sqrt(N / i);
@@ -160,8 +176,8 @@ struct DirichletSeriesPrefixSum {
   friend DP operator/(const DP& l, const DP& r) {
     DP z(l);
     const u64 N = z.N;
-    const int K = z.K;
-    const int L = z.L;
+    const size_t K = z.K;
+    const size_t L = z.L;
     mint inv = r.a[1].inv();
     for (size_t i = 1; i <= K; i++) {
       z.a[i] *= inv;
@@ -238,3 +254,7 @@ struct DirichletSeriesPrefixSum {
     return rising_mint(x - k + 1, k);
   }
 };
+/**
+ * @brief Dirichlet 積の prefix sum
+ * @docs docs/number-theory/dirichlet-series-prefix-sum.md
+ */
